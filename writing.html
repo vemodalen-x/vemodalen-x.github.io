@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes | Junxian Wu</title>
+  <meta name="description" content="Public notes roadmap by Junxian Wu on edge AI, model compression, camera AI, and agentic vision.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <nav class="topnav" aria-label="Primary navigation">
+      <a class="site-title" href="index.html">Junxian Wu</a>
+      <div class="topnav-links">
+        <a href="index.html">About</a>
+        <a href="work.html">Work</a>
+        <a class="active" href="writing.html">Notes</a>
+        <a href="resume.html">CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar" aria-label="Profile">
+      <div class="avatar" aria-hidden="true">JW</div>
+      <h1>Junxian Wu</h1>
+      <p class="role">Public engineering notebook</p>
+      <p class="bio">Notes I plan to maintain as reusable engineering material.</p>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro">
+        <p class="eyebrow">Notes</p>
+        <h2>Writing as a public engineering notebook.</h2>
+        <p>I plan to write public notes as reusable engineering material: less resume, more judgment, trade-offs, debugging paths, and reproducible examples.</p>
+      </section>
+
+      <section class="note-track">
+        <h2>Edge AI Notes</h2>
+        <p>The real problems in edge deployment often live in formats, operators, I/O, post-processing, and hardware differences.</p>
+        <ul class="clean-list">
+          <li>Debugging paths from PyTorch to TFLite / ONNX.</li>
+          <li>Validation checklists before shipping on-device vision models.</li>
+          <li>Latency, memory, and accuracy trade-offs in mobile inference.</li>
+        </ul>
+      </section>
+
+      <section class="note-track">
+        <h2>Model Compression</h2>
+        <p>Quantization is not a switch. It is a set of trade-offs across model architecture, calibration, operators, hardware, and acceptable accuracy loss.</p>
+        <ul class="clean-list">
+          <li>When PTQ is enough, and when QAT becomes necessary.</li>
+          <li>Debugging order for INT8 accuracy regressions.</li>
+          <li>Balancing model size, latency, and accuracy.</li>
+        </ul>
+      </section>
+
+      <section class="note-track">
+        <h2>Camera AI Lab</h2>
+        <p>The value of camera AI ultimately appears in the image. This track uses public examples to discuss bokeh, depth, segmentation boundaries, composition, and enhancement.</p>
+        <ul class="clean-list">
+          <li>Why AI bokeh is hard at subject boundaries.</li>
+          <li>Engineering constraints of monocular depth in camera effects.</li>
+          <li>State-machine design for real-time composition guidance.</li>
+        </ul>
+      </section>
+
+      <section class="note-track">
+        <h2>Agentic Vision</h2>
+        <p>The point of agentic vision is not to make a model talk more. It is to make visual decisions constrainable, comparable, and reproducible.</p>
+        <ul class="clean-list">
+          <li>Designing evals for VLM-based composition agents.</li>
+          <li>Comparing quality and cost in multi-model A/B tests.</li>
+          <li>Engineering boundaries for retry logic and rule-based fallbacks.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>Notes</span>
+    <a href="index.html">Back to About</a>
+  </footer>
+</body>
+</html>

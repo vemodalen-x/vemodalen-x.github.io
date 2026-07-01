@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work | Junxian Wu</title>
+  <meta name="description" content="Selected work by Junxian Wu in edge vision systems, camera AI, model compression, and multimodal agents.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <nav class="topnav" aria-label="Primary navigation">
+      <a class="site-title" href="index.html">Junxian Wu</a>
+      <div class="topnav-links">
+        <a href="index.html">About</a>
+        <a class="active" href="work.html">Work</a>
+        <a href="writing.html">Notes</a>
+        <a href="resume.html">CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar" aria-label="Profile">
+      <div class="avatar" aria-hidden="true">JW</div>
+      <h1>Junxian Wu</h1>
+      <p class="role">Edge Vision AI</p>
+      <p class="bio">Selected work, written as public engineering signal rather than internal project detail.</p>
+      <ul class="profile-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="writing.html">Notes</a></li>
+        <li><a href="resume.html">CV</a></li>
+      </ul>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro">
+        <p class="eyebrow">Selected Work</p>
+        <h2>Case studies in real-device vision AI.</h2>
+        <p>These notes avoid internal names and volume-based proof. Each case keeps the reusable part: the problem, the approach, and the engineering judgment it represents.</p>
+      </section>
+
+      <section id="vision-infrastructure" class="case">
+        <h2>Training-to-deployment foundation</h2>
+        <p class="summary">A stable workflow for the parts of vision model development that often fragment: training, data, quantization, export, validation, and deployment debugging.</p>
+        <h3>Problem</h3>
+        <p>On-device vision models often break across training, conversion, quantization, and inference. The closer a model gets to production, the more details decide whether it ships.</p>
+        <h3>Approach</h3>
+        <p>Put training configuration, data interfaces, quantization paths, and export validation into one workflow so model development starts with deployment constraints in mind.</p>
+        <h3>Signal</h3>
+        <p>This represents how I treat a model not as a standalone artifact, but as a production component.</p>
+      </section>
+
+      <section id="composition-engine" class="case">
+        <h2>Real-time composition engine</h2>
+        <p class="summary">Composition guidance for live preview: understanding subjects, motion, and frame relationships on-device, then turning that into stable interaction.</p>
+        <h3>Problem</h3>
+        <p>Camera interaction cannot rely on single-frame recognition alone. Subjects move, the frame shakes, and guidance must not jump around or feel unpredictable.</p>
+        <h3>Approach</h3>
+        <p>Combine lightweight detection, optical-flow tracking, and state machines to turn perception into interpretable, debuggable, real-time guidance.</p>
+        <h3>Signal</h3>
+        <p>This represents my ability to design across algorithms, system state, and user experience.</p>
+      </section>
+
+      <section id="depth-bokeh" class="case">
+        <h2>Depth-aware bokeh</h2>
+        <p class="summary">Combining monocular depth, portrait segmentation, and rendering to support real camera bokeh experiences.</p>
+        <h3>Problem</h3>
+        <p>Bokeh is not just background blur. Users notice hair, boundaries, multi-person relationships, highlight texture, and foreground/background layering.</p>
+        <h3>Approach</h3>
+        <p>Use depth and segmentation to model spatial relationships, rendering to define the visual feel, and edge-case tuning to handle device variation.</p>
+        <h3>Signal</h3>
+        <p>This represents my understanding of the gap between model output and the final image in computational photography.</p>
+      </section>
+
+      <section id="agentic-composition" class="case">
+        <h2>Multimodal composition agent</h2>
+        <p class="summary">Using VLM/LLM reasoning for visual composition while adding structure so outputs can be evaluated, debugged, and improved.</p>
+        <h3>Problem</h3>
+        <p>Composition has aesthetic and semantic components, so pure rules are limited. But model outputs can be unstable, hard to reproduce, and expensive.</p>
+        <h3>Approach</h3>
+        <p>Split the agent into perception, candidate generation, selection, and output stages, require structured results, and keep hooks for evaluation and retry.</p>
+        <h3>Signal</h3>
+        <p>This represents my attitude toward agents: not as demo tricks, but as part of reliable systems.</p>
+      </section>
+
+      <section id="gpu-rendering" class="case">
+        <h2>GPU rendering and portrait enhancement</h2>
+        <p class="summary">Combining deep models with OpenGL/GLSL rendering pipelines to turn model signals into controllable visual effects.</p>
+        <h3>Problem</h3>
+        <p>The hard part of visual enhancement is often not one model, but the coordination between model outputs, rendering parameters, performance budget, and final appearance.</p>
+        <h3>Approach</h3>
+        <p>Connect detection, depth, segmentation, matting, rendering, and accelerated inference while keeping module boundaries debuggable and replaceable.</p>
+        <h3>Signal</h3>
+        <p>This represents my ability to integrate models, graphics rendering, and system deployment.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>Selected Work</span>
+    <a href="index.html">Back to About</a>
+  </footer>
+</body>
+</html>
