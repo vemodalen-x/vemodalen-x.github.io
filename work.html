@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work | Junxian Wu</title>
-  <meta name="description" content="Selected work by Junxian Wu in edge vision systems, camera AI, model compression, and multimodal agents.">
+  <meta name="description" content="Selected work by Junxian Wu in forward-deployed AI, vision systems, model deployment, and multimodal agents.">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -25,7 +25,7 @@
     <aside class="sidebar" aria-label="Profile">
       <div class="avatar" aria-hidden="true">JW</div>
       <h1>Junxian Wu</h1>
-      <p class="role">Edge Vision AI</p>
+      <p class="role">Forward-Deployed AI</p>
       <p class="bio">Selected work, written as public engineering signal rather than internal project detail.</p>
       <ul class="profile-links">
         <li><a href="index.html">About</a></li>
@@ -37,19 +37,19 @@
     <main id="main" class="content">
       <section class="intro">
         <p class="eyebrow">Selected Work</p>
-        <h2>Case studies in real-device vision AI.</h2>
-        <p>These notes avoid internal names and volume-based proof. Each case keeps the reusable part: the problem, the approach, and the engineering judgment it represents.</p>
+        <h2>Case studies in deployable vision and multimodal AI.</h2>
+        <p>These notes avoid internal names and volume-based proof. Each case keeps the reusable part: the problem, the approach, and the deployment judgment it represents for forward-deployed AI work.</p>
       </section>
 
       <section id="vision-infrastructure" class="case">
         <h2>Training-to-deployment foundation</h2>
-        <p class="summary">A stable workflow for the parts of vision model development that often fragment: training, data, quantization, export, validation, and deployment debugging.</p>
+        <p class="summary">A stable delivery path for the parts of vision model development that often fragment: training, data, quantization, export, validation, and deployment debugging.</p>
         <h3>Problem</h3>
         <p>On-device vision models often break across training, conversion, quantization, and inference. The closer a model gets to production, the more details decide whether it ships.</p>
         <h3>Approach</h3>
         <p>Put training configuration, data interfaces, quantization paths, and export validation into one workflow so model development starts with deployment constraints in mind.</p>
         <h3>Signal</h3>
-        <p>This represents how I treat a model not as a standalone artifact, but as a production component.</p>
+        <p>This represents how I treat a model not as a standalone artifact, but as a component in a deployed system.</p>
       </section>
 
       <section id="composition-engine" class="case">
@@ -82,7 +82,7 @@
         <h3>Approach</h3>
         <p>Split the agent into perception, candidate generation, selection, and output stages, require structured results, and keep hooks for evaluation and retry.</p>
         <h3>Signal</h3>
-        <p>This represents my attitude toward agents: not as demo tricks, but as part of reliable systems.</p>
+        <p>This represents my attitude toward agents: deployable workflow components with constraints, evaluation, and handoff paths.</p>
       </section>
 
       <section id="gpu-rendering" class="case">
@@ -91,7 +91,7 @@
         <h3>Problem</h3>
         <p>The hard part of visual enhancement is often not one model, but the coordination between model outputs, rendering parameters, performance budget, and final appearance.</p>
         <h3>Approach</h3>
-        <p>Connect detection, depth, segmentation, matting, rendering, and accelerated inference while keeping module boundaries debuggable and replaceable.</p>
+        <p>Connect detection, depth, segmentation, matting, rendering, and accelerated inference while keeping module boundaries debuggable and modular.</p>
         <h3>Signal</h3>
         <p>This represents my ability to integrate models, graphics rendering, and system deployment.</p>
       </section>

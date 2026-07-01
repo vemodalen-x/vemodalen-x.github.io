@@ -1,15 +1,18 @@
 # Junxian Wu
 
-I build **vision AI systems for real devices**.
+Forward-Deployed AI Engineer focused on **Vision Systems**, **Model Deployment**, and **Agentic Multimodal Workflows**.
 
-Based in Singapore. My work sits at the intersection of computer vision, model compression, on-device inference, computational photography, and multimodal agents. I care about the gap between a model that works in a notebook and a system that behaves reliably inside a camera product.
+I turn vision and multimodal model capabilities into systems that can be deployed, evaluated, and trusted in real workflows.
+
+Based in Singapore. My work sits at the intersection of forward-deployed AI, computer vision, model compression, on-device inference, computational photography, and multimodal agents. I care about the gap between a model that works in a notebook and a reliable product or customer workflow.
 
 ## What I Work On
 
-- **On-device vision**: segmentation, matting, depth, detection, tracking, and mobile inference.
-- **Model compression**: quantization, export, operator compatibility, and accuracy/latency trade-offs.
+- **Forward-deployed AI**: discovery, prototyping, deployment, evaluation, and reusable delivery patterns.
+- **Vision systems**: segmentation, matting, depth, detection, tracking, camera AI, and mobile inference.
+- **Model deployment**: quantization, export, operator compatibility, runtime constraints, and accuracy/latency trade-offs.
 - **Camera AI**: depth-aware bokeh, portrait rendering, composition guidance, and visual quality.
-- **Agentic vision**: VLM/LLM workflows with structured outputs, eval hooks, and failure control.
+- **Agentic vision**: VLM/LLM workflows with structured outputs, eval hooks, tool use, and failure control.
 
 ## Engineering Taste
 
@@ -22,7 +25,8 @@ Based in Singapore. My work sits at the intersection of computer vision, model c
 
 I am gradually turning private engineering experience into public notes and small reproducible examples:
 
-- `edge-ai-notes`
+- `forward-deployed-ai-notes`
+- `vision-model-deployment-notes`
 - `model-compression-notes`
 - `camera-ai-lab`
 - `agentic-vision-notes`
