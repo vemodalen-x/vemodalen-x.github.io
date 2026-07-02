@@ -14,6 +14,15 @@ Based in Singapore. My work sits at the intersection of forward-deployed AI, com
 - **Camera AI**: depth-aware bokeh, portrait rendering, composition guidance, and visual quality.
 - **Agentic vision**: VLM/LLM workflows with structured outputs, eval hooks, tool use, and failure control.
 
+## Technical Lines
+
+- Vision model platform and deployment foundation.
+- On-device vision systems.
+- Computational photography and GPU rendering.
+- Agentic multimodal workflows.
+- Data, evaluation, and simulation infrastructure.
+- Service delivery and production handoff.
+
 ## Engineering Taste
 
 - Deployment is part of modeling.
@@ -34,6 +43,7 @@ I am gradually turning private engineering experience into public notes and smal
 ## Links
 
 - Homepage: `https://vemodalen-x.github.io`
+- Technical map: `https://vemodalen-x.github.io/technical-lines.html`
 - LinkedIn: `https://www.linkedin.com/in/junxian-wu-085aa11b4/`
 - GitHub: `https://github.com/vemodalen-x`
 - Email: `vemodalenx@gmail.com`

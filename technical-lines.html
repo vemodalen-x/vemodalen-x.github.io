@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Lines | Junxian Wu</title>
+  <meta name="description" content="A tech lead map of Junxian Wu's vision, deployment, rendering, data, and multimodal AI project lines.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <nav class="topnav" aria-label="Primary navigation">
+      <a class="site-title" href="index.html">Junxian Wu</a>
+      <div class="topnav-links">
+        <a href="index.html">About</a>
+        <a href="work.html">Work</a>
+        <a class="active" href="technical-lines.html">Tech Lines</a>
+        <a href="writing.html">Notes</a>
+        <a href="resume.html">CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar" aria-label="Profile">
+      <div class="avatar" aria-hidden="true">JW</div>
+      <h1>Junxian Wu</h1>
+      <p class="role">Technical Leadership Map</p>
+      <p class="bio">A public-safe view of the project history behind my vision, deployment, rendering, data, and multimodal AI work.</p>
+      <ul class="profile-links">
+        <li><a href="work.html">Case Studies</a></li>
+        <li><a href="resume.html">CV</a></li>
+        <li><a href="mailto:vemodalenx@gmail.com">Email</a></li>
+      </ul>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro">
+        <p class="eyebrow">Tech Lead View</p>
+        <h2>From project list to technical lines.</h2>
+        <p>This page groups my project history by reusable technical capability rather than by private project names. The intent is to show how the work fits together as systems: model development, deployment, runtime engines, rendering, evaluation, and handoff.</p>
+        <div class="signal-grid" aria-label="Technical leadership summary">
+          <article>
+            <h3>Architecture</h3>
+            <p>Define stable interfaces between data, training, export, runtime, rendering, and evaluation.</p>
+          </article>
+          <article>
+            <h3>Delivery</h3>
+            <p>Turn research outputs into prototypes, device builds, services, and repeatable delivery paths.</p>
+          </article>
+          <article>
+            <h3>Handoff</h3>
+            <p>Make complex AI systems debuggable, measurable, documented, and safe for other engineers to operate.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="model-platform" class="case">
+        <h2>1. Vision model platform and deployment foundation</h2>
+        <p class="summary">The shared layer that turns visual model development into a repeatable train, evaluate, quantize, export, and deploy workflow.</p>
+        <h3>Project cluster</h3>
+        <p>Segmentation and matting training framework, high-resolution matting experiments, model versioning, edge supervision generation, inherited model retraining, and model conversion tooling.</p>
+        <h3>Tech stack</h3>
+        <p>PyTorch, Lightning Fabric, OmegaConf, Kornia, OpenCV, ONNX, TFLite, TensorFlow/Keras bridge code, TinyNN-style QAT, post-training INT8 quantization, AI Edge Torch style export paths.</p>
+        <h3>Tech lead signal</h3>
+        <p>Own the contracts between datasets, model configs, losses, export formats, validation gates, and downstream runtime constraints. This is the foundation for moving from one-off model work to a platform that other tasks can reuse.</p>
+      </section>
+
+      <section id="on-device-systems" class="case">
+        <h2>2. On-device vision systems</h2>
+        <p class="summary">Native real-time vision systems where model output must become stable user-facing behavior under device constraints.</p>
+        <h3>Project cluster</h3>
+        <p>Real-time composition guidance, camera interaction engines, bokeh runtime modules, image format tools, cross-platform C++ builds, and device-side debugging workflows.</p>
+        <h3>Tech stack</h3>
+        <p>C++11/14, CMake, Android NDK, TFLite runtime, GPU delegate, OpenCV, Lucas-Kanade optical flow, FastCV, NEON, OpenCL, libyuv, pthread portability layers.</p>
+        <h3>Tech lead signal</h3>
+        <p>Design perception, tracking, state machines, fallback behavior, and runtime tuning as one system. The work is less about a single model and more about making real-time camera behavior predictable.</p>
+      </section>
+
+      <section id="camera-rendering" class="case">
+        <h2>3. Computational photography and GPU rendering</h2>
+        <p class="summary">Depth, segmentation, matting, and rendering pipelines that turn model signals into final image quality.</p>
+        <h3>Project cluster</h3>
+        <p>Depth-aware bokeh, optical highlight simulation, portrait enhancement, special effects rendering, motion blur prototypes, multi-frame portrait composition, and GPU-rendered image services.</p>
+        <h3>Tech stack</h3>
+        <p>OpenGL, GLSL, OpenCL, C++ rendering code, PyOpenGL, moderngl, TensorRT, ONNXRuntime, DepthPro-style monocular depth, matting backends, face detection, alpha compositing, HDR and tone mapping utilities.</p>
+        <h3>Tech lead signal</h3>
+        <p>Bridge the gap between model outputs and visual quality. A good camera AI feature needs spatial reasoning, rendering control, edge-case tuning, and performance awareness.</p>
+      </section>
+
+      <section id="agentic-multimodal" class="case">
+        <h2>4. Agentic multimodal workflows</h2>
+        <p class="summary">VLM/LLM systems for visual composition where reasoning needs structure, evaluation, and operating discipline.</p>
+        <h3>Project cluster</h3>
+        <p>Multistage visual composition agent, model-provider routing, structured output schemas, professional review logic, experiment reports, A/B evaluation, and reproducible debug bundles.</p>
+        <h3>Tech stack</h3>
+        <p>Python, OpenAI and Gemini APIs, JSON Schema, provider routing, structured outputs, workflow state objects, Langflow-style flows, pytest, ruff, loguru, image processing utilities, experiment summary tooling.</p>
+        <h3>Tech lead signal</h3>
+        <p>Treat agents as systems, not demos: explicit state, constrained outputs, cost-aware routing, failure handling, evaluation harnesses, and reproducible traces.</p>
+      </section>
+
+      <section id="data-evaluation" class="case">
+        <h2>5. Data, evaluation, and simulation infrastructure</h2>
+        <p class="summary">The data and evaluation layer that makes vision features trainable, comparable, and debuggable.</p>
+        <h3>Project cluster</h3>
+        <p>Trimap generation, edge supervision, hard-sample preparation, multi-frame composition data, interactive quality-control tools, device dump extraction, image format conversion, batch simulation, and model comparison reports.</p>
+        <h3>Tech stack</h3>
+        <p>Python, OpenCV, NumPy, Streamlit, FFmpeg-style media handling, img2dataset-style acquisition, multiprocessing, JSON review logs, model comparison scripts, visualization montages.</p>
+        <h3>Tech lead signal</h3>
+        <p>Make data quality visible. For vision systems, better workflows for data production, filtering, and evaluation often create more leverage than another architecture change.</p>
+      </section>
+
+      <section id="service-delivery" class="case">
+        <h2>6. Service delivery and production handoff</h2>
+        <p class="summary">Deployment work that packages models and rendering into services, demos, evaluation bundles, and maintainable handoff paths.</p>
+        <h3>Project cluster</h3>
+        <p>Containerized portrait services, GPU rendering inside service environments, REST inference APIs, demo tools, cross-platform build notes, technical documentation, and operational handoff checklists.</p>
+        <h3>Tech stack</h3>
+        <p>Docker, FastAPI, Flask, Streamlit, TensorRT engines, ONNXRuntime, NVIDIA GPU passthrough, X11/EGL rendering contexts, REST payload design, release checks, reproducible run bundles.</p>
+        <h3>Tech lead signal</h3>
+        <p>Think beyond implementation: what must be configured, measured, rebuilt, documented, and handed off so the system survives outside the original developer's machine.</p>
+      </section>
+
+      <section>
+        <h2>Stack Map</h2>
+        <div class="topic-list">
+          <article>
+            <h3>Languages and runtimes</h3>
+            <p>Python, C++11/14, GLSL, CMake, Android NDK, Dockerized services.</p>
+          </article>
+          <article>
+            <h3>Model development</h3>
+            <p>PyTorch, Lightning Fabric, TensorFlow/Keras bridge code, ONNX, TFLite, quantization workflows.</p>
+          </article>
+          <article>
+            <h3>Vision and rendering</h3>
+            <p>OpenCV, Kornia, OpenGL, OpenCL, TensorRT, depth, matting, segmentation, detection, optical flow.</p>
+          </article>
+          <article>
+            <h3>Agents and evaluation</h3>
+            <p>OpenAI/Gemini APIs, JSON Schema, workflow orchestration, provider routing, A/B evaluation, traceability.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>How this should read</h2>
+        <ul class="clean-list">
+          <li><strong>For Forward-Deployed AI roles:</strong> I can enter a messy workflow, identify the deployable shape, build the prototype, and create the operating path.</li>
+          <li><strong>For CV roles:</strong> I have depth in segmentation, matting, monocular depth, optical flow, detection, computational photography, and model deployment.</li>
+          <li><strong>For Tech Lead roles:</strong> I can organize scattered projects into reusable technical lines, define interfaces, and reduce delivery risk through documentation and validation.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>Technical Lines</span>
+    <a href="work.html">Selected Work</a>
+  </footer>
+</body>
+</html>

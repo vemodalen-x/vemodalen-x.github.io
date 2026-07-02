@@ -8,6 +8,7 @@ The site is inspired by the Academic Pages style: a persistent profile sidebar, 
 
 - `index.html`: About page
 - `work.html`: selected public case studies
+- `technical-lines.html`: technical leadership map
 - `writing.html`: public engineering notes roadmap
 - `resume.html`: CV page
 - `assets/styles.css`: shared styling
