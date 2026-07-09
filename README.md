@@ -2,7 +2,7 @@
 
 Source for [vemodalen-x.github.io](https://vemodalen-x.github.io), a concise personal site for Junxian Wu.
 
-The site is inspired by the Academic Pages style: a persistent profile sidebar, simple navigation, and content organized as About / Work / Notes / CV. The positioning is forward-deployed AI engineering for vision and multimodal systems.
+The site is inspired by the Academic Pages style: a persistent profile sidebar, simple navigation, and content organized as About / Work / Notes / CV. The positioning is forward-deployed AI engineering for deployable computer vision, camera AI, edge model deployment, and multimodal systems.
 
 ## Pages
 
@@ -17,8 +17,9 @@ The site is inspired by the Academic Pages style: a persistent profile sidebar, 
 ## Editorial Principles
 
 - Keep public content focused on reusable engineering judgment.
-- Avoid confidential company, customer, partner, repository, benchmark, or architecture details.
+- Avoid confidential company, customer, partner, repository, benchmark, architecture, model artifact, internal path, private metric, raw log, or threshold details.
 - Prefer clear role fit and technical signal over volume metrics.
+- Do not use commit counts, file counts, customer line counts, or internal delivery counts as the primary proof point.
 
 ## Suggested GitHub repositories
 

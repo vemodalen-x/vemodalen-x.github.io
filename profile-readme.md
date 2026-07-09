@@ -1,17 +1,17 @@
 # Junxian Wu
 
-Forward-Deployed AI Engineer focused on **Vision Systems**, **Model Deployment**, and **Agentic Multimodal Workflows**.
+Forward-Deployed AI Engineer focused on **Computer Vision**, **Edge Model Deployment**, and **Agentic Multimodal Workflows**.
 
-I turn vision and multimodal model capabilities into systems that can be deployed, evaluated, and trusted in real workflows.
+I turn vision and multimodal model capabilities into systems that can be deployed, evaluated, debugged, and handed off in real workflows.
 
-Based in Singapore. My work sits at the intersection of forward-deployed AI, computer vision, model compression, on-device inference, computational photography, and multimodal agents. I care about the gap between a model that works in a notebook and a reliable product or customer workflow.
+Based in Singapore. My work sits at the intersection of forward-deployed AI, computer vision, edge deployment, C++/Android runtime integration, computational photography, data/evaluation loops, and multimodal agents. I care about the gap between a model that works in a notebook and a reliable product or customer workflow.
 
 ## What I Work On
 
-- **Forward-deployed AI**: discovery, prototyping, deployment, evaluation, and reusable delivery patterns.
+- **Forward-deployed AI**: discovery, technical scoping, prototyping, deployment, issue triage, evaluation, and reusable delivery patterns.
 - **Vision systems**: segmentation, matting, depth, detection, tracking, camera AI, and mobile inference.
-- **Model deployment**: quantization, export, operator compatibility, runtime constraints, and accuracy/latency trade-offs.
-- **Camera AI**: depth-aware bokeh, portrait rendering, composition guidance, and visual quality.
+- **Model deployment**: quantization, export, Android/C++ integration, operator compatibility, runtime constraints, and accuracy/latency trade-offs.
+- **Camera AI**: depth-aware bokeh, portrait rendering, composition guidance, visual quality, and hard-case data loops.
 - **Agentic vision**: VLM/LLM workflows with structured outputs, eval hooks, tool use, and failure control.
 
 ## Technical Lines
@@ -29,6 +29,7 @@ Based in Singapore. My work sits at the intersection of forward-deployed AI, com
 - Quality lives in edge cases.
 - Agents need eval, not vibes.
 - A good vision system should be measurable, debuggable, and shippable.
+- Public work should be useful without exposing customer names, internal paths, model artifacts, logs, or private thresholds.
 
 ## Public Notes
 

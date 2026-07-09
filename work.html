@@ -40,41 +40,52 @@
       <section class="intro">
         <p class="eyebrow">Selected Work</p>
         <h2>Case studies in deployable vision and multimodal AI.</h2>
-        <p>These notes avoid internal names and volume-based proof. Each case keeps the reusable part: the problem, the approach, and the deployment judgment it represents for forward-deployed AI work.</p>
+        <p>These notes are written as public-safe engineering signal. They avoid customer names, internal artifact names, private metrics, and raw implementation details; each case keeps the reusable part: the problem, the approach, and the deployment judgment it represents.</p>
         <p><a class="more-link" href="technical-lines.html">See the technical leadership map</a></p>
       </section>
 
       <section id="vision-infrastructure" class="case">
         <h2>Training-to-deployment foundation</h2>
-        <p class="summary">A stable delivery path for the parts of vision model development that often fragment: training, data, quantization, export, validation, and deployment debugging.</p>
+        <p class="summary">A stable delivery path for the parts of vision model development that often fragment: data gates, training, quantization, export, validation, runtime debugging, and handoff.</p>
         <h3>Problem</h3>
-        <p>On-device vision models often break across training, conversion, quantization, and inference. The closer a model gets to production, the more details decide whether it ships.</p>
+        <p>On-device vision models often break across training, conversion, quantization, native integration, and inference. The closer a model gets to production, the more small contracts decide whether it ships.</p>
         <h3>Approach</h3>
-        <p>Put training configuration, data interfaces, quantization paths, and export validation into one workflow so model development starts with deployment constraints in mind.</p>
+        <p>Put training configuration, data interfaces, quantization paths, export validation, model replacement checks, and runtime assumptions into one workflow so model development starts with deployment constraints in mind.</p>
         <h3>Signal</h3>
-        <p>This represents how I treat a model not as a standalone artifact, but as a component in a deployed system.</p>
+        <p>This represents how I treat a model not as a standalone artifact, but as a component in a system with data provenance, runtime constraints, acceptance gates, and rollback paths.</p>
       </section>
 
       <section id="composition-engine" class="case">
         <h2>Real-time composition engine</h2>
-        <p class="summary">Composition guidance for live preview: understanding subjects, motion, and frame relationships on-device, then turning that into stable interaction.</p>
+        <p class="summary">Composition guidance for live preview: understanding subjects, motion, frame relationships, and camera state, then turning that into stable interaction.</p>
         <h3>Problem</h3>
         <p>Camera interaction cannot rely on single-frame recognition alone. Subjects move, the frame shakes, and guidance must not jump around or feel unpredictable.</p>
         <h3>Approach</h3>
-        <p>Combine lightweight detection, optical-flow tracking, and state machines to turn perception into interpretable, debuggable, real-time guidance.</p>
+        <p>Combine lightweight detection, optical-flow tracking, scene-specific rules, state machines, visual debugging tools, and review cadence so perception becomes interpretable, debuggable, real-time guidance.</p>
         <h3>Signal</h3>
-        <p>This represents my ability to design across algorithms, system state, and user experience.</p>
+        <p>This represents my ability to design across algorithms, system state, user experience, product constraints, and field issue triage.</p>
       </section>
 
       <section id="depth-bokeh" class="case">
         <h2>Depth-aware bokeh</h2>
-        <p class="summary">Combining monocular depth, portrait segmentation, and rendering to support real camera bokeh experiences.</p>
+        <p class="summary">Combining monocular depth, portrait segmentation/matting, and CPU/GPU rendering to support real camera bokeh experiences.</p>
         <h3>Problem</h3>
         <p>Bokeh is not just background blur. Users notice hair, boundaries, multi-person relationships, highlight texture, and foreground/background layering.</p>
         <h3>Approach</h3>
-        <p>Use depth and segmentation to model spatial relationships, rendering to define the visual feel, and edge-case tuning to handle device variation.</p>
+        <p>Use depth and segmentation to model spatial relationships, rendering to define the visual feel, parameterized controls to tune highlights and transitions, and edge-case loops to handle device and scene variation.</p>
         <h3>Signal</h3>
-        <p>This represents my understanding of the gap between model output and the final image in computational photography.</p>
+        <p>This represents my understanding of the gap between model output and the final image: hair boundaries, foreground objects, multi-person scenes, highlight selection, and real-time device behavior.</p>
+      </section>
+
+      <section id="data-evaluation" class="case">
+        <h2>Data, evaluation, and handoff loops</h2>
+        <p class="summary">Turning long-tail visual failures into data plans, regression cases, comparison reports, SOPs, and release gates.</p>
+        <h3>Problem</h3>
+        <p>Camera AI quality is rarely solved by a single model change. The hard failures come from distribution gaps: occlusion, hair, foreground objects, skyline/sky regions, multi-subject scenes, and ambiguous customer feedback.</p>
+        <h3>Approach</h3>
+        <p>Convert field issues into hard-case taxonomies, data collection requirements, visual comparison reports, model replacement gates, and reproducible training/review packages.</p>
+        <h3>Signal</h3>
+        <p>This represents forward-deployed operating discipline: make quality problems measurable enough for engineering, product, QA, and stakeholders to reason from the same evidence.</p>
       </section>
 
       <section id="agentic-composition" class="case">
@@ -83,18 +94,18 @@
         <h3>Problem</h3>
         <p>Composition has aesthetic and semantic components, so pure rules are limited. But model outputs can be unstable, hard to reproduce, and expensive.</p>
         <h3>Approach</h3>
-        <p>Split the agent into perception, candidate generation, selection, and output stages, require structured results, and keep hooks for evaluation and retry.</p>
+        <p>Split the agent into perception, candidate generation, selection, and output stages, require structured results, compare provider behavior, and keep hooks for evaluation, retry, and reproducible traces.</p>
         <h3>Signal</h3>
         <p>This represents my attitude toward agents: deployable workflow components with constraints, evaluation, and handoff paths.</p>
       </section>
 
       <section id="gpu-rendering" class="case">
         <h2>GPU rendering and portrait enhancement</h2>
-        <p class="summary">Combining deep models with OpenGL/GLSL rendering pipelines to turn model signals into controllable visual effects.</p>
+        <p class="summary">Combining deep models with OpenGL/GLSL rendering pipelines and service wrappers to turn model signals into controllable visual effects.</p>
         <h3>Problem</h3>
         <p>The hard part of visual enhancement is often not one model, but the coordination between model outputs, rendering parameters, performance budget, and final appearance.</p>
         <h3>Approach</h3>
-        <p>Connect detection, depth, segmentation, matting, rendering, and accelerated inference while keeping module boundaries debuggable and modular.</p>
+        <p>Connect detection, depth, segmentation, matting, rendering, accelerated inference, and demo/service interfaces while keeping module boundaries debuggable and modular.</p>
         <h3>Signal</h3>
         <p>This represents my ability to integrate models, graphics rendering, and system deployment.</p>
       </section>
