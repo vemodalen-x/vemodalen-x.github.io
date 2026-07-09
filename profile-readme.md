@@ -1,32 +1,31 @@
 # Junxian Wu
 
-Forward-Deployed AI Engineer focused on **Computer Vision**, **Edge Model Deployment**, and **Agentic Multimodal Workflows**.
+Forward-Deployed AI Engineer for **Computer Vision**, **Edge Model Deployment**, and **Multimodal Workflows**.
 
-I turn vision and multimodal model capabilities into systems that can be deployed, evaluated, debugged, and handed off in real workflows.
+I connect vision models to product systems: data, training, export, C++/Android runtime, visual-quality evaluation, debugging, and handoff.
 
-Based in Singapore. My work sits at the intersection of forward-deployed AI, computer vision, edge deployment, C++/Android runtime integration, computational photography, data/evaluation loops, and multimodal agents. I care about the gap between a model that works in a notebook and a reliable product or customer workflow.
+Based in Singapore. Best fit: Forward-Deployed AI, Applied AI, Computer Vision ML, Multimodal AI, and ML Systems roles where models must become reliable workflows.
 
-## Fast Read
+## Can Own
 
-- **Best-fit roles**: Forward-Deployed AI Engineer, Applied AI Engineer, Computer Vision ML Engineer, Multimodal AI Engineer, ML Systems Engineer.
-- **Strongest signal**: bridging model work and product reality across data, training, export, native runtime, visual-quality debugging, evaluation, and handoff.
-- **What to inspect first**: [Technical map](https://vemodalen-x.github.io/technical-lines.html), [Selected work](https://vemodalen-x.github.io/work.html), and [CV](https://vemodalen-x.github.io/resume.html).
-- **What I am not claiming**: foundation-model pretraining, a pure research profile, or private-metric proof that cannot be discussed safely.
+- **Model-to-runtime path**: move models from PyTorch-era development into TFLite/ONNX/TensorRT-style deployment paths.
+- **Camera AI feature delivery**: combine segmentation, matting, depth, detection, tracking, and rendering into stable camera behavior.
+- **Visual-quality loop**: convert vague image-quality failures into hard cases, data plans, comparison reports, and acceptance gates.
+- **Multimodal workflow prototype**: build VLM/LLM workflows with structured outputs, provider comparison, fallback logic, and reproducible traces.
 
-## What I Work On
+## Proof Paths
 
-- **Forward-deployed AI**: discovery, technical scoping, prototyping, deployment, issue triage, evaluation, and reusable delivery patterns.
-- **Vision systems**: segmentation, matting, depth, detection, tracking, camera AI, and mobile inference.
-- **Model deployment**: quantization, export, Android/C++ integration, operator compatibility, runtime constraints, and accuracy/latency trade-offs.
-- **Camera AI**: depth-aware bokeh, portrait rendering, composition guidance, visual quality, and hard-case data loops.
-- **Agentic vision**: VLM/LLM workflows with structured outputs, eval hooks, tool use, and failure control.
+- [Technical map](https://vemodalen-x.github.io/technical-lines.html): Tech Lead view by technical lines and stacks.
+- [Selected work](https://vemodalen-x.github.io/work.html): public-safe case studies.
+- [CV](https://vemodalen-x.github.io/resume.html): concise role summary.
 
-## What I Can Own
+## Operating Principles
 
-- **Camera AI feature delivery**: turn segmentation, matting, depth, detection, and rendering into stable camera behavior.
-- **Model deployment bridge**: connect PyTorch-era development to TFLite/ONNX/TensorRT-style runtime paths.
-- **Visual-quality evaluation loop**: turn vague image-quality feedback into hard-case taxonomies, data plans, comparison reports, and acceptance gates.
-- **Multimodal workflow prototypes**: build VLM/LLM workflows with structured outputs, provider comparison, fallback logic, and reproducible traces.
+- Workflow first.
+- Deployment is modeling.
+- Edge cases decide quality.
+- Evaluation before claims.
+- Public work should be useful without exposing customer names, internal paths, model artifacts, logs, or private thresholds.
 
 ## Technical Lines
 
@@ -36,30 +35,6 @@ Based in Singapore. My work sits at the intersection of forward-deployed AI, com
 - Agentic multimodal workflows.
 - Data, evaluation, and simulation infrastructure.
 - Service delivery and production handoff.
-
-## Engineering Taste
-
-- Deployment is part of modeling.
-- Quality lives in edge cases.
-- Agents need eval, not vibes.
-- A good vision system should be measurable, debuggable, and shippable.
-- Public work should be useful without exposing customer names, internal paths, model artifacts, logs, or private thresholds.
-
-## How To Evaluate Me
-
-- **Recruiter / HR lens**: shortlist me when the role needs a hands-on AI engineer who can work between customer/product context and engineering execution.
-- **Tech Lead lens**: evaluate whether I can own a messy technical line end to end: interfaces, runtime failures, data/evals, trade-offs, and handoff.
-- **Good interview probes**: ownership boundaries, latency/quality trade-offs, model replacement decisions, failure cases, and public-safe translation of private work.
-
-## Public Notes
-
-I am gradually turning private engineering experience into public notes and small reproducible examples:
-
-- `forward-deployed-ai-notes`
-- `vision-model-deployment-notes`
-- `model-compression-notes`
-- `camera-ai-lab`
-- `agentic-vision-notes`
 
 ## Links
 
