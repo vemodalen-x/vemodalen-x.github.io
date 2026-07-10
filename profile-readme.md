@@ -1,5 +1,9 @@
 # Junxian Wu
 
+<a href="https://vemodalen-x.github.io">
+  <img src="https://raw.githubusercontent.com/vemodalen-x/vemodalen-x.github.io/main/assets/junxian-wu.jpg" alt="Junxian Wu" width="160">
+</a>
+
 Forward-Deployed AI Engineer for **Computer Vision**, **Edge Model Deployment**, and **Multimodal Workflows**.
 
 I connect vision models to product systems: data, training, export, C++/Android runtime, visual-quality evaluation, debugging, and handoff.
