@@ -19,6 +19,7 @@ Based in Singapore. Best fit: Forward-Deployed AI, Applied AI, Computer Vision M
 
 ## Proof Paths
 
+- [PDF CV](https://raw.githubusercontent.com/vemodalen-x/vemodalen-x.github.io/main/assets/junxian-wu-cv.pdf): sanitized two-page CV for screening.
 - [Technical map](https://vemodalen-x.github.io/technical-lines.html): Tech Lead view by technical lines and stacks.
 - [Selected work](https://vemodalen-x.github.io/work.html): public-safe case studies.
 - [CV](https://vemodalen-x.github.io/resume.html): concise role summary.
