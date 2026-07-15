@@ -1,9 +1,11 @@
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'interview-learning-os-v2';
-  var VERSION = 2;
+  var STORAGE_KEY = 'interview-learning-os-v3';
+  var LEGACY_STORAGE_KEYS = ['interview-learning-os-v2'];
+  var VERSION = 3;
   var DAY = 24 * 60 * 60 * 1000;
+  var SCORE_DIMENSIONS = ['correctness', 'reasoning', 'transfer', 'communication', 'independence'];
 
   var CLUSTERS = {
     K1: { title: '项目叙事与 Senior 证据', short: 'Narrative', description: '影响、个人决策、失败与领导力证据', color: '#d96647' },
@@ -29,6 +31,14 @@
     system: { explain: 0.75, code: 0.45, debug: 0.75, design: 1, story: 0.7 },
     depth: { explain: 1, code: 0.75, debug: 0.95, design: 0.8, story: 0.55 }
   };
+
+  var REVIEW_VARIANTS = [
+    { label: '约束反转', prompt: '把原题中最宽松的约束改成最严格约束；指出原结论从哪一步开始失效。' },
+    { label: '最小反例', prompt: '构造一个最小反例或边界输入，迫使你修改原方案，并说明如何用测试捕获。' },
+    { label: '规模迁移', prompt: '把数据量、流量、序列长度或团队规模扩大 10 倍；重新判断瓶颈、指标和取舍。' },
+    { label: '故障注入', prompt: '假设一个关键依赖静默失败或指标发生漂移；给出检测、降级和恢复路径。' },
+    { label: '角色切换', prompt: '把答案分别讲给 code reviewer 与业务负责人；保留同一事实，但改变证据顺序和决策语言。' }
+  ];
 
   var TASKS = [
     {
@@ -310,6 +320,10 @@
   var sessionStartedAt = null;
   var timerHandle = null;
   var hintLevel = 0;
+  var activeSessionMode = 'learn';
+  var activeReviewLagDays = 0;
+  var activeVariant = null;
+  var activePlannedMinutes = 0;
   var selectedOverride = null;
   var clusterFilter = null;
 
@@ -321,6 +335,7 @@
       profile: { role: 'balanced', mode: 'balanced', minutes: 90 },
       nodes: {},
       evidence: [],
+      draft: null,
       lastCluster: null,
       updatedAt: new Date().toISOString()
     };
@@ -330,12 +345,21 @@
     var fallback = defaultState();
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        LEGACY_STORAGE_KEYS.some(function (key) {
+          raw = localStorage.getItem(key);
+          return Boolean(raw);
+        });
+      }
       if (!raw) return fallback;
       var parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== 'object') return fallback;
       parsed.profile = Object.assign({}, fallback.profile, parsed.profile || {});
       parsed.nodes = parsed.nodes || {};
-      parsed.evidence = Array.isArray(parsed.evidence) ? parsed.evidence : [];
+      parsed.evidence = Array.isArray(parsed.evidence) ? parsed.evidence.map(function (item) {
+        return Object.assign({ isDelayedReview: false, unaidedTransfer: false }, item);
+      }) : [];
+      parsed.draft = parsed.draft && parsed.draft.taskId ? parsed.draft : null;
       parsed.version = VERSION;
       return parsed;
     } catch (error) {
@@ -345,24 +369,31 @@
 
   function saveState() {
     state.updatedAt = new Date().toISOString();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      return true;
+    } catch (error) {
+      console.warn('Learning OS state could not be saved.', error);
+      return false;
+    }
   }
 
   function nodeState(id) {
-    var current = state.nodes[id];
-    if (!current) {
-      current = {
-        mastery: 0,
-        confidence: null,
-        attempts: 0,
-        hintLevel: 0,
-        evidenceCount: 0,
-        lastAt: null,
-        nextDue: null,
-        scores: null
-      };
-      state.nodes[id] = current;
-    }
+    var defaults = {
+      mastery: 0,
+      confidence: null,
+      attempts: 0,
+      hintLevel: 0,
+      evidenceCount: 0,
+      reviews: 0,
+      unaidedTransferPasses: 0,
+      lastAt: null,
+      lastReviewAt: null,
+      nextDue: null,
+      scores: null
+    };
+    var current = Object.assign(defaults, state.nodes[id] || {});
+    state.nodes[id] = current;
     return current;
   }
 
@@ -371,10 +402,12 @@
       'profile-role', 'profile-mode', 'profile-minutes', 'metric-mastery', 'metric-due',
       'metric-transfer', 'metric-hints', 'next-cluster', 'next-meta', 'next-kind',
       'next-title', 'next-summary', 'next-reasons', 'alternative-list', 'cluster-grid',
-      'queue-list', 'evidence-list', 'cluster-filter-note', 'clear-cluster-filter',
+      'queue-list', 'evidence-list', 'cluster-filter-note', 'clear-cluster-filter', 'plan-summary',
+      'resume-strip', 'resume-title', 'resume-meta', 'north-star-detail',
       'session-dialog', 'session-cluster', 'session-title', 'session-subtitle',
+      'session-mode', 'session-guardrail',
       'session-timer', 'phase-nav', 'orient-goal', 'orient-output', 'orient-time',
-      'orient-prereqs', 'retrieve-prompt', 'confidence-input', 'confidence-value',
+      'orient-prereqs', 'orient-mode', 'retrieve-prompt', 'confidence-input', 'confidence-value',
       'retrieve-response', 'construct-brief', 'construct-response', 'hint-status',
       'request-hint', 'hint-message', 'transfer-prompt', 'transfer-response',
       'rubric-list', 'feedback-notes', 'exit-prompt', 'exit-response',
@@ -414,6 +447,7 @@
     var modeFit = modeMap[task.kind] || 0.6;
     var timeFit = task.duration <= Number(state.profile.minutes) ? 1 : 0.35;
     var score = 0.35 * gap + 0.25 * relevance + 0.20 * forgetting + 0.10 * unlock + 0.05 * variety + 0.03 * modeFit + 0.02 * timeFit;
+    if (progress.attempts > 0 && dueDays !== null && dueDays <= 0) score += 0.30;
     if (selectedOverride === task.id) score += 0.6;
     return {
       task: task,
@@ -434,10 +468,48 @@
     return pool.map(taskPriority).sort(function (a, b) { return b.score - a.score; });
   }
 
+  function reviewVariant(task, attempts) {
+    var clusterOffset = Math.max(0, Number(task.cluster.slice(1)) - 1);
+    return REVIEW_VARIANTS[(Number(attempts || 0) + clusterOffset) % REVIEW_VARIANTS.length];
+  }
+
+  function sessionContext(item) {
+    var isReview = item.progress.attempts > 0 && item.dueDays !== null && item.dueDays <= 0;
+    var plannedMinutes = isReview ? Math.max(20, Math.round(item.task.duration * 0.55)) : item.task.duration;
+    var label = isReview ? 'DELAYED REVIEW' : (item.progress.attempts ? 'GUIDED PRACTICE' : 'NEW EVIDENCE');
+    return {
+      mode: isReview ? 'review' : 'learn',
+      label: label,
+      plannedMinutes: plannedMinutes,
+      reviewLagDays: isReview ? Math.max(0, -Number(item.dueDays || 0)) : 0,
+      variant: reviewVariant(item.task, item.progress.attempts)
+    };
+  }
+
+  function buildDailyPlan() {
+    var budget = Math.max(15, Number(state.profile.minutes) || 90);
+    var used = 0;
+    var items = [];
+    rankedTasks().some(function (item) {
+      var context = sessionContext(item);
+      var minutes = context.plannedMinutes;
+      if (!items.length && minutes > budget) {
+        minutes = budget;
+        context = Object.assign({}, context, { plannedMinutes: minutes, sprint: true });
+      }
+      if (used + minutes <= budget) {
+        items.push(Object.assign({}, item, { session: context }));
+        used += minutes;
+      }
+      return items.length >= 4 || used >= budget;
+    });
+    return { items: items, used: used, budget: budget, remaining: Math.max(0, budget - used) };
+  }
+
   function priorityReasons(item) {
     var reasons = [];
     if (item.progress.attempts === 0) reasons.push('尚无能力证据');
-    if (item.dueDays !== null && item.dueDays <= 0) reasons.push('复习已到期');
+    if (item.progress.attempts > 0 && item.dueDays !== null && item.dueDays <= 0) reasons.push('延迟复测已到期');
     if (item.gap > 0.6) reasons.push('掌握缺口较大');
     if (item.relevance >= 0.9) reasons.push('目标岗位高相关');
     if (item.unlock >= 0.9 && item.task.prereqs.length) reasons.push('前置条件已满足');
@@ -450,6 +522,7 @@
   function render() {
     renderProfile();
     renderMetrics();
+    renderDraft();
     renderRecommendation();
     renderClusters();
     renderQueue();
@@ -466,24 +539,42 @@
     var attempted = TASKS.map(function (task) { return nodeState(task.id); }).filter(function (item) { return item.attempts > 0; });
     var mastery = attempted.length ? attempted.reduce(function (sum, item) { return sum + Number(item.mastery || 0); }, 0) / attempted.length : 0;
     var due = attempted.filter(function (item) { return item.nextDue && new Date(item.nextDue).getTime() <= Date.now(); }).length;
-    var transfers = state.evidence.filter(function (item) { return item.scores && item.scores.transfer >= 3 && item.scores.independence >= 3; });
-    var transferRate = state.evidence.length ? Math.round(100 * transfers.length / state.evidence.length) + '%' : '--';
+    var delayedReviews = state.evidence.filter(function (item) { return item.isDelayedReview; });
+    var unaidedTransfers = delayedReviews.filter(function (item) { return item.unaidedTransfer; });
+    var transferRate = delayedReviews.length ? Math.round(100 * unaidedTransfers.length / delayedReviews.length) + '%' : '--';
     var hintAverage = state.evidence.length ? (state.evidence.reduce(function (sum, item) { return sum + Number(item.hintLevel || 0); }, 0) / state.evidence.length).toFixed(1) : '--';
     els['metric-mastery'].textContent = mastery.toFixed(1);
     els['metric-due'].textContent = String(due);
     els['metric-transfer'].textContent = transferRate;
     els['metric-hints'].textContent = hintAverage;
+    els['north-star-detail'].textContent = delayedReviews.length ?
+      unaidedTransfers.length + '/' + delayedReviews.length + ' 次延迟复测在零提示下通过 Transfer 与 Independence 门槛。' :
+      '尚无延迟复测证据；同一 Session 内的即时迁移不会计入北极星指标。';
+  }
+
+  function renderDraft() {
+    var draft = state.draft;
+    var task = draft && taskById(draft.taskId);
+    if (!draft || !task) {
+      els['resume-strip'].hidden = true;
+      return;
+    }
+    els['resume-strip'].hidden = false;
+    els['resume-title'].textContent = '继续：' + task.title;
+    els['resume-meta'].textContent = '已保存到阶段 ' + (Number(draft.activePhase || 0) + 1) + '/6 · ' + formatDate(draft.savedAt) + ' · 仅本机';
   }
 
   function renderRecommendation() {
+    var plan = buildDailyPlan();
     var ranked = rankedTasks();
-    if (!ranked.length) return;
-    var item = ranked[0];
+    if (!plan.items.length) return;
+    var item = plan.items[0];
     var task = item.task;
     var cluster = CLUSTERS[task.cluster];
+    var context = item.session;
     els['next-cluster'].textContent = task.cluster + ' · ' + cluster.short;
-    els['next-meta'].textContent = task.duration + ' 分钟 · Week ' + task.week;
-    els['next-kind'].textContent = task.kind.toUpperCase() + ' · RETRIEVE → TRANSFER';
+    els['next-meta'].textContent = context.plannedMinutes + ' 分钟 · ' + context.label;
+    els['next-kind'].textContent = task.kind.toUpperCase() + ' · ' + (context.mode === 'review' ? 'DELAYED RETRIEVE → NEW VARIANT' : 'RETRIEVE → TRANSFER');
     els['next-title'].textContent = task.title;
     els['next-summary'].textContent = task.goal;
     els['next-reasons'].innerHTML = priorityReasons(item).map(function (reason) {
@@ -529,15 +620,16 @@
   }
 
   function renderQueue() {
-    var ranked = rankedTasks().slice(0, 6);
-    els['queue-list'].innerHTML = ranked.map(function (item, index) {
+    var plan = buildDailyPlan();
+    els['plan-summary'].textContent = plan.items.length + ' 个 Session · ' + plan.used + '/' + plan.budget + ' 分钟' + (plan.remaining ? ' · 余 ' + plan.remaining + ' 分钟' : '');
+    els['queue-list'].innerHTML = plan.items.map(function (item, index) {
       var task = item.task;
       return '<button class="queue-item" type="button" data-task-id="' + escapeHtml(task.id) + '">' +
         '<span class="queue-rank">0' + (index + 1) + '</span>' +
-        '<span class="queue-title"><strong>' + escapeHtml(task.title) + '</strong><small>' + task.cluster + ' · ' + escapeHtml(task.kind) + ' · mastery ' + Number(item.progress.mastery || 0).toFixed(1) + '</small></span>' +
+        '<span class="queue-title"><strong>' + escapeHtml(task.title) + '</strong><small>' + task.cluster + ' · ' + escapeHtml(item.session.label) + ' · mastery ' + Number(item.progress.mastery || 0).toFixed(1) + '</small></span>' +
         '<span class="queue-reason">' + escapeHtml(priorityReasons(item).slice(0, 2).join(' · ')) + '</span>' +
-        '<span class="queue-time">' + task.duration + ' min</span>' +
-        '<span class="queue-score">' + Math.round(item.score * 100) + '</span>' +
+        '<span class="queue-time">' + item.session.plannedMinutes + ' min</span>' +
+        '<span class="queue-score">' + Math.round(Math.min(1, item.score) * 100) + '</span>' +
         '</button>';
     }).join('');
   }
@@ -551,31 +643,55 @@
       var task = taskById(item.taskId);
       var title = task ? task.title : item.taskId;
       var summary = item.exit || item.notes || '已完成一次练习';
+      var flags = [
+        '<span class="evidence-flag">' + (item.isDelayedReview ? '延迟复测' : '即时练习') + '</span>',
+        item.unaidedTransfer ? '<span class="evidence-flag pass">无辅助迁移通过</span>' : '',
+        item.isDelayedReview && !item.unaidedTransfer ? '<span class="evidence-flag">尚未无辅助通过</span>' : ''
+      ].join('');
       return '<article class="evidence-item">' +
         '<strong>' + escapeHtml(title) + '</strong>' +
         '<span class="evidence-score">' + Number(item.mastery || 0).toFixed(1) + '/4</span>' +
         '<small>' + escapeHtml(formatDate(item.at)) + ' · L' + Number(item.hintLevel || 0) + ' 提示 · 校准误差 ' + Number(item.calibration || 0).toFixed(1) + '</small>' +
+        '<div class="evidence-flags">' + flags + '</div>' +
         '<p>' + escapeHtml(truncate(summary, 150)) + '</p>' +
         '</article>';
     }).join('');
   }
 
-  function openSession(taskId) {
+  function openSession(taskId, resumeExisting) {
     activeTask = taskById(taskId);
     if (!activeTask) return;
-    activePhase = 0;
-    highestPhase = 0;
-    hintLevel = 0;
-    sessionStartedAt = Date.now();
+    var draft = state.draft;
+    var shouldResume = Boolean(resumeExisting || (draft && draft.taskId === taskId));
+    if (draft && draft.taskId !== taskId && !resumeExisting) {
+      if (!window.confirm('另一个 Session 有自动保存的草稿。开始新节点会替换它，是否继续？')) {
+        activeTask = null;
+        return;
+      }
+      state.draft = null;
+      saveState();
+    }
+    var item = taskPriority(activeTask);
+    var context = sessionContext(item);
+    activeSessionMode = shouldResume && draft ? draft.sessionMode : context.mode;
+    activeReviewLagDays = shouldResume && draft ? Number(draft.reviewLagDays || 0) : context.reviewLagDays;
+    activeVariant = shouldResume && draft && draft.variant ? draft.variant : context.variant;
+    activePlannedMinutes = shouldResume && draft ? Number(draft.plannedMinutes || context.plannedMinutes) : context.plannedMinutes;
+    activePhase = shouldResume && draft ? Number(draft.activePhase || 0) : 0;
+    highestPhase = shouldResume && draft ? Number(draft.highestPhase || activePhase) : 0;
+    hintLevel = shouldResume && draft ? Number(draft.hintLevel || 0) : 0;
+    sessionStartedAt = shouldResume && draft ? Date.now() - Number(draft.elapsedSeconds || 0) * 1000 : Date.now();
     clearSessionInputs();
     fillSessionContent();
-    setPhase(0);
+    if (shouldResume && draft) restoreDraft(draft);
+    setPhase(activePhase);
     if (typeof els['session-dialog'].showModal === 'function') {
       els['session-dialog'].showModal();
     } else {
       els['session-dialog'].setAttribute('open', 'open');
     }
     startTimer();
+    saveDraft();
   }
 
   function clearSessionInputs() {
@@ -588,26 +704,88 @@
     els['hint-message'].textContent = '';
     els['hint-status'].textContent = '尚未使用提示';
     els['request-hint'].textContent = '请求 L1 提示';
-    document.querySelectorAll('[data-score]').forEach(function (select) { select.value = '3'; });
+    document.querySelectorAll('[data-score]').forEach(function (select) { select.value = ''; });
+    els['session-preview'].textContent = '完成锚定评分后将显示 mastery、校准误差和建议复习间隔。';
+  }
+
+  function restoreDraft(draft) {
+    var responses = draft.responses || {};
+    ['retrieve-response', 'construct-response', 'transfer-response', 'feedback-notes', 'exit-response'].forEach(function (id) {
+      els[id].value = responses[id] || '';
+    });
+    els['confidence-input'].value = String(draft.confidence === undefined ? 50 : draft.confidence);
+    els['confidence-value'].textContent = els['confidence-input'].value;
+    var scores = draft.scores || {};
+    document.querySelectorAll('[data-score]').forEach(function (select) {
+      select.value = scores[select.dataset.score] === undefined ? '' : String(scores[select.dataset.score]);
+    });
+    if (hintLevel > 0) {
+      els['hint-message'].textContent = 'L' + hintLevel + ' · ' + activeTask.hints[hintLevel - 1];
+      els['hint-message'].hidden = false;
+      els['hint-status'].textContent = '已使用 L' + hintLevel;
+      els['request-hint'].textContent = hintLevel < activeTask.hints.length ? '请求 L' + (hintLevel + 1) + ' 提示' : '提示已用完';
+    }
+    updateSessionPreview();
+  }
+
+  function saveDraft() {
+    if (!activeTask) return;
+    var responses = {};
+    ['retrieve-response', 'construct-response', 'transfer-response', 'feedback-notes', 'exit-response'].forEach(function (id) {
+      responses[id] = els[id].value;
+    });
+    state.draft = {
+      taskId: activeTask.id,
+      activePhase: activePhase,
+      highestPhase: highestPhase,
+      hintLevel: hintLevel,
+      startedAt: sessionStartedAt,
+      elapsedSeconds: Math.max(0, Math.round((Date.now() - sessionStartedAt) / 1000)),
+      savedAt: new Date().toISOString(),
+      sessionMode: activeSessionMode,
+      reviewLagDays: activeReviewLagDays,
+      plannedMinutes: activePlannedMinutes,
+      variant: activeVariant,
+      confidence: Number(els['confidence-input'].value),
+      scores: currentScores(),
+      responses: responses
+    };
+    saveState();
+  }
+
+  function discardDraft() {
+    if (!state.draft) return;
+    if (!window.confirm('确认放弃这个本地草稿？已完成的历史证据不会受影响。')) return;
+    state.draft = null;
+    saveState();
+    renderDraft();
+    toast('草稿已放弃。');
   }
 
   function fillSessionContent() {
     var task = activeTask;
+    var isReview = activeSessionMode === 'review';
     els['session-cluster'].textContent = task.cluster + ' · ' + CLUSTERS[task.cluster].title;
+    els['session-mode'].textContent = isReview ? 'DELAYED REVIEW' : (nodeState(task.id).attempts ? 'GUIDED PRACTICE' : 'NEW EVIDENCE');
+    els['session-mode'].classList.toggle('review', isReview);
     els['session-title'].textContent = task.title;
-    els['session-subtitle'].textContent = task.goal;
+    els['session-subtitle'].textContent = isReview ? '延迟复测 · 不展示历史答案 · ' + activeVariant.label : task.goal;
     els['orient-goal'].textContent = task.goal;
     els['orient-output'].textContent = task.output;
-    els['orient-time'].textContent = task.duration + ' 分钟；当前可用 ' + state.profile.minutes + ' 分钟';
+    els['orient-time'].textContent = activePlannedMinutes + ' 分钟；今日预算 ' + state.profile.minutes + ' 分钟';
     els['orient-prereqs'].textContent = task.prereqs.length ? task.prereqs.map(function (id) {
       var prereq = taskById(id);
       return prereq ? prereq.title : id;
     }).join('；') : '无硬前置；先做闭卷基线';
-    els['retrieve-prompt'].textContent = task.prompt;
-    els['construct-brief'].textContent = task.construct;
-    els['transfer-prompt'].textContent = task.transfer;
+    els['orient-mode'].textContent = isReview ? '延迟、零提示、变式迁移；通过后才计入北极星' : '即时检索、构建、迁移；只形成候选证据';
+    els['session-guardrail'].textContent = isReview ?
+      '不要查看历史证据。先闭卷重建，再处理新变式；只有零提示且 Transfer / Independence ≥ 3 才算无辅助迁移通过。' :
+      '先预测，后验证。前 15–25 分钟不给完整答案；同一 Session 内的迁移不会直接计入延迟北极星。';
+    els['retrieve-prompt'].textContent = isReview ? task.exit : task.prompt;
+    els['construct-brief'].textContent = isReview ? '不用复刻旧答案：' + task.construct : task.construct;
+    els['transfer-prompt'].textContent = isReview ? task.transfer + '\n\n本次新变式 · ' + activeVariant.label + '：' + activeVariant.prompt : task.transfer;
     els['rubric-list'].innerHTML = task.rubric.map(function (line) { return '<li>' + escapeHtml(line) + '</li>'; }).join('');
-    els['exit-prompt'].textContent = task.exit;
+    els['exit-prompt'].textContent = isReview ? '用 90 秒给出最终答案：先结论，再说明新变式改变了什么、如何验证；不要引用历史记录。' : task.exit;
   }
 
   function setPhase(phase) {
@@ -627,6 +805,7 @@
     var labels = ['开始闭卷检索', '进入构建', '进入迁移挑战', '按证据评分', '完成 Exit Ticket', '保存证据'];
     els['next-phase'].textContent = labels[activePhase];
     if (activePhase === 5) updateSessionPreview();
+    saveDraft();
   }
 
   function validatePhase() {
@@ -640,6 +819,14 @@
     }
     if (activePhase === 3 && els['transfer-response'].value.trim().length < 20) {
       toast('迁移回答太短；至少说明哪些结论保留、哪些改变。');
+      return false;
+    }
+    if (activePhase === 4 && !hasCompleteScores()) {
+      toast('五个维度都必须按证据选择等级；系统不会再默认给 3 分。');
+      return false;
+    }
+    if (activePhase === 4 && els['feedback-notes'].value.trim().length < 12) {
+      toast('请记录最大的一个误差和最小修复动作。');
       return false;
     }
     if (activePhase === 5 && els['exit-response'].value.trim().length < 20) {
@@ -668,22 +855,29 @@
     hintLevel += 1;
     els['hint-status'].textContent = '已使用 L' + hintLevel;
     els['request-hint'].textContent = hintLevel < activeTask.hints.length ? '请求 L' + (hintLevel + 1) + ' 提示' : '提示已用完';
+    saveDraft();
   }
 
   function currentScores() {
     var scores = {};
     document.querySelectorAll('[data-score]').forEach(function (select) {
-      scores[select.dataset.score] = Number(select.value);
+      if (select.value !== '') scores[select.dataset.score] = Number(select.value);
     });
     return scores;
   }
 
+  function hasCompleteScores() {
+    var scores = currentScores();
+    return SCORE_DIMENSIONS.every(function (dimension) { return scores[dimension] !== undefined; });
+  }
+
   function scoreAverage(scores) {
     var values = Object.keys(scores).map(function (key) { return Number(scores[key]); });
-    return values.reduce(function (a, b) { return a + b; }, 0) / values.length;
+    return values.length ? values.reduce(function (a, b) { return a + b; }, 0) / values.length : 0;
   }
 
   function calculatedResult() {
+    if (!hasCompleteScores()) return null;
     var scores = currentScores();
     var average = scoreAverage(scores);
     var capped = average;
@@ -692,21 +886,49 @@
     var calibration = Math.abs(confidence / 25 - average);
     var interval = capped < 1.5 ? 1 : (capped < 2.5 ? 3 : (capped < 3.5 ? 7 : 14));
     if (hintLevel >= 2) interval = Math.min(interval, 3);
-    return { scores: scores, average: average, mastery: capped, confidence: confidence, calibration: calibration, interval: interval };
+    if (calibration >= 1.5 && average < 3) interval = Math.min(interval, 3);
+    var isDelayedReview = activeSessionMode === 'review';
+    var unaidedTransfer = isDelayedReview && hintLevel === 0 && scores.transfer >= 3 && scores.independence >= 3;
+    if (isDelayedReview && !unaidedTransfer) interval = Math.min(interval, 3);
+    if (unaidedTransfer) {
+      var reviewIntervals = [7, 14, 30];
+      interval = Math.max(interval, reviewIntervals[Math.min(2, Number(nodeState(activeTask.id).reviews || 0))]);
+    }
+    return {
+      scores: scores,
+      average: average,
+      mastery: capped,
+      confidence: confidence,
+      calibration: calibration,
+      interval: interval,
+      isDelayedReview: isDelayedReview,
+      unaidedTransfer: unaidedTransfer
+    };
   }
 
   function updateSessionPreview() {
     var result = calculatedResult();
-    var gate = result.scores.transfer >= 3 && result.scores.independence >= 3 ? '可进入面试级复测' : '尚未通过迁移/独立性门槛';
+    if (!result) {
+      els['session-preview'].textContent = '请先完成五维锚定评分；空白不会被当作 0，也不会默认给 3。';
+      return;
+    }
+    var gate = result.isDelayedReview ?
+      (result.unaidedTransfer ? '计入延迟无辅助迁移通过' : '本次不计入北极星通过') :
+      (result.scores.transfer >= 3 && result.scores.independence >= 3 ? '形成候选证据，等待延迟复测' : '尚未通过迁移/独立性门槛');
     els['session-preview'].innerHTML = '<strong>预计 mastery ' + result.mastery.toFixed(1) + '/4</strong> · ' +
       escapeHtml(gate) + ' · 信心校准误差 ' + result.calibration.toFixed(1) + ' · 建议 ' + result.interval + ' 天后复习。';
   }
 
   function completeSession() {
     var result = calculatedResult();
+    if (!result) {
+      toast('请先完成五维锚定评分。');
+      return;
+    }
     var progress = nodeState(activeTask.id);
     var previous = Number(progress.mastery || 0);
-    var mastery = progress.attempts ? (previous * 0.35 + result.mastery * 0.65) : result.mastery;
+    var evidenceWeight = result.isDelayedReview ? 0.75 : 0.65;
+    var mastery = progress.attempts ? (previous * (1 - evidenceWeight) + result.mastery * evidenceWeight) : result.mastery;
     mastery = Math.round(mastery * 10) / 10;
     var nextDue = new Date(Date.now() + result.interval * DAY).toISOString();
     progress.mastery = mastery;
@@ -715,6 +937,11 @@
     progress.hintLevel = hintLevel;
     progress.evidenceCount += 1;
     progress.lastAt = new Date().toISOString();
+    if (result.isDelayedReview) {
+      progress.reviews = Number(progress.reviews || 0) + 1;
+      progress.lastReviewAt = progress.lastAt;
+      if (result.unaidedTransfer) progress.unaidedTransferPasses = Number(progress.unaidedTransferPasses || 0) + 1;
+    }
     progress.nextDue = nextDue;
     progress.scores = result.scores;
 
@@ -728,29 +955,30 @@
       confidence: result.confidence,
       calibration: result.calibration,
       hintLevel: hintLevel,
+      sessionMode: activeSessionMode,
+      isDelayedReview: result.isDelayedReview,
+      reviewLagDays: activeReviewLagDays,
+      variant: activeVariant,
+      unaidedTransfer: result.unaidedTransfer,
       durationSeconds: Math.round((Date.now() - sessionStartedAt) / 1000),
-      retrieve: els['retrieve-response'].value.trim(),
-      construct: els['construct-response'].value.trim(),
-      transfer: els['transfer-response'].value.trim(),
-      notes: els['feedback-notes'].value.trim(),
-      exit: els['exit-response'].value.trim()
+      retrieve: clipEvidence(els['retrieve-response'].value.trim()),
+      construct: clipEvidence(els['construct-response'].value.trim()),
+      transfer: clipEvidence(els['transfer-response'].value.trim()),
+      notes: clipEvidence(els['feedback-notes'].value.trim()),
+      exit: clipEvidence(els['exit-response'].value.trim())
     });
     state.evidence = state.evidence.slice(0, 100);
+    state.draft = null;
     state.lastCluster = activeTask.cluster;
     selectedOverride = null;
     saveState();
     closeSession(false);
     render();
-    toast('证据已保存；' + result.interval + ' 天后复习。');
+    toast((result.unaidedTransfer ? '延迟无辅助迁移已通过；' : '证据已保存；') + result.interval + ' 天后复习。');
   }
 
   function closeSession(confirmLoss) {
-    var hasWork = activeTask && (
-      els['retrieve-response'].value.trim() ||
-      els['construct-response'].value.trim() ||
-      els['transfer-response'].value.trim()
-    );
-    if (confirmLoss && hasWork && !window.confirm('本次 Session 尚未保存。确认关闭？')) return;
+    if (confirmLoss && activeTask) saveDraft();
     stopTimer();
     if (els['session-dialog'].open && typeof els['session-dialog'].close === 'function') {
       els['session-dialog'].close();
@@ -758,6 +986,8 @@
       els['session-dialog'].removeAttribute('open');
     }
     activeTask = null;
+    renderDraft();
+    if (confirmLoss) toast('Session 已暂停，草稿自动保存在本机。');
   }
 
   function startTimer() {
@@ -791,9 +1021,10 @@
       '6. 最后停止帮助，让我完成无辅助 exit ticket，并按 Correctness、Reasoning、Transfer、Communication、Independence 各 0–4 评分。',
       '',
       '练习：' + task.title,
+      '证据模式：' + (activeSessionMode === 'review' ? '延迟无辅助复测；不要展示历史答案；零提示通过才计入北极星。' : '即时学习；只形成候选证据，必须等待后续延迟复测。'),
       '目标：' + task.goal,
       '闭卷问题：' + task.prompt,
-      '迁移挑战：' + task.transfer,
+      '迁移挑战：' + task.transfer + (activeSessionMode === 'review' ? '；新变式：' + activeVariant.label + ' — ' + activeVariant.prompt : ''),
       '请先只复述规则并问第一个澄清问题，不要给答案。'
     ].join('\n');
   }
@@ -802,7 +1033,7 @@
     return [
       'AI 教练契约：先问后答；前 15–25 分钟不给完整答案；一次处理一个最大误差；',
       '提示按检查维度 → 模式/不变量 → 部分 worked example 分级；',
-      '必须用反例和变式检查迁移；最后关闭帮助完成 exit ticket；',
+      '必须用反例和变式检查迁移；最后关闭帮助完成 exit ticket；同一 Session 内的正确不计作延迟北极星；',
       '评分维度为 Correctness、Reasoning、Transfer、Communication、Independence；',
       '不接收客户数据、雇主机密、PII、密钥或未公开项目细节。'
     ].join('\n');
@@ -853,6 +1084,11 @@
         if (!parsed || !parsed.profile || !parsed.nodes || !Array.isArray(parsed.evidence)) throw new Error('invalid');
         state = Object.assign(defaultState(), parsed);
         state.profile = Object.assign({}, defaultState().profile, parsed.profile);
+        state.version = VERSION;
+        state.draft = parsed.draft && parsed.draft.taskId ? parsed.draft : null;
+        state.evidence = parsed.evidence.map(function (item) {
+          return Object.assign({ isDelayedReview: false, unaidedTransfer: false }, item);
+        });
         saveState();
         render();
         toast('状态已恢复。');
@@ -866,6 +1102,7 @@
   function resetState() {
     if (!window.confirm('确认清空所有本地学习证据和进度？此操作不可撤销，建议先导出。')) return;
     state = defaultState();
+    LEGACY_STORAGE_KEYS.forEach(function (key) { localStorage.removeItem(key); });
     selectedOverride = null;
     clusterFilter = null;
     saveState();
@@ -889,6 +1126,10 @@
   function truncate(value, length) {
     var text = String(value || '');
     return text.length > length ? text.slice(0, length - 1) + '…' : text;
+  }
+
+  function clipEvidence(value) {
+    return String(value || '').slice(0, 6000);
   }
 
   function formatDate(value) {
@@ -917,6 +1158,10 @@
 
     document.getElementById('hero-start').addEventListener('click', function (event) { openSession(event.currentTarget.dataset.taskId); });
     document.getElementById('start-next').addEventListener('click', function (event) { openSession(event.currentTarget.dataset.taskId); });
+    document.getElementById('resume-draft').addEventListener('click', function () {
+      if (state.draft) openSession(state.draft.taskId, true);
+    });
+    document.getElementById('discard-draft').addEventListener('click', discardDraft);
     document.getElementById('refresh-recommendation').addEventListener('click', function () {
       selectedOverride = null;
       renderRecommendation();
@@ -973,9 +1218,16 @@
     els['request-hint'].addEventListener('click', requestHint);
     els['confidence-input'].addEventListener('input', function () {
       els['confidence-value'].textContent = els['confidence-input'].value;
+      saveDraft();
     });
     document.querySelectorAll('[data-score]').forEach(function (select) {
-      select.addEventListener('change', updateSessionPreview);
+      select.addEventListener('change', function () {
+        updateSessionPreview();
+        saveDraft();
+      });
+    });
+    ['retrieve-response', 'construct-response', 'transfer-response', 'feedback-notes', 'exit-response'].forEach(function (id) {
+      els[id].addEventListener('input', saveDraft);
     });
 
     document.getElementById('copy-session-coach').addEventListener('click', function () {
@@ -994,11 +1246,16 @@
       els['state-file'].value = '';
     });
     document.getElementById('reset-state').addEventListener('click', resetState);
+    window.addEventListener('beforeunload', saveDraft);
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') saveDraft();
+    });
   }
 
   function init() {
     cacheElements();
     TASKS.forEach(function (task) { nodeState(task.id); });
+    if (state.draft && !taskById(state.draft.taskId)) state.draft = null;
     saveState();
     bindEvents();
     render();

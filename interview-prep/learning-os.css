@@ -122,6 +122,20 @@ a {
   font-size: 15px;
 }
 
+.version-badge {
+  display: inline-flex;
+  margin-left: 5px;
+  padding: 2px 5px;
+  color: var(--paper);
+  background: var(--coral);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  vertical-align: 2px;
+}
+
 .brand small {
   margin-top: 1px;
   color: var(--faint);
@@ -510,6 +524,54 @@ a:focus-visible {
 
 .signal-strip small {
   font-size: 10px;
+}
+
+.resume-strip {
+  max-width: var(--content);
+  margin: 14px auto 0;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid rgba(53, 111, 141, 0.24);
+  border-radius: 14px;
+  background: linear-gradient(110deg, rgba(53, 111, 141, 0.10), rgba(255, 255, 255, 0.82));
+  box-shadow: 0 8px 24px rgba(34, 45, 48, 0.05);
+}
+
+.resume-strip[hidden] {
+  display: none;
+}
+
+.resume-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.resume-copy span {
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.resume-copy strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.resume-copy small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.resume-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
 }
 
 .workspace-section {
@@ -995,6 +1057,24 @@ dialog::backdrop {
   letter-spacing: 0.12em;
 }
 
+.session-header .session-mode-chip {
+  display: inline-flex;
+  margin-left: 8px;
+  padding: 3px 6px;
+  color: var(--blue);
+  border: 1px solid rgba(53, 111, 141, 0.25);
+  border-radius: 999px;
+  background: rgba(53, 111, 141, 0.08);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.session-header .session-mode-chip.review {
+  color: var(--forest);
+  border-color: rgba(57, 116, 90, 0.28);
+  background: rgba(57, 116, 90, 0.10);
+}
+
 .session-header h2 {
   margin: 3px 0 0;
   font-size: 24px;
@@ -1256,6 +1336,36 @@ dialog::backdrop {
   min-height: 36px;
 }
 
+.score-grid select:invalid {
+  color: var(--faint);
+  border-color: rgba(169, 70, 98, 0.28);
+  background: rgba(169, 70, 98, 0.04);
+}
+
+.evidence-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.evidence-flag {
+  padding: 3px 6px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.evidence-flag.pass {
+  color: var(--forest);
+  border-color: rgba(57, 116, 90, 0.30);
+  background: rgba(57, 116, 90, 0.08);
+}
+
 .session-preview {
   margin-top: 14px;
   color: var(--muted);
@@ -1395,6 +1505,17 @@ dialog::backdrop {
 
   .signal-strip article:nth-child(-n+2) {
     border-bottom: 1px solid var(--line);
+  }
+
+  .resume-strip {
+    padding: 15px;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .resume-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .workspace-section {

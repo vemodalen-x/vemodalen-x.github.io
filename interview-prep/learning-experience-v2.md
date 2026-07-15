@@ -1,5 +1,7 @@
 # Learning OS V2：从静态备考表到自适应学习系统
 
+> 此文档保留为历史设计记录。当前版本与证据有效性修正见 [Learning OS V3](learning-experience-v3.md)。
+
 配套原型：[打开 Interview Learning OS](learning-os.html)。总练习图：[统一练习脉络](practice-roadmap.md)。
 
 ## 评审结论

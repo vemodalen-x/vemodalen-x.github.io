@@ -2,7 +2,7 @@
 
 这是整个准备包的总入口。其他文件保存完整题库和资料细节；本文件决定当前练什么、先后依赖、何时升级，以及哪些内容只是缺口补充。
 
-交互入口：[Interview Learning OS](learning-os.html)。设计评审与依据：[Learning OS V2](learning-experience-v2.md)。六周表是 curriculum guardrail；每天的下一步由能力证据、到期风险和目标岗位共同决定。
+交互入口：[Interview Learning OS V3](learning-os.html)。当前证据契约：[Learning OS V3](learning-experience-v3.md)；历史依据：[V2 评审](learning-experience-v2.md)。六周表是 curriculum guardrail；每天的下一步由能力证据、到期风险、时间预算和目标岗位共同决定。
 
 默认目标：Senior AI Engineer / Computer Vision / Edge ML / Multimodal & Agentic AI，六周、每周 8–10 小时。
 
