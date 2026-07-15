@@ -2,7 +2,7 @@
   "name": "Photography Mentor Agent",
   "short_name": "Photo Mentor",
   "id": "photography-mentor-agent",
-  "description": "本地摄影 Mentor Web App：主动回忆、分层提示、Before/After 作品证据、掌握度复习、照片评片和可追溯 RAG 知识库。",
+  "description": "本地摄影 Mentor Web App：主动回忆、分层提示、Before/After 作品证据、掌握度复习、照片评片和可追溯检索知识库。",
   "start_url": "./photography-mentor-agent.html",
   "scope": "./",
   "display": "standalone",

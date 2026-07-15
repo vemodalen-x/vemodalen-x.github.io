@@ -35,15 +35,12 @@ const releaseFiles = [
   "assets/photo-mentor-icon.svg",
   "assets/vendor/lucide-1.23.0.min.js",
   "knowledge/photography-mentor-kb.js",
-  "knowledge/local-photography-books-kb.js",
   "knowledge/photography-mentor-taxonomy.js",
   "manifest.webmanifest",
   "sw.js",
   "notes/photography-mentor-research-2026-07-11.md",
-  "notes/local-photography-books-summary-2026-07-12.md",
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
-  "scripts/build_local_photography_kb.py",
   "scripts/validate-photography-mentor.mjs",
   "PHOTOGRAPHY_MENTOR_RELEASE.md"
 ];
@@ -56,7 +53,7 @@ assert(
 );
 
 const html = read("photography-mentor-agent.html");
-assert(/<meta name="version" content="1\.0\.0">/.test(html), "release-version", "HTML declares v1.0.0");
+assert(/<meta name="version" content="1\.1\.0">/.test(html), "release-version", "HTML declares v1.1.0");
 const localReferences = [...html.matchAll(/<(?:a|link|script)\b[^>]*?\b(?:href|src)="([^"]+)"/gi)]
   .map((match) => match[1])
   .filter((reference) => !/^(?:https?:|mailto:|#|data:|javascript:)/i.test(reference))
@@ -104,7 +101,6 @@ const context = { window: {} };
 vm.createContext(context);
 for (const file of [
   "knowledge/photography-mentor-kb.js",
-  "knowledge/local-photography-books-kb.js",
   "knowledge/photography-mentor-taxonomy.js"
 ]) {
   try {
@@ -115,34 +111,23 @@ for (const file of [
 }
 
 const canonical = context.window.PHOTOGRAPHY_MENTOR_KB;
-const local = context.window.LOCAL_PHOTOGRAPHY_BOOKS_KB;
 const taxonomy = context.window.PHOTOGRAPHY_MENTOR_TAXONOMY;
-assert(Boolean(canonical && local && taxonomy), "knowledge-globals", "three knowledge globals loaded");
+assert(Boolean(canonical && taxonomy), "knowledge-globals", "public knowledge globals loaded");
 
-if (canonical && local && taxonomy) {
+if (canonical && taxonomy) {
   const canonicalIds = canonical.cards.map((card) => card.id);
-  const localIds = local.cards.map((card) => card.id);
   const clusterIds = taxonomy.stages.flatMap((stage) => stage.clusters.flatMap((cluster) => cluster.cardIds));
-  const taxonomyLocalIds = taxonomy.stages.flatMap((stage) => stage.localCardIds);
   const clusters = taxonomy.stages.flatMap((stage) => stage.clusters);
 
   assert(canonical.cards.length === 62, "canonical-card-count", `${canonical.cards.length} cards`);
-  assert(local.cards.length === 12, "local-summary-count", `${local.cards.length} cards`);
   assert(taxonomy.stages.length === 7, "taxonomy-stage-count", `${taxonomy.stages.length} stages`);
   assert(clusters.length === 22, "taxonomy-cluster-count", `${clusters.length} clusters`);
   assert(new Set(canonicalIds).size === canonicalIds.length, "canonical-id-uniqueness", `${canonicalIds.length} unique IDs`);
-  assert(new Set(localIds).size === localIds.length, "local-id-uniqueness", `${localIds.length} unique IDs`);
   assert(new Set(clusterIds).size === canonicalIds.length, "taxonomy-canonical-coverage", `${new Set(clusterIds).size}/${canonicalIds.length} unique cards mapped once`);
   assert(clusterIds.every((id) => canonicalIds.includes(id)), "taxonomy-canonical-integrity", "no unknown canonical IDs");
-  assert(new Set(taxonomyLocalIds).size === localIds.length, "taxonomy-local-coverage", `${new Set(taxonomyLocalIds).size}/${localIds.length} local summaries mapped once`);
-  assert(taxonomyLocalIds.every((id) => localIds.includes(id)), "taxonomy-local-integrity", "no unknown local IDs");
-
-  const sourceIds = new Set([...canonical.sources, ...local.sources].map((source) => source.id));
-  const localSourceIds = new Set(local.sources.map((source) => source.id));
+  const sourceIds = new Set(canonical.sources.map((source) => source.id));
   const brokenCanonicalSources = canonical.cards.flatMap((card) => card.sourceIds.filter((id) => !sourceIds.has(id)).map((id) => `${card.id}:${id}`));
-  const brokenLocalSources = local.cards.flatMap((card) => card.sourceIds.filter((id) => !localSourceIds.has(id)).map((id) => `${card.id}:${id}`));
   assert(brokenCanonicalSources.length === 0, "canonical-source-integrity", brokenCanonicalSources.join(", ") || `${canonical.sources.length} sources resolve`);
-  assert(brokenLocalSources.length === 0, "local-source-integrity", brokenLocalSources.join(", ") || `${local.sources.length} sources resolve`);
 }
 
 let manifest = null;
@@ -168,7 +153,9 @@ try {
 }
 assert(!serviceWorkerSyntaxError, "service-worker-syntax", serviceWorkerSyntaxError || "service worker parses");
 
-const cacheName = serviceWorker.match(/const CACHE_NAME = "([^"]+)"/)?.[1];
+const cachePrefix = serviceWorker.match(/const CACHE_PREFIX = "([^"]+)"/)?.[1] || "";
+const cacheVersion = serviceWorker.match(/const CACHE_NAME = `\$\{CACHE_PREFIX\}(v\d+)`/)?.[1] || "";
+const cacheName = `${cachePrefix}${cacheVersion}`;
 assert(/^photo-mentor-v\d+$/.test(cacheName || ""), "service-worker-version", cacheName || "missing cache name");
 
 let appShell = [];
@@ -188,7 +175,6 @@ const runtimeAssets = [
   "assets/photo-mentor-icon.svg",
   "assets/vendor/lucide-1.23.0.min.js",
   "knowledge/photography-mentor-kb.js",
-  "knowledge/local-photography-books-kb.js",
   "knowledge/photography-mentor-taxonomy.js",
   "manifest.webmanifest"
 ];
@@ -196,13 +182,15 @@ const uncachedRuntimeAssets = runtimeAssets.filter((file) => !appShell.includes(
 assert(uncachedRuntimeAssets.length === 0, "offline-shell-coverage", uncachedRuntimeAssets.join(", ") || `${runtimeAssets.length} runtime assets cached`);
 
 const essentialUiIds = [
+  "workspace-mode-switch",
   "mentor-session",
   "curriculum-map",
+  "taxonomy-map-search",
+  "taxonomy-map-filters",
+  "taxonomy-inspector",
   "mentor-workbench",
   "photo-lab",
   "knowledge-library",
-  "local-books",
-  "sybj-ingest",
   "learning-track",
   "agent-prompt",
   "source-boundary"
@@ -215,10 +203,9 @@ const summary = {
   checks: checks.length,
   failures,
   release: {
-    version: "1.0.0",
+    version: "1.1.0",
     files: releaseFiles.length,
     canonicalCards: canonical?.cards.length || 0,
-    localSummaryCards: local?.cards.length || 0,
     stages: taxonomy?.stages.length || 0,
     clusters: taxonomy?.stages.flatMap((stage) => stage.clusters).length || 0,
     offlineCache: cacheName || null

@@ -1,18 +1,18 @@
-const CACHE_NAME = "photo-mentor-v10";
+const CACHE_PREFIX = "photo-mentor-";
+const CACHE_NAME = `${CACHE_PREFIX}v14`;
 const APP_SHELL = [
-  "./",
   "photography-mentor-agent.html",
   "assets/photo-mentor-foundation.css",
   "assets/photo-mentor-icon.svg",
   "assets/vendor/lucide-1.23.0.min.js",
   "knowledge/photography-mentor-kb.js",
-  "knowledge/local-photography-books-kb.js",
   "knowledge/photography-mentor-taxonomy.js",
-  "notes/local-photography-books-summary-2026-07-12.md",
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
   "manifest.webmanifest"
 ];
+const APP_URL = new URL("photography-mentor-agent.html", self.registration.scope);
+const APP_SHELL_URLS = new Set(APP_SHELL.map((path) => new URL(path, self.registration.scope).href));
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -23,32 +23,44 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+      Promise.all(
+        keys
+          .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      )
     ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin !== self.location.origin) return;
+
   if (event.request.mode === "navigate") {
+    if (requestUrl.pathname !== APP_URL.pathname) return;
     event.respondWith(
       fetch(event.request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put("photography-mentor-agent.html", copy));
+        .then(async (response) => {
+          if (response.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(APP_URL, response.clone());
+          }
           return response;
         })
-        .catch(() => caches.match("photography-mentor-agent.html"))
+        .catch(() => caches.match(APP_URL))
     );
     return;
   }
+
+  if (!APP_SHELL_URLS.has(requestUrl.href)) return;
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        const copy = response.clone();
-        if (response.ok && new URL(event.request.url).origin === location.origin) {
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+      return fetch(event.request).then(async (response) => {
+        if (response.ok) {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(event.request, response.clone());
         }
         return response;
       });

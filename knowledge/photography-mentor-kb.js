@@ -897,7 +897,7 @@ window.PHOTOGRAPHY_MENTOR_KB = {
       mentorUse: "拍摄前确认用途、画幅、留字空间、背景、颜色基准、必须展示的结构和修图边界。遇到反光不要只靠后期，先改变光源在物体上的反射形状。",
       practice: "用同一件反光商品完成白底主图、质感特写和场景图三张，记录灯位、距离、遮光板与相机设置，第二天复现。",
       questions: ["客户真正要卖的特征是什么？", "高光形状是否解释材质？", "颜色和尺寸是否需要基准参照？"],
-      sourceIds: ["seying-thomas-400", "local-source-06-commercial-still-product"]
+      sourceIds: ["seying-thomas-400"]
     },
     {
       id: "event-wedding-moment-system",
@@ -909,7 +909,7 @@ window.PHOTOGRAPHY_MENTOR_KB = {
       mentorUse: "计划活动时把关键时刻、风险和备份写成清单。现场先保证安全画面，再寻找前景、反应和关系；收工前确认双卡或双盘副本，不在疲劳状态下随意格式化卡。",
       practice: "为一场模拟活动写 30 分钟时间线，列出 10 个必拍、3 个机位和 3 个失败预案；拍后 45 分钟内完成第一轮选片与双位置备份。",
       questions: ["哪个时刻不能重来？", "关键人物和关系是否覆盖？", "设备、灯光和数据失败时的替代方案是什么？"],
-      sourceIds: ["nikon-flash-basics", "adobe-lr-backup", "local-source-04-portrait-wedding-children"]
+      sourceIds: ["nikon-flash-basics", "adobe-lr-backup"]
     },
     {
       id: "macro-closeup-control",
@@ -921,7 +921,7 @@ window.PHOTOGRAPHY_MENTOR_KB = {
       mentorUse: "先决定关键清晰平面和是否允许堆栈。活体题材优先快门和单张命中，静物可用轨道、稳定灯光与焦点堆栈扩展景深。",
       practice: "拍一件小物体：单张大光圈、单张小光圈和 8-15 张焦点堆栈各做一版，统一输出比较细节、衍射、背景和伪影。",
       questions: ["关键清晰平面在哪里？", "主体会不会移动？", "堆栈边缘和透明材质是否出现伪影？"],
-      sourceIds: ["stanford-cs178", "local-source-01-foundations"]
+      sourceIds: ["stanford-cs178"]
     },
     {
       id: "content-credentials-provenance",
