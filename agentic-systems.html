@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic and Multimodal AI Systems | Junxian Wu</title>
+  <meta name="description" content="Public evidence of Junxian Wu's work in reliable agent and multimodal workflows: explicit state, validated outputs, fallback, traces, local retrieval, and evaluation.">
+  <meta property="og:title" content="Agentic and Multimodal AI Systems | Junxian Wu">
+  <meta property="og:description" content="Reliable agent systems with explicit state, structured outputs, failure handling, traces, and evaluation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vemodalen-x.github.io/agentic-systems.html">
+  <meta property="og:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-agentic-ai.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agentic and Multimodal AI Systems | Junxian Wu">
+  <meta name="twitter:description" content="Reliable agent systems with explicit state, structured outputs, failure handling, traces, and evaluation.">
+  <meta name="twitter:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-agentic-ai.png">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <nav class="topnav" aria-label="Primary navigation">
+      <a class="site-title" href="index.html">Junxian Wu</a>
+      <div class="topnav-links">
+        <a href="index.html">About</a>
+        <a href="work.html">Work</a>
+        <a class="active" href="agentic-systems.html">Agents</a>
+        <a href="writing.html">Notes</a>
+        <a href="resume.html">CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar" aria-label="Profile">
+      <img class="avatar" src="assets/junxian-wu.jpg" alt="Junxian Wu" width="150" height="150" style="object-fit: cover; object-position: center 18%;">
+      <h1>Junxian Wu</h1>
+      <p class="role">Senior AI Engineer</p>
+      <p class="bio">Applied AI systems built with explicit workflow state, evaluation, and production constraints.</p>
+      <ul class="profile-links">
+        <li><span>Foundation</span> Production CV &amp; Edge AI</li>
+        <li><span>Agent focus</span> Orchestration &amp; Evaluation</li>
+        <li><span>Location</span> Singapore</li>
+        <li><a href="work.html#agentic-multimodal">Multimodal case study</a></li>
+        <li><a href="technical-lines.html#reasoning">Technical map</a></li>
+      </ul>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro">
+        <p class="eyebrow">Agentic Systems</p>
+        <h2>Reliability mechanics you can inspect.</h2>
+        <p>I bring production discipline from computer vision and edge deployment into agent and multimodal workflows. The public evidence below separates tested orchestration code from deterministic browser applications and private production experience.</p>
+        <div class="signal-grid" aria-label="Agentic AI positioning summary">
+          <article>
+            <h3>State</h3>
+            <p>Typed requests, explicit provider priority, validated output contracts, and review decisions.</p>
+          </article>
+          <article>
+            <h3>Failure handling</h3>
+            <p>Transient retry, permanent fallback, contract rejection, confidence gates, and preserved traces.</p>
+          </article>
+          <article>
+            <h3>Evaluation</h3>
+            <p>Executable hard cases for the primary path, retries, fallback, invalid outputs, review gates, and total failure.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="workflow-reference" class="case">
+        <h2>Reliable Agent Workflow reference</h2>
+        <p class="summary">A dependency-free Python implementation of the orchestration layer, with ten executable tests.</p>
+        <h3>System shape</h3>
+        <p>A small provider protocol keeps model adapters outside the workflow core. The router records every attempt, retries expected transient failures, falls back on permanent or contract failures, validates structured outputs, and forces human review below the request confidence threshold.</p>
+        <pre class="architecture-trace" aria-label="Agent workflow state trace">request -&gt; route(primary) -&gt; attempt -&gt; transient failure
+        -&gt; route(fallback) -&gt; validate contract
+        -&gt; confidence gate -&gt; accepted output + trace</pre>
+        <h3>Executable evidence</h3>
+        <p>The hard-case suite covers primary success, retry recovery, invalid-contract fallback, confidence-based human review, total provider failure, and evaluation reporting.</p>
+        <div class="link-row"><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/tree/main/agentic_workflow">Review implementation</a><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/tests/test_agentic_workflow.py">Review tests</a><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/examples/run_agentic_workflow.py">Run example</a></div>
+      </section>
+
+      <section id="photography-mentor" class="case">
+        <h2>Photography Mentor with browser-local retrieval</h2>
+        <p class="summary">A browser-local multimodal learning application that joins image diagnostics, retrieval, and actionable practice guidance.</p>
+        <h3>System shape</h3>
+        <p>Use local photography knowledge retrieval together with histogram, brightness, color, sharpness, composition, and EXIF analysis. Keep the evidence path visible and translate observations into specific shooting or editing actions.</p>
+        <h3>Engineering signal</h3>
+        <p>Multimodal input handling, local retrieval, deterministic image analysis, constrained coaching output, review state, and privacy-aware browser execution. It is intentionally described as deterministic rather than as an LLM-backed agent.</p>
+        <p><a class="more-link" href="photography-mentor-agent.html">Open the Photography Mentor</a></p>
+      </section>
+
+      <section id="production-transfer" class="case">
+        <h2>Production discipline carried forward</h2>
+        <p class="summary">The differentiator is not claiming a larger model stack; it is applying deployment and evaluation discipline to a new workflow class.</p>
+        <p>My production experience is in computer vision, computational photography, edge deployment, native integration, visual debugging, and release evaluation. The public agent reference makes the adjacent orchestration mechanics inspectable without exposing employer code or presenting scripted adapters as live provider integrations.</p>
+      </section>
+
+      <section class="case">
+        <h2>Role fit</h2>
+        <p class="summary">Applied AI and Forward Deployed Engineering where perception, workflow design, runtime constraints, evaluation, and handoff matter together.</p>
+        <p>The public evidence demonstrates provider-neutral orchestration mechanics and deterministic multimodal tooling. It complements production depth in computer vision, computational photography, edge deployment, native integration, visual debugging, and release evaluation.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>Agentic &amp; Multimodal AI Systems</span>
+    <a href="index.html">Back to About</a>
+  </footer>
+</body>
+</html>

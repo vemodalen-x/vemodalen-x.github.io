@@ -1,0 +1,14 @@
+# Markdown uses two trailing spaces as an intentional hard line break.
+*.md whitespace=-trailing-space
+
+# Imported WebVTT captions preserve source spacing and cue separation.
+*.vtt -whitespace
+
+# Binary portfolio assets should never be line-normalized or text-diffed.
+*.docx binary
+*.jpeg binary
+*.jpg binary
+*.pdf binary
+*.png binary
+*.webp binary
+*.xlsx binary

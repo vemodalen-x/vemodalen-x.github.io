@@ -1,1 +1,82 @@
+# Local browser profiles, temporary downloads, and QA state
 tmp/
+
+# Python / Node / editor caches
+__pycache__/
+*.py[cod]
+node_modules/
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Local credentials must never enter this public-site repository
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Rebuildable third-party source checkouts, videos, audio, and extracted frames.
+tools/
+
+# Generated deliverables and visual-regression captures. Public release assets
+# belong under assets/ after review; outputs/ is never a publishing source.
+outputs/
+
+# Local/private workspaces that must not be published by this GitHub Pages repo.
+ai_offline_knowledge_base/
+interview-prep/
+personal-knowledge-hub.html
+local-knowledge-assistant.html
+business-tutor-agent.html
+knowledge/personal-kb-index.js
+knowledge/README.md
+knowledge/local-photography-books-kb.js
+knowledge/waytoagi-catalog.json
+knowledge/dwarkesh-archive-index.json
+knowledge/yitang-*
+assets/yitang-*/
+assets/video-study/
+notes/assets/
+notes/ai-engineering/
+notes/latent-space/
+notes/waytoagi/
+notes/xiaohongshu/
+notes/yitang-*
+notes/pkm-*
+notes/tianyu2fm-*
+scripts/*yitang*
+scripts/build-personal-kb-index.py
+scripts/build_local_photography_kb.py
+scripts/search-personal-knowledge.ps1
+scripts/start-knowledge-assistant.ps1
+scripts/capture-feishu-protected-assets.mjs
+scripts/collect-yitang-primary-docs.mjs
+
+# Local study artifacts that are not part of the public portfolio.
+diffusion_technical_report.html
+llm_reasoning_transformer_study_guide.html
+reading_matrix.csv
+report.html
+report.md
+schedule.json
+study_plan.md
+yitang-*.html
+
+# Keep the public repository focused on the portfolio and its two inspectable systems.
+knowledge/*
+!knowledge/photography-mentor-kb.js
+!knowledge/photography-mentor-taxonomy.js
+notes/*
+!notes/photography-knowledge-review-2026-07-14.md
+!notes/photography-mentor-product-review-2026-07-15.md
+!notes/photography-mentor-research-2026-07-11.md
+assets/mitbunny-*
+scripts/import-*
+scripts/personal_kb_server.py
+scripts/sync-*

@@ -1,32 +1,56 @@
-# Junxian Wu Personal Website
+# Junxian Wu - Public Portfolio
 
-Source for [vemodalen-x.github.io](https://vemodalen-x.github.io), a concise personal site for Junxian Wu.
+Source for [vemodalen-x.github.io](https://vemodalen-x.github.io), a public-safe portfolio for a Senior AI Engineer working across production computer vision, computational photography, edge deployment, and reliable agent workflows.
 
-The site is inspired by the Academic Pages style: a persistent profile sidebar, simple navigation, and content organized as About / Work / Notes / CV. The positioning is forward-deployed AI engineering for deployable computer vision, camera AI, edge model deployment, and multimodal systems.
+The narrative is **from perception to production**:
 
-## Pages
+`perception -> reasoning -> runtime -> evaluation -> handoff`
 
-- `index.html`: About page
-- `work.html`: selected public case studies
-- `technical-lines.html`: technical leadership map
-- `writing.html`: public engineering notes roadmap
-- `resume.html`: CV page
-- `assets/styles.css`: shared styling
-- `profile-readme.md`: draft content for the special GitHub profile README repository
+## Public Evidence
 
-## Editorial Principles
+- `index.html` - concise positioning and selected evidence.
+- `work.html` - public-safe system case studies.
+- `agentic-systems.html` - evidence and boundaries for reliable agent and multimodal workflows.
+- `photography-mentor-agent.html` - browser-local image diagnostics, retrieval, practice planning, and review state.
+- `resume.html` - ATS-readable web CV.
+- `assets/junxian-wu-cv.pdf` - downloadable one-page CV.
+- `agentic_workflow/` - provider-neutral orchestration reference with validated output contracts, retry, fallback, human-review gates, and deterministic traces.
+- `tests/` - executable hard cases and release-safety checks.
 
-- Keep public content focused on reusable engineering judgment.
-- Avoid confidential company, customer, partner, repository, benchmark, architecture, model artifact, internal path, private metric, raw log, or threshold details.
-- Prefer clear role fit and technical signal over volume metrics.
-- Do not use commit counts, file counts, customer line counts, or internal delivery counts as the primary proof point.
+## Run Locally
 
-## Suggested GitHub repositories
+```powershell
+python -m http.server 8000 --bind 127.0.0.1
+```
 
-- `forward-deployed-ai-notes`
-- `vision-model-deployment-notes`
-- `model-compression-notes`
-- `camera-ai-lab`
-- `agentic-vision-notes`
+Open `http://127.0.0.1:8000/`.
 
-These repositories can start as notes, checklists, and toy demos without exposing company code.
+Run the public reference example and tests:
+
+```powershell
+python -m examples.run_agentic_workflow
+python -m unittest discover -s tests -v
+```
+
+## Release Safety
+
+This is a GitHub Pages repository, not a general local workspace. Generated exports, private knowledge indexes, authenticated course material, browser state, local paths, and downloaded third-party media are excluded from publication.
+
+Audit the tracked release:
+
+```powershell
+python scripts/check_public_release.py
+```
+
+Audit only the staged release candidate before committing:
+
+```powershell
+python scripts/check_public_release.py --staged
+```
+
+## Editorial Boundary
+
+- Production experience is described without customer names, private metrics, internal paths, repositories, artifacts, logs, or thresholds.
+- Public agent evidence distinguishes tested orchestration code from deterministic browser applications.
+- The portfolio does not claim a live commercial-provider integration, foundation-model training, or hyperscale LLM infrastructure.
+- Role fit is stated separately from current job title.

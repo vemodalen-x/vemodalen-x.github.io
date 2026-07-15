@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes | Junxian Wu</title>
-  <meta name="description" content="Public notes roadmap by Junxian Wu on forward-deployed AI, vision systems, model deployment, and agentic vision.">
+  <meta name="description" content="Public engineering notes by Junxian Wu across vision and edge AI, computational photography, agentic systems, evaluation, and handoff.">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
       <div class="topnav-links">
         <a href="index.html">About</a>
         <a href="work.html">Work</a>
-        <a href="technical-lines.html">Tech Lines</a>
+        <a href="agentic-systems.html">Agents</a>
         <a class="active" href="writing.html">Notes</a>
         <a href="resume.html">CV</a>
       </div>
@@ -33,57 +33,47 @@
     <main id="main" class="content">
       <section class="intro">
         <p class="eyebrow">Notes</p>
-        <h2>Writing as a public deployment notebook.</h2>
-        <p>I plan to write public notes as reusable engineering material: less resume, more judgment, trade-offs, deployment patterns, debugging paths, and reproducible examples.</p>
+        <h2>Writing along the same system spine.</h2>
+        <p>These notes develop reusable engineering judgment around perception, reasoning, runtime, evaluation, and handoff. They support the portfolio without repeating the CV.</p>
       </section>
 
       <section class="note-track">
-        <h2>Forward-Deployed AI</h2>
-        <p>This track is about turning AI capability into a real workflow: discovery, scoping, prototype design, deployment, evaluation, and handoff.</p>
+        <h2>Production foundation: Vision &amp; Edge AI</h2>
+        <p>Model quality and deployment quality are one design problem across data, architecture, export, runtime, and device constraints.</p>
         <ul class="clean-list">
-          <li>Translating user workflows into technical requirements.</li>
-          <li>Deciding when a prototype is production-ready enough to deploy.</li>
-          <li>Codifying repeatable deployment patterns after customer engagement.</li>
+          <li>Debugging paths from PyTorch to TFLite and ONNX.</li>
+          <li>PTQ, QAT, operator compatibility, and INT8 regression analysis.</li>
+          <li>Validation checklists for native and on-device vision runtimes.</li>
         </ul>
       </section>
 
       <section class="note-track">
-        <h2>Vision Model Deployment</h2>
-        <p>The real problems in model deployment often live in formats, operators, I/O, post-processing, and hardware differences.</p>
+        <h2>Differentiation: Computational Photography</h2>
+        <p>The final image is shaped by perception, rendering, camera behavior, long-tail boundaries, motion, and review criteria.</p>
         <ul class="clean-list">
-          <li>Debugging paths from PyTorch to TFLite / ONNX.</li>
-          <li>Validation checklists before shipping on-device vision models.</li>
-          <li>Latency, memory, and accuracy trade-offs in mobile inference.</li>
-        </ul>
-      </section>
-
-      <section class="note-track">
-        <h2>Model Compression</h2>
-        <p>Quantization is not a switch. It is a set of trade-offs across model architecture, calibration, operators, hardware, and acceptable accuracy loss.</p>
-        <ul class="clean-list">
-          <li>When PTQ is enough, and when QAT becomes necessary.</li>
-          <li>Debugging order for INT8 accuracy regressions.</li>
-          <li>Balancing model size, latency, and accuracy.</li>
-        </ul>
-      </section>
-
-      <section class="note-track">
-        <h2>Camera AI Lab</h2>
-        <p>The value of camera AI ultimately appears in the image. This track uses public examples to discuss bokeh, depth, segmentation boundaries, composition, and enhancement.</p>
-        <ul class="clean-list">
-          <li>Why AI bokeh is hard at subject boundaries.</li>
+          <li>Why AI bokeh is difficult at subject boundaries.</li>
           <li>Engineering constraints of monocular depth in camera effects.</li>
           <li>State-machine design for real-time composition guidance.</li>
         </ul>
       </section>
 
       <section class="note-track">
-        <h2>Agentic Vision</h2>
-        <p>The point of agentic vision is not to make a model talk more. It is to make visual decisions constrainable, comparable, and reproducible.</p>
+        <h2>Growth vector: Agentic &amp; Multimodal AI</h2>
+        <p>The goal is not longer model output. It is visual and knowledge work that is constrainable, traceable, comparable, and improvable.</p>
         <ul class="clean-list">
-          <li>Designing evals for VLM-based composition agents.</li>
-          <li>Comparing quality and cost in multi-model A/B tests.</li>
-          <li>Engineering boundaries for retry logic and rule-based fallbacks.</li>
+          <li>Designing local RAG and evidence-aware workflows.</li>
+          <li>Using schemas, routing, retries, and fallbacks for reliability.</li>
+          <li>Evaluating multimodal decisions with hard cases and traces.</li>
+        </ul>
+      </section>
+
+      <section class="note-track">
+        <h2>Operating method: Evaluation &amp; Handoff</h2>
+        <p>This track covers the work between a promising prototype and a system another team can operate and improve.</p>
+        <ul class="clean-list">
+          <li>Translating ambiguous feedback into hard cases and acceptance gates.</li>
+          <li>Building reproducible comparison reports and regression paths.</li>
+          <li>Codifying interfaces, assumptions, debugging paths, and release criteria.</li>
         </ul>
       </section>
     </main>

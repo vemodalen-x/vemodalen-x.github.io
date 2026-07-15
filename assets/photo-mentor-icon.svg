@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Photography Mentor icon">
+  <rect width="512" height="512" rx="96" fill="#0f766e"/>
+  <circle cx="256" cy="272" r="118" fill="none" stroke="#fbfaf7" stroke-width="34"/>
+  <circle cx="256" cy="272" r="54" fill="#fbfaf7"/>
+  <path d="M156 146h62l28-42h74l28 42h42c34 0 62 28 62 62v142c0 34-28 62-62 62H122c-34 0-62-28-62-62V208c0-34 28-62 62-62h34z" fill="none" stroke="#fbfaf7" stroke-width="28" stroke-linejoin="round"/>
+  <path d="M386 208h34" stroke="#f6c85f" stroke-width="24" stroke-linecap="round"/>
+</svg>
