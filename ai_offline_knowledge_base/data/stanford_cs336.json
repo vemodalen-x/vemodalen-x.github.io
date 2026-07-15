@@ -7026,7 +7026,8 @@
       "commit": "a158843b20107949f1a8d7df1b05cd33b9166712",
       "local_path": "tools/data/stanford_cs336_source/assignment1-basics",
       "file_count": 51,
-      "size_bytes": 16868436
+      "size_bytes": 16868436,
+      "local_modifications": []
     },
     {
       "name": "assignment2-systems",
@@ -7034,7 +7035,8 @@
       "commit": "ca8bc81a59b70516f7ebb2da4808daade877c736",
       "local_path": "tools/data/stanford_cs336_source/assignment2-systems",
       "file_count": 28,
-      "size_bytes": 1800561
+      "size_bytes": 1800561,
+      "local_modifications": []
     },
     {
       "name": "assignment3-scaling",
@@ -7042,7 +7044,8 @@
       "commit": "03e9372992e913061b9e78b5cfcb62ad8a87de35",
       "local_path": "tools/data/stanford_cs336_source/assignment3-scaling",
       "file_count": 60,
-      "size_bytes": 1134544
+      "size_bytes": 1134544,
+      "local_modifications": []
     },
     {
       "name": "assignment4-data",
@@ -7050,7 +7053,8 @@
       "commit": "0555bea66369872d912652debf10b115ca0688c8",
       "local_path": "tools/data/stanford_cs336_source/assignment4-data",
       "file_count": 52,
-      "size_bytes": 867467
+      "size_bytes": 867467,
+      "local_modifications": []
     },
     {
       "name": "assignment5-alignment",
@@ -7058,7 +7062,8 @@
       "commit": "c2734a26308710949fe13226960a1e8cece94b7e",
       "local_path": "tools/data/stanford_cs336_source/assignment5-alignment",
       "file_count": 257,
-      "size_bytes": 154576458
+      "size_bytes": 154576458,
+      "local_modifications": []
     },
     {
       "name": "lectures",
@@ -7066,7 +7071,10 @@
       "commit": "8b59b50730766695c2ffedd1a79c50cd09b9eb91",
       "local_path": "tools/data/stanford_cs336_source/lectures",
       "file_count": 420,
-      "size_bytes": 122677751
+      "size_bytes": 122677717,
+      "local_modifications": [
+        " M index.html"
+      ]
     }
   ],
   "coverage": {
@@ -7081,6 +7089,7 @@
     "课程页面当前列出 19 次课，但公开 YouTube playlist 只有 18 条；Daniel Selsam 嘉宾讲座没有出现在当前 playlist。",
     "第 18/19 讲的课程页没有给出技术主题；本快照不从讲者身份推断内容，第 19 讲仅保留录播入口与机器字幕。",
     "YouTube 字幕是英文自动字幕，已去除滚动重复并按分钟合并；人名、数字、公式和代码必须回到视频或课件核验。",
+    "为使官方 Trace Viewer 断网可用，本地 lectures/index.html 仅将 MathJax CDN 地址改为已缓存的 SVG bundle；上游 commit 与本地修改状态分别记录。",
     "课程作业明确限制 AI 代理/自动补全实现作业。本地资料用于自学与理解，不应违反课程 honor code。",
     "作业 3 的课程训练 API 与课程 GPU 配额可能不对自学者开放，替代实验必须说明数据/算力差异。"
   ]

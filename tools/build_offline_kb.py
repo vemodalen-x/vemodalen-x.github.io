@@ -521,7 +521,7 @@ KNOWLEDGE_STAGES = [
         "short_title": "生成建模",
         "question": "如何学习从简单分布到数据分布的可控生成路径，并在有限步数内求解？",
         "summary": "合并 VAE、normalizing flow、DDPM、Score-SDE、latent diffusion、DiT、Flow/Rectified Flow、guidance、consistency 与多模态生成。",
-        "dependencies": ["representation", "architecture", "multimodal"],
+        "dependencies": ["representation", "architecture"],
         "concepts": ["latent variable", "score", "SDE/ODE", "velocity field", "VAE", "guidance", "sampler/NFE", "consistency"],
         "engineering_output": "固定 checkpoint 的质量—速度 Pareto：采样器、NFE、延迟、显存、条件遵循、多样性和失败率。",
         "source_synthesis": "Vincent 教程提供扩散纵深；How2AI 放入 foundation model 路线；Lil’Log 连接 VAE/flow/diffusion；论文矩阵补 DiT 与 Flow Matching；AI Toolkit 把理论落到数据、LoRA/LoKr、量化、采样与 checkpoint 实验。",
@@ -534,7 +534,7 @@ KNOWLEDGE_STAGES = [
         "short_title": "推理与 Agent",
         "question": "如何把一次预测扩展成有状态、可验证、能使用工具的多步决策？",
         "summary": "合并 CoT/test-time compute、self-consistency、search/planning、tool use、memory、multi-agent、自学习 Agent 和科学工作流。",
-        "dependencies": ["foundation-models", "multimodal"],
+        "dependencies": ["foundation-models"],
         "concepts": ["Chain-of-Thought", "test-time scaling", "search", "planner", "tool schema", "memory", "verifier", "multi-agent"],
         "engineering_output": "可审计 Agent trace：状态、计划、工具调用、观察、验证、重试、预算、最终产物和失败归因。",
         "source_synthesis": "CS 159 提供任务与项目骨架；Lil’Log 给 Agent 组件；Taxonomy 给 CoT/tool 历史；CS25 补科学协作 Agent；CS336 用 GRPO/RLVR 作业把可验证奖励、on/off-policy 与训练方差落到实现；Kaggle Day 3 用 function calling、SQLite 与 LangGraph 串起状态、工具、重试和日志；阿里云架构分享补 workflow/agentic、单/多 Agent 与 context engineering 的企业选型。",
@@ -547,12 +547,187 @@ KNOWLEDGE_STAGES = [
         "short_title": "运行时与评测",
         "question": "如何证明模型/Agent 在真实环境中稳定、可监督、可恢复并持续改进？",
         "summary": "合并推理 serving、确定性、环境与 trajectory 评测、LLM judge、偏好反馈、安全、monitorability、实时交互和 human-in-the-loop。",
-        "dependencies": ["research", "foundation-models", "reasoning-agents"],
+        "dependencies": ["research", "foundation-models"],
         "concepts": ["serving", "determinism", "environment", "trajectory evaluation", "preference", "safety", "monitorability", "human override"],
         "engineering_output": "生产验收 harness：质量、成本、延迟、权限、副作用、回退、独立审计、人工接管和数据回流。",
         "source_synthesis": "Thinking Machines 解决训练/推理/交互系统；Labelbox 解决环境、评测与反馈数据；How2AI/CS 159 提供 HAI、安全和项目指标；CS336 补 GPU profiling、并行、推理与 benchmark 的统一成本验收；Kaggle Day 5 把部署、CI/CD、可观测性与无唯一真值的 GenAI 评测组织成生产闭环；阿里云架构分享进一步连接 MCP/AI Gateway、消息恢复、OpenTelemetry 与分层评测。",
         "core_titles": ["Defeating Nondeterminism in LLM Inference", "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena", "Reward Hacking in RL", "Guidelines for Human-AI Interaction", "Interaction Models", "Introducing Recursion", "Measuring Monitorability Disposition", "Serving Transformers: Lessons from the Trenches of Production Inference"],
     },
+]
+
+
+LEARNING_CORE_SEQUENCE = [
+    {
+        "id": "P0",
+        "title": "先修闸门：张量、梯度与资源直觉",
+        "why": "先能读懂训练代码和成本，再讨论模型名词；否则后续实验只能靠猜。",
+        "topics": ["Python/PyTorch tensor", "反向传播", "线性代数与概率", "shape", "FLOPs/显存"],
+        "materials": [
+            {"title": "Karpathy：micrograd / Zero to Hero", "url": "karpathy.html"},
+            {"title": "CS336 L1-L2", "url": "stanford_cs336.html#lectures"},
+        ],
+        "output": "手写一个两层网络的 forward/backward，并为 attention/MLP 列出 shape、FLOPs 和峰值内存。",
+        "exit": "能解释梯度从 loss 到参数的路径，并判断一个算子更可能受计算还是内存带宽限制。",
+    },
+    {
+        "id": "P1",
+        "title": "研究方法：先建立证据规则",
+        "why": "数据、模型和系统越复杂，越需要先固定假设、baseline、指标与失败归因。",
+        "topics": ["问题定义", "baseline", "数据版本", "seed", "消融", "失败分析"],
+        "materials": [
+            {"title": "MIT How2AI：AI research foundations", "url": "how2ai.html"},
+            {"title": "CS159 项目与论文方法", "url": "reasoning_full_guide.html"},
+        ],
+        "output": "统一实验模板：假设、数据、配置、指标、成本、失败样例与结论边界。",
+        "exit": "同一命令能复现实验；能说明提升来自哪个变量，而不是只比较最终分数。",
+    },
+    {
+        "id": "P2",
+        "title": "数据与表征：定义模型看见什么",
+        "why": "tokenizer、训练分布、监督目标和 split 先于架构决定可学习信息与泛化边界。",
+        "topics": ["tokenization", "训练/验证切分", "自监督/对比目标", "数据质量", "迁移/OOD"],
+        "materials": [
+            {"title": "CS336 L1、L13-L14；A1 tokenizer", "url": "stanford_cs336.html#lectures"},
+            {"title": "How2AI：Data / Representation / Generalization", "url": "how2ai.html"},
+        ],
+        "output": "数据卡与 tokenizer 报告：来源、许可、压缩率、序列长度、重复率、split 和风险。",
+        "exit": "能解释数据或 tokenizer 变化如何影响序列预算、泄漏、迁移和评测，而不是把数据当常量。",
+    },
+    {
+        "id": "P3",
+        "title": "模型架构：先完成最小可训练基线",
+        "why": "只有基线正确且可过拟合，attention 变体、MoE、SSM 或多模态接口比较才有意义。",
+        "topics": ["Transformer block", "RoPE", "RMSNorm", "SwiGLU", "MoE/SSM", "训练循环"],
+        "materials": [
+            {"title": "CS336 L3-L4 与 Assignment 1", "url": "stanford_cs336.html#assignments"},
+            {"title": "Karpathy：microgpt / build-nanogpt", "url": "karpathy.html"},
+            {"title": "Transformer Taxonomy 历史坐标", "url": "sources.html"},
+        ],
+        "output": "从零实现并测试最小 Transformer LM；保存张量形状、loss 曲线、checkpoint 恢复和采样。",
+        "exit": "小数据可过拟合；梯度/损失正常；checkpoint 恢复连续；组件消融有公平预算。",
+    },
+    {
+        "id": "P4",
+        "title": "训练系统与规模：让正确基线可扩展",
+        "why": "先用 profiler、kernel、并行和 scaling law 建立成本模型，再决定扩大模型或数据。",
+        "topics": ["GPU/TPU", "Triton/FlashAttention", "DDP/FSDP", "scaling law", "inference", "evaluation"],
+        "materials": [
+            {"title": "CS336 L5-L14 与 A2-A4", "url": "stanford_cs336.html"},
+            {"title": "CS25 前沿训练/推理讲座（完成 CS336 基线后）", "url": "stanford_cs25.html"},
+        ],
+        "output": "质量-吞吐-显存-通信报告、scaling 外推误差和数据 pipeline 消融。",
+        "exit": "能从 profile 解释瓶颈；多卡语义与单卡一致；规模预测有留出验证；评测有污染检查。",
+    },
+    {
+        "id": "P5",
+        "title": "任务适配与后训练：改变模型行为",
+        "why": "基础模型稳定后，再比较 Prompt/RAG、LoRA/SFT、偏好优化或 RLVR；不要用后训练掩盖底座缺陷。",
+        "topics": ["Prompt/RAG baseline", "LoRA/SFT", "DPO/RLHF", "RLVR/GRPO", "量化", "任务评测"],
+        "materials": [
+            {"title": "CS336 L15-L16 与 Assignment 5", "url": "stanford_cs336.html#assignments"},
+            {"title": "Thinking Machines 与 Labelbox 综述", "url": "sources.html"},
+            {"title": "Kaggle Day 1/4", "url": "kaggle_genai.html"},
+        ],
+        "output": "zero-shot/Prompt/RAG 与至少一种训练适配方法的公平对照，含多 seed、成本和退化项。",
+        "exit": "能区分模型知识、检索收益和训练收益；reward/偏好提升没有以安全、泛化或稳定性为代价。",
+    },
+]
+
+
+LEARNING_BRANCHES = [
+    {
+        "id": "B1",
+        "title": "CV / 多模态",
+        "prerequisites": ["P2", "P3", "P4"],
+        "order": "alignment → fusion → transfer → multimodal LLM",
+        "materials": [
+            {"title": "How2AI 多模态主线", "url": "how2ai.html"},
+            {"title": "CS336 L17", "url": "stanford_cs336.html#lectures"},
+            {"title": "CS25 Native Multimodal Intelligence", "url": "stanford_cs25.html"},
+        ],
+        "output": "单模态 baseline、遮蔽/冲突模态消融、交互增益与缺失模态鲁棒性报告。",
+        "exit": "能证明模型使用了跨模态证据，而不只是数据集先验或单模态捷径。",
+    },
+    {
+        "id": "B2",
+        "title": "AIGC / 生成模型",
+        "prerequisites": ["P2", "P3"],
+        "order": "VAE/Flow → DDPM/Score → Latent Diffusion/DiT → Flow Matching → 微调与采样",
+        "materials": [
+            {"title": "Diffusion 完整专题", "url": "diffusion_full_guide.html"},
+            {"title": "AI Toolkit 训练地图", "url": "ai_toolkit.html"},
+            {"title": "How2AI 生成模型模块", "url": "how2ai.html"},
+        ],
+        "output": "DDPM 或 Flow Matching toy，加一组固定 checkpoint 的 NFE-延迟-质量-条件遵循 Pareto。",
+        "exit": "能分开解释路径、网络参数化、条件注入、求解器和表示空间，并用统一预算比较。",
+    },
+    {
+        "id": "B3",
+        "title": "LLM / Reasoning / Agent",
+        "prerequisites": ["P4", "P5"],
+        "order": "Prompt/RAG → reasoning/verifier → tool use/state → Agent runtime → multi-agent",
+        "materials": [
+            {"title": "LLM Reasoning / CS159 指南", "url": "reasoning_full_guide.html"},
+            {"title": "Kaggle Day 2-3", "url": "kaggle_genai.html"},
+            {"title": "企业 Agent 架构", "url": "agent_architecture.html"},
+        ],
+        "output": "可审计 trajectory：状态、计划、工具、验证、重试、预算、权限和失败归因。",
+        "exit": "任务成功率、工具成功率、成本和副作用分别可测；失败可恢复并能回流回归集。",
+    },
+]
+
+
+LEARNING_CONVERGENCE = {
+    "id": "P6",
+    "title": "生产汇流：运行时、评测、安全与反馈",
+    "prerequisites": ["P1", "P4", "至少一个专业分支"],
+    "order": "离线评测 → shadow/canary → 可观测性 → 回退/人工接管 → 失败数据回流",
+    "materials": [
+        {"title": "CS336 L10/L12", "url": "stanford_cs336.html#lectures"},
+        {"title": "Kaggle Day 5", "url": "kaggle_genai.html"},
+        {"title": "Thinking Machines / Labelbox", "url": "sources.html"},
+        {"title": "Agent Runtime 架构", "url": "agent_architecture.html"},
+    ],
+    "output": "端到端验收 harness：质量、延迟、吞吐、成本、权限、副作用、回退、人工接管和数据回流。",
+    "exit": "每次模型/数据/Prompt/工具变更都能自动回归；线上失败有 owner、证据、恢复路径与训练回流条件。",
+}
+
+
+LEARNING_TRACKS = [
+    {"id": "llm", "role": "AI / LLM Engineer", "phase_ids": ["P0", "P1", "P2", "P3", "P4", "P5", "B3", "P6"], "path": "P0 → P1 → P2 → P3 → P4 → P5 → B3 → P6", "focus": "先完成语言模型与系统主干，再进入 RAG/Agent；B1/B2 只按产品需求补。"},
+    {"id": "cv", "role": "CV / Multimodal Engineer", "phase_ids": ["P0", "P1", "P2", "P3", "P4", "B1", "P6"], "path": "P0 → P1 → P2 → P3 → P4 → B1 → P6", "focus": "B2 用于生成式视觉能力；P5 只学习与多模态适配相关的 SFT/LoRA。"},
+    {"id": "aigc", "role": "AIGC Engineer", "phase_ids": ["P0", "P1", "P2", "P3", "P4", "B2", "P6"], "path": "P0 → P1 → P2 → P3 → P4 → B2 → P6", "focus": "P4 聚焦 profiler、训练成本与评测；B1 用于图文/视频条件与跨模态控制。"},
+    {"id": "research", "role": "Research / Tech Lead", "phase_ids": ["P0", "P1", "P2", "P3", "P4", "P5", "B1", "B2", "P6"], "path": "P0 → P1 → P2 → P3 → P4 → P5 → 任意两个分支 → P6", "focus": "重点是公平比较、跨分支迁移、成本模型和结论边界，而不是堆叠资料数量。"},
+]
+
+
+LEARNING_GATE_TASKS = {
+    "P0": ["完成一个不依赖 autograd 的 backward", "写出 attention/MLP 张量形状", "记录 FLOPs、峰值内存与瓶颈判断"],
+    "P1": ["固定数据版本、配置与 seed", "建立 baseline 和至少一个消融", "保存失败样例与结论边界"],
+    "P2": ["训练并验证 tokenizer 可逆性", "完成数据卡与 split/泄漏检查", "报告序列预算、重复率或 OOD 方案"],
+    "P3": ["最小 Transformer 通过单元测试", "在小数据上稳定过拟合", "验证 checkpoint 恢复后 loss 连续"],
+    "P4": ["用 profiler 解释主要瓶颈", "完成质量-速度-显存-通信对照", "验证 scaling 外推或评测污染检查"],
+    "P5": ["建立 Prompt/RAG 或 zero-shot baseline", "完成一种训练适配公平对照", "报告多 seed、成本和至少一个退化项"],
+    "B1": ["建立单模态 baseline", "完成遮蔽或冲突模态消融", "证明跨模态证据带来可测增益"],
+    "B2": ["实现 DDPM 或 Flow Matching toy", "固定 checkpoint 比较 sampler/NFE", "报告质量、延迟、条件遵循与失败样例"],
+    "B3": ["保存完整 Agent trajectory", "分别评估任务、工具、成本与副作用", "验证重试、回退与失败恢复"],
+    "P6": ["建立离线回归与变更版本记录", "完成 shadow/canary、回退和人工接管方案", "定义线上失败进入训练/评测集的条件"],
+}
+
+
+LEARNING_RECALL_BANK = [
+    {"id": "R01", "phase": "P0", "prompt": "反向传播为什么需要按拓扑逆序执行？", "answer": "每个节点必须先收齐所有下游路径贡献的梯度，再把链式法则结果传播给父节点。"},
+    {"id": "R02", "phase": "P0", "prompt": "arithmetic intensity 用来判断什么？", "answer": "单位内存流量完成的计算量；它帮助判断算子更可能受计算吞吐还是内存带宽限制。"},
+    {"id": "R03", "phase": "P1", "prompt": "为什么只有最终指标提升不能证明方法有效？", "answer": "数据、seed、预算、实现和评测泄漏都可能造成差异；需要 baseline、控制变量、消融和失败分析。"},
+    {"id": "R04", "phase": "P2", "prompt": "tokenizer 改动为什么会改变训练系统成本？", "answer": "它改变压缩率和序列长度，进而改变 attention 计算、激活内存、训练 token 预算与推理延迟。"},
+    {"id": "R05", "phase": "P3", "prompt": "为什么先要求小数据过拟合？", "answer": "它是模型、损失、梯度和训练循环正确性的低成本联合测试；无法过拟合时不应直接扩规模。"},
+    {"id": "R06", "phase": "P4", "prompt": "scaling law 为什么需要重新校准？", "answer": "数据分布、架构、训练 recipe 和硬件变化都会改变拟合关系，外推必须报告残差和留出误差。"},
+    {"id": "R07", "phase": "P5", "prompt": "怎样区分 RAG 收益与模型本身能力？", "answer": "固定模型和 Prompt，对比无检索、oracle 检索与实际检索，并分开测召回、证据支持和最终答案。"},
+    {"id": "R08", "phase": "B1", "prompt": "多模态模型同时接收图文为什么仍可能没学到跨模态交互？", "answer": "模型可能依赖单模态捷径或数据集先验；需要遮蔽、冲突模态和单模态 baseline 证明证据被使用。"},
+    {"id": "R09", "phase": "B2", "prompt": "Flow Matching 与 sampler 分别控制什么？", "answer": "Flow Matching 定义并学习速度场；sampler/ODE solver 决定如何用有限 NFE 数值积分得到样本。"},
+    {"id": "R10", "phase": "B3", "prompt": "工具调用成功为什么不等于 Agent 任务成功？", "answer": "任务还依赖计划、状态、约束、验证、副作用控制与恢复；工具成功只是中间接口指标。"},
+    {"id": "R11", "phase": "P6", "prompt": "为什么线上评测必须包含回退和人工接管？", "answer": "质量指标无法覆盖全部分布外状态和副作用；回退与接管限制故障影响并提供可审计恢复路径。"},
+    {"id": "R12", "phase": "P6", "prompt": "什么失败数据值得回流训练？", "answer": "可复现、有明确任务/约束、已确认标签或 rubric，并能区分模型、数据、工具和环境责任的失败。"},
 ]
 
 
@@ -1345,7 +1520,7 @@ def collect_records(
         "bilibili_agent_architecture_snapshot",
         CAT_INTERACTION,
         "must-read",
-        "【企业 Agent 架构】连接 workflow/agentic、单/多 Agent、context engineering、MCP/AI Gateway、消息恢复、OpenTelemetry 与持续评测；本地保留 720p 视频、Whisper 转写和关键幻灯片。",
+        "【企业 Agent 架构】连接 workflow/agentic、单/多 Agent、context engineering、MCP/AI Gateway、消息恢复、OpenTelemetry 与持续评测；Git 离线包保留 Whisper 转写和关键幻灯片，视频回到原站观看。",
         "视频",
     )
     for resource in bilibili_agent.get("resources", []):
@@ -1643,6 +1818,84 @@ def build_knowledge_clusters(records: list[dict]) -> list[dict]:
     return clusters
 
 
+def validate_learning_sequence() -> None:
+    core_ids = [phase["id"] for phase in LEARNING_CORE_SEQUENCE]
+    branch_ids = [branch["id"] for branch in LEARNING_BRANCHES]
+    convergence_id = LEARNING_CONVERGENCE["id"]
+    all_phase_ids = core_ids + branch_ids + [convergence_id]
+    if core_ids != ["P0", "P1", "P2", "P3", "P4", "P5"]:
+        raise ValueError("Learning core must remain ordered from P0 through P5")
+    if branch_ids != ["B1", "B2", "B3"]:
+        raise ValueError("Learning branches must remain B1, B2, and B3")
+    if len(set(all_phase_ids)) != 10:
+        raise ValueError("Learning sequence IDs must be unique")
+    for branch in LEARNING_BRANCHES:
+        unknown = set(branch["prerequisites"]) - set(core_ids)
+        if unknown:
+            raise ValueError(f'Unknown prerequisites for {branch["id"]}: {sorted(unknown)}')
+
+    expected_gate_ids = set(all_phase_ids)
+    if set(LEARNING_GATE_TASKS) != expected_gate_ids:
+        raise ValueError("Every learning phase must define exit-gate tasks")
+    if any(len(tasks) != 3 for tasks in LEARNING_GATE_TASKS.values()):
+        raise ValueError("Every learning phase must have exactly three exit-gate tasks")
+
+    track_ids: set[str] = set()
+    for track in LEARNING_TRACKS:
+        if track["id"] in track_ids:
+            raise ValueError(f'Duplicate learning track ID: {track["id"]}')
+        track_ids.add(track["id"])
+        route = track["phase_ids"]
+        if not route or route[0] != "P0" or route[-1] != convergence_id:
+            raise ValueError(f'Learning track {track["id"]} must start at P0 and end at P6')
+        unknown = set(route) - set(all_phase_ids)
+        if unknown:
+            raise ValueError(f'Unknown phases for learning track {track["id"]}: {sorted(unknown)}')
+        if len(route) != len(set(route)):
+            raise ValueError(f'Learning track {track["id"]} contains duplicate phases')
+        for branch in LEARNING_BRANCHES:
+            if branch["id"] not in route:
+                continue
+            branch_index = route.index(branch["id"])
+            missing = [item for item in branch["prerequisites"] if item not in route[:branch_index]]
+            if missing:
+                raise ValueError(
+                    f'Learning track {track["id"]} reaches {branch["id"]} before {missing}'
+                )
+        if not {"P1", "P4"}.issubset(route) or not set(branch_ids).intersection(route):
+            raise ValueError(f'Learning track {track["id"]} cannot satisfy the P6 gate')
+
+    recall_ids = [item["id"] for item in LEARNING_RECALL_BANK]
+    if len(recall_ids) != len(set(recall_ids)):
+        raise ValueError("Recall card IDs must be unique")
+    unknown_recall_phases = {item["phase"] for item in LEARNING_RECALL_BANK} - set(all_phase_ids)
+    if unknown_recall_phases:
+        raise ValueError(f"Recall cards reference unknown phases: {sorted(unknown_recall_phases)}")
+
+    stage_ids = {stage["id"] for stage in KNOWLEDGE_STAGES}
+    graph = {stage["id"]: stage["dependencies"] for stage in KNOWLEDGE_STAGES}
+    for stage_id, dependencies in graph.items():
+        unknown = set(dependencies) - stage_ids
+        if unknown:
+            raise ValueError(f"Unknown stage dependencies for {stage_id}: {sorted(unknown)}")
+    visiting: set[str] = set()
+    visited: set[str] = set()
+
+    def visit(stage_id: str) -> None:
+        if stage_id in visiting:
+            raise ValueError(f"Cycle detected in knowledge stages at {stage_id}")
+        if stage_id in visited:
+            return
+        visiting.add(stage_id)
+        for dependency in graph[stage_id]:
+            visit(dependency)
+        visiting.remove(stage_id)
+        visited.add(stage_id)
+
+    for stage_id in graph:
+        visit(stage_id)
+
+
 CSS = """
 :root { --ink:#16302c; --muted:#56706a; --paper:#f7faf7; --surface:#ffffff; --line:#d3dfda; --green:#087c69; --teal:#006f82; --coral:#c94e2e; --gold:#996200; --soft-green:#e7f4ee; --soft-coral:#fff0eb; --soft-blue:#eaf4f6; }
 * { box-sizing:border-box; }
@@ -1695,7 +1948,7 @@ section { margin:0 0 34px; }
 .stage-node { position:relative; min-width:0; min-height:112px; padding:13px 8px 11px; border:1px solid var(--line); border-top:5px solid var(--stage-color); border-radius:4px; background:#fff; color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
 .stage-node:hover,.stage-node:focus-visible { border-color:var(--stage-color); outline:0; box-shadow:0 5px 14px rgba(18,61,55,.13); transform:translateY(-2px); }
 .stage-node[aria-pressed="true"] { border-color:var(--stage-color); background:var(--stage-soft); box-shadow:inset 0 0 0 1px var(--stage-color); }
-.stage-node:not(:last-child)::after { content:"→"; position:absolute; right:-10px; top:46px; z-index:3; width:12px; color:#a1442d; font-weight:700; text-align:center; pointer-events:none; }
+.stage-node:not(:last-child)::after { display:none; }
 .stage-index { display:block; color:var(--stage-color); font-size:12px; font-weight:700; }
 .stage-label { display:block; min-height:40px; margin:5px 0 4px; color:#173e37; font-size:14px; font-weight:700; line-height:1.4; }
 .stage-count { display:block; color:var(--muted); font-size:12px; }
@@ -1787,8 +2040,8 @@ code { background:#e8f1ee; border-radius:3px; padding:1px 4px; color:#164d43; }
 .filter { width:100%; margin:0 0 12px; padding:11px 12px; border:1px solid #a9c4ba; border-radius:4px; font:inherit; color:var(--ink); }
 .filter-grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(220px,1fr); gap:10px; margin-bottom:8px; }
 .filter-grid .filter { margin:0; background:#fff; }
-.toc { border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
-.toc a { margin-right:13px; font-size:14px; }
+.toc { overflow-wrap:anywhere; border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
+.toc a { display:inline-block; margin-right:13px; font-size:14px; }
 details { border:1px solid var(--line); border-radius:6px; background:#fff; margin:10px 0; }
 summary { cursor:pointer; padding:12px 14px; color:#174b42; font-weight:700; }
 details > div { padding:0 14px 14px; }
@@ -1800,25 +2053,93 @@ details > div { padding:0 14px 14px; }
 .reading-note { color:var(--muted); font-size:13px; }
 .catalog-table td:first-child { min-width:220px; }
 .catalog-table td:nth-child(2) { min-width:180px; }
+.plan-toolbar { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:18px; }
+.plan-toolbar h2 { margin-bottom:4px; }
+.segmented { display:inline-grid; grid-auto-flow:column; border:1px solid #8eada3; background:#fff; }
+.segmented button { min-height:42px; padding:8px 13px; border:0; border-right:1px solid #c5d5d0; background:#fff; color:#264f47; font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+.segmented button:last-child { border-right:0; }
+.segmented button:hover,.segmented button:focus-visible { background:#eef5f2; outline:0; }
+.segmented button[aria-pressed="true"] { background:#174b42; color:#fff; }
+.plan-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.command-button { min-height:40px; padding:8px 13px; border:1px solid #8eada3; border-radius:4px; background:#fff; color:#174b42; font:inherit; font-weight:700; cursor:pointer; }
+.command-button:hover,.command-button:focus-visible { border-color:var(--teal); outline:2px solid transparent; background:#eef5f2; }
+.command-button.primary { border-color:#174b42; background:#174b42; color:#fff; }
+.command-button.danger { border-color:#d4a99d; color:#9c3f2b; }
+.command-button:disabled { border-color:#cad5d1; background:#eef2f0; color:#81918c; cursor:not-allowed; }
+.learning-dashboard { overflow:hidden; border:1px solid var(--line); background:#fff; }
+.plan-summary { display:grid; grid-template-columns:1.2fr repeat(3,minmax(130px,.65fr)); border-bottom:1px solid var(--line); }
+.progress-summary,.summary-stat { min-width:0; min-height:96px; padding:16px 18px; border-right:1px solid var(--line); }
+.summary-stat:last-child { border-right:0; }
+.progress-summary strong,.summary-stat strong { display:block; color:#123d37; font-size:25px; line-height:1.2; }
+.progress-summary span,.summary-stat span { display:block; margin-top:6px; color:var(--muted); font-size:12px; }
+.progress-track { height:8px; margin-top:13px; overflow:hidden; background:#e2ebe7; }
+.progress-fill { display:block; height:100%; width:0; background:var(--green); transition:width .2s ease; }
+.plan-layout { display:grid; grid-template-columns:280px minmax(0,1fr); min-height:590px; }
+.phase-rail { border-right:1px solid var(--line); background:#f4f8f6; }
+.phase-rail-head { padding:15px 16px 10px; color:var(--muted); font-size:12px; font-weight:700; }
+.phase-list { display:grid; }
+.phase-button { display:grid; grid-template-columns:38px minmax(0,1fr); gap:9px; align-items:center; width:100%; min-height:66px; padding:10px 13px; border:0; border-top:1px solid var(--line); border-left:4px solid transparent; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.phase-button:hover,.phase-button:focus-visible { background:#e7f1ed; outline:0; }
+.phase-button[aria-current="true"] { border-left-color:var(--coral); background:#fff; }
+.phase-button[data-status="completed"] .phase-code { border-color:#0b7a67; background:#0b7a67; color:#fff; }
+.phase-button[data-status="locked"] { color:#82918d; cursor:not-allowed; }
+.phase-code { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid #a8bdb6; border-radius:50%; background:#fff; color:#285d52; font-size:11px; font-weight:700; }
+.phase-name { display:block; min-width:0; font-size:13px; font-weight:700; line-height:1.35; }
+.phase-state { display:block; margin-top:2px; color:var(--muted); font-size:11px; font-weight:400; }
+.phase-detail { min-width:0; padding:22px 24px 28px; }
+.phase-detail-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; border-bottom:1px solid var(--line); padding-bottom:15px; }
+.phase-detail-head h2 { margin-bottom:4px; font-size:23px; }
+.status-badge { flex:0 0 auto; padding:3px 8px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:12px; font-weight:700; }
+.status-badge.completed { border-color:#80b5a4; background:var(--soft-green); color:#155e50; }
+.status-badge.locked { border-color:#d4dcd9; color:#71817c; }
+.phase-block { margin-top:19px; }
+.phase-block h3 { font-size:15px; }
+.material-links { display:flex; flex-wrap:wrap; gap:7px 13px; margin-top:8px; }
+.material-links a { font-size:13px; font-weight:700; }
+.gate-list { display:grid; margin-top:8px; border-top:1px solid var(--line); }
+.gate-row { display:grid; grid-template-columns:24px minmax(0,1fr); gap:8px; align-items:start; padding:10px 3px; border-bottom:1px solid var(--line); cursor:pointer; }
+.gate-row input { width:17px; height:17px; margin:3px 0 0; accent-color:var(--green); }
+.evidence-input { width:100%; min-height:92px; margin-top:8px; padding:10px 11px; border:1px solid #9eb9b0; border-radius:4px; color:var(--ink); background:#fff; font:inherit; resize:vertical; }
+.evidence-input:focus { border-color:var(--teal); outline:2px solid #cce4e5; }
+.gate-submit { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:11px; }
+.gate-message { color:var(--muted); font-size:12px; }
+.learning-tools { margin-top:28px; border:1px solid var(--line); background:#fff; }
+.tool-tabs { display:flex; overflow-x:auto; border-bottom:1px solid var(--line); background:#eef4f1; }
+.tool-tab { min-width:125px; min-height:44px; padding:8px 14px; border:0; border-right:1px solid var(--line); background:transparent; color:#31554e; font:inherit; font-weight:700; cursor:pointer; }
+.tool-tab[aria-selected="true"] { background:#fff; color:#123d37; box-shadow:inset 0 -3px 0 var(--coral); }
+.tool-panel { min-height:210px; padding:20px 22px 23px; }
+.today-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--line); }
+.today-step { min-width:0; padding:14px 15px; border-right:1px solid var(--line); }
+.today-step:last-child { border-right:0; }
+.today-step small { display:block; color:var(--coral); font-weight:700; }
+.today-step strong { display:block; margin:5px 0; color:#173e37; }
+.today-step span { color:var(--muted); font-size:13px; }
+.recall-tool { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr); border:1px solid var(--line); }
+.recall-main,.recall-answer { min-height:156px; padding:17px; }
+.recall-answer { border-left:1px solid var(--line); background:#f4f8f6; }
+.recall-prompt { color:#173e37; font-size:18px; font-weight:700; }
+.recall-rating { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.artifact-list { display:grid; border-top:1px solid var(--line); }
+.artifact-row { display:grid; grid-template-columns:65px minmax(150px,.35fr) minmax(0,1fr) 130px; gap:10px; padding:10px 4px; border-bottom:1px solid var(--line); font-size:13px; }
+.artifact-row strong { color:#173e37; }
+.empty-state { padding:18px; border:1px dashed #a9beb7; color:var(--muted); text-align:center; }
+.review-findings { counter-reset:finding; border-top:1px solid var(--line); }
+.review-finding { display:grid; grid-template-columns:90px minmax(0,1fr); gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
+.severity { color:#9c3f2b; font-size:12px; font-weight:700; text-transform:uppercase; }
 footer { border-top:1px solid var(--line); color:var(--muted); padding:20px 0 34px; font-size:13px; }
-@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } }
-@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } }
-@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } }
+@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } .plan-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .progress-summary,.summary-stat { border-bottom:1px solid var(--line); } .summary-stat:nth-child(2) { border-right:0; } }
+@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } .plan-toolbar { align-items:flex-start; flex-direction:column; } .plan-layout { grid-template-columns:1fr; } .phase-rail { border-right:0; border-bottom:1px solid var(--line); } .phase-list { grid-template-columns:repeat(2,minmax(0,1fr)); } .phase-button:nth-child(even) { border-left:1px solid var(--line); } .phase-button[aria-current="true"] { box-shadow:inset 4px 0 0 var(--coral); } .today-grid,.recall-tool { grid-template-columns:1fr; } .today-step { border-right:0; border-bottom:1px solid var(--line); } .today-step:last-child { border-bottom:0; } .recall-answer { border-top:1px solid var(--line); border-left:0; } .artifact-row { grid-template-columns:58px minmax(0,1fr); } .artifact-row span:nth-child(3),.artifact-row time { grid-column:2; } }
+@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } .segmented { grid-auto-flow:row; width:100%; } .segmented button { border-right:0; border-bottom:1px solid #c5d5d0; } .segmented button:last-child { border-bottom:0; } .plan-actions { width:100%; } .plan-actions .command-button { flex:1 1 auto; } .plan-summary { grid-template-columns:1fr 1fr; } .progress-summary { grid-column:1 / -1; border-right:0; } .summary-stat:nth-child(2) { border-right:1px solid var(--line); } .summary-stat:last-child { grid-column:1 / -1; border-bottom:0; } .phase-list { grid-template-columns:1fr; } .phase-button:nth-child(even) { border-left:4px solid transparent; } .phase-button[aria-current="true"] { border-left-color:var(--coral); box-shadow:none; } .phase-detail { padding:18px 15px 22px; } .phase-detail-head { align-items:flex-start; flex-direction:column; } .tool-panel { padding:16px 13px 19px; } .review-finding { grid-template-columns:1fr; gap:3px; } }
 """
 
 
 def page(title: str, subtitle: str, body: str, active: str = "") -> str:
     nav = [
         ("index.html", "首页", "index"),
-        ("knowledge_path.html", "知识主线", "path"),
+        ("learning_plan.html", "学习计划", "plan"),
+        ("knowledge_path.html", "知识地图", "path"),
         ("sources.html", "来源综述", "sources"),
-        ("how2ai.html", "How2AI 课程", "how2ai"),
-        ("stanford_cs25.html", "Stanford CS25", "cs25"),
         ("stanford_cs336.html", "Stanford CS336", "cs336"),
-        ("karpathy.html", "Karpathy", "karpathy"),
-        ("ai_toolkit.html", "AI Toolkit", "ai_toolkit"),
-        ("kaggle_genai.html", "Kaggle GenAI", "kaggle_genai"),
-        ("agent_architecture.html", "Agent 架构", "agent_architecture"),
         ("papers.html", "论文矩阵", "papers"),
         ("catalog.html", "全部链接", "catalog"),
     ]
@@ -1840,7 +2161,7 @@ def page(title: str, subtitle: str, body: str, active: str = "") -> str:
 <header class="topbar"><div class="shell"><a class="brand" href="index.html">AI OFFLINE KB</a><nav class="topnav" aria-label="主导航">{nav_html}</nav></div></header>
 <div class="hero"><div class="shell"><p class="eyebrow">OFFLINE LEARNING LIBRARY · {KARPATHY_SNAPSHOT_DATE}</p><h1>{esc(title)}</h1><p class="lead">{esc(subtitle)}</p></div></div>
 <main class="shell">{body}</main>
-<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；CS336 官方讲义、作业仓库与自动字幕另保留本地快照。</footer>
+<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；Git 离线包保留结构化元数据、中文总结、清洗字幕和学习证据，不复制第三方视频或完整上游仓库。</footer>
 </body></html>"""
 
 
@@ -1901,6 +2222,34 @@ def build_knowledge_path(records: list[dict]) -> str:
         heat_rows.append(
             f'<div class="heat-label">{esc(source["name"])}<small>{esc(source["role"])}</small></div>{cells}'
         )
+    core_flow = "".join(
+        f'<div><strong>{phase["id"]}</strong><br>{esc(phase["title"].split("：", 1)[-1])}</div>'
+        for phase in LEARNING_CORE_SEQUENCE
+    )
+    core_rows = []
+    for phase in LEARNING_CORE_SEQUENCE:
+        materials = " · ".join(
+            link(item["url"], item["title"], False) for item in phase["materials"]
+        )
+        core_rows.append(
+            f'''<tr><td><strong>{phase["id"]}</strong><br>{esc(phase["title"])}</td><td>{esc(phase["why"])}<br><span class="small">{esc(" · ".join(phase["topics"]))}</span></td><td>{materials}</td><td>{esc(phase["output"])}</td><td>{esc(phase["exit"])}</td></tr>'''
+        )
+    branch_cards = []
+    for index, branch in enumerate(LEARNING_BRANCHES):
+        materials = " · ".join(
+            link(item["url"], item["title"], False) for item in branch["materials"]
+        )
+        branch_cards.append(
+            f'''<article class="item {"teal" if index == 1 else "coral" if index == 2 else ""}"><p class="kicker">{branch["id"]} · 前置 {" + ".join(branch["prerequisites"])}</p><h3>{esc(branch["title"])}</h3><p><strong>内部顺序：</strong>{esc(branch["order"])}</p><p><strong>主读：</strong>{materials}</p><p><strong>产物：</strong>{esc(branch["output"])}</p><p class="small"><strong>过关：</strong>{esc(branch["exit"])}</p></article>'''
+        )
+    convergence_materials = " · ".join(
+        link(item["url"], item["title"], False)
+        for item in LEARNING_CONVERGENCE["materials"]
+    )
+    track_rows = "".join(
+        f'''<tr><td><strong>{esc(track["role"])}</strong></td><td><code>{esc(track["path"])}</code></td><td>{esc(track["focus"])}</td></tr>'''
+        for track in LEARNING_TRACKS
+    )
     timeline_data = [
         ("2012–2016", "如何学习可迁移表征和可计算生成分布？", "Representation Learning、VAE、早期 Diffusion、Normalizing Flow、attention。", "数据与表征、生成建模", stage_colors[1][0]),
         ("2017–2019", "能否用统一序列架构替代任务专用网络？", "Transformer、Deep Sets/GNN、BERT/GPT 式预训练、自监督学习。", "模型架构、基础模型", stage_colors[2][0]),
@@ -1969,12 +2318,15 @@ def build_knowledge_path(records: list[dict]) -> str:
         for stage in clusters
     )
     body = f"""
-<div class="toc path-toc"><strong>本页：</strong><a href="#spine">能力地图</a><a href="#coverage">知识分布</a><a href="#evolution">技术演进</a><a href="#distinctions">关键区分</a><a href="#route">统一路线</a>{toc_stage_links}</div>
-<section class="notice info"><strong>合并结果：</strong>十三个课程、博客、代码与视频来源中的 <strong>{len(records)}</strong> 个知识条目已全部唯一归入 8 层技术主线。来源继续作为出处保留，但默认学习入口改为能力依赖关系；同一概念不再因出现在多个来源而重复学习。</section>
+<div class="toc path-toc"><strong>本页：</strong><a href="#sequence">学习顺序</a><a href="#tracks">角色路线</a><a href="#spine">分类索引</a><a href="#coverage">知识分布</a><a href="#evolution">技术演进</a><a href="#distinctions">关键区分</a><a href="#route">12 周计划</a>{toc_stage_links}</div>
+<section class="notice info"><strong>整理原则：</strong>十三个来源中的 <strong>{len(records)}</strong> 个知识条目已唯一归入 8 类，但“分类”不等于“学习顺序”。默认顺序改为 6 阶段公共主干，随后只选择与目标一致的专业分支，最后统一进入生产评测闭环；每阶段按必读 → 推荐 → 选读推进，不要求线性读完全部条目。</section>
 <div class="metric-strip" aria-label="知识库概览"><div class="metric"><strong>{len(records)}</strong><span>唯一知识条目</span></div><div class="metric"><strong>{len(clusters)}</strong><span>能力阶段</span></div><div class="metric"><strong>{len(DIRECT_SOURCES)}</strong><span>课程与技术来源</span></div><div class="metric"><strong>100%</strong><span>已分类并保留出处</span></div></div>
-<section id="spine"><div class="section-head"><h2>统一能力地图</h2><p>点击任一层，查看问题、依赖和工程产物</p></div><div class="stage-map" role="group" aria-label="八层技术能力地图">{stage_nodes}</div>
+<section id="sequence"><div class="section-head"><h2>先公共主干，再专业分支</h2><p>只有通过当前阶段的 exit gate，才进入下一阶段</p></div><div class="flow six">{core_flow}</div><p class="notice"><strong>主干顺序：</strong>P0 解决“能否读懂代码与成本”，P1 解决“什么算证据”，P2 定义数据与目标，P3 建立正确模型基线，P4 让基线可扩展，P5 再改变任务行为。CS25 等前沿讲座放在 P4 之后，避免只记结论而无法判断实验条件。</p><div class="table-wrap"><table><thead><tr><th>阶段</th><th>为什么现在学</th><th>主读入口</th><th>必须产出</th><th>Exit gate</th></tr></thead><tbody>{''.join(core_rows)}</tbody></table></div></section>
+<section><div class="section-head"><h2>专业分支不是串行必修</h2><p>完成公共主干后选一条；第二条只按项目需要补</p></div><div class="grid">{''.join(branch_cards)}</div><article class="item gold" style="margin-top:14px"><p class="kicker">{LEARNING_CONVERGENCE["id"]} · 前置 {" + ".join(LEARNING_CONVERGENCE["prerequisites"])}</p><h3>{esc(LEARNING_CONVERGENCE["title"])}</h3><p><strong>内部顺序：</strong>{esc(LEARNING_CONVERGENCE["order"])}</p><p><strong>主读：</strong>{convergence_materials}</p><p><strong>产物：</strong>{esc(LEARNING_CONVERGENCE["output"])}</p><p class="small"><strong>过关：</strong>{esc(LEARNING_CONVERGENCE["exit"])}</p></article></section>
+<section id="tracks"><div class="section-head"><h2>按角色选择最短路径</h2><p>路径用于控制范围，不改变每阶段的验收标准</p></div><div class="table-wrap"><table><thead><tr><th>角色</th><th>建议顺序</th><th>取舍</th></tr></thead><tbody>{track_rows}</tbody></table></div></section>
+<section id="spine"><div class="section-head"><h2>八类知识索引</h2><p>用于查资料和排错，不表示八类必须依次学完</p></div><div class="stage-map" role="group" aria-label="八类技术知识索引">{stage_nodes}</div>
 <div class="stage-inspector" id="stage-inspector" style="--stage-color:{stage_colors[0][0]}" aria-live="polite"><div class="inspector-main"><p class="inspector-kicker" id="inspector-kicker">L{first_stage["order"]:02d} · {first_stage["item_count"]} 个条目</p><h3 id="inspector-title">{esc(first_stage["title"])}</h3><p class="inspector-question" id="inspector-question">{esc(first_stage["question"])}</p><p class="inspector-summary" id="inspector-summary">{esc(first_stage["summary"])}</p><div class="concept-list" id="inspector-concepts">{first_concepts}</div></div><div class="inspector-side"><p class="inspector-meta"><strong>前置依赖</strong><br><span id="inspector-dependencies">{esc(first_dependencies)}</span></p><p class="inspector-meta"><strong>工程验收产物</strong><br><span id="inspector-output">{esc(first_stage["engineering_output"])}</span></p><a class="inspector-link" id="inspector-link" href="#{first_stage["id"]}">进入本层资料 ↓</a></div></div>
-<p class="notice">这条主线既是依赖图，也是排错顺序：生产系统失效时，先检查评测与运行时，再沿 Agent、模型能力、架构、表征和数据向前追溯；不要默认问题只能靠换更大的模型解决。</p></section>
+<p class="notice">分类索引也是排错入口：生产系统失效时先检查评测与运行时，再按当前分支沿 Agent/生成/多模态、基础模型、架构、表征和数据向前追溯；不要默认问题只能靠换更大的模型解决。</p></section>
 <section id="coverage"><div class="section-head"><h2>知识分布与来源覆盖</h2><p>条目数量回答“学多少”，覆盖深度回答“去哪学”</p></div><div class="viz-grid"><div class="viz-panel"><h3>各能力层知识量</h3><p class="viz-caption">共 {len(records)} 个唯一条目；点击条形可同步上方能力说明。</p><div class="bar-chart">{bar_rows}</div></div><div class="viz-panel"><h3>十三个来源 × 八层能力</h3><p class="viz-caption">这是基于本地综述与索引的定性覆盖深度，不是重复论文或仓库的精确计数。</p><div class="heatmap-wrap"><div class="heatmap">{heat_headers}{''.join(heat_rows)}</div></div><div class="heat-legend"><span style="--legend-color:#f5f7f6">无覆盖</span><span style="--legend-color:#dcece5">辅助</span><span style="--legend-color:#5a9b88">主线</span><span style="--legend-color:#185f52">纵深</span></div></div></div></section>
 <section id="evolution"><div class="section-head"><h2>技术演进脉络</h2><p>不是模型名单，而是研究问题如何逐层变化</p></div><div class="timeline">{timeline_html}</div><details class="detail-table-toggle"><summary>查看技术演进对照表</summary><div class="table-wrap"><table><thead><tr><th>阶段</th><th>主要问题</th><th>代表转变</th><th>延伸到本知识库</th></tr></thead><tbody>
 <tr><td>2012–2016</td><td>如何学习可迁移表征和可计算生成分布？</td><td>Representation Learning、VAE、早期 Diffusion、Normalizing Flow、attention。</td><td>数据与表征、生成建模。</td></tr>
@@ -1991,17 +2343,16 @@ def build_knowledge_path(records: list[dict]) -> str:
 <tr><td>Model scaling vs Test-time scaling vs System scaling</td><td>分别增加训练时模型/数据、单题推理预算、以及并发 serving/工具/评测基础设施。</td><td>分别画训练 compute、单题 token/搜索预算和端到端成本—质量曲线。</td></tr>
 <tr><td>Agent success vs Tool-call success</td><td>工具成功只说明执行接口可用；任务成功还依赖计划、状态、约束、验证和副作用控制。</td><td>保存完整 trajectory，分别给最终结果、中间决策、安全和恢复评分。</td></tr>
 </tbody></table></div></section>
-<section id="route"><div class="section-head"><h2>10 周统一学习路线</h2><p>只保留一条默认主线，角色差异放到项目选题。</p></div><div class="table-wrap"><table><thead><tr><th>周</th><th>主线</th><th>学习动作</th><th>验收产物</th></tr></thead><tbody>
-<tr><td>1</td><td>研究方法</td><td>建立实验模板，复盘一个训练失败案例。</td><td>可复现 baseline 与实验日志。</td></tr>
-<tr><td>2</td><td>数据与表征</td><td>比较监督、自监督和对比目标。</td><td>表示质量、迁移和 OOD 对照。</td></tr>
-<tr><td>3</td><td>模型架构</td><td>比较 Transformer、CNN/ViT、SSM 或图结构。</td><td>质量—吞吐—显存模型卡。</td></tr>
-<tr><td>4</td><td>基础模型</td><td>学习 scaling、预训练数据、LoRA 与量化。</td><td>训练/适配/部署决策表。</td></tr>
-<tr><td>5</td><td>多模态</td><td>做 alignment、fusion 和 modality ablation。</td><td>单模态捷径与交互增益报告。</td></tr>
-<tr><td>6</td><td>生成建模</td><td>实现 DDPM 或 Flow Matching toy，并替换 sampler。</td><td>NFE—延迟—质量 Pareto。</td></tr>
-<tr><td>7</td><td>推理</td><td>比较 direct、CoT、self-consistency 和 search。</td><td>预算—成功率与 verifier 误差。</td></tr>
-<tr><td>8</td><td>Agent</td><td>加入工具、状态、重试和失败恢复。</td><td>可审计 trajectory 与故障分类。</td></tr>
-<tr><td>9</td><td>运行时与评测</td><td>建立 serving、环境、安全与 human override 指标。</td><td>端到端 evaluation harness。</td></tr>
-<tr><td>10</td><td>综合项目</td><td>选择 CV、AIGC 或 AI Engineer 场景贯穿 8 层。</td><td>技术报告、复现实验、成本与失败边界。</td></tr>
+<section id="route"><div class="section-head"><h2>12 周默认学习计划</h2><p>前 8 周完成公共主干，后 2 周只学一个分支</p></div><div class="table-wrap"><table><thead><tr><th>周</th><th>阶段</th><th>学习动作</th><th>验收产物</th></tr></thead><tbody>
+<tr><td>1</td><td>P0 先修闸门</td><td>micrograd/张量/反向传播；核算 attention/MLP 的 shape、FLOPs 与内存。</td><td>手写 backward 与资源账本。</td></tr>
+<tr><td>2</td><td>P1 研究方法</td><td>建立实验模板，复盘一个训练失败案例。</td><td>可复现 baseline、日志和失败分类。</td></tr>
+<tr><td>3</td><td>P2 数据与表征</td><td>实现 tokenizer；建立数据卡、split 与泄漏检查。</td><td>压缩率/序列预算、数据 lineage 与 OOD 方案。</td></tr>
+<tr><td>4-5</td><td>P3 模型架构</td><td>完成最小 Transformer LM；先过拟合小数据，再做组件消融。</td><td>测试、loss 曲线、checkpoint 恢复和模型卡。</td></tr>
+<tr><td>6-7</td><td>P4 训练系统与规模</td><td>profile/kernel/并行/scaling/inference；实现一条数据处理消融。</td><td>质量-速度-显存-通信与外推误差报告。</td></tr>
+<tr><td>8</td><td>P5 适配与后训练</td><td>先做 Prompt/RAG baseline，再选 LoRA/SFT/DPO/RLVR 之一。</td><td>公平对照、多 seed、成本和退化项。</td></tr>
+<tr><td>9-10</td><td>B1 / B2 / B3</td><td>只选择一个专业分支，按分支内部顺序完成核心实验。</td><td>多模态消融、生成 Pareto 或 Agent trajectory 三选一。</td></tr>
+<tr><td>11</td><td>P6 生产汇流</td><td>建立离线回归、shadow/canary、观测、回退和人工接管。</td><td>端到端 evaluation harness。</td></tr>
+<tr><td>12</td><td>综合验收</td><td>用一个真实场景贯穿数据、模型、系统、分支与运行时。</td><td>技术报告、复现实验、成本与失败边界。</td></tr>
 </tbody></table></div></section>
 {''.join(stage_sections)}
 <script>
@@ -2039,7 +2390,7 @@ def build_knowledge_path(records: list[dict]) -> str:
 }})();
 </script>
 """
-    return page("AI / CV / AIGC 统一知识主线", "将十三个来源和全部知识卡合并为一条从研究方法到生产反馈闭环的可执行技术脉络。", body, "path")
+    return page("AI / CV / AIGC 有序学习主线", "先完成六阶段公共主干，再选择 CV/多模态、AIGC/生成或 LLM/Agent 分支，最后汇入生产评测闭环。", body, "path")
 
 
 def notes_by_url(reading_rows: list[dict[str, str]]) -> dict[str, list[str]]:
@@ -2050,6 +2401,475 @@ def notes_by_url(reading_rows: list[dict[str, str]]) -> dict[str, list[str]]:
     return result
 
 
+def build_learning_plan() -> str:
+    phases: list[dict] = []
+    for index, phase in enumerate(LEARNING_CORE_SEQUENCE):
+        phases.append(
+            {
+                **phase,
+                "kind": "core",
+                "prerequisites": [] if index == 0 else [LEARNING_CORE_SEQUENCE[index - 1]["id"]],
+                "tasks": LEARNING_GATE_TASKS[phase["id"]],
+            }
+        )
+    for branch in LEARNING_BRANCHES:
+        phases.append(
+            {
+                **branch,
+                "kind": "branch",
+                "why": "完成公共能力后进入专业纵深；分支以可比较实验为主，不以阅读数量作为完成标准。",
+                "topics": [item.strip() for item in branch["order"].split("→")],
+                "tasks": LEARNING_GATE_TASKS[branch["id"]],
+            }
+        )
+    phases.append(
+        {
+            **LEARNING_CONVERGENCE,
+            "kind": "convergence",
+            "why": "把模型能力转化为可上线、可观测、可回退且能持续改进的工程系统。",
+            "topics": [item.strip() for item in LEARNING_CONVERGENCE["order"].split("→")],
+            "required_core": ["P1", "P4"],
+            "any_of": ["B1", "B2", "B3"],
+            "tasks": LEARNING_GATE_TASKS[LEARNING_CONVERGENCE["id"]],
+        }
+    )
+    payload = json.dumps(
+        {
+            "version": 1,
+            "phases": phases,
+            "tracks": LEARNING_TRACKS,
+            "recall": LEARNING_RECALL_BANK,
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).replace("</", "<\\/")
+    body = """
+<section class="notice info"><strong>本地学习状态：</strong>角色、阶段验收、证据和复习记录只写入当前浏览器的 <code>localStorage</code>。可随时导出 JSON 备份；清除浏览器数据前请先导出。</section>
+<section aria-labelledby="console-title">
+  <div class="plan-toolbar">
+    <div><h2 id="console-title">学习控制台</h2><p class="small">路径会按先修条件解锁。勾选任务不等于完成，必须同时提交可检查的实验或文档证据。</p></div>
+    <div id="role-selector" class="segmented" role="group" aria-label="选择学习角色"></div>
+  </div>
+  <div class="plan-actions">
+    <button class="command-button" id="export-progress" type="button">导出进度</button>
+    <button class="command-button" id="import-progress" type="button">导入进度</button>
+    <button class="command-button danger" id="reset-progress" type="button">重置</button>
+    <input id="import-file" type="file" accept="application/json" hidden>
+  </div>
+</section>
+<section class="learning-dashboard" aria-label="角色学习路线">
+  <div class="plan-summary">
+    <div class="progress-summary"><strong id="progress-value">0%</strong><span id="progress-label">路线完成度</span><div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progress-fill"></span></div></div>
+    <div class="summary-stat"><strong id="current-phase">P0</strong><span>当前阶段</span></div>
+    <div class="summary-stat"><strong id="evidence-count">0</strong><span>已验收证据</span></div>
+    <div class="summary-stat"><strong id="due-count">0</strong><span>今日待复习</span></div>
+  </div>
+  <div class="plan-layout">
+    <aside class="phase-rail" aria-label="阶段导航"><div class="phase-rail-head" id="track-description">公共主干 → 专业分支 → 生产汇流</div><div class="phase-list" id="phase-list"></div></aside>
+    <div class="phase-detail" id="phase-detail" aria-live="polite"></div>
+  </div>
+</section>
+<section class="learning-tools" aria-labelledby="tools-title">
+  <h2 id="tools-title" class="small" style="position:absolute;left:-9999px">学习工具</h2>
+  <div class="tool-tabs" role="tablist" aria-label="学习工具">
+    <button class="tool-tab" id="tab-today" role="tab" aria-selected="true" aria-controls="panel-today" type="button">今日计划</button>
+    <button class="tool-tab" id="tab-recall" role="tab" aria-selected="false" aria-controls="panel-recall" type="button">主动回忆</button>
+    <button class="tool-tab" id="tab-evidence" role="tab" aria-selected="false" aria-controls="panel-evidence" type="button">学习证据</button>
+  </div>
+  <div class="tool-panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today"></div>
+  <div class="tool-panel" id="panel-recall" role="tabpanel" aria-labelledby="tab-recall" hidden></div>
+  <div class="tool-panel" id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden></div>
+</section>
+<section>
+  <div class="section-head"><h2>设计边界</h2><p>本地系统能强化执行，但不能替代导师、同伴和真实用户。</p></div>
+  <div class="review-findings">
+    <div class="review-finding"><span class="severity">已解决</span><div><strong>从静态目录升级为学习状态机</strong><p class="small">角色路径、先修锁、当前任务、阶段验收、证据与进度持久化已接入。</p></div></div>
+    <div class="review-finding"><span class="severity">已解决</span><div><strong>从被动阅读升级为主动提取</strong><p class="small">内置概念回忆卡，按“不会 / 模糊 / 掌握”安排下一次本地复习。</p></div></div>
+    <div class="review-finding"><span class="severity">仍需外部</span><div><strong>导师反馈、同伴协作和真实场景迁移</strong><p class="small">阶段证据仍需代码评审、实验复核或用户反馈；完整差距与指标见 <a href="learning_design_review.md">设计审查报告</a>。</p></div></div>
+  </div>
+</section>
+<script>
+(() => {
+  "use strict";
+  const DATA = __PAYLOAD__;
+  const STORAGE_KEY = "aiOfflineLearningPlanV1";
+  const phaseById = new Map(DATA.phases.map((phase) => [phase.id, phase]));
+  const validPhaseIds = new Set(DATA.phases.map((phase) => phase.id));
+  const validRoles = new Set(DATA.tracks.map((track) => track.id));
+  const validRecallIds = new Set(DATA.recall.map((card) => card.id));
+  let selectedId = "P0";
+  let revealedRecallId = null;
+
+  const emptyState = () => ({ version: 1, role: "llm", completed: [], checks: {}, evidence: {}, recall: {}, history: [] });
+  function normalizeState(candidate) {
+    const base = emptyState();
+    if (!candidate || typeof candidate !== "object") return base;
+    base.role = validRoles.has(candidate.role) ? candidate.role : base.role;
+    const requested = new Set(Array.isArray(candidate.completed) ? candidate.completed.filter((id) => validPhaseIds.has(id)) : []);
+    for (const phase of DATA.phases) {
+      if (!requested.has(phase.id)) continue;
+      const allowed = phase.kind === "convergence"
+        ? phase.required_core.every((id) => base.completed.includes(id)) && phase.any_of.some((id) => base.completed.includes(id))
+        : (phase.prerequisites || []).every((id) => base.completed.includes(id));
+      if (allowed) base.completed.push(phase.id);
+    }
+    for (const phase of DATA.phases) {
+      const checks = candidate.checks?.[phase.id];
+      if (Array.isArray(checks)) base.checks[phase.id] = [0, 1, 2].map((index) => Boolean(checks[index]));
+      const evidence = candidate.evidence?.[phase.id];
+      if (typeof evidence === "string") base.evidence[phase.id] = evidence.slice(0, 20000);
+    }
+    for (const [id, record] of Object.entries(candidate.recall || {})) {
+      if (!validRecallIds.has(id) || !record || typeof record !== "object") continue;
+      base.recall[id] = {
+        rating: [0, 1, 2].includes(record.rating) ? record.rating : 0,
+        streak: Number.isInteger(record.streak) ? Math.max(0, Math.min(record.streak, 100)) : 0,
+        reviewed_at: typeof record.reviewed_at === "string" ? record.reviewed_at : null,
+        due: typeof record.due === "string" && !Number.isNaN(Date.parse(record.due)) ? record.due : null,
+      };
+    }
+    base.history = Array.isArray(candidate.history) ? candidate.history.filter((item) => item && validPhaseIds.has(item.phase) && typeof item.evidence === "string").slice(-100) : [];
+    return base;
+  }
+  function loadState() {
+    try { return normalizeState(JSON.parse(localStorage.getItem(STORAGE_KEY))); }
+    catch (_) { return emptyState(); }
+  }
+  let state = loadState();
+  function persist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (_) { /* The page still works in-memory when browser storage is unavailable. */ }
+  }
+  const completed = (id) => state.completed.includes(id);
+  const track = () => DATA.tracks.find((item) => item.id === state.role) || DATA.tracks[0];
+  const route = () => track().phase_ids.map((id) => phaseById.get(id)).filter(Boolean);
+  function isUnlocked(phase) {
+    if (completed(phase.id)) return true;
+    if (phase.kind === "convergence") {
+      return phase.required_core.every(completed) && phase.any_of.some(completed);
+    }
+    return (phase.prerequisites || []).every(completed);
+  }
+  function phaseStatus(phase) {
+    if (completed(phase.id)) return "completed";
+    return isUnlocked(phase) ? "current" : "locked";
+  }
+  function currentPhase() {
+    return route().find((phase) => !completed(phase.id) && isUnlocked(phase)) || route().find((phase) => !completed(phase.id)) || route().at(-1);
+  }
+  function phaseChecks(id) {
+    const saved = Array.isArray(state.checks[id]) ? state.checks[id] : [];
+    return [0, 1, 2].map((index) => Boolean(saved[index]));
+  }
+  function dueRecallCards() {
+    const today = new Date();
+    const routeIds = new Set(route().map((phase) => phase.id));
+    return DATA.recall.filter((card) => {
+      const phase = phaseById.get(card.phase);
+      if (!routeIds.has(card.phase) || !phase || (!completed(card.phase) && !isUnlocked(phase))) return false;
+      const record = state.recall[card.id];
+      return !record || !record.due || new Date(record.due) <= today;
+    });
+  }
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+  }
+  function missingGate(phase) {
+    if (phase.kind === "convergence") {
+      const missingCore = phase.required_core.filter((id) => !completed(id));
+      const branchReady = phase.any_of.some(completed);
+      const parts = missingCore.map((id) => phaseById.get(id).title);
+      if (!branchReady) parts.push("至少一个专业分支");
+      return parts;
+    }
+    return (phase.prerequisites || []).filter((id) => !completed(id)).map((id) => phaseById.get(id).title);
+  }
+
+  function renderRoles() {
+    const host = document.getElementById("role-selector");
+    host.replaceChildren(...DATA.tracks.map((item) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = item.role.replace(" Engineer", "").replace(" / Tech Lead", "");
+      button.setAttribute("aria-pressed", String(item.id === state.role));
+      button.addEventListener("click", () => {
+        state.role = item.id;
+        selectedId = currentPhase().id;
+        persist();
+        renderAll();
+      });
+      return button;
+    }));
+  }
+  function renderSummary() {
+    const phases = route();
+    const done = phases.filter((phase) => completed(phase.id)).length;
+    const percent = Math.round((done / phases.length) * 100);
+    const current = currentPhase();
+    document.getElementById("progress-value").textContent = percent + "%";
+    document.getElementById("progress-label").textContent = done + " / " + phases.length + " 个路线阶段已验收";
+    document.getElementById("progress-fill").style.width = percent + "%";
+    document.getElementById("current-phase").textContent = current ? current.id : "完成";
+    document.getElementById("evidence-count").textContent = phases.filter((phase) => completed(phase.id) && String(state.evidence[phase.id] || "").trim()).length;
+    document.getElementById("due-count").textContent = dueRecallCards().length;
+    document.getElementById("track-description").textContent = track().path;
+  }
+  function renderRail() {
+    const host = document.getElementById("phase-list");
+    host.replaceChildren(...route().map((phase) => {
+      const status = phaseStatus(phase);
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "phase-button";
+      button.dataset.status = status;
+      button.disabled = status === "locked";
+      button.setAttribute("aria-current", String(phase.id === selectedId));
+      const stateLabel = status === "completed" ? "已验收" : status === "locked" ? "等待先修" : "可执行";
+      button.innerHTML = `<span class="phase-code">${escapeHTML(status === "completed" ? "✓" : phase.id)}</span><span><span class="phase-name">${escapeHTML(phase.title)}</span><span class="phase-state">${stateLabel}</span></span>`;
+      button.addEventListener("click", () => { selectedId = phase.id; renderRail(); renderDetail(); });
+      return button;
+    }));
+  }
+  function renderDetail() {
+    let phase = phaseById.get(selectedId);
+    if (!phase || !track().phase_ids.includes(phase.id)) {
+      phase = currentPhase();
+      selectedId = phase.id;
+    }
+    const host = document.getElementById("phase-detail");
+    const status = phaseStatus(phase);
+    const statusLabel = status === "completed" ? "已验收" : status === "locked" ? "未解锁" : "进行中";
+    const topics = (phase.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join("");
+    const materials = phase.materials.map((material) => `<a href="${escapeHTML(material.url)}">${escapeHTML(material.title)}</a>`).join("");
+    const checks = phaseChecks(phase.id);
+    const gateRows = phase.tasks.map((task, index) => `<label class="gate-row"><input type="checkbox" data-gate-index="${index}" ${checks[index] ? "checked" : ""} ${status !== "current" ? "disabled" : ""}><span>${escapeHTML(task)}</span></label>`).join("");
+    const missing = missingGate(phase);
+    const gateNote = status === "locked" ? "需先完成：" + missing.join("；") : status === "completed" ? "该阶段已验收并写入学习证据。" : "完成三项检查，并填写可定位的代码、报告或实验记录。";
+    host.innerHTML = `
+      <div class="phase-detail-head"><div><p class="kicker">${escapeHTML(phase.id)} · ${phase.kind === "branch" ? "专业分支" : phase.kind === "convergence" ? "生产汇流" : "公共主干"}</p><h2>${escapeHTML(phase.title)}</h2><p class="small">${escapeHTML(phase.why)}</p></div><span class="status-badge ${status}">${statusLabel}</span></div>
+      <div class="phase-block"><h3>本阶段技术范围</h3><div>${topics}</div></div>
+      <div class="phase-block"><h3>优先材料</h3><div class="material-links">${materials}</div></div>
+      <div class="phase-block"><h3>验收任务</h3><div class="gate-list">${gateRows}</div></div>
+      <div class="phase-block"><h3>学习证据</h3><p class="small">填写本地文件路径、Git commit、实验表或技术报告位置，并简述结论。</p><textarea class="evidence-input" id="phase-evidence" ${status !== "current" ? "readonly" : ""} placeholder="例如：experiments/p3-transformer/report.md；commit abc123；小数据过拟合到 loss 0.03，checkpoint 恢复连续。"></textarea><div class="gate-submit"><button class="command-button primary" id="submit-gate" type="button">提交阶段验收</button><span class="gate-message" id="gate-message">${escapeHTML(gateNote)}</span></div></div>
+      <div class="phase-block notice info"><strong>验收产物：</strong>${escapeHTML(phase.output)}<br><strong>通过标准：</strong>${escapeHTML(phase.exit)}</div>`;
+    const evidence = document.getElementById("phase-evidence");
+    evidence.value = state.evidence[phase.id] || "";
+    const submit = document.getElementById("submit-gate");
+    function updateSubmit() {
+      const ready = phaseChecks(phase.id).every(Boolean) && evidence.value.trim().length > 0;
+      submit.disabled = status !== "current" || !ready;
+      if (status === "current") document.getElementById("gate-message").textContent = ready ? "条件满足，可以提交。" : "需要完成三项任务并填写证据。";
+    }
+    host.querySelectorAll("[data-gate-index]").forEach((input) => input.addEventListener("change", () => {
+      const values = phaseChecks(phase.id);
+      values[Number(input.dataset.gateIndex)] = input.checked;
+      state.checks[phase.id] = values;
+      persist();
+      updateSubmit();
+    }));
+    evidence.addEventListener("input", () => { state.evidence[phase.id] = evidence.value; persist(); updateSubmit(); });
+    submit.addEventListener("click", () => {
+      if (submit.disabled) return;
+      state.evidence[phase.id] = evidence.value.trim();
+      state.completed = [...new Set([...state.completed, phase.id])];
+      state.history.push({ phase: phase.id, title: phase.title, evidence: state.evidence[phase.id], completed_at: new Date().toISOString() });
+      state.history = state.history.slice(-100);
+      selectedId = currentPhase().id;
+      persist();
+      renderAll();
+    });
+    updateSubmit();
+  }
+  function renderToday() {
+    const host = document.getElementById("panel-today");
+    const phase = currentPhase();
+    const done = route().every((item) => completed(item.id));
+    const unchecked = phase ? phase.tasks.find((_, index) => !phaseChecks(phase.id)[index]) : null;
+    const material = phase && phase.materials.length ? phase.materials[0] : null;
+    const recallCount = dueRecallCards().length;
+    host.innerHTML = `<div class="section-head"><h3>${done ? "路线已完成" : "下一次专注块"}</h3><p>${escapeHTML(track().focus)}</p></div><div class="today-grid">
+      <div class="today-step"><small>01 · 输入</small><strong>${material ? escapeHTML(material.title) : "回顾综合产物"}</strong><span>${material ? "只读到能开始本阶段实验，不追求一次读完。" : "检查证据是否能被他人复现。"}</span></div>
+      <div class="today-step"><small>02 · 输出</small><strong>${unchecked ? escapeHTML(unchecked) : done ? "复核生产闭环" : "补全学习证据"}</strong><span>${phase ? escapeHTML(phase.id + " · " + phase.title) : "已完成"}</span></div>
+      <div class="today-step"><small>03 · 提取</small><strong>${recallCount} 张到期回忆卡</strong><span>${recallCount ? "先回答，再展开参考答案并评估记忆。" : "今天没有到期卡片。"}</span></div>
+    </div>`;
+  }
+  function renderRecall() {
+    const host = document.getElementById("panel-recall");
+    const due = dueRecallCards();
+    const card = due[0];
+    if (!card) {
+      const future = DATA.recall.map((item) => state.recall[item.id]?.due).filter(Boolean).sort()[0];
+      host.innerHTML = `<div class="empty-state"><strong>当前没有到期回忆卡</strong><br>${future ? "下一次计划复习：" + escapeHTML(new Date(future).toLocaleString("zh-CN")) : "完成阶段后继续积累复习记录。"}</div>`;
+      return;
+    }
+    const revealed = revealedRecallId === card.id;
+    host.innerHTML = `<div class="recall-tool"><div class="recall-main"><p class="kicker">${escapeHTML(card.id)} · ${escapeHTML(card.phase)}</p><p class="recall-prompt">${escapeHTML(card.prompt)}</p><button class="command-button primary" id="reveal-answer" type="button" ${revealed ? "hidden" : ""}>展开答案</button></div><div class="recall-answer"><h3>参考答案</h3><p id="recall-answer-text">${revealed ? escapeHTML(card.answer) : "先在纸上或脑中作答，再展开。"}</p><div class="recall-rating" id="recall-rating" ${revealed ? "" : "hidden"}><button class="command-button" data-rating="0" type="button">不会</button><button class="command-button" data-rating="1" type="button">模糊</button><button class="command-button primary" data-rating="2" type="button">掌握</button></div></div></div>`;
+    const reveal = document.getElementById("reveal-answer");
+    if (reveal) reveal.addEventListener("click", () => { revealedRecallId = card.id; renderRecall(); });
+    host.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
+      const rating = Number(button.dataset.rating);
+      const previous = state.recall[card.id] || { streak: 0 };
+      const streak = rating === 2 ? previous.streak + 1 : rating === 1 ? previous.streak : 0;
+      const masteredIntervals = [3, 7, 14, 30, 60];
+      const interval = rating === 0 ? 1 : rating === 1 ? 2 : masteredIntervals[Math.min(streak - 1, masteredIntervals.length - 1)];
+      const dueDate = new Date();
+      dueDate.setDate(dueDate.getDate() + interval);
+      state.recall[card.id] = { rating, streak, reviewed_at: new Date().toISOString(), due: dueDate.toISOString() };
+      revealedRecallId = null;
+      persist();
+      renderSummary();
+      renderToday();
+      renderRecall();
+    }));
+  }
+  function renderEvidence() {
+    const host = document.getElementById("panel-evidence");
+    const items = [...state.history].filter((item) => item && validPhaseIds.has(item.phase)).reverse();
+    if (!items.length) {
+      host.innerHTML = '<div class="empty-state"><strong>还没有通过验收的学习证据</strong><br>从 P0 开始，提交可定位、可检查、可复现的产物。</div>';
+      return;
+    }
+    host.innerHTML = `<div class="artifact-list">${items.map((item) => `<div class="artifact-row"><strong>${escapeHTML(item.phase)}</strong><span>${escapeHTML(item.title)}</span><span>${escapeHTML(item.evidence)}</span><time datetime="${escapeHTML(item.completed_at)}">${escapeHTML(new Date(item.completed_at).toLocaleDateString("zh-CN"))}</time></div>`).join("")}</div>`;
+  }
+  function renderAll() {
+    renderRoles();
+    renderSummary();
+    renderRail();
+    renderDetail();
+    renderToday();
+    renderRecall();
+    renderEvidence();
+  }
+
+  document.querySelectorAll(".tool-tab").forEach((tab) => tab.addEventListener("click", () => {
+    document.querySelectorAll(".tool-tab").forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    document.querySelectorAll(".tool-panel").forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+  }));
+  document.getElementById("export-progress").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "ai-learning-progress-" + new Date().toISOString().slice(0, 10) + ".json";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  });
+  document.getElementById("import-progress").addEventListener("click", () => document.getElementById("import-file").click());
+  document.getElementById("import-file").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      state = normalizeState(JSON.parse(await file.text()));
+      selectedId = currentPhase().id;
+      persist();
+      renderAll();
+    } catch (_) { alert("导入失败：文件不是有效的学习进度 JSON。"); }
+    event.target.value = "";
+  });
+  document.getElementById("reset-progress").addEventListener("click", () => {
+    if (!confirm("确定清除所有本地阶段、证据和复习记录？此操作无法撤销。")) return;
+    state = emptyState();
+    selectedId = "P0";
+    revealedRecallId = null;
+    persist();
+    renderAll();
+  });
+  selectedId = currentPhase().id;
+  renderAll();
+})();
+</script>
+""".replace("__PAYLOAD__", payload)
+    return page(
+        "AI / CV / AIGC 自适应学习计划",
+        "选择角色，从公共主干进入专业分支；用先修门槛、阶段证据、主动回忆和间隔复习驱动下一步。",
+        body,
+        "plan",
+    )
+
+
+def build_learning_design_review() -> str:
+    return """# 离线 AI 知识库学习体验设计审查
+
+审查日期：2026-07-15
+审查对象：`ai_offline_knowledge_base/` 课程、知识地图、论文矩阵与离线资料页。
+
+## 结论
+
+现有知识库在“资料覆盖、来源保真、技术聚类和先后依赖”上已达到可靠的离线技术手册水平，但此前仍是静态内容系统：它能回答“学什么”，不能持续回答“我现在该做什么、是否真的掌握、何时复习、产物是否可验证”。距离新一代教育交互的主要差距不是内容数量，而是学习状态、反馈与迁移闭环。
+
+## 主要发现
+
+### P0 · 静态目录没有学习状态和先修约束
+
+用户可以任意跳到前沿主题，却无法知道基础门槛是否满足；页面访问也被隐式当成学习完成。后果是路径看似完整，实际容易形成概念熟悉感而非可执行能力。
+
+**已改进：**新增 `learning_plan.html`，把 P0-P6 与 B1-B3 建模为状态机；未满足先修条件的阶段锁定，按 AI/LLM、CV、多模态、AIGC 和研究角色给出不同最短路径。
+
+### P1 · 学习动作偏被动，没有提取练习和延迟复习
+
+总结、论文矩阵和视频转写适合检索，但连续阅读不能稳定形成长期记忆，也无法暴露错误理解。
+
+**已改进：**加入主动回忆卡；用户必须先作答再展开答案，并按“不会 / 模糊 / 掌握”安排 1-60 天后的下次复习。记录只保存在本地。
+
+### P1 · 缺少可检查的能力证据
+
+此前 exit gate 只有文本说明，没有提交机制。学习完成度无法区别“读过”“跑通”“公平比较”和“能解释失败”。
+
+**已改进：**每阶段设置三项验收任务，必须附代码路径、Git commit、实验表或报告结论才能通过。证据进入本地时间线，可导出 JSON 审计。
+
+### P2 · 同一内容入口无法适配角色和下一步
+
+AI/LLM、CV、多模态、AIGC 和研究负责人所需分支不同；统一长目录会增加选择成本。
+
+**已改进：**角色切换会重排路线和“今日计划”，同时保留跨角色已完成阶段；当前输入、输出和到期复习在同一屏给出。
+
+### P2 · 进度不可迁移，清理浏览器会丢失
+
+纯本地状态保护隐私，但需要显式可移植机制。
+
+**已改进：**提供进度 JSON 导出、导入和带确认的重置；导入时过滤未知角色和阶段，避免旧数据破坏页面。
+
+## 仍然存在的差距
+
+1. **导师反馈：**系统能检查“是否提交证据”，不能自动判断实验设计、代码质量和结论是否正确。关键阶段仍需 code review、论文讨论或导师复核。
+2. **同伴协作：**没有共同批注、争议记录、pair reproduction 和同行评分。多人协作适合后续接入 Git 或团队知识平台，而非写入静态页面。
+3. **真实任务迁移：**内置 gate 是通用验收，不能替代真实用户、线上分布和业务约束。P6 必须接真实 shadow/canary 与人工接管演练。
+4. **长期自适应：**当前间隔算法依据自评，不依据真实测验难度、反应时间和遗忘参数；尚未形成知识点级 Bayesian Knowledge Tracing 或 IRT 模型。
+5. **内容增量治理：**来源有版本日期，但还没有自动差异抓取、陈旧度告警和“新论文是否改变既有结论”的冲突审查。
+
+## 下一阶段建议
+
+### 1. 证据评审协议
+
+为 P1、P3、P4、专业分支和 P6 各建立一份机器可读 rubric：正确性、复现性、公平预算、失败覆盖、成本和结论边界。证据提交后由导师或同伴给出 pass / revise / reject，而不是只靠自评。
+
+### 2. 项目驱动的动态路径
+
+让用户先定义一个真实项目及约束，再由系统从知识图中只选必要阶段。例如“低显存人物 LoRA”应优先 P2、P4、B2 和 P6，而不是完整学习 B1/B3。
+
+### 3. 诊断式测验
+
+每阶段增加最小可自动判定测试：张量 shape、tokenizer round-trip、checkpoint continuity、单模态遮蔽、sampler/NFE 公平比较、Agent side-effect 检查。用实际结果调整复习和补课，不只看自评。
+
+### 4. 学习分析指标
+
+不要以阅读时长或点击数作为主指标。优先跟踪：
+
+- `gate pass rate`：首次提交通过率与修订次数。
+- `evidence coverage`：完成阶段中具有可定位证据的比例，目标 100%。
+- `delayed recall`：7 天和 30 天后无需提示的正确率。
+- `time to reproducible artifact`：从进入阶段到产出可复现实验的时间。
+- `transfer score`：换数据、换模型或换约束后，能否保持方法有效。
+- `production regression escape rate`：未被离线评测捕获、进入线上才暴露的问题比例。
+
+## 隐私与离线原则
+
+- 页面不加载外部脚本、字体或分析服务。
+- 学习状态默认仅保存在浏览器 `localStorage`。
+- 导出文件由用户自行保管；其中可能含本地路径、commit 和实验结论，不应自动上传。
+- 原网页、视频和论文全文仍需联网访问；本地总结、结构化索引、字幕和已有快照可离线学习。
+"""
+
+
 def build_index(records: list[dict]) -> str:
     domain_count = len({record["domain"] for record in records})
     paper_count = sum("论文/预印本" in record["kinds"] for record in records)
@@ -2057,7 +2877,7 @@ def build_index(records: list[dict]) -> str:
     body = f"""
 <section class="notice info"><strong>离线使用说明：</strong>本页、课程页、论文矩阵和来源综述均为本地 HTML，无外部脚本、字体或图片依赖。当前知识库索引 <strong>{len(records)}</strong> 个唯一 URL，覆盖 <strong>{domain_count}</strong> 个来源域名；<strong>{annotated_count}/{len(records)}</strong> 项已具有技术类别、中文学习定位和阅读优先级，其中 {paper_count} 项标记为论文/预印本。原网页、视频和论文全文仍需要联网访问。</section>
 <section>
-  <div class="section-head"><h2>从资料到能力的七个模块</h2><p>按“表征 → 模型 → 生成 → 系统 → 评测”而非按网页来源学习。</p></div>
+  <div class="section-head"><h2>七个知识领域</h2><p>用于查资料；不要把领域编号误当成学习顺序。</p></div>
   <div class="grid">
     <article class="item"><p class="kicker">01 · 研究与表示</p><h3>数据、归纳偏置与泛化</h3><p>理解训练分布、监督信号、结构不变性与表征质量如何共同决定泛化。先读 How2AI 的 data/structure，再用 Karpathy 的训练调试流程落地。</p><span class="pill">representation</span><span class="pill">generalization</span></article>
     <article class="item teal"><p class="kicker">02 · 模型底座</p><h3>Transformer 与 Foundation Models</h3><p>把 attention、位置编码、norm、MLP、tokenizer、KV cache、MoE 和 scaling 当作可拆分的工程变量，而不是一个黑盒“LLM”。</p><span class="pill">architecture</span><span class="pill">scaling</span></article>
@@ -2069,22 +2889,24 @@ def build_index(records: list[dict]) -> str:
   </div>
 </section>
 <section>
-  <div class="section-head"><h2>一条完整技术主线</h2><p>每一个箭头都对应可测试的系统假设。</p></div>
-  <div class="flow"><div>数据与任务<br><small>分布、结构、标注</small></div><div>表征学习<br><small>不变性与特征</small></div><div>Transformer<br><small>规模与上下文</small></div><div>多模态<br><small>对齐、融合、迁移</small></div><div>生成模型<br><small>扩散、流、采样</small></div><div>Agent<br><small>搜索、工具、验证</small></div><div>闭环系统<br><small>评测、反馈、治理</small></div></div>
-  <p class="notice">工程上最容易被遗漏的是最后一段：更大模型只会改变能力上限；环境覆盖、评测质量、轨迹数据、回归测试和人工接管决定系统是否能持续可用。</p>
+  <div class="section-head"><h2>实际学习顺序</h2><p>公共主干必须按依赖推进，专业分支不串行。</p></div>
+  <div class="flow six"><div>P0 先修<br><small>张量、梯度、成本</small></div><div>P1 方法<br><small>假设与证据</small></div><div>P2 数据<br><small>分布、token、目标</small></div><div>P3 模型<br><small>正确基线</small></div><div>P4 系统<br><small>训练、规模、推理</small></div><div>P5 适配<br><small>RAG/SFT/RL</small></div></div>
+  <div class="grid" style="margin-top:14px"><article class="item"><h3>B1 · CV / 多模态</h3><p>alignment → fusion → transfer → multimodal LLM</p></article><article class="item teal"><h3>B2 · AIGC / 生成</h3><p>VAE/Flow → Diffusion/Score → DiT/Flow Matching → 微调采样</p></article><article class="item coral"><h3>B3 · LLM / Agent</h3><p>Prompt/RAG → reasoning/verifier → tool/state → Agent runtime</p></article></div>
+  <p class="notice"><strong>最后汇流：</strong>完成一个分支后统一进入 P6 生产闭环，补齐离线评测、shadow/canary、可观测性、回退、人工接管与失败数据回流。先在 <a href="learning_plan.html">交互式学习计划</a>选择角色并记录验收，再用 <a href="knowledge_path.html#sequence">知识地图</a>查完整依赖。</p>
 </section>
 <section>
   <div class="section-head"><h2>知识库入口</h2><p>先读离线内容，再按需打开外部原文。</p></div>
   <ul class="chapter-list">
-    <li><a href="knowledge_path.html"><strong>统一知识主线（建议从这里开始）</strong><span>将全部条目合并为 8 层能力堆栈、技术演进、概念边界和 10 周路线。</span></a></li>
+    <li><a href="learning_plan.html"><strong>交互式学习计划（从这里开始）</strong><span>按角色解锁阶段，以三项 gate、学习证据、主动回忆和间隔复习推动下一步。</span></a></li>
+    <li><a href="knowledge_path.html"><strong>有序知识地图</strong><span>六阶段公共主干、三个专业分支、生产汇流、阶段 exit gate 与 12 周路线。</span></a></li>
     <li><a href="sources.html"><strong>十三个来源的技术综述</strong><span>明确每个课程、博客、代码和视频来源解决的问题、边界与互补关系。</span></a></li>
     <li><a href="how2ai.html"><strong>MIT How2AI 课程地图</strong><span>按讲次保留子主题、slides/video 与全部课程 readings。</span></a></li>
     <li><a href="stanford_cs25.html"><strong>Stanford CS25 · Transformers United V6</strong><span>9 个 2026 前沿讲次、精选录播、论文和面向工程师的 4 周研讨路线。</span></a></li>
-    <li><a href="stanford_cs336.html"><strong>Stanford CS336 · Language Modeling from Scratch</strong><span>19 讲、5 个实现作业、17 份本地课件和 18 场可搜索字幕录播，串起语言模型完整生命周期。</span></a></li>
+    <li><a href="stanford_cs336.html"><strong>Stanford CS336 · Language Modeling from Scratch</strong><span>19 讲、5 个实现作业、官方材料索引和 18 场可搜索清洗字幕，串起语言模型完整生命周期。</span></a></li>
     <li><a href="karpathy.html"><strong>Karpathy GitHub 学习地图</strong><span>63 个公开仓库快照，从 micrograd、nanochat 和 C/CUDA 推进到 autoresearch。</span></a></li>
     <li><a href="ai_toolkit.html"><strong>Ostris AI Toolkit 训练地图</strong><span>从数据与 buckets、LoRA/LoKr、量化和 flow matching 推进到采样评测、恢复与 UI/CLI 运行。</span></a></li>
     <li><a href="kaggle_genai.html"><strong>Kaggle 5-Day Gen AI Intensive</strong><span>5 场直播串联 Prompt、Embedding/RAG、Agent、领域适配与 GenAI MLOps，含中文综述、时间轴、关键帧和完整英文自动逐字稿。</span></a></li>
-    <li><a href="agent_architecture.html"><strong>AI Agent 架构趋势及演进</strong><span>从 workflow/agentic 和 context engineering 推进到 MCP/AI Gateway、状态恢复、OpenTelemetry 与持续评测，含本地 720p 视频、幻灯片和 Whisper 中文稿。</span></a></li>
+    <li><a href="agent_architecture.html"><strong>AI Agent 架构趋势及演进</strong><span>从 workflow/agentic 和 context engineering 推进到 MCP/AI Gateway、状态恢复、OpenTelemetry 与持续评测，含关键幻灯片和 Whisper 中文稿。</span></a></li>
     <li><a href="how2ai_full_report.html"><strong>How2AI 完整中文报告</strong><span>原有课程报告的离线副本：知识地图、技术主线和学习路径。</span></a></li>
     <li><a href="diffusion_full_guide.html"><strong>Diffusion 专题报告</strong><span>DDPM、Score-SDE、Flow Matching、VAE、DiT、Guidance 与实验。</span></a></li>
     <li><a href="reasoning_full_guide.html"><strong>LLM 推理与 Agent 指南</strong><span>CS 159、Lil’Log、Transformer Taxonomy、Thinking Machines 与 Labelbox。</span></a></li>
@@ -2093,16 +2915,14 @@ def build_index(records: list[dict]) -> str:
   </ul>
 </section>
 <section>
-  <div class="section-head"><h2>8 周离线自学节奏</h2><p>每周要求有可检查产出，而非只增加阅读时长。</p></div>
+  <div class="section-head"><h2>8 周压缩学习节奏</h2><p>只选一个专业分支；完整版本见 12 周有序路线。</p></div>
   <div class="table-wrap"><table><thead><tr><th>周</th><th>主题</th><th>离线主读</th><th>必须产出</th></tr></thead><tbody>
-  <tr><td>1</td><td>数据、表示与研究方法</td><td>How2AI Week 1–2；论文矩阵中的表征/调试资料。</td><td>数据—目标—指标三列表和一个可复现实验模板。</td></tr>
-  <tr><td>2</td><td>Transformer 配方</td><td>Taxonomy 与 Lil’Log 的 attention/Transformer 条目。</td><td>模型卡：attention、位置、norm、MLP、KV cache、tokenizer。</td></tr>
-  <tr><td>3</td><td>多模态</td><td>How2AI Week 5–7。</td><td>比较 alignment / fusion / transfer 的实验设计。</td></tr>
-  <tr><td>4</td><td>扩散与流</td><td>Diffusion 专题报告；AI Toolkit 的数据与 config 解剖。</td><td>DDPM/Flow Matching toy，或固定 prompt/seed 的最小 LoRA 基线。</td></tr>
-  <tr><td>5</td><td>Foundation / Multimodal LLM</td><td>How2AI Week 9–11；Taxonomy。</td><td>为一个任务写清预训练、适配、量化和评测方案。</td></tr>
-  <tr><td>6</td><td>推理、搜索和工具</td><td>CS 159 模块与 LLM 推理指南。</td><td>带工具 schema、状态与 verifier 的最小 Agent。</td></tr>
-  <tr><td>7</td><td>后训练与运行时</td><td>Thinking Machines 条目；AI Toolkit 的量化、cache、恢复与 UI/CLI 边界。</td><td>FullFT/LoRA、显存优化或不同 sampler 的公平对照实验。</td></tr>
-  <tr><td>8</td><td>评测、安全与人机协作</td><td>Labelbox 条目与 How2AI HAI。</td><td>含隐藏约束、失败路径和人工接管的 evaluation harness。</td></tr>
+  <tr><td>1</td><td>P0 + P1</td><td>Karpathy 基础、How2AI 研究方法。</td><td>手写 backward、资源账本和可复现实验模板。</td></tr>
+  <tr><td>2</td><td>P2 数据与表征</td><td>CS336 L1/L13-L14；How2AI data/representation。</td><td>tokenizer 报告、数据卡、split 与泄漏检查。</td></tr>
+  <tr><td>3</td><td>P3 模型基线</td><td>CS336 A1；Karpathy microgpt/build-nanogpt。</td><td>可过拟合、可恢复、测试通过的最小 Transformer。</td></tr>
+  <tr><td>4-5</td><td>P4 + P5</td><td>CS336 A2-A5；训练、规模、推理、评测与适配。</td><td>性能 profile 和 Prompt/RAG/训练适配公平对照。</td></tr>
+  <tr><td>6-7</td><td>B1 / B2 / B3</td><td>多模态、生成模型或 Agent 只选一条。</td><td>分支规定的可验收核心实验。</td></tr>
+  <tr><td>8</td><td>P6 生产汇流</td><td>CS336 evaluation、Kaggle MLOps、Thinking Machines/Labelbox。</td><td>含质量、成本、回退与人工接管的 evaluation harness。</td></tr>
   </tbody></table></div>
 </section>
 <section class="notice"><strong>使用边界：</strong>“全文离线学习”在这里指课程结构、技术解释、学习任务、阅读定位与来源元数据都可离线查看。知识库不复制论文、视频、Google Drive/Colab 或商业博客的全文；它们仍以原始链接保留，避免版权、访问权限与版本漂移问题。</section>
@@ -2170,11 +2990,12 @@ def build_how2ai(schedule: list[dict], reading_rows: list[dict[str, str]]) -> st
                 readings.append(f"<li>{link(url, title)}{note_text}</li>")
             reading_html = f'<ul class="reading-list">{"".join(readings)}</ul>' if readings else '<p class="small">本讲未列出 readings。</p>'
             subtopic_html = "".join(f"<li>{esc(value)}</li>" for value in subtopics)
+            subtopic_block = f"<ul>{subtopic_html}</ul>" if subtopic_html else ""
             blocks.append(
-                f'''<article class="lecture"><h3>{esc(lecture.get("date", "日期未标注"))} · {esc(topic)}</h3>
-                <p class="lecture-meta">{esc(lecture_role(topic))} · {resource_text}</p>
-                {f"<ul>{subtopic_html}</ul>" if subtopic_html else ""}
-                <details><summary>查看本讲 readings（{len(readings)} 项）</summary><div>{reading_html}</div></details></article>'''
+                f'<article class="lecture"><h3>{esc(lecture.get("date", "日期未标注"))} · {esc(topic)}</h3>'
+                f'<p class="lecture-meta">{esc(lecture_role(topic))} · {resource_text}</p>'
+                f'{subtopic_block}'
+                f'<details><summary>查看本讲 readings（{len(readings)} 项）</summary><div>{reading_html}</div></details></article>'
             )
         schedule_html.append(f'<section id="{slugify(week)}"><div class="section-head"><h2>{esc(week)}</h2><p>{len(week_groups[week])} 个课程节点</p></div>{"".join(blocks)}</section>')
     body = f"""
@@ -2252,17 +3073,10 @@ def build_cs336(course: dict) -> str:
     for lecture in course["lectures"]:
         resources = []
         resources.extend(link(item["url"], item["title"]) for item in lecture.get("material_links", []))
-        if lecture.get("local_material_path"):
-            suffix = Path(lecture["local_material_path"]).suffix.upper().lstrip(".")
-            resources.append(link("../" + lecture["local_material_path"], f"本地 {suffix}", False))
-        if lecture.get("local_interactive_url"):
-            resources.append(link("../" + lecture["local_interactive_url"], "本地交互讲义", False))
         video = lecture.get("video")
         if video:
             resources.append(link(video["url"], "录播"))
             resources.append(link(f'cs336_transcripts.html#cs336-transcript-{lecture["number"]}', "清洗字幕", False))
-            if video.get("subtitle_local_path"):
-                resources.append(link("../" + video["subtitle_local_path"], "原始 VTT", False))
         lecture_rows.append(
             f'''<tr><td><strong>L{lecture["number"]}</strong><br><span class="small">{esc(lecture["date"])}{(" · " + esc(lecture["speaker"])) if lecture.get("speaker") else ""}</span></td><td><strong>{esc(lecture["title"])}</strong><br><span class="pill">{esc(lecture["category"])}</span><br><span class="small">{esc(" · ".join(lecture["subtopics"])) if lecture["subtopics"] else "课程页未说明子主题"}</span></td><td>{esc(lecture["key_question"])}<br><span class="reading-note"><strong>主线作用：</strong>{esc(lecture["role"])}</span></td><td>{" · ".join(resources) if resources else '<span class="small">暂无公开材料</span>'}</td></tr>'''
         )
@@ -2270,16 +3084,12 @@ def build_cs336(course: dict) -> str:
     assignment_cards = []
     for assignment in course["assignments"]:
         deliverables = "".join(f"<li>{esc(item)}</li>" for item in assignment["deliverables"])
-        local_repo_readme = str(Path(assignment["local_handout"]).parent / "README.md").replace("\\", "/")
-        local_links = [
-            link(assignment["repo_url"], "官方仓库"),
-            link("../" + assignment["local_handout"], "本地 handout", False),
-            link("../" + local_repo_readme, "本地 README", False),
-        ]
-        if assignment.get("local_supplement"):
-            local_links.append(link("../" + assignment["local_supplement"], "本地 SFT/DPO 安全补充", False))
+        official_links = [
+            link(item["url"], item["title"])
+            for item in assignment.get("official_links", [])
+        ] or [link(assignment["repo_url"], "官方仓库")]
         assignment_cards.append(
-            f'''<article class="item {"teal" if assignment["number"] % 3 == 2 else "coral" if assignment["number"] % 3 == 0 else ""}"><p class="kicker">Assignment {assignment["number"]} · {esc(assignment["release_date"])} → {esc(assignment["due_date"])}</p><h3>{esc(assignment["title_zh"])}</h3><ul>{deliverables}</ul><p><strong>工程价值：</strong>{esc(assignment["engineering_value"])}</p><p><strong>验收：</strong>{esc(assignment["acceptance"])}</p><p class="small">{esc(assignment["resource_note"])}<br>{" · ".join(local_links)}</p></article>'''
+            f'''<article class="item {"teal" if assignment["number"] % 3 == 2 else "coral" if assignment["number"] % 3 == 0 else ""}"><p class="kicker">Assignment {assignment["number"]} · {esc(assignment["release_date"])} → {esc(assignment["due_date"])}</p><h3>{esc(assignment["title_zh"])}</h3><ul>{deliverables}</ul><p><strong>工程价值：</strong>{esc(assignment["engineering_value"])}</p><p><strong>验收：</strong>{esc(assignment["acceptance"])}</p><p class="small">{esc(assignment["resource_note"])}<br>{" · ".join(official_links)}</p></article>'''
         )
 
     study_rows = "".join(
@@ -2292,14 +3102,19 @@ def build_cs336(course: dict) -> str:
     )
     repo_rows = []
     for repo in course["repositories"]:
-        local_entry = "index.html" if repo["name"] == "lectures" else "README.md"
+        local_state = (
+            "上游 clean"
+            if not repo.get("local_modifications")
+            else "本地离线补丁：" + "、".join(repo["local_modifications"])
+        )
+        commit_url = repo["url"].rstrip("/") + "/tree/" + repo["commit"]
         repo_rows.append(
-            f'''<tr><td>{link(repo["url"], repo["name"])}</td><td><code>{esc(repo["commit"][:12])}</code></td><td>{repo["file_count"]}</td><td>{repo["size_bytes"] / (1024 * 1024):.1f} MB</td><td>{link("../" + repo["local_path"] + "/" + local_entry, "离线入口", False)}</td></tr>'''
+            f'''<tr><td>{link(repo["url"], repo["name"])}</td><td><code>{esc(repo["commit"][:12])}</code></td><td>{repo["file_count"]}</td><td>{repo["size_bytes"] / (1024 * 1024):.1f} MB</td><td>{esc(local_state)}</td><td>{link(commit_url, "固定 Commit")}</td></tr>'''
         )
     limitations = "".join(f"<li>{esc(item)}</li>" for item in course["limitations"])
     body = f"""
 <div class="toc path-toc"><strong>本页：</strong><a href="#spine">技术主线</a><a href="#modules">模块</a><a href="#lectures">19 讲</a><a href="#assignments">5 个作业</a><a href="#plan">8 周路线</a><a href="#judgments">工程判断</a><a href="#archive">离线资料</a><a href="cs336_transcripts.html">完整字幕</a></div>
-<section class="notice info"><strong>资料状态：</strong>课程网页 schedule 由 DOM 自动解析；17 份官方 lecture 文件、5 个作业仓库、18 场公开录播与英文自动字幕已落盘。课程页列出 19 次课，但当前 playlist 缺少 Daniel Selsam 嘉宾讲座；第 18/19 讲的具体技术主题不从讲者身份臆测。</section>
+<section class="notice info"><strong>资料状态：</strong>课程网页 schedule 由 DOM 自动解析；Git 离线包保留 19 讲结构化索引、5 个作业说明、18 场清洗字幕和逐讲 Markdown，不复制官方仓库、课件 PDF、原始 VTT 或视频。课程页列出 19 次课，但当前 playlist 缺少 Daniel Selsam 嘉宾讲座；第 18/19 讲的具体技术主题不从讲者身份臆测。</section>
 <div class="metric-strip" aria-label="CS336 离线资料概览"><div class="metric"><strong>{coverage["schedule_lecture_count"]}</strong><span>课程讲次</span></div><div class="metric"><strong>{coverage["assignment_count"]}</strong><span>实现作业</span></div><div class="metric"><strong>{coverage["captioned_video_count"]}</strong><span>含字幕录播</span></div><div class="metric"><strong>{coverage["transcript_word_count"]:,}</strong><span>清洗字幕词数</span></div></div>
 <section id="spine"><div class="section-head"><h2>Language Model 全生命周期</h2><p>从正确性、性能、规模到数据与行为塑形</p></div><div class="flow six">{module_flow}</div><p class="notice"><strong>最重要的课程判断：</strong>模型不是单独的网络结构。tokenizer 决定输入单位，硬件/并行决定可训练规模，scaling law 决定预算分配，数据决定学习分布，评测决定证据质量，post-training 决定部署行为。任何优化都必须回到端到端质量、成本与失败模式。</p></section>
 <section id="modules"><div class="section-head"><h2>六个技术模块</h2><p>每个模块都有可验收产物</p></div><div class="grid two">{module_cards}</div></section>
@@ -2307,7 +3122,7 @@ def build_cs336(course: dict) -> str:
 <section id="assignments"><div class="section-head"><h2>五个作业就是能力主线</h2><p>完成代码不等于完成学习，必须保留验收证据</p></div><div class="grid two">{''.join(assignment_cards)}</div><p class="notice info"><strong>Honor code：</strong>官方 handout 明确禁止用 coding agent 或 AI autocomplete 实现作业。这里的中文地图用于理解、复盘和设计自学实验；若按课程身份提交，应严格遵守课程政策。</p></section>
 <section id="plan"><div class="section-head"><h2>8 周工程化自学路线</h2><p>时间不足时优先 A1 → A2 → A4；A3/A5 可做缩小版</p></div><div class="table-wrap"><table><thead><tr><th>周</th><th>主题</th><th>讲次</th><th>作业</th><th>必须产出</th></tr></thead><tbody>{study_rows}</tbody></table></div></section>
 <section id="judgments"><div class="section-head"><h2>面向 Production Model Design 的判断</h2><p>用于设计实验和审查结论</p></div><div class="grid two">{judgments}</div></section>
-<section id="archive"><div class="section-head"><h2>官方源码与离线快照</h2><p>commit 用于保证课程更新后仍可追溯</p></div><div class="table-wrap"><table><thead><tr><th>仓库</th><th>Commit</th><th>文件</th><th>体积</th><th>本地</th></tr></thead><tbody>{''.join(repo_rows)}</tbody></table></div><p class="small">{link(course["course"]["url"], "官方课程页")} · {link(course["playlist"]["url"], "YouTube playlist")} · {link("../" + course["course"]["raw_html_local_path"], "课程页 HTML 快照", False)} · <a href="data/stanford_cs336.json">结构化课程数据</a> · <a href="cs336_transcripts.html">可搜索清洗字幕</a></p></section>
+<section id="archive"><div class="section-head"><h2>官方源码与离线索引</h2><p>commit 与结构化元数据分开记录，保证课程更新后仍可追溯</p></div><div class="table-wrap"><table><thead><tr><th>仓库</th><th>Commit</th><th>文件</th><th>体积</th><th>抓取状态</th><th>固定版本</th></tr></thead><tbody>{''.join(repo_rows)}</tbody></table></div><p class="small">{link(course["course"]["url"], "官方课程页")} · {link(course["playlist"]["url"], "YouTube playlist")} · <a href="data/stanford_cs336.json">结构化课程数据</a> · <a href="cs336_transcripts.html">可搜索清洗字幕</a></p></section>
 <section class="notice"><strong>证据边界：</strong><ul>{limitations}</ul></section>
 """
     return page(
@@ -2335,17 +3150,13 @@ def build_cs336_transcripts(course: dict) -> str:
             blocks.append(
                 f'<div class="transcript-block" data-lecture="{lecture["number"]}"><div class="transcript-time">{link(timestamp_url, format_seconds(block["start"]))}</div><p class="transcript-text">{esc(block["text"])}</p></div>'
             )
-        raw_vtt = (
-            link("../" + video["subtitle_local_path"], "原始 VTT", False)
-            if video.get("subtitle_local_path")
-            else "无本地字幕"
-        )
+        raw_vtt = "自动字幕已清洗并嵌入本页"
         sections.append(
             f'''<section class="transcript-day" id="cs336-transcript-{lecture["number"]}" data-lecture="{lecture["number"]}"><div class="section-head"><h2>L{lecture["number"]} · {esc(lecture["title"])}</h2><p>{video["transcript_word_count"]:,} words · {len(video["transcript_blocks"])} minute blocks</p></div><p><strong>学习定位：</strong>{esc(lecture["key_question"])}</p><p class="small">{link(video["url"], "YouTube 录播")} · {raw_vtt} · <a href="transcripts/stanford_cs336/lecture_{lecture["number"]:02d}.md">Markdown 清洗稿</a></p>{''.join(blocks)}</section>'''
         )
     body = f"""
 <div class="toc"><strong>本页：</strong><a href="stanford_cs336.html">返回课程地图</a>{''.join(f'<a href="#cs336-transcript-{lecture["number"]}">L{lecture["number"]}</a>' for lecture in lectures)}</div>
-<section class="notice info"><strong>文字稿状态：</strong>来源为 YouTube English (Original) automatic captions。已消除逐词滚动字幕重复并按分钟合并，共 {course["coverage"]["transcript_word_count"]:,} 词；未重写讲者原意，也不是人工校对稿。人名、技术名词、数字、公式和代码必须回到时间戳或本地课件核验。</section>
+<section class="notice info"><strong>文字稿状态：</strong>来源为 YouTube English (Original) automatic captions。已消除逐词滚动字幕重复并按分钟合并，共 {course["coverage"]["transcript_word_count"]:,} 词；未重写讲者原意，也不是人工校对稿。人名、技术名词、数字、公式和代码必须回到时间戳或官方课件核验。</section>
 <section><div class="section-head"><h2>搜索 24 小时课程录播</h2><p>按关键词与讲次过滤</p></div><div class="filter-grid"><input class="filter" id="cs336-transcript-filter" type="search" placeholder="搜索 tokenizer、FlashAttention、FSDP、scaling、RLVR 等"><select class="filter" id="cs336-transcript-lecture"><option value="">全部讲次</option>{options}</select></div><p class="small" id="cs336-transcript-count">显示 {total_blocks} 个分钟段落。</p></section>
 {''.join(sections)}
 <script>
@@ -2627,11 +3438,10 @@ def build_kaggle_genai(course: dict) -> str:
             f'''<figure class="media-figure"><a href="{esc(day["video_url"] + "&t=" + str(frame["time"]) + "s")}" target="_blank" rel="noreferrer"><img src="assets/kaggle_genai/{esc(frame["file"])}" alt="{esc(frame["caption"])}" loading="lazy"></a><figcaption><strong>{format_seconds(frame["time"])}</strong> · {esc(frame["caption"])}</figcaption></figure>'''
             for frame in day["frames"]
         )
-        local_video = "../" + day["local_low_resolution_video_path"]
         day_sections.append(
             f'''<section id="day-{day["day"]}"><div class="section-head"><h2>Day {day["day"]} · {esc(day["topic"])}</h2><p>{esc(day["duration_string"])} · 自动字幕 {day["transcript_word_count"]:,} 词</p></div>
             <p class="lead">{esc(day["summary"])}</p>
-            <p class="small">{link(day["video_url"], "YouTube 原视频")} · {link(local_video, "本地 360p 视频", False)} · <a href="transcripts/kaggle_genai/day{day["day"]:02d}.md">清洗文字稿</a> · <a href="data/kaggle_genai/subtitles/day{day["day"]:02d}.en-orig.vtt">原始自动字幕</a></p>
+            <p class="small">{link(day["video_url"], "YouTube 原视频")} · <a href="transcripts/kaggle_genai/day{day["day"]:02d}.md">清洗文字稿</a> · <a href="data/kaggle_genai/subtitles/day{day["day"]:02d}.en-orig.vtt">原始自动字幕</a></p>
             <div class="grid two"><article class="item"><h3>关键技术判断</h3><ul>{key_points}</ul></article><article class="item teal"><h3>可执行实验</h3><ol>{experiments}</ol></article></div>
             <div class="table-wrap" style="margin-top:14px"><table><thead><tr><th>时间</th><th>学习章节</th><th>内容定位</th></tr></thead><tbody>{chapter_rows}</tbody></table></div>
             <div class="media-grid">{figures}</div>
@@ -2768,12 +3578,11 @@ def build_bilibili_agent(agent: dict) -> str:
         f'<tr><td>{link(item["url"], item["title"])}</td><td>{esc(item["kind"])}</td><td>{priority_label(item["priority"])}</td></tr>'
         for item in agent["resources"]
     )
-    local_video = "../" + agent["ingestion"]["local_video_path"]
     body = f"""
 <div class="toc path-toc"><strong>本页：</strong><a href="#spine">技术主线</a><a href="#chapters">章节</a><a href="#architecture">架构分层</a><a href="#slides">关键幻灯片</a><a href="#judgments">技术判断</a><a href="#experiments">实验</a><a href="agent_architecture_transcript.html">完整文字稿</a></div>
-<section class="notice info"><strong>资料状态：</strong>原页面未提供字幕。本页基于本地下载的 720p 视频、<code>{esc(agent["ingestion"]["transcription_model"])}</code> 长音频转写和 12 张幻灯片交叉整理。机器稿做了产品名术语校正，但人名、数字与断句仍应回到时间戳核验。</section>
+<section class="notice info"><strong>资料状态：</strong>原页面未提供字幕。本页在采集阶段使用视频、<code>{esc(agent["ingestion"]["transcription_model"])}</code> 长音频转写和 12 张幻灯片交叉整理；Git 离线包只保留文字稿、字幕、关键帧和结构化数据，不复制原视频。机器稿做了产品名术语校正，但人名、数字与断句仍应回到时间戳核验。</section>
 <div class="metric-strip" aria-label="视频离线资料概览"><div class="metric"><strong>{source["duration_string"]}</strong><span>视频时长</span></div><div class="metric"><strong>{len(agent["chapters"])}</strong><span>技术章节</span></div><div class="metric"><strong>{transcript["cleaned_character_count"]:,}</strong><span>清洗字符</span></div><div class="metric"><strong>{len(agent["frames"])}</strong><span>教学关键帧</span></div></div>
-<section id="spine"><div class="section-head"><h2>从概率模型到可运营的 Agent 系统</h2><p>{esc(agent["knowledge_position"])}</p></div><p class="lead">{esc(agent["summary"])}</p><div class="flow six"><div>控制策略<br><small>workflow / agentic</small></div><div>上下文<br><small>Prompt、RAG、state</small></div><div>Agent Runtime<br><small>单/多 Agent</small></div><div>治理入口<br><small>MCP / AI Gateway</small></div><div>状态恢复<br><small>event / checkpoint</small></div><div>观测评测<br><small>OTel / eval loop</small></div></div><p class="small">{link(source["url"], "Bilibili 原视频")} · {link(local_video, "本地 720p 视频", False)} · <a href="agent_architecture_transcript.html">可搜索中文稿</a> · <a href="transcripts/bilibili_agent_architecture.md">Markdown 稿</a> · <a href="data/bilibili_agent/BV1ADWCzrEXL.whisper-large-v3.vtt">Whisper VTT</a> · <a href="data/bilibili_agent_whisper_raw.json">原始转写 JSON</a></p></section>
+<section id="spine"><div class="section-head"><h2>从概率模型到可运营的 Agent 系统</h2><p>{esc(agent["knowledge_position"])}</p></div><p class="lead">{esc(agent["summary"])}</p><div class="flow six"><div>控制策略<br><small>workflow / agentic</small></div><div>上下文<br><small>Prompt、RAG、state</small></div><div>Agent Runtime<br><small>单/多 Agent</small></div><div>治理入口<br><small>MCP / AI Gateway</small></div><div>状态恢复<br><small>event / checkpoint</small></div><div>观测评测<br><small>OTel / eval loop</small></div></div><p class="small">{link(source["url"], "Bilibili 原视频")} · <a href="agent_architecture_transcript.html">可搜索中文稿</a> · <a href="transcripts/bilibili_agent_architecture.md">Markdown 稿</a> · <a href="data/bilibili_agent/BV1ADWCzrEXL.whisper-large-v3.vtt">Whisper VTT</a> · <a href="data/bilibili_agent_whisper_raw.json">原始转写 JSON</a></p></section>
 <section id="chapters"><div class="section-head"><h2>章节与技术作用</h2><p>时间轴链接回原视频</p></div><div class="table-wrap"><table><thead><tr><th>时间</th><th>章节</th><th>内容结论</th><th>在主线中的作用</th></tr></thead><tbody>{chapter_rows}</tbody></table></div></section>
 <section id="architecture"><div class="section-head"><h2>企业 Agent 六层架构</h2><p>按职责分层，而不是按产品名记忆</p></div><div class="table-wrap"><table><thead><tr><th>层</th><th>组件/机制</th><th>责任边界</th></tr></thead><tbody>{architecture_rows}</tbody></table></div><p class="notice">视频最有价值的不是指定一套阿里技术栈，而是把 Agent 业务逻辑与流量、模型/工具接入、配置治理、状态恢复、观测评测拆成独立边界。替换云厂商或框架时，这些责任仍然存在。</p></section>
 <section id="slides"><div class="section-head"><h2>关键幻灯片</h2><p>点击画面回到对应视频时间</p></div><div class="media-grid">{figures}</div></section>
@@ -3179,6 +3988,10 @@ def build_readme(
 
 直接在浏览器打开 `index.html`。页面没有外部脚本、字体或图像依赖，断网时仍可阅读全部本地总结、课程讲次、论文矩阵与来源索引。
 
+## Git 完整性
+
+提交前运行 `python tools/check_offline_kb_git.py`。检查器会确认全部离线文件、生成器输入和页面本地链接均已被 Git 跟踪，同时拒绝外部运行时资源与超过 50 MB 的单文件。第三方视频、音频、完整课程仓库和抓取缓存不进入 Git；页面仅链接原站，离线包保留原创总结、结构化快照、清洗字幕、逐字稿和教学关键帧。
+
 ## 内容范围
 
 - 13 个直接来源：MIT MAS.S60 How2AI、Vincent Generative AI Diffusion、Caltech CS 159、Stanford CS25、Stanford CS336、Lil'Log、Transformer Taxonomy、Thinking Machines Connectionism、Labelbox Blog、Andrej Karpathy GitHub、Ostris AI Toolkit、Kaggle 5-Day Gen AI Intensive、AI Agent 架构趋势及演进。
@@ -3188,7 +4001,7 @@ def build_readme(
 - {len(karpathy_repos)} 个 Karpathy GitHub 公开仓库快照，其中 {sum(not repo.get("fork") for repo in karpathy_repos)} 个非 fork 项目进入统一知识主线。
 - {len(AI_TOOLKIT_SUPPORTED_MODELS)} 个 AI Toolkit README 支持模型条目、{len(ai_toolkit_config_examples(ai_toolkit_tree))} 个自动提取的示例配置和 {len(ai_toolkit_tree.get("tree", []))} 个仓库树节点。
 - {len(kaggle_course["days"])} 场 Kaggle GenAI Intensive 直播、{format_seconds(kaggle_course["playlist"]["total_duration_seconds"])} 总时长、{kaggle_words:,} 词去重英文自动逐字稿和 {kaggle_frames} 张教学关键帧。
-- 1 场无页面字幕的 Agent 架构视频，包含本地 720p 视频、{len(bilibili_agent["chapters"])} 个技术章节、{bilibili_agent["transcript"]["cleaned_character_count"]:,} 个清洗转写字符和 {len(bilibili_agent["frames"])} 张幻灯片关键帧。
+- 1 场无页面字幕的 Agent 架构视频，包含 {len(bilibili_agent["chapters"])} 个技术章节、{bilibili_agent["transcript"]["cleaned_character_count"]:,} 个清洗转写字符和 {len(bilibili_agent["frames"])} 张本地幻灯片关键帧；原视频不进入 Git。
 - {len(reading_rows)} 条课程 reading 记录，按 URL 聚合进 `papers.html`。
 - {len(records)} 个唯一外部 URL，完整保留在 `catalog.html` 和 `data/source_catalog.json`。
 - {len(records)}/{len(records)} 个条目均有技术类别、中文学习定位和阅读优先级，可按七大知识模块离线筛选。
@@ -3207,7 +4020,7 @@ def build_readme(
 - `data/stanford_cs25_schedule.json`：Stanford CS25 V6 讲次、讲者、摘要、工程价值与资料链接。
 - `data/stanford_cs336.json`：Stanford CS336 课程、19 讲、5 个作业、仓库 commit、录播/字幕、六模块技术主线和 8 周计划。
 - `stanford_cs336.html` / `cs336_transcripts.html`：CS336 全生命周期学习地图与 18 场可搜索清洗英文字幕。
-- `transcripts/stanford_cs336/`：逐讲 Markdown 清洗稿；官方课件、作业仓库和原始 VTT 位于 `../tools/data/stanford_cs336_source/`。
+- `transcripts/stanford_cs336/`：逐讲 Markdown 清洗稿；官方课件、作业仓库和录播通过课程页外链追溯，不复制进 Git。
 - `data/karpathy_repositories.json`：Karpathy 仓库快照、学习轨道、状态、优先级与中文学习定位。
 - `data/ai_toolkit_repository.json`：AI Toolkit 仓库元数据、支持模型、示例配置、架构文件、学习阶段与证据边界。
 - `data/kaggle_genai_course.json`：Kaggle 五日课程元数据、中文综述、章节、配套资料、字幕块和关键帧索引。
@@ -3219,10 +4032,30 @@ def build_readme(
 - `data/reading_matrix.csv`：原有阅读矩阵的离线副本。
 - `data/source_catalog.json`：全部链接的机器可读索引。
 - `data/knowledge_clusters.json`：按统一技术主线合并后的完整知识卡与依赖关系。
+- `learning_plan.html`：带本地进度、先修锁、阶段验收、学习证据、主动回忆和间隔复习的交互式学习控制台。
+- `learning_design_review.md`：学习体验审查、已完成改进、残余差距与衡量指标。
+- `data/learning_sequence.json`：公共主干、三个专业分支、生产汇流、角色路径、验收任务与回忆卡。
 """
 
 
+def copy_source_or_preserve_output(source: Path, destination: Path) -> None:
+    """Copy a local ingestion artifact, or retain its Git-backed output copy."""
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    origin = source if source.exists() else destination
+    if not origin.exists():
+        raise FileNotFoundError(
+            f"Missing both ingestion source and versioned offline asset: {source} -> {destination}"
+        )
+    if destination.suffix.lower() in {".csv", ".html", ".json", ".md", ".vtt"}:
+        content = origin.read_text(encoding="utf-8")
+        with destination.open("w", encoding="utf-8", newline="\n") as handle:
+            handle.write(content)
+    elif origin.resolve() != destination.resolve():
+        shutil.copy2(origin, destination)
+
+
 def main() -> None:
+    validate_learning_sequence()
     schedule = read_schedule()
     reading_rows = read_readings()
     karpathy_repos = read_karpathy_repos()
@@ -3259,11 +4092,19 @@ def main() -> None:
     bilibili_asset_dir.mkdir(parents=True, exist_ok=True)
     bilibili_data_dir.mkdir(parents=True, exist_ok=True)
     transcript_dir.mkdir(parents=True, exist_ok=True)
-    for stale_asset in bilibili_asset_dir.iterdir():
-        if stale_asset.is_file():
-            stale_asset.unlink()
+    bilibili_frame_sources_available = all(
+        (ROOT / frame["source_path"]).exists() for frame in bilibili_agent["frames"]
+    )
+    if bilibili_frame_sources_available:
+        for stale_asset in bilibili_asset_dir.iterdir():
+            if stale_asset.is_file():
+                stale_asset.unlink()
 
     (OUT / "index.html").write_text(build_index(records), encoding="utf-8")
+    (OUT / "learning_plan.html").write_text(build_learning_plan(), encoding="utf-8")
+    (OUT / "learning_design_review.md").write_text(
+        build_learning_design_review(), encoding="utf-8"
+    )
     (OUT / "knowledge_path.html").write_text(build_knowledge_path(records), encoding="utf-8")
     (OUT / "sources.html").write_text(build_sources(), encoding="utf-8")
     (OUT / "how2ai.html").write_text(build_how2ai(schedule, reading_rows), encoding="utf-8")
@@ -3353,12 +4194,14 @@ def main() -> None:
             build_kaggle_transcript_markdown(day), encoding="utf-8"
         )
         subtitle_source = ROOT / day["raw_vtt_source_path"]
-        shutil.copy2(
+        copy_source_or_preserve_output(
             subtitle_source,
             kaggle_subtitle_dir / f'day{day["day"]:02d}.en-orig.vtt',
         )
         for frame in day["frames"]:
-            shutil.copy2(ROOT / frame["source_path"], kaggle_asset_dir / frame["file"])
+            copy_source_or_preserve_output(
+                ROOT / frame["source_path"], kaggle_asset_dir / frame["file"]
+            )
     for lecture in cs336_course["lectures"]:
         if lecture.get("video"):
             (cs336_transcript_dir / f'lecture_{lecture["number"]:02d}.md').write_text(
@@ -3370,18 +4213,38 @@ def main() -> None:
     (transcript_dir / "bilibili_agent_architecture.md").write_text(
         build_bilibili_agent_markdown(bilibili_agent), encoding="utf-8"
     )
-    shutil.copy2(BILIBILI_AGENT_TRANSCRIPT, DATA / "bilibili_agent_whisper_raw.json")
-    shutil.copy2(
+    copy_source_or_preserve_output(
+        BILIBILI_AGENT_TRANSCRIPT, DATA / "bilibili_agent_whisper_raw.json"
+    )
+    copy_source_or_preserve_output(
         ROOT / bilibili_agent["ingestion"]["raw_vtt_path"],
         bilibili_data_dir / "BV1ADWCzrEXL.whisper-large-v3.vtt",
     )
     for frame in bilibili_agent["frames"]:
-        shutil.copy2(ROOT / frame["source_path"], bilibili_asset_dir / frame["file"])
+        copy_source_or_preserve_output(
+            ROOT / frame["source_path"], bilibili_asset_dir / frame["file"]
+        )
     (DATA / "source_catalog.json").write_text(
         json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     (DATA / "knowledge_clusters.json").write_text(
         json.dumps(knowledge_clusters, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    (DATA / "learning_sequence.json").write_text(
+        json.dumps(
+            {
+                "principle": "先公共主干，后专业分支，最后生产汇流；每阶段通过 exit gate 后再继续。",
+                "core_sequence": LEARNING_CORE_SEQUENCE,
+                "branches": LEARNING_BRANCHES,
+                "convergence": LEARNING_CONVERGENCE,
+                "role_tracks": LEARNING_TRACKS,
+                "gate_tasks": LEARNING_GATE_TASKS,
+                "recall_bank": LEARNING_RECALL_BANK,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
     )
     shutil.copy2(ROOT / "reading_matrix.csv", DATA / "reading_matrix.csv")
 
@@ -3391,7 +4254,7 @@ def main() -> None:
         "llm_reasoning_transformer_study_guide.html": "reasoning_full_guide.html",
     }
     for source, destination in copies.items():
-        shutil.copy2(ROOT / source, OUT / destination)
+        copy_source_or_preserve_output(ROOT / source, OUT / destination)
 
     print(
         json.dumps(

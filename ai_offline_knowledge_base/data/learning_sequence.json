@@ -1,0 +1,460 @@
+{
+  "principle": "先公共主干，后专业分支，最后生产汇流；每阶段通过 exit gate 后再继续。",
+  "core_sequence": [
+    {
+      "id": "P0",
+      "title": "先修闸门：张量、梯度与资源直觉",
+      "why": "先能读懂训练代码和成本，再讨论模型名词；否则后续实验只能靠猜。",
+      "topics": [
+        "Python/PyTorch tensor",
+        "反向传播",
+        "线性代数与概率",
+        "shape",
+        "FLOPs/显存"
+      ],
+      "materials": [
+        {
+          "title": "Karpathy：micrograd / Zero to Hero",
+          "url": "karpathy.html"
+        },
+        {
+          "title": "CS336 L1-L2",
+          "url": "stanford_cs336.html#lectures"
+        }
+      ],
+      "output": "手写一个两层网络的 forward/backward，并为 attention/MLP 列出 shape、FLOPs 和峰值内存。",
+      "exit": "能解释梯度从 loss 到参数的路径，并判断一个算子更可能受计算还是内存带宽限制。"
+    },
+    {
+      "id": "P1",
+      "title": "研究方法：先建立证据规则",
+      "why": "数据、模型和系统越复杂，越需要先固定假设、baseline、指标与失败归因。",
+      "topics": [
+        "问题定义",
+        "baseline",
+        "数据版本",
+        "seed",
+        "消融",
+        "失败分析"
+      ],
+      "materials": [
+        {
+          "title": "MIT How2AI：AI research foundations",
+          "url": "how2ai.html"
+        },
+        {
+          "title": "CS159 项目与论文方法",
+          "url": "reasoning_full_guide.html"
+        }
+      ],
+      "output": "统一实验模板：假设、数据、配置、指标、成本、失败样例与结论边界。",
+      "exit": "同一命令能复现实验；能说明提升来自哪个变量，而不是只比较最终分数。"
+    },
+    {
+      "id": "P2",
+      "title": "数据与表征：定义模型看见什么",
+      "why": "tokenizer、训练分布、监督目标和 split 先于架构决定可学习信息与泛化边界。",
+      "topics": [
+        "tokenization",
+        "训练/验证切分",
+        "自监督/对比目标",
+        "数据质量",
+        "迁移/OOD"
+      ],
+      "materials": [
+        {
+          "title": "CS336 L1、L13-L14；A1 tokenizer",
+          "url": "stanford_cs336.html#lectures"
+        },
+        {
+          "title": "How2AI：Data / Representation / Generalization",
+          "url": "how2ai.html"
+        }
+      ],
+      "output": "数据卡与 tokenizer 报告：来源、许可、压缩率、序列长度、重复率、split 和风险。",
+      "exit": "能解释数据或 tokenizer 变化如何影响序列预算、泄漏、迁移和评测，而不是把数据当常量。"
+    },
+    {
+      "id": "P3",
+      "title": "模型架构：先完成最小可训练基线",
+      "why": "只有基线正确且可过拟合，attention 变体、MoE、SSM 或多模态接口比较才有意义。",
+      "topics": [
+        "Transformer block",
+        "RoPE",
+        "RMSNorm",
+        "SwiGLU",
+        "MoE/SSM",
+        "训练循环"
+      ],
+      "materials": [
+        {
+          "title": "CS336 L3-L4 与 Assignment 1",
+          "url": "stanford_cs336.html#assignments"
+        },
+        {
+          "title": "Karpathy：microgpt / build-nanogpt",
+          "url": "karpathy.html"
+        },
+        {
+          "title": "Transformer Taxonomy 历史坐标",
+          "url": "sources.html"
+        }
+      ],
+      "output": "从零实现并测试最小 Transformer LM；保存张量形状、loss 曲线、checkpoint 恢复和采样。",
+      "exit": "小数据可过拟合；梯度/损失正常；checkpoint 恢复连续；组件消融有公平预算。"
+    },
+    {
+      "id": "P4",
+      "title": "训练系统与规模：让正确基线可扩展",
+      "why": "先用 profiler、kernel、并行和 scaling law 建立成本模型，再决定扩大模型或数据。",
+      "topics": [
+        "GPU/TPU",
+        "Triton/FlashAttention",
+        "DDP/FSDP",
+        "scaling law",
+        "inference",
+        "evaluation"
+      ],
+      "materials": [
+        {
+          "title": "CS336 L5-L14 与 A2-A4",
+          "url": "stanford_cs336.html"
+        },
+        {
+          "title": "CS25 前沿训练/推理讲座（完成 CS336 基线后）",
+          "url": "stanford_cs25.html"
+        }
+      ],
+      "output": "质量-吞吐-显存-通信报告、scaling 外推误差和数据 pipeline 消融。",
+      "exit": "能从 profile 解释瓶颈；多卡语义与单卡一致；规模预测有留出验证；评测有污染检查。"
+    },
+    {
+      "id": "P5",
+      "title": "任务适配与后训练：改变模型行为",
+      "why": "基础模型稳定后，再比较 Prompt/RAG、LoRA/SFT、偏好优化或 RLVR；不要用后训练掩盖底座缺陷。",
+      "topics": [
+        "Prompt/RAG baseline",
+        "LoRA/SFT",
+        "DPO/RLHF",
+        "RLVR/GRPO",
+        "量化",
+        "任务评测"
+      ],
+      "materials": [
+        {
+          "title": "CS336 L15-L16 与 Assignment 5",
+          "url": "stanford_cs336.html#assignments"
+        },
+        {
+          "title": "Thinking Machines 与 Labelbox 综述",
+          "url": "sources.html"
+        },
+        {
+          "title": "Kaggle Day 1/4",
+          "url": "kaggle_genai.html"
+        }
+      ],
+      "output": "zero-shot/Prompt/RAG 与至少一种训练适配方法的公平对照，含多 seed、成本和退化项。",
+      "exit": "能区分模型知识、检索收益和训练收益；reward/偏好提升没有以安全、泛化或稳定性为代价。"
+    }
+  ],
+  "branches": [
+    {
+      "id": "B1",
+      "title": "CV / 多模态",
+      "prerequisites": [
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "order": "alignment → fusion → transfer → multimodal LLM",
+      "materials": [
+        {
+          "title": "How2AI 多模态主线",
+          "url": "how2ai.html"
+        },
+        {
+          "title": "CS336 L17",
+          "url": "stanford_cs336.html#lectures"
+        },
+        {
+          "title": "CS25 Native Multimodal Intelligence",
+          "url": "stanford_cs25.html"
+        }
+      ],
+      "output": "单模态 baseline、遮蔽/冲突模态消融、交互增益与缺失模态鲁棒性报告。",
+      "exit": "能证明模型使用了跨模态证据，而不只是数据集先验或单模态捷径。"
+    },
+    {
+      "id": "B2",
+      "title": "AIGC / 生成模型",
+      "prerequisites": [
+        "P2",
+        "P3"
+      ],
+      "order": "VAE/Flow → DDPM/Score → Latent Diffusion/DiT → Flow Matching → 微调与采样",
+      "materials": [
+        {
+          "title": "Diffusion 完整专题",
+          "url": "diffusion_full_guide.html"
+        },
+        {
+          "title": "AI Toolkit 训练地图",
+          "url": "ai_toolkit.html"
+        },
+        {
+          "title": "How2AI 生成模型模块",
+          "url": "how2ai.html"
+        }
+      ],
+      "output": "DDPM 或 Flow Matching toy，加一组固定 checkpoint 的 NFE-延迟-质量-条件遵循 Pareto。",
+      "exit": "能分开解释路径、网络参数化、条件注入、求解器和表示空间，并用统一预算比较。"
+    },
+    {
+      "id": "B3",
+      "title": "LLM / Reasoning / Agent",
+      "prerequisites": [
+        "P4",
+        "P5"
+      ],
+      "order": "Prompt/RAG → reasoning/verifier → tool use/state → Agent runtime → multi-agent",
+      "materials": [
+        {
+          "title": "LLM Reasoning / CS159 指南",
+          "url": "reasoning_full_guide.html"
+        },
+        {
+          "title": "Kaggle Day 2-3",
+          "url": "kaggle_genai.html"
+        },
+        {
+          "title": "企业 Agent 架构",
+          "url": "agent_architecture.html"
+        }
+      ],
+      "output": "可审计 trajectory：状态、计划、工具、验证、重试、预算、权限和失败归因。",
+      "exit": "任务成功率、工具成功率、成本和副作用分别可测；失败可恢复并能回流回归集。"
+    }
+  ],
+  "convergence": {
+    "id": "P6",
+    "title": "生产汇流：运行时、评测、安全与反馈",
+    "prerequisites": [
+      "P1",
+      "P4",
+      "至少一个专业分支"
+    ],
+    "order": "离线评测 → shadow/canary → 可观测性 → 回退/人工接管 → 失败数据回流",
+    "materials": [
+      {
+        "title": "CS336 L10/L12",
+        "url": "stanford_cs336.html#lectures"
+      },
+      {
+        "title": "Kaggle Day 5",
+        "url": "kaggle_genai.html"
+      },
+      {
+        "title": "Thinking Machines / Labelbox",
+        "url": "sources.html"
+      },
+      {
+        "title": "Agent Runtime 架构",
+        "url": "agent_architecture.html"
+      }
+    ],
+    "output": "端到端验收 harness：质量、延迟、吞吐、成本、权限、副作用、回退、人工接管和数据回流。",
+    "exit": "每次模型/数据/Prompt/工具变更都能自动回归；线上失败有 owner、证据、恢复路径与训练回流条件。"
+  },
+  "role_tracks": [
+    {
+      "id": "llm",
+      "role": "AI / LLM Engineer",
+      "phase_ids": [
+        "P0",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "B3",
+        "P6"
+      ],
+      "path": "P0 → P1 → P2 → P3 → P4 → P5 → B3 → P6",
+      "focus": "先完成语言模型与系统主干，再进入 RAG/Agent；B1/B2 只按产品需求补。"
+    },
+    {
+      "id": "cv",
+      "role": "CV / Multimodal Engineer",
+      "phase_ids": [
+        "P0",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "B1",
+        "P6"
+      ],
+      "path": "P0 → P1 → P2 → P3 → P4 → B1 → P6",
+      "focus": "B2 用于生成式视觉能力；P5 只学习与多模态适配相关的 SFT/LoRA。"
+    },
+    {
+      "id": "aigc",
+      "role": "AIGC Engineer",
+      "phase_ids": [
+        "P0",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "B2",
+        "P6"
+      ],
+      "path": "P0 → P1 → P2 → P3 → P4 → B2 → P6",
+      "focus": "P4 聚焦 profiler、训练成本与评测；B1 用于图文/视频条件与跨模态控制。"
+    },
+    {
+      "id": "research",
+      "role": "Research / Tech Lead",
+      "phase_ids": [
+        "P0",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "B1",
+        "B2",
+        "P6"
+      ],
+      "path": "P0 → P1 → P2 → P3 → P4 → P5 → 任意两个分支 → P6",
+      "focus": "重点是公平比较、跨分支迁移、成本模型和结论边界，而不是堆叠资料数量。"
+    }
+  ],
+  "gate_tasks": {
+    "P0": [
+      "完成一个不依赖 autograd 的 backward",
+      "写出 attention/MLP 张量形状",
+      "记录 FLOPs、峰值内存与瓶颈判断"
+    ],
+    "P1": [
+      "固定数据版本、配置与 seed",
+      "建立 baseline 和至少一个消融",
+      "保存失败样例与结论边界"
+    ],
+    "P2": [
+      "训练并验证 tokenizer 可逆性",
+      "完成数据卡与 split/泄漏检查",
+      "报告序列预算、重复率或 OOD 方案"
+    ],
+    "P3": [
+      "最小 Transformer 通过单元测试",
+      "在小数据上稳定过拟合",
+      "验证 checkpoint 恢复后 loss 连续"
+    ],
+    "P4": [
+      "用 profiler 解释主要瓶颈",
+      "完成质量-速度-显存-通信对照",
+      "验证 scaling 外推或评测污染检查"
+    ],
+    "P5": [
+      "建立 Prompt/RAG 或 zero-shot baseline",
+      "完成一种训练适配公平对照",
+      "报告多 seed、成本和至少一个退化项"
+    ],
+    "B1": [
+      "建立单模态 baseline",
+      "完成遮蔽或冲突模态消融",
+      "证明跨模态证据带来可测增益"
+    ],
+    "B2": [
+      "实现 DDPM 或 Flow Matching toy",
+      "固定 checkpoint 比较 sampler/NFE",
+      "报告质量、延迟、条件遵循与失败样例"
+    ],
+    "B3": [
+      "保存完整 Agent trajectory",
+      "分别评估任务、工具、成本与副作用",
+      "验证重试、回退与失败恢复"
+    ],
+    "P6": [
+      "建立离线回归与变更版本记录",
+      "完成 shadow/canary、回退和人工接管方案",
+      "定义线上失败进入训练/评测集的条件"
+    ]
+  },
+  "recall_bank": [
+    {
+      "id": "R01",
+      "phase": "P0",
+      "prompt": "反向传播为什么需要按拓扑逆序执行？",
+      "answer": "每个节点必须先收齐所有下游路径贡献的梯度，再把链式法则结果传播给父节点。"
+    },
+    {
+      "id": "R02",
+      "phase": "P0",
+      "prompt": "arithmetic intensity 用来判断什么？",
+      "answer": "单位内存流量完成的计算量；它帮助判断算子更可能受计算吞吐还是内存带宽限制。"
+    },
+    {
+      "id": "R03",
+      "phase": "P1",
+      "prompt": "为什么只有最终指标提升不能证明方法有效？",
+      "answer": "数据、seed、预算、实现和评测泄漏都可能造成差异；需要 baseline、控制变量、消融和失败分析。"
+    },
+    {
+      "id": "R04",
+      "phase": "P2",
+      "prompt": "tokenizer 改动为什么会改变训练系统成本？",
+      "answer": "它改变压缩率和序列长度，进而改变 attention 计算、激活内存、训练 token 预算与推理延迟。"
+    },
+    {
+      "id": "R05",
+      "phase": "P3",
+      "prompt": "为什么先要求小数据过拟合？",
+      "answer": "它是模型、损失、梯度和训练循环正确性的低成本联合测试；无法过拟合时不应直接扩规模。"
+    },
+    {
+      "id": "R06",
+      "phase": "P4",
+      "prompt": "scaling law 为什么需要重新校准？",
+      "answer": "数据分布、架构、训练 recipe 和硬件变化都会改变拟合关系，外推必须报告残差和留出误差。"
+    },
+    {
+      "id": "R07",
+      "phase": "P5",
+      "prompt": "怎样区分 RAG 收益与模型本身能力？",
+      "answer": "固定模型和 Prompt，对比无检索、oracle 检索与实际检索，并分开测召回、证据支持和最终答案。"
+    },
+    {
+      "id": "R08",
+      "phase": "B1",
+      "prompt": "多模态模型同时接收图文为什么仍可能没学到跨模态交互？",
+      "answer": "模型可能依赖单模态捷径或数据集先验；需要遮蔽、冲突模态和单模态 baseline 证明证据被使用。"
+    },
+    {
+      "id": "R09",
+      "phase": "B2",
+      "prompt": "Flow Matching 与 sampler 分别控制什么？",
+      "answer": "Flow Matching 定义并学习速度场；sampler/ODE solver 决定如何用有限 NFE 数值积分得到样本。"
+    },
+    {
+      "id": "R10",
+      "phase": "B3",
+      "prompt": "工具调用成功为什么不等于 Agent 任务成功？",
+      "answer": "任务还依赖计划、状态、约束、验证、副作用控制与恢复；工具成功只是中间接口指标。"
+    },
+    {
+      "id": "R11",
+      "phase": "P6",
+      "prompt": "为什么线上评测必须包含回退和人工接管？",
+      "answer": "质量指标无法覆盖全部分布外状态和副作用；回退与接管限制故障影响并提供可审计恢复路径。"
+    },
+    {
+      "id": "R12",
+      "phase": "P6",
+      "prompt": "什么失败数据值得回流训练？",
+      "answer": "可复现、有明确任务/约束、已确认标签或 rubric，并能区分模型、数据、工具和环境责任的失败。"
+    }
+  ]
+}

@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI、CV、AIGC、LLM 推理与 Agent 的离线学习知识库">
+<title>AI / CV / AIGC 自适应学习计划 | 离线 AI 学习知识库</title>
+<style>
+:root { --ink:#16302c; --muted:#56706a; --paper:#f7faf7; --surface:#ffffff; --line:#d3dfda; --green:#087c69; --teal:#006f82; --coral:#c94e2e; --gold:#996200; --soft-green:#e7f4ee; --soft-coral:#fff0eb; --soft-blue:#eaf4f6; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif; line-height:1.65; }
+a { color:#006d73; text-decoration-thickness:1px; text-underline-offset:3px; }
+a:hover { color:#b84428; }
+.shell { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+.topbar { background:#113d36; color:#fff; border-bottom:4px solid #d26a35; }
+.topbar .shell { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:13px 0; }
+.brand { color:#fff; font-weight:700; text-decoration:none; letter-spacing:0; }
+.topnav { display:flex; flex-wrap:wrap; gap:14px; }
+.topnav a { color:#d7ebe5; text-decoration:none; font-size:14px; }
+.hero { background:#e6f2ed; border-bottom:1px solid var(--line); padding:48px 0 42px; }
+.eyebrow { margin:0 0 10px; color:#087c69; font-weight:700; font-size:13px; letter-spacing:0; text-transform:uppercase; }
+h1,h2,h3,h4 { line-height:1.28; margin:0; color:#123d37; letter-spacing:0; }
+h1 { max-width:900px; font-size:40px; }
+h2 { font-size:26px; margin-bottom:14px; }
+h3 { font-size:18px; margin-bottom:8px; }
+h4 { font-size:16px; margin-bottom:6px; }
+p { margin:0 0 12px; }
+.lead { max-width:900px; color:#38544e; font-size:18px; }
+main { padding:30px 0 52px; }
+section { margin:0 0 34px; }
+.section-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; }
+.section-head p { color:var(--muted); margin:0; font-size:14px; }
+.notice { border-left:4px solid var(--coral); background:var(--soft-coral); padding:14px 16px; }
+.notice.info { border-color:var(--teal); background:var(--soft-blue); }
+.grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
+.grid.two { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.item { border:1px solid var(--line); border-top:4px solid var(--green); background:var(--surface); padding:17px; border-radius:6px; }
+.item.teal { border-top-color:var(--teal); }
+.item.coral { border-top-color:var(--coral); }
+.item.gold { border-top-color:var(--gold); }
+.kicker { color:var(--muted); font-size:13px; font-weight:700; margin-bottom:7px; }
+.pill { display:inline-block; margin:0 5px 5px 0; padding:2px 7px; border:1px solid #b7d4c9; border-radius:999px; background:#f3fbf7; color:#285d52; font-size:12px; }
+.flow { display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:7px; align-items:stretch; }
+.flow.five { grid-template-columns:repeat(5, minmax(0,1fr)); }
+.flow.six { grid-template-columns:repeat(6, minmax(0,1fr)); }
+.flow.eight { grid-template-columns:repeat(8, minmax(0,1fr)); }
+.flow div { position:relative; padding:12px 9px; background:#fff; border:1px solid var(--line); text-align:center; font-size:13px; }
+.flow div:not(:last-child)::after { content:"→"; position:absolute; right:-8px; top:50%; z-index:2; transform:translateY(-50%); color:var(--coral); font-size:18px; }
+.path-toc { position:sticky; top:0; z-index:20; box-shadow:0 8px 18px rgba(18,61,55,.08); }
+.metric-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); border-left:4px solid var(--teal); background:#fff; margin:0 0 30px; }
+.metric { min-height:94px; padding:16px 18px; border-right:1px solid var(--line); }
+.metric:last-child { border-right:0; }
+.metric strong { display:block; color:#123d37; font-size:28px; line-height:1.1; }
+.metric span { display:block; margin-top:7px; color:var(--muted); font-size:13px; }
+.stage-map { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:7px; align-items:stretch; }
+.stage-node { position:relative; min-width:0; min-height:112px; padding:13px 8px 11px; border:1px solid var(--line); border-top:5px solid var(--stage-color); border-radius:4px; background:#fff; color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+.stage-node:hover,.stage-node:focus-visible { border-color:var(--stage-color); outline:0; box-shadow:0 5px 14px rgba(18,61,55,.13); transform:translateY(-2px); }
+.stage-node[aria-pressed="true"] { border-color:var(--stage-color); background:var(--stage-soft); box-shadow:inset 0 0 0 1px var(--stage-color); }
+.stage-node:not(:last-child)::after { display:none; }
+.stage-index { display:block; color:var(--stage-color); font-size:12px; font-weight:700; }
+.stage-label { display:block; min-height:40px; margin:5px 0 4px; color:#173e37; font-size:14px; font-weight:700; line-height:1.4; }
+.stage-count { display:block; color:var(--muted); font-size:12px; }
+.stage-inspector { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:0; margin-top:12px; border:1px solid var(--line); border-left:5px solid var(--stage-color,#256f5b); background:#fff; }
+.inspector-main,.inspector-side { padding:19px 21px; }
+.inspector-side { border-left:1px solid var(--line); background:#f1f6f3; }
+.inspector-kicker { margin:0 0 6px; color:var(--stage-color,#256f5b); font-size:12px; font-weight:700; }
+.inspector-question { margin:9px 0; color:#294c45; font-size:16px; font-weight:700; }
+.inspector-summary { color:var(--muted); }
+.inspector-meta { margin:0 0 10px; color:var(--muted); font-size:13px; }
+.inspector-link { display:inline-block; margin-top:3px; font-weight:700; }
+.concept-list { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.concept-chip { padding:3px 8px; border:1px solid color-mix(in srgb,var(--stage-color,#256f5b) 45%,#fff); border-radius:999px; background:#fff; color:#294c45; font-size:12px; }
+.viz-grid { display:grid; grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr); gap:28px; align-items:start; }
+.viz-panel { min-width:0; border-top:3px solid #2d7061; padding-top:14px; }
+.viz-panel h3 { margin-bottom:4px; }
+.viz-caption { color:var(--muted); font-size:13px; }
+.bar-chart { display:grid; gap:8px; margin-top:15px; }
+.bar-row { display:grid; grid-template-columns:92px minmax(0,1fr) 32px; gap:9px; align-items:center; width:100%; padding:2px 0; border:0; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.bar-row:hover .bar-fill,.bar-row:focus-visible .bar-fill { filter:saturate(1.2); }
+.bar-row:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.bar-row[aria-current="true"] .bar-name { color:var(--stage-color); }
+.bar-row[aria-current="true"] .bar-track { box-shadow:0 0 0 2px color-mix(in srgb,var(--stage-color) 45%,#fff); }
+.bar-name { overflow:hidden; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.bar-track { position:relative; height:14px; overflow:hidden; background:#e5ece8; }
+.bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--stage-color); }
+.bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.heatmap-wrap { overflow-x:auto; margin-top:15px; }
+.heatmap { display:grid; grid-template-columns:minmax(148px,1.45fr) repeat(8,minmax(54px,.6fr)); min-width:720px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.heat-label,.heat-head,.heat-cell { min-height:43px; padding:7px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.heat-head { display:flex; align-items:center; justify-content:center; background:#eef4f1; color:#31554e; font-size:11px; font-weight:700; line-height:1.2; text-align:center; }
+.heat-label { display:flex; flex-direction:column; justify-content:center; background:#fff; font-size:12px; font-weight:700; line-height:1.25; }
+.heat-label small { margin-top:2px; color:var(--muted); font-weight:400; }
+.heat-cell { display:flex; align-items:center; justify-content:center; background:#fff; color:#fff; font-size:12px; font-weight:700; }
+.heat-cell.level-0 { color:#9baba6; background:#f5f7f6; }
+.heat-cell.level-1 { color:#355d53; background:#dcece5; }
+.heat-cell.level-2 { background:#5a9b88; }
+.heat-cell.level-3 { background:#185f52; }
+.heat-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:9px; color:var(--muted); font-size:12px; }
+.heat-legend span::before { content:""; display:inline-block; width:10px; height:10px; margin-right:5px; border:1px solid #c9d6d1; vertical-align:-1px; background:var(--legend-color); }
+.timeline { position:relative; margin:8px 0 0 10px; padding-left:30px; }
+.timeline::before { content:""; position:absolute; top:6px; bottom:7px; left:7px; width:2px; background:#b9cbc5; }
+.timeline-item { position:relative; display:grid; grid-template-columns:112px minmax(190px,.72fr) minmax(0,1.28fr); gap:18px; padding:0 0 24px; }
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-marker { position:absolute; top:4px; left:-30px; width:16px; height:16px; border:4px solid #fff; border-radius:50%; background:var(--timeline-color); box-shadow:0 0 0 1px var(--timeline-color); }
+.timeline-period { color:var(--timeline-color); font-size:14px; font-weight:700; }
+.timeline-question { color:#193f38; font-weight:700; }
+.timeline-detail { color:#3f5d56; }
+.timeline-target { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
+.detail-table-toggle { margin-top:18px; }
+.stage-section { scroll-margin-top:86px; padding-top:7px; border-top:1px solid var(--line); }
+.repo-status { display:inline-block; padding:2px 7px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:11px; white-space:nowrap; }
+.repo-status.current { border-color:#84b7a7; background:#e7f4ee; color:#1c5f50; }
+.repo-status.caution { border-color:#e0b6a8; background:#fff0eb; color:#8f3f2c; }
+.repo-table td:first-child { min-width:190px; }
+.repo-table td:nth-child(2) { min-width:150px; }
+.repo-table td:nth-child(4) { min-width:290px; }
+.static-bars { display:grid; gap:9px; margin-top:13px; }
+.static-bar-row { display:grid; grid-template-columns:150px minmax(0,1fr) 34px; gap:10px; align-items:center; }
+.static-bar-name { overflow:hidden; color:#294c45; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.static-bar-track { height:14px; overflow:hidden; background:#e5ece8; }
+.static-bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--bar-color,#2d7061); }
+.static-bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.repo-callout { border-top:3px solid var(--teal); padding-top:13px; }
+.media-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:15px; }
+.media-figure { min-width:0; margin:0; border:1px solid var(--line); background:#fff; }
+.media-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#101817; }
+.media-figure figcaption { padding:10px 12px; color:#3f5d56; font-size:13px; }
+.transcript-block { display:grid; grid-template-columns:72px minmax(0,1fr); gap:13px; padding:11px 0; border-bottom:1px solid var(--line); }
+.transcript-block[hidden] { display:none; }
+.transcript-time { font-weight:700; white-space:nowrap; }
+.transcript-text { margin:0; color:#294c45; }
+table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); }
+th,td { padding:10px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+th { background:#e9f3ef; color:#214c43; font-size:14px; }
+td { font-size:14px; }
+.table-wrap { overflow-x:auto; border-radius:6px; }
+ul,ol { margin:8px 0 0; padding-left:21px; }
+li { margin:4px 0; }
+code { background:#e8f1ee; border-radius:3px; padding:1px 4px; color:#164d43; }
+.small { color:var(--muted); font-size:13px; }
+.source-list { columns:2; column-gap:32px; }
+.source-list li { break-inside:avoid; }
+.chapter-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; list-style:none; padding:0; }
+.chapter-list a { display:block; height:100%; padding:13px; border:1px solid var(--line); background:#fff; text-decoration:none; border-radius:6px; }
+.chapter-list a:hover { border-color:var(--teal); }
+.chapter-list strong { display:block; color:#123d37; }
+.chapter-list span { color:var(--muted); font-size:13px; }
+.filter { width:100%; margin:0 0 12px; padding:11px 12px; border:1px solid #a9c4ba; border-radius:4px; font:inherit; color:var(--ink); }
+.filter-grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(220px,1fr); gap:10px; margin-bottom:8px; }
+.filter-grid .filter { margin:0; background:#fff; }
+.toc { overflow-wrap:anywhere; border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
+.toc a { display:inline-block; margin-right:13px; font-size:14px; }
+details { border:1px solid var(--line); border-radius:6px; background:#fff; margin:10px 0; }
+summary { cursor:pointer; padding:12px 14px; color:#174b42; font-weight:700; }
+details > div { padding:0 14px 14px; }
+.lecture { border-left:4px solid var(--teal); background:#fff; padding:15px 17px; margin:12px 0; }
+.lecture h3 { font-size:18px; }
+.lecture-meta { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.reading-list { margin-top:10px; }
+.reading-list li { margin:7px 0; }
+.reading-note { color:var(--muted); font-size:13px; }
+.catalog-table td:first-child { min-width:220px; }
+.catalog-table td:nth-child(2) { min-width:180px; }
+.plan-toolbar { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:18px; }
+.plan-toolbar h2 { margin-bottom:4px; }
+.segmented { display:inline-grid; grid-auto-flow:column; border:1px solid #8eada3; background:#fff; }
+.segmented button { min-height:42px; padding:8px 13px; border:0; border-right:1px solid #c5d5d0; background:#fff; color:#264f47; font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+.segmented button:last-child { border-right:0; }
+.segmented button:hover,.segmented button:focus-visible { background:#eef5f2; outline:0; }
+.segmented button[aria-pressed="true"] { background:#174b42; color:#fff; }
+.plan-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.command-button { min-height:40px; padding:8px 13px; border:1px solid #8eada3; border-radius:4px; background:#fff; color:#174b42; font:inherit; font-weight:700; cursor:pointer; }
+.command-button:hover,.command-button:focus-visible { border-color:var(--teal); outline:2px solid transparent; background:#eef5f2; }
+.command-button.primary { border-color:#174b42; background:#174b42; color:#fff; }
+.command-button.danger { border-color:#d4a99d; color:#9c3f2b; }
+.command-button:disabled { border-color:#cad5d1; background:#eef2f0; color:#81918c; cursor:not-allowed; }
+.learning-dashboard { overflow:hidden; border:1px solid var(--line); background:#fff; }
+.plan-summary { display:grid; grid-template-columns:1.2fr repeat(3,minmax(130px,.65fr)); border-bottom:1px solid var(--line); }
+.progress-summary,.summary-stat { min-width:0; min-height:96px; padding:16px 18px; border-right:1px solid var(--line); }
+.summary-stat:last-child { border-right:0; }
+.progress-summary strong,.summary-stat strong { display:block; color:#123d37; font-size:25px; line-height:1.2; }
+.progress-summary span,.summary-stat span { display:block; margin-top:6px; color:var(--muted); font-size:12px; }
+.progress-track { height:8px; margin-top:13px; overflow:hidden; background:#e2ebe7; }
+.progress-fill { display:block; height:100%; width:0; background:var(--green); transition:width .2s ease; }
+.plan-layout { display:grid; grid-template-columns:280px minmax(0,1fr); min-height:590px; }
+.phase-rail { border-right:1px solid var(--line); background:#f4f8f6; }
+.phase-rail-head { padding:15px 16px 10px; color:var(--muted); font-size:12px; font-weight:700; }
+.phase-list { display:grid; }
+.phase-button { display:grid; grid-template-columns:38px minmax(0,1fr); gap:9px; align-items:center; width:100%; min-height:66px; padding:10px 13px; border:0; border-top:1px solid var(--line); border-left:4px solid transparent; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.phase-button:hover,.phase-button:focus-visible { background:#e7f1ed; outline:0; }
+.phase-button[aria-current="true"] { border-left-color:var(--coral); background:#fff; }
+.phase-button[data-status="completed"] .phase-code { border-color:#0b7a67; background:#0b7a67; color:#fff; }
+.phase-button[data-status="locked"] { color:#82918d; cursor:not-allowed; }
+.phase-code { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid #a8bdb6; border-radius:50%; background:#fff; color:#285d52; font-size:11px; font-weight:700; }
+.phase-name { display:block; min-width:0; font-size:13px; font-weight:700; line-height:1.35; }
+.phase-state { display:block; margin-top:2px; color:var(--muted); font-size:11px; font-weight:400; }
+.phase-detail { min-width:0; padding:22px 24px 28px; }
+.phase-detail-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; border-bottom:1px solid var(--line); padding-bottom:15px; }
+.phase-detail-head h2 { margin-bottom:4px; font-size:23px; }
+.status-badge { flex:0 0 auto; padding:3px 8px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:12px; font-weight:700; }
+.status-badge.completed { border-color:#80b5a4; background:var(--soft-green); color:#155e50; }
+.status-badge.locked { border-color:#d4dcd9; color:#71817c; }
+.phase-block { margin-top:19px; }
+.phase-block h3 { font-size:15px; }
+.material-links { display:flex; flex-wrap:wrap; gap:7px 13px; margin-top:8px; }
+.material-links a { font-size:13px; font-weight:700; }
+.gate-list { display:grid; margin-top:8px; border-top:1px solid var(--line); }
+.gate-row { display:grid; grid-template-columns:24px minmax(0,1fr); gap:8px; align-items:start; padding:10px 3px; border-bottom:1px solid var(--line); cursor:pointer; }
+.gate-row input { width:17px; height:17px; margin:3px 0 0; accent-color:var(--green); }
+.evidence-input { width:100%; min-height:92px; margin-top:8px; padding:10px 11px; border:1px solid #9eb9b0; border-radius:4px; color:var(--ink); background:#fff; font:inherit; resize:vertical; }
+.evidence-input:focus { border-color:var(--teal); outline:2px solid #cce4e5; }
+.gate-submit { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:11px; }
+.gate-message { color:var(--muted); font-size:12px; }
+.learning-tools { margin-top:28px; border:1px solid var(--line); background:#fff; }
+.tool-tabs { display:flex; overflow-x:auto; border-bottom:1px solid var(--line); background:#eef4f1; }
+.tool-tab { min-width:125px; min-height:44px; padding:8px 14px; border:0; border-right:1px solid var(--line); background:transparent; color:#31554e; font:inherit; font-weight:700; cursor:pointer; }
+.tool-tab[aria-selected="true"] { background:#fff; color:#123d37; box-shadow:inset 0 -3px 0 var(--coral); }
+.tool-panel { min-height:210px; padding:20px 22px 23px; }
+.today-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--line); }
+.today-step { min-width:0; padding:14px 15px; border-right:1px solid var(--line); }
+.today-step:last-child { border-right:0; }
+.today-step small { display:block; color:var(--coral); font-weight:700; }
+.today-step strong { display:block; margin:5px 0; color:#173e37; }
+.today-step span { color:var(--muted); font-size:13px; }
+.recall-tool { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr); border:1px solid var(--line); }
+.recall-main,.recall-answer { min-height:156px; padding:17px; }
+.recall-answer { border-left:1px solid var(--line); background:#f4f8f6; }
+.recall-prompt { color:#173e37; font-size:18px; font-weight:700; }
+.recall-rating { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.artifact-list { display:grid; border-top:1px solid var(--line); }
+.artifact-row { display:grid; grid-template-columns:65px minmax(150px,.35fr) minmax(0,1fr) 130px; gap:10px; padding:10px 4px; border-bottom:1px solid var(--line); font-size:13px; }
+.artifact-row strong { color:#173e37; }
+.empty-state { padding:18px; border:1px dashed #a9beb7; color:var(--muted); text-align:center; }
+.review-findings { counter-reset:finding; border-top:1px solid var(--line); }
+.review-finding { display:grid; grid-template-columns:90px minmax(0,1fr); gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
+.severity { color:#9c3f2b; font-size:12px; font-weight:700; text-transform:uppercase; }
+footer { border-top:1px solid var(--line); color:var(--muted); padding:20px 0 34px; font-size:13px; }
+@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } .plan-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .progress-summary,.summary-stat { border-bottom:1px solid var(--line); } .summary-stat:nth-child(2) { border-right:0; } }
+@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } .plan-toolbar { align-items:flex-start; flex-direction:column; } .plan-layout { grid-template-columns:1fr; } .phase-rail { border-right:0; border-bottom:1px solid var(--line); } .phase-list { grid-template-columns:repeat(2,minmax(0,1fr)); } .phase-button:nth-child(even) { border-left:1px solid var(--line); } .phase-button[aria-current="true"] { box-shadow:inset 4px 0 0 var(--coral); } .today-grid,.recall-tool { grid-template-columns:1fr; } .today-step { border-right:0; border-bottom:1px solid var(--line); } .today-step:last-child { border-bottom:0; } .recall-answer { border-top:1px solid var(--line); border-left:0; } .artifact-row { grid-template-columns:58px minmax(0,1fr); } .artifact-row span:nth-child(3),.artifact-row time { grid-column:2; } }
+@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } .segmented { grid-auto-flow:row; width:100%; } .segmented button { border-right:0; border-bottom:1px solid #c5d5d0; } .segmented button:last-child { border-bottom:0; } .plan-actions { width:100%; } .plan-actions .command-button { flex:1 1 auto; } .plan-summary { grid-template-columns:1fr 1fr; } .progress-summary { grid-column:1 / -1; border-right:0; } .summary-stat:nth-child(2) { border-right:1px solid var(--line); } .summary-stat:last-child { grid-column:1 / -1; border-bottom:0; } .phase-list { grid-template-columns:1fr; } .phase-button:nth-child(even) { border-left:4px solid transparent; } .phase-button[aria-current="true"] { border-left-color:var(--coral); box-shadow:none; } .phase-detail { padding:18px 15px 22px; } .phase-detail-head { align-items:flex-start; flex-direction:column; } .tool-panel { padding:16px 13px 19px; } .review-finding { grid-template-columns:1fr; gap:3px; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell"><a class="brand" href="index.html">AI OFFLINE KB</a><nav class="topnav" aria-label="主导航"><a href="index.html">首页</a><a href="learning_plan.html" aria-current="page">学习计划</a><a href="knowledge_path.html">知识地图</a><a href="sources.html">来源综述</a><a href="stanford_cs336.html">Stanford CS336</a><a href="papers.html">论文矩阵</a><a href="catalog.html">全部链接</a></nav></div></header>
+<div class="hero"><div class="shell"><p class="eyebrow">OFFLINE LEARNING LIBRARY · 2026-07-15</p><h1>AI / CV / AIGC 自适应学习计划</h1><p class="lead">选择角色，从公共主干进入专业分支；用先修门槛、阶段证据、主动回忆和间隔复习驱动下一步。</p></div></div>
+<main class="shell">
+<section class="notice info"><strong>本地学习状态：</strong>角色、阶段验收、证据和复习记录只写入当前浏览器的 <code>localStorage</code>。可随时导出 JSON 备份；清除浏览器数据前请先导出。</section>
+<section aria-labelledby="console-title">
+  <div class="plan-toolbar">
+    <div><h2 id="console-title">学习控制台</h2><p class="small">路径会按先修条件解锁。勾选任务不等于完成，必须同时提交可检查的实验或文档证据。</p></div>
+    <div id="role-selector" class="segmented" role="group" aria-label="选择学习角色"></div>
+  </div>
+  <div class="plan-actions">
+    <button class="command-button" id="export-progress" type="button">导出进度</button>
+    <button class="command-button" id="import-progress" type="button">导入进度</button>
+    <button class="command-button danger" id="reset-progress" type="button">重置</button>
+    <input id="import-file" type="file" accept="application/json" hidden>
+  </div>
+</section>
+<section class="learning-dashboard" aria-label="角色学习路线">
+  <div class="plan-summary">
+    <div class="progress-summary"><strong id="progress-value">0%</strong><span id="progress-label">路线完成度</span><div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progress-fill"></span></div></div>
+    <div class="summary-stat"><strong id="current-phase">P0</strong><span>当前阶段</span></div>
+    <div class="summary-stat"><strong id="evidence-count">0</strong><span>已验收证据</span></div>
+    <div class="summary-stat"><strong id="due-count">0</strong><span>今日待复习</span></div>
+  </div>
+  <div class="plan-layout">
+    <aside class="phase-rail" aria-label="阶段导航"><div class="phase-rail-head" id="track-description">公共主干 → 专业分支 → 生产汇流</div><div class="phase-list" id="phase-list"></div></aside>
+    <div class="phase-detail" id="phase-detail" aria-live="polite"></div>
+  </div>
+</section>
+<section class="learning-tools" aria-labelledby="tools-title">
+  <h2 id="tools-title" class="small" style="position:absolute;left:-9999px">学习工具</h2>
+  <div class="tool-tabs" role="tablist" aria-label="学习工具">
+    <button class="tool-tab" id="tab-today" role="tab" aria-selected="true" aria-controls="panel-today" type="button">今日计划</button>
+    <button class="tool-tab" id="tab-recall" role="tab" aria-selected="false" aria-controls="panel-recall" type="button">主动回忆</button>
+    <button class="tool-tab" id="tab-evidence" role="tab" aria-selected="false" aria-controls="panel-evidence" type="button">学习证据</button>
+  </div>
+  <div class="tool-panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today"></div>
+  <div class="tool-panel" id="panel-recall" role="tabpanel" aria-labelledby="tab-recall" hidden></div>
+  <div class="tool-panel" id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden></div>
+</section>
+<section>
+  <div class="section-head"><h2>设计边界</h2><p>本地系统能强化执行，但不能替代导师、同伴和真实用户。</p></div>
+  <div class="review-findings">
+    <div class="review-finding"><span class="severity">已解决</span><div><strong>从静态目录升级为学习状态机</strong><p class="small">角色路径、先修锁、当前任务、阶段验收、证据与进度持久化已接入。</p></div></div>
+    <div class="review-finding"><span class="severity">已解决</span><div><strong>从被动阅读升级为主动提取</strong><p class="small">内置概念回忆卡，按“不会 / 模糊 / 掌握”安排下一次本地复习。</p></div></div>
+    <div class="review-finding"><span class="severity">仍需外部</span><div><strong>导师反馈、同伴协作和真实场景迁移</strong><p class="small">阶段证据仍需代码评审、实验复核或用户反馈；完整差距与指标见 <a href="learning_design_review.md">设计审查报告</a>。</p></div></div>
+  </div>
+</section>
+<script>
+(() => {
+  "use strict";
+  const DATA = {"version":1,"phases":[{"id":"P0","title":"先修闸门：张量、梯度与资源直觉","why":"先能读懂训练代码和成本，再讨论模型名词；否则后续实验只能靠猜。","topics":["Python/PyTorch tensor","反向传播","线性代数与概率","shape","FLOPs/显存"],"materials":[{"title":"Karpathy：micrograd / Zero to Hero","url":"karpathy.html"},{"title":"CS336 L1-L2","url":"stanford_cs336.html#lectures"}],"output":"手写一个两层网络的 forward/backward，并为 attention/MLP 列出 shape、FLOPs 和峰值内存。","exit":"能解释梯度从 loss 到参数的路径，并判断一个算子更可能受计算还是内存带宽限制。","kind":"core","prerequisites":[],"tasks":["完成一个不依赖 autograd 的 backward","写出 attention/MLP 张量形状","记录 FLOPs、峰值内存与瓶颈判断"]},{"id":"P1","title":"研究方法：先建立证据规则","why":"数据、模型和系统越复杂，越需要先固定假设、baseline、指标与失败归因。","topics":["问题定义","baseline","数据版本","seed","消融","失败分析"],"materials":[{"title":"MIT How2AI：AI research foundations","url":"how2ai.html"},{"title":"CS159 项目与论文方法","url":"reasoning_full_guide.html"}],"output":"统一实验模板：假设、数据、配置、指标、成本、失败样例与结论边界。","exit":"同一命令能复现实验；能说明提升来自哪个变量，而不是只比较最终分数。","kind":"core","prerequisites":["P0"],"tasks":["固定数据版本、配置与 seed","建立 baseline 和至少一个消融","保存失败样例与结论边界"]},{"id":"P2","title":"数据与表征：定义模型看见什么","why":"tokenizer、训练分布、监督目标和 split 先于架构决定可学习信息与泛化边界。","topics":["tokenization","训练/验证切分","自监督/对比目标","数据质量","迁移/OOD"],"materials":[{"title":"CS336 L1、L13-L14；A1 tokenizer","url":"stanford_cs336.html#lectures"},{"title":"How2AI：Data / Representation / Generalization","url":"how2ai.html"}],"output":"数据卡与 tokenizer 报告：来源、许可、压缩率、序列长度、重复率、split 和风险。","exit":"能解释数据或 tokenizer 变化如何影响序列预算、泄漏、迁移和评测，而不是把数据当常量。","kind":"core","prerequisites":["P1"],"tasks":["训练并验证 tokenizer 可逆性","完成数据卡与 split/泄漏检查","报告序列预算、重复率或 OOD 方案"]},{"id":"P3","title":"模型架构：先完成最小可训练基线","why":"只有基线正确且可过拟合，attention 变体、MoE、SSM 或多模态接口比较才有意义。","topics":["Transformer block","RoPE","RMSNorm","SwiGLU","MoE/SSM","训练循环"],"materials":[{"title":"CS336 L3-L4 与 Assignment 1","url":"stanford_cs336.html#assignments"},{"title":"Karpathy：microgpt / build-nanogpt","url":"karpathy.html"},{"title":"Transformer Taxonomy 历史坐标","url":"sources.html"}],"output":"从零实现并测试最小 Transformer LM；保存张量形状、loss 曲线、checkpoint 恢复和采样。","exit":"小数据可过拟合；梯度/损失正常；checkpoint 恢复连续；组件消融有公平预算。","kind":"core","prerequisites":["P2"],"tasks":["最小 Transformer 通过单元测试","在小数据上稳定过拟合","验证 checkpoint 恢复后 loss 连续"]},{"id":"P4","title":"训练系统与规模：让正确基线可扩展","why":"先用 profiler、kernel、并行和 scaling law 建立成本模型，再决定扩大模型或数据。","topics":["GPU/TPU","Triton/FlashAttention","DDP/FSDP","scaling law","inference","evaluation"],"materials":[{"title":"CS336 L5-L14 与 A2-A4","url":"stanford_cs336.html"},{"title":"CS25 前沿训练/推理讲座（完成 CS336 基线后）","url":"stanford_cs25.html"}],"output":"质量-吞吐-显存-通信报告、scaling 外推误差和数据 pipeline 消融。","exit":"能从 profile 解释瓶颈；多卡语义与单卡一致；规模预测有留出验证；评测有污染检查。","kind":"core","prerequisites":["P3"],"tasks":["用 profiler 解释主要瓶颈","完成质量-速度-显存-通信对照","验证 scaling 外推或评测污染检查"]},{"id":"P5","title":"任务适配与后训练：改变模型行为","why":"基础模型稳定后，再比较 Prompt/RAG、LoRA/SFT、偏好优化或 RLVR；不要用后训练掩盖底座缺陷。","topics":["Prompt/RAG baseline","LoRA/SFT","DPO/RLHF","RLVR/GRPO","量化","任务评测"],"materials":[{"title":"CS336 L15-L16 与 Assignment 5","url":"stanford_cs336.html#assignments"},{"title":"Thinking Machines 与 Labelbox 综述","url":"sources.html"},{"title":"Kaggle Day 1/4","url":"kaggle_genai.html"}],"output":"zero-shot/Prompt/RAG 与至少一种训练适配方法的公平对照，含多 seed、成本和退化项。","exit":"能区分模型知识、检索收益和训练收益；reward/偏好提升没有以安全、泛化或稳定性为代价。","kind":"core","prerequisites":["P4"],"tasks":["建立 Prompt/RAG 或 zero-shot baseline","完成一种训练适配公平对照","报告多 seed、成本和至少一个退化项"]},{"id":"B1","title":"CV / 多模态","prerequisites":["P2","P3","P4"],"order":"alignment → fusion → transfer → multimodal LLM","materials":[{"title":"How2AI 多模态主线","url":"how2ai.html"},{"title":"CS336 L17","url":"stanford_cs336.html#lectures"},{"title":"CS25 Native Multimodal Intelligence","url":"stanford_cs25.html"}],"output":"单模态 baseline、遮蔽/冲突模态消融、交互增益与缺失模态鲁棒性报告。","exit":"能证明模型使用了跨模态证据，而不只是数据集先验或单模态捷径。","kind":"branch","why":"完成公共能力后进入专业纵深；分支以可比较实验为主，不以阅读数量作为完成标准。","topics":["alignment","fusion","transfer","multimodal LLM"],"tasks":["建立单模态 baseline","完成遮蔽或冲突模态消融","证明跨模态证据带来可测增益"]},{"id":"B2","title":"AIGC / 生成模型","prerequisites":["P2","P3"],"order":"VAE/Flow → DDPM/Score → Latent Diffusion/DiT → Flow Matching → 微调与采样","materials":[{"title":"Diffusion 完整专题","url":"diffusion_full_guide.html"},{"title":"AI Toolkit 训练地图","url":"ai_toolkit.html"},{"title":"How2AI 生成模型模块","url":"how2ai.html"}],"output":"DDPM 或 Flow Matching toy，加一组固定 checkpoint 的 NFE-延迟-质量-条件遵循 Pareto。","exit":"能分开解释路径、网络参数化、条件注入、求解器和表示空间，并用统一预算比较。","kind":"branch","why":"完成公共能力后进入专业纵深；分支以可比较实验为主，不以阅读数量作为完成标准。","topics":["VAE/Flow","DDPM/Score","Latent Diffusion/DiT","Flow Matching","微调与采样"],"tasks":["实现 DDPM 或 Flow Matching toy","固定 checkpoint 比较 sampler/NFE","报告质量、延迟、条件遵循与失败样例"]},{"id":"B3","title":"LLM / Reasoning / Agent","prerequisites":["P4","P5"],"order":"Prompt/RAG → reasoning/verifier → tool use/state → Agent runtime → multi-agent","materials":[{"title":"LLM Reasoning / CS159 指南","url":"reasoning_full_guide.html"},{"title":"Kaggle Day 2-3","url":"kaggle_genai.html"},{"title":"企业 Agent 架构","url":"agent_architecture.html"}],"output":"可审计 trajectory：状态、计划、工具、验证、重试、预算、权限和失败归因。","exit":"任务成功率、工具成功率、成本和副作用分别可测；失败可恢复并能回流回归集。","kind":"branch","why":"完成公共能力后进入专业纵深；分支以可比较实验为主，不以阅读数量作为完成标准。","topics":["Prompt/RAG","reasoning/verifier","tool use/state","Agent runtime","multi-agent"],"tasks":["保存完整 Agent trajectory","分别评估任务、工具、成本与副作用","验证重试、回退与失败恢复"]},{"id":"P6","title":"生产汇流：运行时、评测、安全与反馈","prerequisites":["P1","P4","至少一个专业分支"],"order":"离线评测 → shadow/canary → 可观测性 → 回退/人工接管 → 失败数据回流","materials":[{"title":"CS336 L10/L12","url":"stanford_cs336.html#lectures"},{"title":"Kaggle Day 5","url":"kaggle_genai.html"},{"title":"Thinking Machines / Labelbox","url":"sources.html"},{"title":"Agent Runtime 架构","url":"agent_architecture.html"}],"output":"端到端验收 harness：质量、延迟、吞吐、成本、权限、副作用、回退、人工接管和数据回流。","exit":"每次模型/数据/Prompt/工具变更都能自动回归；线上失败有 owner、证据、恢复路径与训练回流条件。","kind":"convergence","why":"把模型能力转化为可上线、可观测、可回退且能持续改进的工程系统。","topics":["离线评测","shadow/canary","可观测性","回退/人工接管","失败数据回流"],"required_core":["P1","P4"],"any_of":["B1","B2","B3"],"tasks":["建立离线回归与变更版本记录","完成 shadow/canary、回退和人工接管方案","定义线上失败进入训练/评测集的条件"]}],"tracks":[{"id":"llm","role":"AI / LLM Engineer","phase_ids":["P0","P1","P2","P3","P4","P5","B3","P6"],"path":"P0 → P1 → P2 → P3 → P4 → P5 → B3 → P6","focus":"先完成语言模型与系统主干，再进入 RAG/Agent；B1/B2 只按产品需求补。"},{"id":"cv","role":"CV / Multimodal Engineer","phase_ids":["P0","P1","P2","P3","P4","B1","P6"],"path":"P0 → P1 → P2 → P3 → P4 → B1 → P6","focus":"B2 用于生成式视觉能力；P5 只学习与多模态适配相关的 SFT/LoRA。"},{"id":"aigc","role":"AIGC Engineer","phase_ids":["P0","P1","P2","P3","P4","B2","P6"],"path":"P0 → P1 → P2 → P3 → P4 → B2 → P6","focus":"P4 聚焦 profiler、训练成本与评测；B1 用于图文/视频条件与跨模态控制。"},{"id":"research","role":"Research / Tech Lead","phase_ids":["P0","P1","P2","P3","P4","P5","B1","B2","P6"],"path":"P0 → P1 → P2 → P3 → P4 → P5 → 任意两个分支 → P6","focus":"重点是公平比较、跨分支迁移、成本模型和结论边界，而不是堆叠资料数量。"}],"recall":[{"id":"R01","phase":"P0","prompt":"反向传播为什么需要按拓扑逆序执行？","answer":"每个节点必须先收齐所有下游路径贡献的梯度，再把链式法则结果传播给父节点。"},{"id":"R02","phase":"P0","prompt":"arithmetic intensity 用来判断什么？","answer":"单位内存流量完成的计算量；它帮助判断算子更可能受计算吞吐还是内存带宽限制。"},{"id":"R03","phase":"P1","prompt":"为什么只有最终指标提升不能证明方法有效？","answer":"数据、seed、预算、实现和评测泄漏都可能造成差异；需要 baseline、控制变量、消融和失败分析。"},{"id":"R04","phase":"P2","prompt":"tokenizer 改动为什么会改变训练系统成本？","answer":"它改变压缩率和序列长度，进而改变 attention 计算、激活内存、训练 token 预算与推理延迟。"},{"id":"R05","phase":"P3","prompt":"为什么先要求小数据过拟合？","answer":"它是模型、损失、梯度和训练循环正确性的低成本联合测试；无法过拟合时不应直接扩规模。"},{"id":"R06","phase":"P4","prompt":"scaling law 为什么需要重新校准？","answer":"数据分布、架构、训练 recipe 和硬件变化都会改变拟合关系，外推必须报告残差和留出误差。"},{"id":"R07","phase":"P5","prompt":"怎样区分 RAG 收益与模型本身能力？","answer":"固定模型和 Prompt，对比无检索、oracle 检索与实际检索，并分开测召回、证据支持和最终答案。"},{"id":"R08","phase":"B1","prompt":"多模态模型同时接收图文为什么仍可能没学到跨模态交互？","answer":"模型可能依赖单模态捷径或数据集先验；需要遮蔽、冲突模态和单模态 baseline 证明证据被使用。"},{"id":"R09","phase":"B2","prompt":"Flow Matching 与 sampler 分别控制什么？","answer":"Flow Matching 定义并学习速度场；sampler/ODE solver 决定如何用有限 NFE 数值积分得到样本。"},{"id":"R10","phase":"B3","prompt":"工具调用成功为什么不等于 Agent 任务成功？","answer":"任务还依赖计划、状态、约束、验证、副作用控制与恢复；工具成功只是中间接口指标。"},{"id":"R11","phase":"P6","prompt":"为什么线上评测必须包含回退和人工接管？","answer":"质量指标无法覆盖全部分布外状态和副作用；回退与接管限制故障影响并提供可审计恢复路径。"},{"id":"R12","phase":"P6","prompt":"什么失败数据值得回流训练？","answer":"可复现、有明确任务/约束、已确认标签或 rubric，并能区分模型、数据、工具和环境责任的失败。"}]};
+  const STORAGE_KEY = "aiOfflineLearningPlanV1";
+  const phaseById = new Map(DATA.phases.map((phase) => [phase.id, phase]));
+  const validPhaseIds = new Set(DATA.phases.map((phase) => phase.id));
+  const validRoles = new Set(DATA.tracks.map((track) => track.id));
+  const validRecallIds = new Set(DATA.recall.map((card) => card.id));
+  let selectedId = "P0";
+  let revealedRecallId = null;
+
+  const emptyState = () => ({ version: 1, role: "llm", completed: [], checks: {}, evidence: {}, recall: {}, history: [] });
+  function normalizeState(candidate) {
+    const base = emptyState();
+    if (!candidate || typeof candidate !== "object") return base;
+    base.role = validRoles.has(candidate.role) ? candidate.role : base.role;
+    const requested = new Set(Array.isArray(candidate.completed) ? candidate.completed.filter((id) => validPhaseIds.has(id)) : []);
+    for (const phase of DATA.phases) {
+      if (!requested.has(phase.id)) continue;
+      const allowed = phase.kind === "convergence"
+        ? phase.required_core.every((id) => base.completed.includes(id)) && phase.any_of.some((id) => base.completed.includes(id))
+        : (phase.prerequisites || []).every((id) => base.completed.includes(id));
+      if (allowed) base.completed.push(phase.id);
+    }
+    for (const phase of DATA.phases) {
+      const checks = candidate.checks?.[phase.id];
+      if (Array.isArray(checks)) base.checks[phase.id] = [0, 1, 2].map((index) => Boolean(checks[index]));
+      const evidence = candidate.evidence?.[phase.id];
+      if (typeof evidence === "string") base.evidence[phase.id] = evidence.slice(0, 20000);
+    }
+    for (const [id, record] of Object.entries(candidate.recall || {})) {
+      if (!validRecallIds.has(id) || !record || typeof record !== "object") continue;
+      base.recall[id] = {
+        rating: [0, 1, 2].includes(record.rating) ? record.rating : 0,
+        streak: Number.isInteger(record.streak) ? Math.max(0, Math.min(record.streak, 100)) : 0,
+        reviewed_at: typeof record.reviewed_at === "string" ? record.reviewed_at : null,
+        due: typeof record.due === "string" && !Number.isNaN(Date.parse(record.due)) ? record.due : null,
+      };
+    }
+    base.history = Array.isArray(candidate.history) ? candidate.history.filter((item) => item && validPhaseIds.has(item.phase) && typeof item.evidence === "string").slice(-100) : [];
+    return base;
+  }
+  function loadState() {
+    try { return normalizeState(JSON.parse(localStorage.getItem(STORAGE_KEY))); }
+    catch (_) { return emptyState(); }
+  }
+  let state = loadState();
+  function persist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (_) { /* The page still works in-memory when browser storage is unavailable. */ }
+  }
+  const completed = (id) => state.completed.includes(id);
+  const track = () => DATA.tracks.find((item) => item.id === state.role) || DATA.tracks[0];
+  const route = () => track().phase_ids.map((id) => phaseById.get(id)).filter(Boolean);
+  function isUnlocked(phase) {
+    if (completed(phase.id)) return true;
+    if (phase.kind === "convergence") {
+      return phase.required_core.every(completed) && phase.any_of.some(completed);
+    }
+    return (phase.prerequisites || []).every(completed);
+  }
+  function phaseStatus(phase) {
+    if (completed(phase.id)) return "completed";
+    return isUnlocked(phase) ? "current" : "locked";
+  }
+  function currentPhase() {
+    return route().find((phase) => !completed(phase.id) && isUnlocked(phase)) || route().find((phase) => !completed(phase.id)) || route().at(-1);
+  }
+  function phaseChecks(id) {
+    const saved = Array.isArray(state.checks[id]) ? state.checks[id] : [];
+    return [0, 1, 2].map((index) => Boolean(saved[index]));
+  }
+  function dueRecallCards() {
+    const today = new Date();
+    const routeIds = new Set(route().map((phase) => phase.id));
+    return DATA.recall.filter((card) => {
+      const phase = phaseById.get(card.phase);
+      if (!routeIds.has(card.phase) || !phase || (!completed(card.phase) && !isUnlocked(phase))) return false;
+      const record = state.recall[card.id];
+      return !record || !record.due || new Date(record.due) <= today;
+    });
+  }
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+  }
+  function missingGate(phase) {
+    if (phase.kind === "convergence") {
+      const missingCore = phase.required_core.filter((id) => !completed(id));
+      const branchReady = phase.any_of.some(completed);
+      const parts = missingCore.map((id) => phaseById.get(id).title);
+      if (!branchReady) parts.push("至少一个专业分支");
+      return parts;
+    }
+    return (phase.prerequisites || []).filter((id) => !completed(id)).map((id) => phaseById.get(id).title);
+  }
+
+  function renderRoles() {
+    const host = document.getElementById("role-selector");
+    host.replaceChildren(...DATA.tracks.map((item) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = item.role.replace(" Engineer", "").replace(" / Tech Lead", "");
+      button.setAttribute("aria-pressed", String(item.id === state.role));
+      button.addEventListener("click", () => {
+        state.role = item.id;
+        selectedId = currentPhase().id;
+        persist();
+        renderAll();
+      });
+      return button;
+    }));
+  }
+  function renderSummary() {
+    const phases = route();
+    const done = phases.filter((phase) => completed(phase.id)).length;
+    const percent = Math.round((done / phases.length) * 100);
+    const current = currentPhase();
+    document.getElementById("progress-value").textContent = percent + "%";
+    document.getElementById("progress-label").textContent = done + " / " + phases.length + " 个路线阶段已验收";
+    document.getElementById("progress-fill").style.width = percent + "%";
+    document.getElementById("current-phase").textContent = current ? current.id : "完成";
+    document.getElementById("evidence-count").textContent = phases.filter((phase) => completed(phase.id) && String(state.evidence[phase.id] || "").trim()).length;
+    document.getElementById("due-count").textContent = dueRecallCards().length;
+    document.getElementById("track-description").textContent = track().path;
+  }
+  function renderRail() {
+    const host = document.getElementById("phase-list");
+    host.replaceChildren(...route().map((phase) => {
+      const status = phaseStatus(phase);
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "phase-button";
+      button.dataset.status = status;
+      button.disabled = status === "locked";
+      button.setAttribute("aria-current", String(phase.id === selectedId));
+      const stateLabel = status === "completed" ? "已验收" : status === "locked" ? "等待先修" : "可执行";
+      button.innerHTML = `<span class="phase-code">${escapeHTML(status === "completed" ? "✓" : phase.id)}</span><span><span class="phase-name">${escapeHTML(phase.title)}</span><span class="phase-state">${stateLabel}</span></span>`;
+      button.addEventListener("click", () => { selectedId = phase.id; renderRail(); renderDetail(); });
+      return button;
+    }));
+  }
+  function renderDetail() {
+    let phase = phaseById.get(selectedId);
+    if (!phase || !track().phase_ids.includes(phase.id)) {
+      phase = currentPhase();
+      selectedId = phase.id;
+    }
+    const host = document.getElementById("phase-detail");
+    const status = phaseStatus(phase);
+    const statusLabel = status === "completed" ? "已验收" : status === "locked" ? "未解锁" : "进行中";
+    const topics = (phase.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join("");
+    const materials = phase.materials.map((material) => `<a href="${escapeHTML(material.url)}">${escapeHTML(material.title)}</a>`).join("");
+    const checks = phaseChecks(phase.id);
+    const gateRows = phase.tasks.map((task, index) => `<label class="gate-row"><input type="checkbox" data-gate-index="${index}" ${checks[index] ? "checked" : ""} ${status !== "current" ? "disabled" : ""}><span>${escapeHTML(task)}</span></label>`).join("");
+    const missing = missingGate(phase);
+    const gateNote = status === "locked" ? "需先完成：" + missing.join("；") : status === "completed" ? "该阶段已验收并写入学习证据。" : "完成三项检查，并填写可定位的代码、报告或实验记录。";
+    host.innerHTML = `
+      <div class="phase-detail-head"><div><p class="kicker">${escapeHTML(phase.id)} · ${phase.kind === "branch" ? "专业分支" : phase.kind === "convergence" ? "生产汇流" : "公共主干"}</p><h2>${escapeHTML(phase.title)}</h2><p class="small">${escapeHTML(phase.why)}</p></div><span class="status-badge ${status}">${statusLabel}</span></div>
+      <div class="phase-block"><h3>本阶段技术范围</h3><div>${topics}</div></div>
+      <div class="phase-block"><h3>优先材料</h3><div class="material-links">${materials}</div></div>
+      <div class="phase-block"><h3>验收任务</h3><div class="gate-list">${gateRows}</div></div>
+      <div class="phase-block"><h3>学习证据</h3><p class="small">填写本地文件路径、Git commit、实验表或技术报告位置，并简述结论。</p><textarea class="evidence-input" id="phase-evidence" ${status !== "current" ? "readonly" : ""} placeholder="例如：experiments/p3-transformer/report.md；commit abc123；小数据过拟合到 loss 0.03，checkpoint 恢复连续。"></textarea><div class="gate-submit"><button class="command-button primary" id="submit-gate" type="button">提交阶段验收</button><span class="gate-message" id="gate-message">${escapeHTML(gateNote)}</span></div></div>
+      <div class="phase-block notice info"><strong>验收产物：</strong>${escapeHTML(phase.output)}<br><strong>通过标准：</strong>${escapeHTML(phase.exit)}</div>`;
+    const evidence = document.getElementById("phase-evidence");
+    evidence.value = state.evidence[phase.id] || "";
+    const submit = document.getElementById("submit-gate");
+    function updateSubmit() {
+      const ready = phaseChecks(phase.id).every(Boolean) && evidence.value.trim().length > 0;
+      submit.disabled = status !== "current" || !ready;
+      if (status === "current") document.getElementById("gate-message").textContent = ready ? "条件满足，可以提交。" : "需要完成三项任务并填写证据。";
+    }
+    host.querySelectorAll("[data-gate-index]").forEach((input) => input.addEventListener("change", () => {
+      const values = phaseChecks(phase.id);
+      values[Number(input.dataset.gateIndex)] = input.checked;
+      state.checks[phase.id] = values;
+      persist();
+      updateSubmit();
+    }));
+    evidence.addEventListener("input", () => { state.evidence[phase.id] = evidence.value; persist(); updateSubmit(); });
+    submit.addEventListener("click", () => {
+      if (submit.disabled) return;
+      state.evidence[phase.id] = evidence.value.trim();
+      state.completed = [...new Set([...state.completed, phase.id])];
+      state.history.push({ phase: phase.id, title: phase.title, evidence: state.evidence[phase.id], completed_at: new Date().toISOString() });
+      state.history = state.history.slice(-100);
+      selectedId = currentPhase().id;
+      persist();
+      renderAll();
+    });
+    updateSubmit();
+  }
+  function renderToday() {
+    const host = document.getElementById("panel-today");
+    const phase = currentPhase();
+    const done = route().every((item) => completed(item.id));
+    const unchecked = phase ? phase.tasks.find((_, index) => !phaseChecks(phase.id)[index]) : null;
+    const material = phase && phase.materials.length ? phase.materials[0] : null;
+    const recallCount = dueRecallCards().length;
+    host.innerHTML = `<div class="section-head"><h3>${done ? "路线已完成" : "下一次专注块"}</h3><p>${escapeHTML(track().focus)}</p></div><div class="today-grid">
+      <div class="today-step"><small>01 · 输入</small><strong>${material ? escapeHTML(material.title) : "回顾综合产物"}</strong><span>${material ? "只读到能开始本阶段实验，不追求一次读完。" : "检查证据是否能被他人复现。"}</span></div>
+      <div class="today-step"><small>02 · 输出</small><strong>${unchecked ? escapeHTML(unchecked) : done ? "复核生产闭环" : "补全学习证据"}</strong><span>${phase ? escapeHTML(phase.id + " · " + phase.title) : "已完成"}</span></div>
+      <div class="today-step"><small>03 · 提取</small><strong>${recallCount} 张到期回忆卡</strong><span>${recallCount ? "先回答，再展开参考答案并评估记忆。" : "今天没有到期卡片。"}</span></div>
+    </div>`;
+  }
+  function renderRecall() {
+    const host = document.getElementById("panel-recall");
+    const due = dueRecallCards();
+    const card = due[0];
+    if (!card) {
+      const future = DATA.recall.map((item) => state.recall[item.id]?.due).filter(Boolean).sort()[0];
+      host.innerHTML = `<div class="empty-state"><strong>当前没有到期回忆卡</strong><br>${future ? "下一次计划复习：" + escapeHTML(new Date(future).toLocaleString("zh-CN")) : "完成阶段后继续积累复习记录。"}</div>`;
+      return;
+    }
+    const revealed = revealedRecallId === card.id;
+    host.innerHTML = `<div class="recall-tool"><div class="recall-main"><p class="kicker">${escapeHTML(card.id)} · ${escapeHTML(card.phase)}</p><p class="recall-prompt">${escapeHTML(card.prompt)}</p><button class="command-button primary" id="reveal-answer" type="button" ${revealed ? "hidden" : ""}>展开答案</button></div><div class="recall-answer"><h3>参考答案</h3><p id="recall-answer-text">${revealed ? escapeHTML(card.answer) : "先在纸上或脑中作答，再展开。"}</p><div class="recall-rating" id="recall-rating" ${revealed ? "" : "hidden"}><button class="command-button" data-rating="0" type="button">不会</button><button class="command-button" data-rating="1" type="button">模糊</button><button class="command-button primary" data-rating="2" type="button">掌握</button></div></div></div>`;
+    const reveal = document.getElementById("reveal-answer");
+    if (reveal) reveal.addEventListener("click", () => { revealedRecallId = card.id; renderRecall(); });
+    host.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
+      const rating = Number(button.dataset.rating);
+      const previous = state.recall[card.id] || { streak: 0 };
+      const streak = rating === 2 ? previous.streak + 1 : rating === 1 ? previous.streak : 0;
+      const masteredIntervals = [3, 7, 14, 30, 60];
+      const interval = rating === 0 ? 1 : rating === 1 ? 2 : masteredIntervals[Math.min(streak - 1, masteredIntervals.length - 1)];
+      const dueDate = new Date();
+      dueDate.setDate(dueDate.getDate() + interval);
+      state.recall[card.id] = { rating, streak, reviewed_at: new Date().toISOString(), due: dueDate.toISOString() };
+      revealedRecallId = null;
+      persist();
+      renderSummary();
+      renderToday();
+      renderRecall();
+    }));
+  }
+  function renderEvidence() {
+    const host = document.getElementById("panel-evidence");
+    const items = [...state.history].filter((item) => item && validPhaseIds.has(item.phase)).reverse();
+    if (!items.length) {
+      host.innerHTML = '<div class="empty-state"><strong>还没有通过验收的学习证据</strong><br>从 P0 开始，提交可定位、可检查、可复现的产物。</div>';
+      return;
+    }
+    host.innerHTML = `<div class="artifact-list">${items.map((item) => `<div class="artifact-row"><strong>${escapeHTML(item.phase)}</strong><span>${escapeHTML(item.title)}</span><span>${escapeHTML(item.evidence)}</span><time datetime="${escapeHTML(item.completed_at)}">${escapeHTML(new Date(item.completed_at).toLocaleDateString("zh-CN"))}</time></div>`).join("")}</div>`;
+  }
+  function renderAll() {
+    renderRoles();
+    renderSummary();
+    renderRail();
+    renderDetail();
+    renderToday();
+    renderRecall();
+    renderEvidence();
+  }
+
+  document.querySelectorAll(".tool-tab").forEach((tab) => tab.addEventListener("click", () => {
+    document.querySelectorAll(".tool-tab").forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    document.querySelectorAll(".tool-panel").forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+  }));
+  document.getElementById("export-progress").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "ai-learning-progress-" + new Date().toISOString().slice(0, 10) + ".json";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  });
+  document.getElementById("import-progress").addEventListener("click", () => document.getElementById("import-file").click());
+  document.getElementById("import-file").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      state = normalizeState(JSON.parse(await file.text()));
+      selectedId = currentPhase().id;
+      persist();
+      renderAll();
+    } catch (_) { alert("导入失败：文件不是有效的学习进度 JSON。"); }
+    event.target.value = "";
+  });
+  document.getElementById("reset-progress").addEventListener("click", () => {
+    if (!confirm("确定清除所有本地阶段、证据和复习记录？此操作无法撤销。")) return;
+    state = emptyState();
+    selectedId = "P0";
+    revealedRecallId = null;
+    persist();
+    renderAll();
+  });
+  selectedId = currentPhase().id;
+  renderAll();
+})();
+</script>
+</main>
+<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；Git 离线包保留结构化元数据、中文总结、清洗字幕和学习证据，不复制第三方视频或完整上游仓库。</footer>
+</body></html>

@@ -407,6 +407,9 @@ def repo_metadata() -> list[dict]:
     for repo in sorted(path for path in SOURCE_ROOT.iterdir() if path.is_dir() and (path.name == "lectures" or path.name.startswith("assignment"))):
         head = subprocess.check_output(["git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
         origin = subprocess.check_output(["git", "-C", str(repo), "remote", "get-url", "origin"], text=True).strip()
+        status = subprocess.check_output(
+            ["git", "-C", str(repo), "status", "--short"], text=True
+        ).splitlines()
         files = [path for path in repo.rglob("*") if path.is_file() and ".git" not in path.parts]
         metadata.append(
             {
@@ -416,6 +419,7 @@ def repo_metadata() -> list[dict]:
                 "local_path": relative(repo),
                 "file_count": len(files),
                 "size_bytes": sum(path.stat().st_size for path in files),
+                "local_modifications": status,
             }
         )
     return metadata
@@ -575,6 +579,7 @@ def main() -> None:
             "课程页面当前列出 19 次课，但公开 YouTube playlist 只有 18 条；Daniel Selsam 嘉宾讲座没有出现在当前 playlist。",
             "第 18/19 讲的课程页没有给出技术主题；本快照不从讲者身份推断内容，第 19 讲仅保留录播入口与机器字幕。",
             "YouTube 字幕是英文自动字幕，已去除滚动重复并按分钟合并；人名、数字、公式和代码必须回到视频或课件核验。",
+            "为使官方 Trace Viewer 断网可用，本地 lectures/index.html 仅将 MathJax CDN 地址改为已缓存的 SVG bundle；上游 commit 与本地修改状态分别记录。",
             "课程作业明确限制 AI 代理/自动补全实现作业。本地资料用于自学与理解，不应违反课程 honor code。",
             "作业 3 的课程训练 API 与课程 GPU 配额可能不对自学者开放，替代实验必须说明数据/算力差异。",
         ],

@@ -7612,7 +7612,7 @@
     ],
     "priority": "must-read",
     "notes": [
-      "【企业 Agent 架构】连接 workflow/agentic、单/多 Agent、context engineering、MCP/AI Gateway、消息恢复、OpenTelemetry 与持续评测；本地保留 720p 视频、Whisper 转写和关键幻灯片。"
+      "【企业 Agent 架构】连接 workflow/agentic、单/多 Agent、context engineering、MCP/AI Gateway、消息恢复、OpenTelemetry 与持续评测；Git 离线包保留 Whisper 转写和关键幻灯片，视频回到原站观看。"
     ],
     "kinds": [
       "视频"

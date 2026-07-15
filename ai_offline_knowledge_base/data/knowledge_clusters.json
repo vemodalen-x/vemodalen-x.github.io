@@ -4979,8 +4979,7 @@
     "summary": "合并 VAE、normalizing flow、DDPM、Score-SDE、latent diffusion、DiT、Flow/Rectified Flow、guidance、consistency 与多模态生成。",
     "dependencies": [
       "representation",
-      "architecture",
-      "multimodal"
+      "architecture"
     ],
     "concepts": [
       "latent variable",
@@ -7283,8 +7282,7 @@
     "question": "如何把一次预测扩展成有状态、可验证、能使用工具的多步决策？",
     "summary": "合并 CoT/test-time compute、self-consistency、search/planning、tool use、memory、multi-agent、自学习 Agent 和科学工作流。",
     "dependencies": [
-      "foundation-models",
-      "multimodal"
+      "foundation-models"
     ],
     "concepts": [
       "Chain-of-Thought",
@@ -7325,7 +7323,7 @@
         ],
         "priority": "must-read",
         "notes": [
-          "【企业 Agent 架构】连接 workflow/agentic、单/多 Agent、context engineering、MCP/AI Gateway、消息恢复、OpenTelemetry 与持续评测；本地保留 720p 视频、Whisper 转写和关键幻灯片。"
+          "【企业 Agent 架构】连接 workflow/agentic、单/多 Agent、context engineering、MCP/AI Gateway、消息恢复、OpenTelemetry 与持续评测；Git 离线包保留 Whisper 转写和关键幻灯片，视频回到原站观看。"
         ],
         "kinds": [
           "视频"
@@ -8527,8 +8525,7 @@
     "summary": "合并推理 serving、确定性、环境与 trajectory 评测、LLM judge、偏好反馈、安全、monitorability、实时交互和 human-in-the-loop。",
     "dependencies": [
       "research",
-      "foundation-models",
-      "reasoning-agents"
+      "foundation-models"
     ],
     "concepts": [
       "serving",
