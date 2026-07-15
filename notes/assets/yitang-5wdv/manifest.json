@@ -1,0 +1,108 @@
+{
+  "capturedAt": "2026-07-15T11:01:24.657Z",
+  "source": "authenticated Chrome CDP",
+  "results": [
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/6d5dbef1fbb0c4acaa523ca5c3cf23cd.png",
+      "output": "course-01.png",
+      "status": "saved",
+      "bytes": 940910
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/69691cf1d28f0adea2583637a2608f92.png",
+      "output": "course-02.png",
+      "status": "saved",
+      "bytes": 2320569
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/6f66fd20786b60ba646267e7d9eb3cea.png",
+      "output": "course-03.png",
+      "status": "saved",
+      "bytes": 590192
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/68c16770ef112c988c593512f3368283.png",
+      "output": "course-04.png",
+      "status": "saved",
+      "bytes": 261161
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/5ba9f7685d730ff417233d426e168293.png",
+      "output": "course-05.png",
+      "status": "saved",
+      "bytes": 941133
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/adc6211d0a147110f3131bda112aa3f6.png",
+      "output": "course-06.png",
+      "status": "saved",
+      "bytes": 945904
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/406318816727fa1fa912d489c7cfe0d1.png",
+      "output": "course-07.png",
+      "status": "saved",
+      "bytes": 229577
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/4da8babd7df911f80b0d703d00fef796.png",
+      "output": "course-08.png",
+      "status": "saved",
+      "bytes": 129059
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/ce8aaeb06f07fb4fd1db832fe583dea2.png",
+      "output": "course-09.png",
+      "status": "saved",
+      "bytes": 183210
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/a844ac12e78a79155a42cb233c43f003.png",
+      "output": "course-10.png",
+      "status": "saved",
+      "bytes": 109392
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/37124ae944ade2d61e4948f4e46bb0b0.png",
+      "output": "course-11.png",
+      "status": "saved",
+      "bytes": 110206
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/b9c616ee3e66e396ff61f02e432d20b8.png",
+      "output": "course-12.png",
+      "status": "saved",
+      "bytes": 46744
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/61d5d11336f88e5654f0fa84d05fdd46.png",
+      "output": "course-13.png",
+      "status": "saved",
+      "bytes": 687090
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/67272cd1c86076a259e5f7f35cae1303.png",
+      "output": "course-14.png",
+      "status": "saved",
+      "bytes": 107475
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/06b124a86893dc131bd00a770b0eda53.png",
+      "output": "course-15.png",
+      "status": "saved",
+      "bytes": 383818
+    },
+    {
+      "url": "https://cdn.yitang.top/localfile/prod/ad99131d7e9e220468411a443a55603e.png",
+      "output": "course-16.png",
+      "status": "saved",
+      "bytes": 950325
+    },
+    {
+      "url": "https://cdn.yitang.top/upload/ether-public/yitang/1650961844bfd22532ae0105855361bab25a5172a7e022889e.png",
+      "output": "lesson-homework-visual.png",
+      "status": "saved",
+      "bytes": 64373
+    }
+  ]
+}

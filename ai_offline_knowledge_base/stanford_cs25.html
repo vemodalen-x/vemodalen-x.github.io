@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI、CV、AIGC、LLM 推理与 Agent 的离线学习知识库">
+<title>Stanford CS25: Transformers United V6 | 离线 AI 学习知识库</title>
+<style>
+:root { --ink:#16302c; --muted:#56706a; --paper:#f7faf7; --surface:#ffffff; --line:#d3dfda; --green:#087c69; --teal:#006f82; --coral:#c94e2e; --gold:#996200; --soft-green:#e7f4ee; --soft-coral:#fff0eb; --soft-blue:#eaf4f6; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif; line-height:1.65; }
+a { color:#006d73; text-decoration-thickness:1px; text-underline-offset:3px; }
+a:hover { color:#b84428; }
+.shell { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+.topbar { background:#113d36; color:#fff; border-bottom:4px solid #d26a35; }
+.topbar .shell { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:13px 0; }
+.brand { color:#fff; font-weight:700; text-decoration:none; letter-spacing:0; }
+.topnav { display:flex; flex-wrap:wrap; gap:14px; }
+.topnav a { color:#d7ebe5; text-decoration:none; font-size:14px; }
+.hero { background:#e6f2ed; border-bottom:1px solid var(--line); padding:48px 0 42px; }
+.eyebrow { margin:0 0 10px; color:#087c69; font-weight:700; font-size:13px; letter-spacing:0; text-transform:uppercase; }
+h1,h2,h3,h4 { line-height:1.28; margin:0; color:#123d37; letter-spacing:0; }
+h1 { max-width:900px; font-size:40px; }
+h2 { font-size:26px; margin-bottom:14px; }
+h3 { font-size:18px; margin-bottom:8px; }
+h4 { font-size:16px; margin-bottom:6px; }
+p { margin:0 0 12px; }
+.lead { max-width:900px; color:#38544e; font-size:18px; }
+main { padding:30px 0 52px; }
+section { margin:0 0 34px; }
+.section-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; }
+.section-head p { color:var(--muted); margin:0; font-size:14px; }
+.notice { border-left:4px solid var(--coral); background:var(--soft-coral); padding:14px 16px; }
+.notice.info { border-color:var(--teal); background:var(--soft-blue); }
+.grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
+.grid.two { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.item { border:1px solid var(--line); border-top:4px solid var(--green); background:var(--surface); padding:17px; border-radius:6px; }
+.item.teal { border-top-color:var(--teal); }
+.item.coral { border-top-color:var(--coral); }
+.item.gold { border-top-color:var(--gold); }
+.kicker { color:var(--muted); font-size:13px; font-weight:700; margin-bottom:7px; }
+.pill { display:inline-block; margin:0 5px 5px 0; padding:2px 7px; border:1px solid #b7d4c9; border-radius:999px; background:#f3fbf7; color:#285d52; font-size:12px; }
+.flow { display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:7px; align-items:stretch; }
+.flow.five { grid-template-columns:repeat(5, minmax(0,1fr)); }
+.flow.six { grid-template-columns:repeat(6, minmax(0,1fr)); }
+.flow.eight { grid-template-columns:repeat(8, minmax(0,1fr)); }
+.flow div { position:relative; padding:12px 9px; background:#fff; border:1px solid var(--line); text-align:center; font-size:13px; }
+.flow div:not(:last-child)::after { content:"→"; position:absolute; right:-8px; top:50%; z-index:2; transform:translateY(-50%); color:var(--coral); font-size:18px; }
+.path-toc { position:sticky; top:0; z-index:20; box-shadow:0 8px 18px rgba(18,61,55,.08); }
+.metric-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); border-left:4px solid var(--teal); background:#fff; margin:0 0 30px; }
+.metric { min-height:94px; padding:16px 18px; border-right:1px solid var(--line); }
+.metric:last-child { border-right:0; }
+.metric strong { display:block; color:#123d37; font-size:28px; line-height:1.1; }
+.metric span { display:block; margin-top:7px; color:var(--muted); font-size:13px; }
+.stage-map { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:7px; align-items:stretch; }
+.stage-node { position:relative; min-width:0; min-height:112px; padding:13px 8px 11px; border:1px solid var(--line); border-top:5px solid var(--stage-color); border-radius:4px; background:#fff; color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+.stage-node:hover,.stage-node:focus-visible { border-color:var(--stage-color); outline:0; box-shadow:0 5px 14px rgba(18,61,55,.13); transform:translateY(-2px); }
+.stage-node[aria-pressed="true"] { border-color:var(--stage-color); background:var(--stage-soft); box-shadow:inset 0 0 0 1px var(--stage-color); }
+.stage-node:not(:last-child)::after { content:"→"; position:absolute; right:-10px; top:46px; z-index:3; width:12px; color:#a1442d; font-weight:700; text-align:center; pointer-events:none; }
+.stage-index { display:block; color:var(--stage-color); font-size:12px; font-weight:700; }
+.stage-label { display:block; min-height:40px; margin:5px 0 4px; color:#173e37; font-size:14px; font-weight:700; line-height:1.4; }
+.stage-count { display:block; color:var(--muted); font-size:12px; }
+.stage-inspector { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:0; margin-top:12px; border:1px solid var(--line); border-left:5px solid var(--stage-color,#256f5b); background:#fff; }
+.inspector-main,.inspector-side { padding:19px 21px; }
+.inspector-side { border-left:1px solid var(--line); background:#f1f6f3; }
+.inspector-kicker { margin:0 0 6px; color:var(--stage-color,#256f5b); font-size:12px; font-weight:700; }
+.inspector-question { margin:9px 0; color:#294c45; font-size:16px; font-weight:700; }
+.inspector-summary { color:var(--muted); }
+.inspector-meta { margin:0 0 10px; color:var(--muted); font-size:13px; }
+.inspector-link { display:inline-block; margin-top:3px; font-weight:700; }
+.concept-list { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.concept-chip { padding:3px 8px; border:1px solid color-mix(in srgb,var(--stage-color,#256f5b) 45%,#fff); border-radius:999px; background:#fff; color:#294c45; font-size:12px; }
+.viz-grid { display:grid; grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr); gap:28px; align-items:start; }
+.viz-panel { min-width:0; border-top:3px solid #2d7061; padding-top:14px; }
+.viz-panel h3 { margin-bottom:4px; }
+.viz-caption { color:var(--muted); font-size:13px; }
+.bar-chart { display:grid; gap:8px; margin-top:15px; }
+.bar-row { display:grid; grid-template-columns:92px minmax(0,1fr) 32px; gap:9px; align-items:center; width:100%; padding:2px 0; border:0; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.bar-row:hover .bar-fill,.bar-row:focus-visible .bar-fill { filter:saturate(1.2); }
+.bar-row:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.bar-row[aria-current="true"] .bar-name { color:var(--stage-color); }
+.bar-row[aria-current="true"] .bar-track { box-shadow:0 0 0 2px color-mix(in srgb,var(--stage-color) 45%,#fff); }
+.bar-name { overflow:hidden; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.bar-track { position:relative; height:14px; overflow:hidden; background:#e5ece8; }
+.bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--stage-color); }
+.bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.heatmap-wrap { overflow-x:auto; margin-top:15px; }
+.heatmap { display:grid; grid-template-columns:minmax(148px,1.45fr) repeat(8,minmax(54px,.6fr)); min-width:720px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.heat-label,.heat-head,.heat-cell { min-height:43px; padding:7px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.heat-head { display:flex; align-items:center; justify-content:center; background:#eef4f1; color:#31554e; font-size:11px; font-weight:700; line-height:1.2; text-align:center; }
+.heat-label { display:flex; flex-direction:column; justify-content:center; background:#fff; font-size:12px; font-weight:700; line-height:1.25; }
+.heat-label small { margin-top:2px; color:var(--muted); font-weight:400; }
+.heat-cell { display:flex; align-items:center; justify-content:center; background:#fff; color:#fff; font-size:12px; font-weight:700; }
+.heat-cell.level-0 { color:#9baba6; background:#f5f7f6; }
+.heat-cell.level-1 { color:#355d53; background:#dcece5; }
+.heat-cell.level-2 { background:#5a9b88; }
+.heat-cell.level-3 { background:#185f52; }
+.heat-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:9px; color:var(--muted); font-size:12px; }
+.heat-legend span::before { content:""; display:inline-block; width:10px; height:10px; margin-right:5px; border:1px solid #c9d6d1; vertical-align:-1px; background:var(--legend-color); }
+.timeline { position:relative; margin:8px 0 0 10px; padding-left:30px; }
+.timeline::before { content:""; position:absolute; top:6px; bottom:7px; left:7px; width:2px; background:#b9cbc5; }
+.timeline-item { position:relative; display:grid; grid-template-columns:112px minmax(190px,.72fr) minmax(0,1.28fr); gap:18px; padding:0 0 24px; }
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-marker { position:absolute; top:4px; left:-30px; width:16px; height:16px; border:4px solid #fff; border-radius:50%; background:var(--timeline-color); box-shadow:0 0 0 1px var(--timeline-color); }
+.timeline-period { color:var(--timeline-color); font-size:14px; font-weight:700; }
+.timeline-question { color:#193f38; font-weight:700; }
+.timeline-detail { color:#3f5d56; }
+.timeline-target { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
+.detail-table-toggle { margin-top:18px; }
+.stage-section { scroll-margin-top:86px; padding-top:7px; border-top:1px solid var(--line); }
+.repo-status { display:inline-block; padding:2px 7px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:11px; white-space:nowrap; }
+.repo-status.current { border-color:#84b7a7; background:#e7f4ee; color:#1c5f50; }
+.repo-status.caution { border-color:#e0b6a8; background:#fff0eb; color:#8f3f2c; }
+.repo-table td:first-child { min-width:190px; }
+.repo-table td:nth-child(2) { min-width:150px; }
+.repo-table td:nth-child(4) { min-width:290px; }
+.static-bars { display:grid; gap:9px; margin-top:13px; }
+.static-bar-row { display:grid; grid-template-columns:150px minmax(0,1fr) 34px; gap:10px; align-items:center; }
+.static-bar-name { overflow:hidden; color:#294c45; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.static-bar-track { height:14px; overflow:hidden; background:#e5ece8; }
+.static-bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--bar-color,#2d7061); }
+.static-bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.repo-callout { border-top:3px solid var(--teal); padding-top:13px; }
+.media-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:15px; }
+.media-figure { min-width:0; margin:0; border:1px solid var(--line); background:#fff; }
+.media-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#101817; }
+.media-figure figcaption { padding:10px 12px; color:#3f5d56; font-size:13px; }
+.transcript-block { display:grid; grid-template-columns:72px minmax(0,1fr); gap:13px; padding:11px 0; border-bottom:1px solid var(--line); }
+.transcript-block[hidden] { display:none; }
+.transcript-time { font-weight:700; white-space:nowrap; }
+.transcript-text { margin:0; color:#294c45; }
+table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); }
+th,td { padding:10px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+th { background:#e9f3ef; color:#214c43; font-size:14px; }
+td { font-size:14px; }
+.table-wrap { overflow-x:auto; border-radius:6px; }
+ul,ol { margin:8px 0 0; padding-left:21px; }
+li { margin:4px 0; }
+code { background:#e8f1ee; border-radius:3px; padding:1px 4px; color:#164d43; }
+.small { color:var(--muted); font-size:13px; }
+.source-list { columns:2; column-gap:32px; }
+.source-list li { break-inside:avoid; }
+.chapter-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; list-style:none; padding:0; }
+.chapter-list a { display:block; height:100%; padding:13px; border:1px solid var(--line); background:#fff; text-decoration:none; border-radius:6px; }
+.chapter-list a:hover { border-color:var(--teal); }
+.chapter-list strong { display:block; color:#123d37; }
+.chapter-list span { color:var(--muted); font-size:13px; }
+.filter { width:100%; margin:0 0 12px; padding:11px 12px; border:1px solid #a9c4ba; border-radius:4px; font:inherit; color:var(--ink); }
+.filter-grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(220px,1fr); gap:10px; margin-bottom:8px; }
+.filter-grid .filter { margin:0; background:#fff; }
+.toc { border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
+.toc a { margin-right:13px; font-size:14px; }
+details { border:1px solid var(--line); border-radius:6px; background:#fff; margin:10px 0; }
+summary { cursor:pointer; padding:12px 14px; color:#174b42; font-weight:700; }
+details > div { padding:0 14px 14px; }
+.lecture { border-left:4px solid var(--teal); background:#fff; padding:15px 17px; margin:12px 0; }
+.lecture h3 { font-size:18px; }
+.lecture-meta { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.reading-list { margin-top:10px; }
+.reading-list li { margin:7px 0; }
+.reading-note { color:var(--muted); font-size:13px; }
+.catalog-table td:first-child { min-width:220px; }
+.catalog-table td:nth-child(2) { min-width:180px; }
+footer { border-top:1px solid var(--line); color:var(--muted); padding:20px 0 34px; font-size:13px; }
+@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } }
+@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } }
+@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell"><a class="brand" href="index.html">AI OFFLINE KB</a><nav class="topnav" aria-label="主导航"><a href="index.html">首页</a><a href="knowledge_path.html">知识主线</a><a href="sources.html">来源综述</a><a href="how2ai.html">How2AI 课程</a><a href="stanford_cs25.html" aria-current="page">Stanford CS25</a><a href="stanford_cs336.html">Stanford CS336</a><a href="karpathy.html">Karpathy</a><a href="ai_toolkit.html">AI Toolkit</a><a href="kaggle_genai.html">Kaggle GenAI</a><a href="agent_architecture.html">Agent 架构</a><a href="papers.html">论文矩阵</a><a href="catalog.html">全部链接</a></nav></div></header>
+<div class="hero"><div class="shell"><p class="eyebrow">OFFLINE LEARNING LIBRARY · 2026-07-15</p><h1>Stanford CS25: Transformers United V6</h1><p class="lead">把 2026 年 Transformer 前沿讲座转成可离线复习的研究地图、工程问题和 4 周学习路线。</p></div></div>
+<main class="shell">
+<div class="toc"><strong>本页：</strong><a href="#position">课程定位</a><a href="#map">知识聚类</a><a href="#schedule">V6 讲次</a><a href="#recordings">精选录播</a><a href="#path">4 周路线</a></div>
+<section id="position"><div class="section-head"><h2>课程定位</h2><p>Stanford CS25 · Transformers United V6 · Spring 2026</p></div><p>CS25 是一门 1-unit、S/NC 的公开前沿研讨课，课程学习活动以每周讲座为主，不以作业、考试或项目建立能力闭环。它最适合放在 How2AI、Transformer Taxonomy 与 LLM 推理指南之后，用于更新研究判断、架构视野和生产问题意识。</p><div class="grid two"><article class="item"><h3>适合谁</h3><p>已掌握 attention、预训练与基本实验方法，希望理解 2026 年 Transformer 研究向世界模型、SSM、原生多模态和规模化系统演进的 AI/CV/AIGC 工程师。</p></article><article class="item coral"><h3>怎样使用</h3><p>每场讲座只提炼一个可检验假设，再连接一篇论文或一个工程实验。讲者或机构报告的性能数字只视为特定设置下的证据，不直接泛化。</p></article></div><p class="notice info">原始入口：<a href="https://web.stanford.edu/class/cs25/" target="_blank" rel="noreferrer">课程主页</a> · <a href="https://web.stanford.edu/class/cs25/logistics/" target="_blank" rel="noreferrer">Logistics</a> · <a href="https://web.stanford.edu/class/cs25/recordings/" target="_blank" rel="noreferrer">Recordings</a> · <a href="data/stanford_cs25_schedule.json">本地结构化 schedule</a></p></section>
+<section id="map"><div class="section-head"><h2>知识聚类</h2><p>CS25 的价值是连接模型、训练、应用和系统四个尺度。</p></div><div class="grid">
+<article class="item"><p class="kicker">表示与世界模型</p><h3>JEPA、结构偏置与潜空间预测</h3><p>从重建转向预测，并检验对象关系、抽象、规划和控制是否因潜空间目标而改善。</p></article>
+<article class="item teal"><p class="kicker">架构</p><h3>Transformer、SSM 与 Tokenization</h3><p>架构复杂度必须和数据分辨率、token 数、硬件吞吐及应用任务共同比较。</p></article>
+<article class="item coral"><p class="kicker">训练</p><h3>5D Parallelism、MoE 与 Pretraining</h3><p>把数据顺序、reasoning-rich data、强化目标、通信和稳定性视作同一训练系统。</p></article>
+<article class="item gold"><p class="kicker">泛化</p><h3>参数知识、上下文与检索</h3><p>区分训练进权重、放入上下文和从外部库检索产生的泛化模式与成本。</p></article>
+<article class="item teal"><p class="kicker">多模态</p><h3>共享推理与模态专家化</h3><p>研究语言模型原则如何迁移到视觉、音频与时间信息，以及何时需要 modality-aware computation。</p></article>
+<article class="item"><p class="kicker">部署与协作</p><h3>Science Agents、Human-AI 与 Serving</h3><p>用专家复核、延迟、吞吐、故障恢复和可追溯证据衡量真实系统，而不只看 benchmark。</p></article>
+</div></section>
+<section id="schedule"><div class="section-head"><h2>V6 完整讲次</h2><p>9 场公开讲座</p></div><p class="notice">链接核对：课程源页当前为 2026-04-23 与 2026-04-30 两讲提供的 slides URL 指向同一个 Google Drive 文件 ID。本地保留源页链接，但尚不能确认它们是否本应为同一课件。</p><article class="lecture"><h3>2026-04-02 · Overview of Transformers</h3>
+            <p class="lecture-meta">Speaker: CS25 instructors · Model architectures · <a href="https://drive.google.com/file/d/153Gu4BIfpnn6jj6WmXlsyD7kv702zcrB/view?usp=sharing" target="_blank" rel="noreferrer">slides</a> · <a href="https://www.youtube.com/watch?v=bHSDPgZYie0" target="_blank" rel="noreferrer">video</a></p>
+            <p>回顾 ML/NLP 与 Transformer 的历史、工作机制、影响、近期突破和开放挑战，并以小数据语言学习、RAG-aware scaling、渐进扩层、fMRI 表征和幻觉定义展示研究切面。</p>
+            <p class="small"><strong>工程学习价值：</strong>建立统一模型卡：tokenization、attention、训练数据、参数知识、检索知识、评测和失败模式。</p><details><summary>本讲论文（6 篇）</summary><div><ul class="reading-list"><li><a href="https://arxiv.org/abs/2603.29522" target="_blank" rel="noreferrer">Baby Scale: Investigating Models Trained on Individual Children&#x27;s Language Input</a><div class="reading-note">在儿童自然语言输入量级上训练模型，研究数据规模、个体数据差异与语言能力涌现。</div></li><li><a href="https://arxiv.org/abs/2603.29552" target="_blank" rel="noreferrer">Bringing Up a Bilingual BabyLM: Investigating Multilingual Language Acquisition Using Small-Scale Models</a><div class="reading-note">用小规模语言模型模拟不同双语输入结构，研究多语言学习的数据配置与能力差异。</div></li><li><a href="https://arxiv.org/abs/2604.00715" target="_blank" rel="noreferrer">To Memorize or to Retrieve: Scaling Laws for RAG-Considerate Pretraining</a><div class="reading-note">在固定数据预算下研究预训练语料与检索库之间的分配，连接参数记忆、RAG 与 scaling laws。</div></li><li><a href="https://arxiv.org/abs/2506.11389" target="_blank" rel="noreferrer">Curriculum-Guided Layer Scaling for Language Model Pretraining</a><div class="reading-note">将数据难度课程与渐进增加网络层数同步，探索更节省计算的语言模型预训练。</div></li><li><a href="https://arxiv.org/abs/2603.00786" target="_blank" rel="noreferrer">Interpretable Cross-Network Attention for Resting-State fMRI Representation Learning</a><div class="reading-note">以 masked reconstruction 和跨脑网络 attention 学习可解释的静息态 fMRI 表征。</div></li><li><a href="https://arxiv.org/abs/2512.21577" target="_blank" rel="noreferrer">A Unified Definition of Hallucination: It&#x27;s The World Model, Stupid!</a><div class="reading-note">尝试把多种幻觉定义统一为可被用户观察到的不准确内部世界建模；属于概念框架，需结合原文边界阅读。</div></li></ul></div></details></article><article class="lecture"><h3>2026-04-09 · From Representation Learning to World Modeling through Joint Embedding Predictive Architectures</h3>
+            <p class="lecture-meta">Speaker: Hazel Nam &amp; Lucas Maes · Data, representation, and generalization · <a href="https://drive.google.com/file/d/1bF5Yfzf-FG5iNIAgsXn2DwVD3l3ymvZW/view?usp=drive_fs" target="_blank" rel="noreferrer">slides</a></p>
+            <p>以 Causal-JEPA 和 LeWorldModel 说明世界模型从像素重建转向潜空间预测：前者加入对象级关系偏置，后者强调从原始像素端到端稳定训练的简洁配方。</p>
+            <p class="small"><strong>工程学习价值：</strong>比较重建目标与潜空间预测目标，并分别消融结构偏置、规划质量和控制任务效率。</p></article><article class="lecture"><h3>2026-04-16 · On the Tradeoffs of State Space Models and Transformers</h3>
+            <p class="lecture-meta">Speaker: Albert Gu · Model architectures · <a href="https://www.youtube.com/watch?v=OyimE74UMF8&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM&amp;index=44" target="_blank" rel="noreferrer">video</a></p>
+            <p>比较次二次 State Space Models、现代线性序列模型与 Transformer 的建模和性能特征，强调数据分辨率、tokenization 与应用域会改变架构优劣，并讨论 tokenizer-free H-Nets。</p>
+            <p class="small"><strong>工程学习价值：</strong>同一数据、参数预算和硬件上比较质量、吞吐、长序列内存与 tokenizer 成本，避免只比较理论复杂度。</p></article><article class="lecture"><h3>2026-04-23 · The Ultra-Scale Talk: Scaling Training to Thousands of GPUs</h3>
+            <p class="lecture-meta">Speaker: Nouamane Tazi · Large foundation models · <a href="https://drive.google.com/file/d/1dxdC76Rk_o6UEd5AqhHjp0rapsxYOR6j/view?usp=sharing" target="_blank" rel="noreferrer">slides</a></p>
+            <p>从工程角度解释 5D parallelism、MoE 的扩展与稳定性、通信模式、性能调优和大规模训练 benchmark。</p>
+            <p class="small"><strong>工程学习价值：</strong>用算力利用率、通信占比、显存峰值、故障恢复和有效 tokens/s 评估分布式训练方案。</p></article><article class="lecture"><h3>2026-04-30 · From Next-Token Prediction to Next-Generation Intelligence: The Future of Pretraining</h3>
+            <p class="lecture-meta">Speaker: Shrimai Prabhumoye · Large foundation models · <a href="https://drive.google.com/open?id=1dxdC76Rk_o6UEd5AqhHjp0rapsxYOR6j&amp;usp=drive_fs" target="_blank" rel="noreferrer">slides</a></p>
+            <p>讨论数据选择、混合和排序、前置 reasoning-rich data，以及在预训练阶段使用强化学习目标将 Chain-of-Thought 作为探索行为。</p>
+            <p class="small"><strong>工程学习价值：</strong>对照随机数据顺序、课程式预训练和 post-training，验证能力来自数据排序还是额外计算/数据。</p></article><article class="lecture"><h3>2026-05-07 · Distinct Modes of Generalization from Parameters and Context, and Paths to Bridge the Gap</h3>
+            <p class="lecture-meta">Speaker: Andrew Lampinen · Data, representation, and generalization · <a href="https://drive.google.com/file/d/1-YIOa5Yal4RCjAsV-0tnW_NNDGbY1GTo/view?usp=sharing" target="_blank" rel="noreferrer">slides</a></p>
+            <p>比较知识通过参数更新与上下文输入获得时产生的不同泛化模式，并讨论数据增强、检索和强化学习如何缩小差距。</p>
+            <p class="small"><strong>工程学习价值：</strong>为同一知识设计 fine-tuning、in-context 和 retrieval 三种注入方式，测试组合泛化与分布外迁移。</p></article><article class="lecture"><h3>2026-05-14 · Advancing Science and Medicine with Collaborative AI Agents</h3>
+            <p class="lecture-meta">Speaker: Vivek Natarajan · Interactive agents and Human-AI interaction · slides/video：当前课程页未公开</p>
+            <p>以 AI co-scientist 和 AMIE 为例讨论协作式科学/医疗系统：多 Agent 生成与改进假设，以及辅助临床推理和医生决策。页面中的效果描述属于特定研究设置，不能直接外推到临床部署。</p>
+            <p class="small"><strong>工程学习价值：</strong>将模型准确率与实验验证、证据追溯、专家复核、风险分级和 human override 分开评估。</p></article><article class="lecture"><h3>2026-05-21 · From Language Models to Native Multimodal Intelligence</h3>
+            <p class="lecture-meta">Speaker: Victoria Lin · Multimodal learning · <a href="https://drive.google.com/file/d/10Doblrt3Le_FpbVQoMP0DbuCIO3rtWPW/view?usp=sharing" target="_blank" rel="noreferrer">slides</a></p>
+            <p>讨论从语言模型走向原生多模态系统时可迁移的架构/训练原则，以及模态表示、自回归建模、稀疏性、模态专家化和实时多模态的新问题。</p>
+            <p class="small"><strong>工程学习价值：</strong>明确共享抽象推理与 modality-aware computation 的边界，并分别测跨模态利用率、延迟和专业化收益。</p></article><article class="lecture"><h3>2026-05-28 · Serving Transformers: Lessons from the Trenches of Production Inference</h3>
+            <p class="lecture-meta">Speaker: Charles Frye · Large foundation models · <a href="https://drive.google.com/file/d/1mwRSslwZUCph1Au-9tY3ZJPrjXTnbAxm/view?usp=drive_fs" target="_blank" rel="noreferrer">slides</a></p>
+            <p>把 Transformer 从训练推向生产 serving，关注大规模 GPU 推理中的前向计算、批处理、吞吐、延迟和工程故障经验。</p>
+            <p class="small"><strong>工程学习价值：</strong>建立 p50/p95 latency、tokens/s、KV cache、batch 组成、冷启动、故障率与单位请求成本的生产基线。</p></article></section>
+<section id="recordings"><div class="section-head"><h2>精选录播</h2><p>当前 V6 与历届课程的公开入口</p></div><p><a href="https://www.youtube.com/playlist?list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">All Recordings playlist</a> 包含更多历届讲座；下表保留课程录播页当前列出的精选内容。</p><div class="table-wrap"><table><thead><tr><th>讲座</th><th>讲者</th><th>类别</th><th>离线学习定位</th></tr></thead><tbody><tr><td><a href="https://www.youtube.com/watch?v=bHSDPgZYie0" target="_blank" rel="noreferrer">Stanford CS25 V6: Overview of Transformers</a></td><td>CS25 instructors</td><td>Model architectures</td><td>V6 Transformer 总览录播，与 2026-04-02 讲次对应。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=OyimE74UMF8&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM&amp;index=44" target="_blank" rel="noreferrer">On the Tradeoffs of State Space Models and Transformers</a></td><td>Albert Gu</td><td>Model architectures</td><td>比较 SSM、线性模型和 Transformer 的架构与性能权衡。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=XfpMkf4rD6E&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Introduction to Transformers</a></td><td>CS25 instructors &amp; Andrej Karpathy</td><td>Model architectures</td><td>历届课程的 Transformer 基础录播，适合在前沿讲座前补齐模型机制。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=3gb-ZkVRemQ&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Intuition on LMs, Shaping the Future of AI</a></td><td>Jason Wei &amp; Hyung Won Chung</td><td>Large foundation models</td><td>从语言模型能力与研究趋势建立直觉；具体主张需结合录播上下文。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=1GbDTTK3aR4&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Stop Worrying and Love the Transformer</a></td><td>Ashish Vaswani</td><td>Model architectures</td><td>Transformer 设计与发展视角的历届讲座录播。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=AdLgPmcrXwQ&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Aligning Open Language Models</a></td><td>Nathan Lambert</td><td>Large foundation models</td><td>开放语言模型 alignment 录播，适合连接 SFT、偏好数据和后训练评测。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=mE7IDf2SmJg&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Retrieval Augmented Language Models</a></td><td>Douwe Kiela</td><td>Interactive agents and Human-AI interaction</td><td>RAG 录播，连接参数知识、外部检索、上下文构造和答案评测。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=wwQ1LQA3RCU&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Generalist Agents in Open-Ended Worlds</a></td><td>Jim Fan</td><td>Interactive agents and Human-AI interaction</td><td>开放世界通用 Agent 录播，适合关注环境、技能积累和长程执行。</td></tr><tr><td><a href="https://www.youtube.com/watch?v=CYaju6aCMoQ&amp;list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM" target="_blank" rel="noreferrer">Whole-Part Hierarchies in a Neural Network</a></td><td>Geoffrey Hinton</td><td>Model architectures</td><td>讨论神经网络中的整体—部分层级表示；具体机制和证据需观看录播确认。</td></tr></tbody></table></div></section>
+<section id="path"><div class="section-head"><h2>4 周研讨式学习路线</h2><p>每周两场讲座，一场用于补机制，一场用于做实验。</p></div><div class="table-wrap"><table><thead><tr><th>周</th><th>主线</th><th>讲次</th><th>必须产出</th></tr></thead><tbody>
+<tr><td>1</td><td>表示与架构</td><td>Overview、JEPA、SSM vs Transformers</td><td>一张“目标函数 × 结构偏置 × tokenization × 硬件”的架构比较表。</td></tr>
+<tr><td>2</td><td>训练与泛化</td><td>Ultra-Scale、Future of Pretraining、Parameters vs Context</td><td>设计 parameter / context / retrieval 三种知识注入实验，并写清训练与 serving 成本。</td></tr>
+<tr><td>3</td><td>Agent 与多模态</td><td>Science & Medicine Agents、Native Multimodal Intelligence</td><td>一个含模态输入、工具、专家复核和证据链的协作式 Agent 评测方案。</td></tr>
+<tr><td>4</td><td>生产推理</td><td>Serving Transformers，加读 inference optimization 与 determinism</td><td>记录 p50/p95、tokens/s、KV cache、batch、失败率和单位请求成本的服务基线。</td></tr>
+</tbody></table></div></section>
+<section class="notice"><strong>课程边界：</strong>CS25 的公开页面是讲座描述与资料入口，不等于每个主题的完整教材。离线摘要用于定位问题、连接现有知识模块和设计实验；论文结论、讲者论证与性能数字仍应回到原始论文、slides 或录播确认。</section>
+</main>
+<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；CS336 官方讲义、作业仓库与自动字幕另保留本地快照。</footer>
+</body></html>

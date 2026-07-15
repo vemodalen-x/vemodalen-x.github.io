@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Tutor Agent | Junxian Wu</title>
+  <meta name="description" content="一个面向互联网与 AI 创业者的假设驱动商业教练工作台，使用本地摘要级知识库、259 画布、关键假设和低成本验证流程。">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="tutor-app">
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="app-header">
+    <nav class="app-header-inner" aria-label="Primary navigation">
+      <a class="app-brand" href="tutor.html" aria-label="Business Tutor Agent 首页">
+        <span class="app-brand-mark" aria-hidden="true"><i data-lucide="radar"></i></span>
+        <span>
+          <strong>Business Tutor</strong>
+          <small>Decision workspace</small>
+        </span>
+      </a>
+      <div class="app-health" role="status" aria-label="系统状态正常">
+        <span class="health-dot" aria-hidden="true"></span>
+        Local KB · <span id="header-kb-count">0 cards</span>
+      </div>
+      <div class="app-header-links">
+        <a href="index.html">课程笔记</a>
+        <a class="active" href="tutor.html">Tutor</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page app-shell">
+    <aside class="sidebar app-sidebar" aria-label="Agent navigation">
+      <div class="sidebar-product">
+        <div class="avatar" aria-hidden="true"><i data-lucide="brain-circuit"></i></div>
+        <div>
+          <strong>商业教练</strong>
+          <span>本地工作区</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav" aria-label="工作区导航">
+        <a class="active" href="#agent-workbench"><i data-lucide="panel-top"></i><span>工作台</span></a>
+        <a href="#kb-evidence"><i data-lucide="database"></i><span>知识证据</span></a>
+        <a href="#hypothesis-canvas"><i data-lucide="layout-grid"></i><span>259 画布</span></a>
+        <a href="#coach-flow"><i data-lucide="git-branch"></i><span>教练流程</span></a>
+        <a href="#agent-prompt"><i data-lucide="braces"></i><span>系统 Prompt</span></a>
+      </nav>
+      <div class="sidebar-boundary">
+        <i data-lucide="shield-check" aria-hidden="true"></i>
+        <div>
+          <strong>决策权归你</strong>
+          <span>Agent 只负责拆解、验证和复盘。</span>
+        </div>
+      </div>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro app-intro">
+        <div>
+          <p class="eyebrow">Business reasoning workspace</p>
+          <h1>把商业问题变成下一步可验证的判断。</h1>
+          <p>输入项目、选择或业务困境。工作台会检索本地方法库，输出单轮追问、关键假设、决策备忘录与验证标准。</p>
+        </div>
+        <div class="intro-facts" aria-label="工作区能力">
+          <span><i data-lucide="hard-drive"></i>本地草稿</span>
+          <span><i data-lucide="lock-keyhole"></i>摘要级知识库</span>
+          <span><i data-lucide="file-down"></i>Markdown 导出</span>
+        </div>
+      </section>
+
+      <section id="agent-workbench" class="workspace-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h2>商业 Tutor 工作台</h2>
+          </div>
+          <span class="workspace-badge"><i data-lucide="sparkles"></i>Local reasoning</span>
+        </div>
+
+        <div class="workbench workspace-grid">
+          <div class="workspace-panel composer-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-kicker">Input</span>
+                <h3>定义当前问题</h3>
+              </div>
+              <span class="draft-state" id="draft-status"><i data-lucide="cloud-check"></i>已自动保存</span>
+            </div>
+
+            <div class="mode-block">
+              <span class="field-label" id="mode-label">工作模式</span>
+              <div class="segmented-control" role="group" aria-labelledby="mode-label">
+                <button type="button" class="mode-segment active" data-mode="truman" aria-pressed="true"><i data-lucide="scan-search"></i><span>挑战</span></button>
+                <button type="button" class="mode-segment" data-mode="steady" aria-pressed="false"><i data-lucide="messages-square"></i><span>陪练</span></button>
+                <button type="button" class="mode-segment" data-mode="decision" aria-pressed="false"><i data-lucide="scale"></i><span>决策</span></button>
+                <button type="button" class="mode-segment" data-mode="report" aria-pressed="false"><i data-lucide="file-chart-column"></i><span>报告</span></button>
+              </div>
+              <label class="visually-hidden" for="coach-mode">教练模式</label>
+              <select id="coach-mode" class="visually-hidden" tabindex="-1" aria-hidden="true">
+                <option value="truman">Truman 挑战</option>
+                <option value="steady">普通陪练</option>
+                <option value="decision">科学决策</option>
+                <option value="report">报告优先</option>
+              </select>
+              <p class="mode-description" id="mode-description">直接追问依据、边界和反例，适合已经有初步结构的业务问题。</p>
+            </div>
+
+            <div class="brief-field">
+              <div class="field-heading">
+                <label class="field-label" for="business-brief">业务简述</label>
+                <button type="button" class="text-button" id="load-example"><i data-lucide="wand-sparkles"></i>载入示例</button>
+              </div>
+              <textarea id="business-brief" class="agent-input" rows="8" maxlength="3000" aria-describedby="brief-hint brief-counter" placeholder="描述用户、场景、当前替代方案和你要做的选择。信息不完整也可以，Agent 会先追问。"></textarea>
+              <div class="field-meta">
+                <span id="brief-hint">草稿只保存在当前浏览器。</span>
+                <span id="brief-counter">0 / 3000</span>
+              </div>
+            </div>
+
+            <div class="context-grid">
+              <label>
+                <span class="field-label">业务类型</span>
+                <select id="business-type" class="agent-select">
+                  <option value="auto">自动判断</option>
+                  <option value="AI SaaS 工具">AI / SaaS 工具</option>
+                  <option value="内容社群知识产品">内容 / 社群 / 知识产品</option>
+                  <option value="平台撮合交易">平台 / 撮合 / 交易</option>
+                  <option value="电商本地服务">电商 / 本地服务</option>
+                  <option value="企业服务专业服务">企业服务 / 专业服务</option>
+                </select>
+              </label>
+              <label>
+                <span class="field-label">当前阶段</span>
+                <select id="stage-select" class="agent-select">
+                  <option value="idea">想法期</option>
+                  <option value="mvp">MVP / 人工交付期</option>
+                  <option value="growth">增长验证期</option>
+                  <option value="scale">规模化前</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="action-bar" aria-label="工作台操作">
+              <button type="button" class="primary-action" id="coach-turn"><i data-lucide="message-circle-question-mark"></i><span>生成下一问</span></button>
+              <button type="button" class="secondary-action" id="generate-plan"><i data-lucide="file-text"></i><span>生成报告</span></button>
+              <button type="button" class="secondary-action" id="retrieve-kb"><i data-lucide="database-search"></i><span>检索证据</span></button>
+              <div class="utility-actions">
+                <button type="button" class="icon-button" id="copy-prompt" aria-label="复制系统 Prompt" data-tooltip="复制系统 Prompt"><i data-lucide="braces"></i></button>
+                <button type="button" class="icon-button" id="copy-canvas" aria-label="复制画布 Markdown" data-tooltip="复制画布"><i data-lucide="clipboard-copy"></i></button>
+                <button type="button" class="icon-button danger" id="clear-workbench" aria-label="清空工作台" data-tooltip="清空工作台"><i data-lucide="trash-2"></i></button>
+              </div>
+            </div>
+            <p class="status-line" id="copy-status" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="workspace-panel result-panel">
+            <div class="panel-header result-header">
+              <div>
+                <span class="panel-kicker">Output</span>
+                <h3 id="output-title">分析结果</h3>
+              </div>
+              <div class="result-actions">
+                <button type="button" class="icon-button" id="copy-output" aria-label="复制分析结果" data-tooltip="复制结果"><i data-lucide="copy"></i></button>
+                <button type="button" class="icon-button" id="download-output" aria-label="下载 Markdown 分析结果" data-tooltip="下载 Markdown"><i data-lucide="download"></i></button>
+              </div>
+            </div>
+            <pre class="agent-output empty" id="agent-output" tabindex="0" aria-label="分析结果"># 等待开始
+
+输入一个真实业务问题，然后生成下一问或完整报告。</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="coach-flow" class="support-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Coach Logic</p>
+            <h2>三类教练流程</h2>
+          </div>
+          <span class="section-note">一轮一题 · 证据优先</span>
+        </div>
+        <div class="method-stack">
+          <article><span>01</span><h3>身份边界</h3><p>先说明不替用户拍板，项目只作为判断力训练和决策拆解的输入。</p></article>
+          <article><span>02</span><h3>入口与模式</h3><p>区分挑战、陪练、科学决策和报告，避免所有问题都套同一模板。</p></article>
+          <article><span>03</span><h3>模块账本</h3><p>保留当前问题和已覆盖证据；教学主线未达标时不提前生成结论报告。</p></article>
+          <article><span>04</span><h3>单轮追问</h3><p>用户跳题时先确认价值、映射正确模块，再拉回未回答的前置关口。</p></article>
+          <article><span>05</span><h3>证据审美</h3><p>具体到用户、场景、替代方案、成本和行为证据才允许进入下一步。</p></article>
+          <article><span>06</span><h3>决策画布</h3><p>先选分析深度，再并行比较收益、成本、可逆性、学习速度与复利资产。</p></article>
+          <article><span>07</span><h3>决策高度</h3><p>检查长期目标、机会成本与时间窗口，提前定义停止、继续、加注和切换。</p></article>
+          <article><span>08</span><h3>反证校准</h3><p>区分事实、推断与假设；被新证据挑战时主动降级过度确定的结论。</p></article>
+          <article><span>09</span><h3>长期红点</h3><p>高风险方向只形成候选假设，补充替代解释、情绪安全和行为验证。</p></article>
+          <article><span>10</span><h3>报告收束</h3><p>输出证据来源、盲区、验证动作、更新条件和复盘日期。</p></article>
+        </div>
+      </section>
+
+      <section id="kb-evidence" class="support-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Local RAG</p>
+            <h2>知识证据</h2>
+            <p>根据业务类型、阶段和模式召回方法卡，仅展示摘要与使用方式。</p>
+          </div>
+          <span class="section-note" id="kb-result-count">23 cards</span>
+        </div>
+        <div class="kb-panel" id="kb-panel" aria-label="知识库检索结果">
+          <article>
+            <div class="kb-empty-icon" aria-hidden="true"><i data-lucide="database-zap"></i></div>
+            <h3>等待检索</h3>
+            <p>输入业务问题后点击“检索证据”或直接生成报告。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hypothesis-canvas" class="support-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">259 Canvas</p>
+            <h2>关键假设拆解画布</h2>
+            <p>九格内容可直接编辑，并会随报告生成自动带入业务背景。</p>
+          </div>
+          <div class="section-actions">
+            <button type="button" class="icon-button" id="copy-canvas-secondary" aria-label="复制画布 Markdown" data-tooltip="复制画布"><i data-lucide="clipboard-copy"></i></button>
+            <button type="button" class="icon-button" id="reset-canvas" aria-label="重置 259 画布" data-tooltip="重置画布"><i data-lucide="rotate-ccw"></i></button>
+          </div>
+        </div>
+        <div class="hypothesis-canvas" aria-label="259 hypothesis canvas">
+          <article class="canvas-cell" data-title="细分用户 / 早期用户">
+            <h3>细分用户 / 早期用户</h3>
+            <div contenteditable="true">列出 2-3 类细分用户，并圈出最痛、最容易触达、最愿意尝试的人群。</div>
+          </article>
+          <article class="canvas-cell" data-title="需求">
+            <h3>需求</h3>
+            <div contenteditable="true">写出一个高频或高痛场景：谁在什么时刻，因为哪个问题付出什么代价。</div>
+          </article>
+          <article class="canvas-cell" data-title="核心卖点">
+            <h3>核心卖点</h3>
+            <div contenteditable="true">用一句话说明你的方案比当前替代方案好在哪里。</div>
+          </article>
+          <article class="canvas-cell" data-title="解决方案 / 当前替代方案">
+            <h3>解决方案 / 当前替代方案</h3>
+            <div contenteditable="true">左边写 MVP 方案，右边写用户现在怎么凑合解决。</div>
+          </article>
+          <article class="canvas-cell" data-title="收入">
+            <h3>收入</h3>
+            <div contenteditable="true">写清楚谁付钱、为什么付、一次付还是持续付、价格锚点是什么。</div>
+          </article>
+          <article class="canvas-cell" data-title="成本">
+            <h3>成本</h3>
+            <div contenteditable="true">列出获客、交付、技术、人工、售后和合规成本。</div>
+          </article>
+          <article class="canvas-cell" data-title="核心指标">
+            <h3>核心指标</h3>
+            <div contenteditable="true">选择 3-5 个指标：激活、转化、留存、复购、毛利、LTV/CAC。</div>
+          </article>
+          <article class="canvas-cell" data-title="获客渠道">
+            <h3>获客渠道</h3>
+            <div contenteditable="true">列出 2 个低成本早期渠道和 1 个可规模化渠道。</div>
+          </article>
+          <article class="canvas-cell" data-title="壁垒">
+            <h3>壁垒</h3>
+            <div contenteditable="true">写出未来能变强的东西：数据、渠道、品牌、网络效应、迁移成本。</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="agent-prompt" class="support-section">
+        <details class="prompt-disclosure">
+          <summary>
+            <span><i data-lucide="braces" aria-hidden="true"></i><strong>系统 Prompt</strong></span>
+            <span>高级配置</span>
+          </summary>
+          <div class="prompt-content">
+            <p>可用于其他 Agent 平台；复制时再追加业务背景与自己的知识库。</p>
+            <textarea id="agent-prompt-text" class="prompt-box" rows="20" readonly aria-label="Business Tutor Agent 系统提示词"></textarea>
+          </div>
+        </details>
+      </section>
+
+      <section class="support-section sources-section">
+        <details>
+          <summary><span><i data-lucide="book-open" aria-hidden="true"></i><strong>资料来源与使用边界</strong></span><span>7 项</span></summary>
+          <ul class="source-list">
+            <li><a href="https://yitang.top/" target="_blank" rel="noreferrer">一堂官网</a>：公开课程方向与方法框架。</li>
+            <li><a href="https://project256.com/start/%E5%88%9B%E4%B8%9A%E9%87%8C%E7%A8%8B%E7%A2%91/" target="_blank" rel="noreferrer">Project256 创业里程碑笔记</a>：公开的 259 操作顺序整理。</li>
+            <li><a href="https://www.douban.com/note/873808643/" target="_blank" rel="noreferrer">第三方复盘笔记</a>：公开学习者对关键假设的理解。</li>
+            <li><a href="https://jeannen.com/blog" target="_blank" rel="noreferrer">Jeannen Blog</a>：19 篇公开经营日志的跨文章方法提炼与图像证据索引。</li>
+            <li><a href="https://www.dwarkesh.com/archive" target="_blank" rel="noreferrer">Dwarkesh Archive</a>：174 条公开访谈与文章目录，以及 AI 研究、预测和算力约束的跨内容模型。</li>
+            <li><a href="https://yitang.top/lesson/luvS64ef293fbe0d?tab=candy" target="_blank" rel="noreferrer">一堂课程学习地图</a>：2 节主课、4 个 Candy、高清大地图和问题驱动学习闭环的本地摘要。</li>
+            <li>本地对话观察只沉淀方法摘要，不复制完整回答、隐藏提示或付费原文。</li>
+          </ul>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer app-footer">
+    <span><i data-lucide="hard-drive" aria-hidden="true"></i>本地优先 · 数据保存在当前浏览器</span>
+    <a href="index.html">返回课程笔记</a>
+  </footer>
+
+  <script src="assets/vendor/lucide-1.23.0.min.js"></script>
+  <script src="knowledge/yitang-business-kb.js"></script>
+  <script>
+    const agentPrompt = `你是 Business Tutor Agent，一个面向互联网与 AI 创业者的假设驱动商业教练。
+
+身份边界：
+1. 你不是替用户拍板的商业咨询师，不直接判断项目成败，不输出未经证据支持的增长、融资、定价或组织结论。
+2. 用户要求你直接给方案时，先接住问题，再说明你会把项目当作训练业务判断力的例子，用模型做假设拆解和验证设计。
+3. 不复述课程原文、付费课文稿或长篇笔记，只引用摘要级知识库卡片和用户自己的表达。
+
+对话流程：
+1. 先确认用户画像、业务类型、阶段和对话风格。
+2. 每轮只问一个核心问题，保留“本轮问题”。
+3. 如果用户答偏，先肯定有价值的部分，再明确指出“你跳了一步”，把回答映射到正确模块，然后拉回原问题。
+4. 用双三角检查人类侧审美、体系、创造力，以及 AI 侧场景、数据、基本功。
+5. 用 259 做加法：价值假设、增长假设；需求、解决方案、商业模式、增长、壁垒；用户、需求、卖点、方案/替代、收入、成本、指标、渠道、壁垒。
+6. 用关键假设做减法：前置优先、单一优先、高风险优先、验证成本可控优先。
+7. 用低成本验证匹配证据层级：常识/Benchmark < 情报调研 << 实验验证 <<< 全量投入。
+8. 用审美检查防止伪结构：用户很痛、市场很大、竞品不行、壁垒很强，都必须追问具体用户、场景、替代方案、成本和行为证据。
+9. 用户进入陌生领域时，使用最佳实践反编译：定义目标和评分尺度 -> 选择多样化高水平样本 -> 拆结构、机制与制作过程 -> 检查幸存者偏差和迁移条件 -> 做低风险版本 -> 用反馈复盘。最佳实践不是照抄。
+10. 用逻辑原点和逻辑链组织复杂问题：先确认问题与评价目标，再检查前后依赖和前置关口。逻辑原点是可更新的版本化假设，不是“买定离手”的永久真理。
+11. 分析公开人物、竞品或内容账号时，必须区分公开事实、内容选择、商业产品信号和人格推断；标注样本时间、平台选择偏差和不可见信息，不用内容人设替代行为证据。
+12. 当用户面对多个方案时，切换科学决策流程：明确决策与价值 -> 选择分析深度 -> 逐项收集成本收益 -> 初步对比 -> 查漏补缺 -> 扫描长期复利、可逆性、机会成本、时间窗口 -> 设定止损/加注条件 -> 生成决策备忘录。
+13. 科学决策不替用户拍板；要区分市场窗口与个人窗口，并把学习速度视作早期项目的重要收益。
+14. 对职业、创业方向、人生红点等高风险长期决策，先确认用户愿意讨论的隐私边界；禁止用自伤、羞辱或灾难化措辞制造取舍压力。
+15. 高风险诊断必须把“用户事实、Agent 推断、待验证假设”分开；提出至少两种替代解释和最强反证。自述一致不等于行为验证，缺少真实取舍、时间分配或持续行动记录时必须降低置信度。
+16. 强制二选一只能证明被单独控制的变量。若场景同时混入收入、开放性、规模、署名等变量，必须标记混杂，不能称为唯一铁证。
+17. 不使用“锁定人格”或“终局已定”等绝对结论；没有事先公布的维度、权重和评分锚点时，不输出精确分数或排名。把方向写成可更新的候选假设，并给出 30 天行为实验和复盘日。
+18. 分析媒体、PR、播客、个人品牌或公开成功案例时，建立证据矩阵：自述、合作内容、平台成功案例、编辑采访、相对独立证据。所有收入、用户、退出价格和增长数字都必须绑定来源与日期，不把宣传性案例当审计报告。
+19. 独立产品和快速发布策略必须同时检查跑道、分发能力、真实付费门槛、维护债务与停止条件。产品数量不是成果指标。
+20. 用买方视角检查资产质量：创始人依赖、渠道集中、支持负担、技术债、收入质量、文档和可交接性。即使不出售，这也是业务健康检查。
+21. 分析公开经营日志时，不按文章逐篇复述。区分活动记录、实验设计、结果信号和事后解释，只把跨文章重复出现或被反例校正的机制写入知识库。
+22. 用 Product / Market / Distribution 三板管理构建实验。每次只指定一个主板、一个关键假设、一个动作、一个可观察信号和一个复盘日；同时改动多个变量时必须标记无法归因。
+23. 快速构建先过技术 POC，再逐层增加人工交付、自助使用、安全收费和规模化承诺。预售是强需求证据，也是交付债务，必须检查范围、质量、退款、支持和最大订单量。
+24. 图像只作为证据，不作为装饰。记录截图类型、文章日期、它支持的主张和不能证明的内容；页面、排名、注册量、Stripe 订单和留存面板必须按不同信号层级归档。
+25. 分析访谈时保留说话人、日期和认知状态，区分嘉宾观点、主持人综合、作者推测、带日期预测、第一方自报和外部可核验事实；转录稿不等于事实核验。
+26. 深度研究先固定一个会改变决策的问题，再写支持方与反对方的最强论证、共同关键分歧、可观察更新和证据缺口。不要用资料数量替代问题质量。
+27. 所有 AI 时间线和趋势预测都进入更新账本：创建日期、预测窗口、操作化里程碑、主观概率、关键分歧、反证、复盘日和实际结果；过期后必须结算。
+28. AI 产品必须区分模型能力与组织权力，逐层检查工具可用性、可靠性、数据权限、信任、决策授权、资源控制、组织协调和可归责结果。
+29. 训练、Agent 与自动化业务同时检查可验证性、可重复试错性、反馈延迟、代理指标、部署数据权利和物理算力约束。高度推测的公司形态只输出带前提的情景树。
+30. 用户索要课程、书单或学习计划时，先确认要支持的决策和 30 天内的真实问题，再把学习分为当前问题、近期使用和长期储备，并给出时间预算与删除条件。
+31. 方法论必须与案例配对。按搞砸、落地、最佳实践和开源四类识别案例的证据功能，至少加入一个失败或普通样本，检查资源、渠道、时机和幸存者偏差。
+32. 学习证据按收藏/听完 < 作业完成 < 实际使用 < 行为或业务结果分层。地图、书封、人物照和案例封面只做导航；每门课必须生成可评价的作品样本、实验或决策，并在复盘日更新地图版本。
+33. 最后生成诊断报告：已掌握、证据、盲区、替代解释、下一步训练、48 小时或 30 天实验和复盘标准。
+34. 教学模式维护模块覆盖账本：开篇热身、双三角、259/五步法/关键假设/低成本验证、科学体系。每条必须有用户表达证据；未达标时继续追问或补讲，不提前生成报告。
+35. 决策模式先确认问题与价值，再让用户选择简单拆拆、主要矛盾、公式定量或完整财务账。多方案先并行建画布，再追问真正改变排序的变量；方案可能是主辅组合或先后顺序，不强行三选一。
+36. 用户指出结论过度确定时，承认未经确认的前提，把结论降级为待验证假设，并写明什么新证据会改变排序。不要用流畅表述掩盖证据不足。
+37. 决策备忘录必须包含事实/推断/假设分栏、时间和现金预算、阶段行动、漏斗指标、停止/继续/加注/切换条件、失败后可复用资产，以及会改变当前结论的新证据。
+38. 人生红点等高风险长期模式维护“候选而非身份”原则：使用历史选择、高低峰、榜样、未来画面和真实取舍交叉验证；不得用灾难化措辞逼迫取舍。
+39. 分析 AI 全景、趋势或创业机会时使用 MUSE 分层：E 变革层、S 创业层、U 使用层、M 奇迹层。模型能力不自动等于采用，采用不自动等于付费机会，局部商业信号不自动等于未来社会愿景；所有跨层结论都要写出中间假设与证据缺口。
+
+固定输出格式：
+一、业务一句话
+二、身份边界、当前问题与模块覆盖账本
+三、检索到的知识库证据
+四、259 拆解
+五、审美检查：真结构 vs 像结构
+六、Top 3 关键假设
+七、48 小时验证卡
+八、互联网指标看板
+九、最佳实践反编译与迁移边界
+十、下一轮导师追问
+十一、Agent 训练闭环
+十二、事实 / 推断 / 待验证假设与置信度
+十三、反证、替代解释与未控制变量
+十四、科学决策备忘录（仅在多方案决策时输出）
+附录、问题驱动学习地图（仅在选课、学习计划、能力建设或课程复盘议题时输出）
+附录、深度研究与预测账本（仅在 AI 趋势、技术战略、研究、访谈、预测或算力议题时输出）
+附录、构建-发布-学习账本（仅在独立产品、落地页、预售、冷启动或失败复盘议题时输出）
+附录、媒体证据与资产化（仅在媒体、个人品牌、独立产品或退出议题时输出）`;
+
+    const promptTextarea = document.getElementById("agent-prompt-text");
+    const businessBrief = document.getElementById("business-brief");
+    const businessType = document.getElementById("business-type");
+    const stageSelect = document.getElementById("stage-select");
+    const coachMode = document.getElementById("coach-mode");
+    const output = document.getElementById("agent-output");
+    const statusLine = document.getElementById("copy-status");
+    const kbPanel = document.getElementById("kb-panel");
+    const kbResultCount = document.getElementById("kb-result-count");
+    const briefCounter = document.getElementById("brief-counter");
+    const draftStatus = document.getElementById("draft-status");
+    const modeDescription = document.getElementById("mode-description");
+    const modeSegments = [...document.querySelectorAll(".mode-segment")];
+    const outputTitle = document.getElementById("output-title");
+    const storageKey = "business-tutor-workspace-v2";
+
+    promptTextarea.value = agentPrompt;
+
+    const canvasHints = {
+      "细分用户 / 早期用户": "列出 2-3 类细分用户，并圈出最痛、最容易触达、最愿意尝试的人群。",
+      "需求": "写出一个高频或高痛场景：谁在什么时刻，因为哪个问题付出什么代价。",
+      "核心卖点": "用一句话说明你的方案比当前替代方案好在哪里。",
+      "解决方案 / 当前替代方案": "左边写你的 MVP 方案，右边写用户现在怎么凑合解决。",
+      "收入": "写清楚谁付钱、为什么付、一次付还是持续付、价格锚点是什么。",
+      "成本": "列出获客、交付、技术、人工、售后和合规成本。",
+      "核心指标": "选择 3-5 个指标：激活、转化、留存、复购、毛利、LTV/CAC。",
+      "获客渠道": "列出 2 个低成本早期渠道和 1 个可规模化渠道。",
+      "壁垒": "写出未来能变强的东西：数据、渠道、品牌、网络效应、迁移成本。"
+    };
+
+    const stageLabels = {
+      idea: "想法期",
+      mvp: "MVP / 人工交付期",
+      growth: "增长验证期",
+      scale: "规模化前"
+    };
+
+    const modeLabels = {
+      truman: "Truman 挑战：直接追问依据、边界和反例",
+      steady: "普通陪练：多解释、多补充，稳稳消化主干",
+      decision: "科学决策：比较选项、识别主要矛盾、设定止损与复盘",
+      report: "报告优先：先出结构化诊断，再列待追问问题"
+    };
+
+    const modeDescriptions = {
+      truman: "直接追问依据、边界和反例，适合已经有初步结构的业务问题。",
+      steady: "增加解释与补充，适合第一次使用框架梳理业务。",
+      decision: "比较多个选项，检查可逆性、机会成本、时间窗口和退出条件。",
+      report: "优先生成完整结构化草稿，再从报告中的证据缺口继续追问。"
+    };
+
+    const internetMetrics = {
+      "AI SaaS 工具": ["激活率", "核心功能完成率", "7/30 日留存", "免费到付费转化", "ARPA", "毛利", "LTV/CAC", "推理/人工兜底成本"],
+      "内容社群知识产品": ["选题命中率", "完读率", "转粉率", "私域转化率", "付费率", "复访率", "交付满意度", "复购率"],
+      "平台撮合交易": ["供给密度", "需求频次", "匹配效率", "履约率", "抽佣空间", "复购率", "信任成本", "冷启动成本"],
+      "电商本地服务": ["毛利率", "客单价", "复购率", "履约成本", "库存/排期周转", "获客成本", "售后率", "现金回收周期"],
+      "企业服务专业服务": ["线索转化率", "销售周期", "客单价", "交付毛利", "续约率", "客户成功成本", "案例复用率", "回款周期"]
+    };
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[char]));
+    }
+
+    function tokenize(text) {
+      return Array.from(new Set(
+        String(text)
+          .toLowerCase()
+          .replace(/[^\u4e00-\u9fa5a-z0-9]+/g, " ")
+          .split(/\s+/)
+          .filter((token) => token.length > 1)
+      ));
+    }
+
+    function inferBusinessType(brief) {
+      const text = brief.toLowerCase();
+      if (/ai|agent|saas|工具|软件|订阅|模型|自动化|复盘|导师/.test(text)) return "AI SaaS 工具";
+      if (/内容|社群|课程|知识|ip|公众号|视频|私域|复盘营/.test(text)) return "内容社群知识产品";
+      if (/平台|撮合|交易|供给|需求|商家|二手|marketplace|专家/.test(text)) return "平台撮合交易";
+      if (/电商|门店|本地|餐饮|外卖|零售|sku|选品/.test(text)) return "电商本地服务";
+      if (/企业|咨询|服务|bd|销售|客户|交付|顾问/.test(text)) return "企业服务专业服务";
+      return "AI SaaS 工具";
+    }
+
+    function selectedBusinessType(brief) {
+      return businessType.value === "auto" ? inferBusinessType(brief) : businessType.value;
+    }
+
+    function retrieveKnowledge(brief, limit = 6) {
+      const type = selectedBusinessType(brief);
+      const query = `${brief} ${type} ${stageLabels[stageSelect.value] || ""}`;
+      const tokens = tokenize(query);
+      const kb = window.YITANG_BUSINESS_KB || [];
+      const isLongTermDecision = /人生|红点|职业|转行|长期|终局|使命|创业方向|合伙|重大选择/.test(query);
+      const lowerBrief = brief.toLowerCase();
+
+      return kb
+        .map((chunk) => {
+          const haystack = `${chunk.title} ${chunk.tags.join(" ")} ${chunk.summary} ${chunk.mentorUse}`.toLowerCase();
+          let score = 0;
+          tokens.forEach((token) => {
+            if (haystack.includes(token)) score += token.length > 2 ? 3 : 1;
+          });
+          if (type.includes("AI") && chunk.tags.some((tag) => tag.includes("AI") || tag.includes("SaaS"))) score += 6;
+          if (type.includes("平台") && chunk.tags.includes("平台")) score += 6;
+          if (type.includes("内容") && chunk.tags.includes("内容")) score += 6;
+          if (type.includes("企业") && chunk.tags.includes("企业服务")) score += 6;
+          if (chunk.id.startsWith("yt-coach") || chunk.id === "yt-truman-correction" || chunk.id === "yt-aesthetic-judgment") score += 3;
+          if (chunk.id === "yt-259-loop" || chunk.id === "yt-five-step-gates" || chunk.id === "yt-key-hypothesis-cost") score += 4;
+          if (isLongTermDecision && (chunk.id === "yt-life-red-dot" || chunk.id.startsWith("yt-red-dot-"))) score += 12;
+          if (/最佳实践|benchmark|对标|学习|陌生领域|方法论/.test(query.toLowerCase()) && chunk.id.startsWith("jike-")) score += 9;
+          if (/逻辑|体系|拆解|复盘|知识库|内容|个人\s*ip|营销|传播/.test(query.toLowerCase()) && chunk.id.startsWith("jike-")) score += 7;
+          if (/媒体|pr|播客|访谈|背书|个人\s*品牌|个人\s*ip|公关|earned\s*media/.test(query.toLowerCase()) && ["jeannen-media-proof-ledger", "jeannen-earned-media-repurpose", "jeannen-founder-independent-asset"].includes(chunk.id)) score += 11;
+          if (/媒体|pr|播客|访谈|背书|个人\s*品牌|个人\s*ip|公关|earned\s*media/.test(query.toLowerCase()) && chunk.id.startsWith("jeannen-blog-")) score += 2;
+          if (/独立开发|独立产品|快速发布|ship|发布|退出|出售|收购|广告|cac|创始人依赖|产品组合/.test(query.toLowerCase()) && chunk.id.startsWith("jeannen-")) score += 8;
+          if (/落地页|文案|copy|aida|转化|首屏|cta|ab\s*test|a\/b/.test(query.toLowerCase()) && chunk.id === "jeannen-blog-copy-before-design") score += 12;
+          if (/双边|平台|撮合|冷启动|供给|需求侧|流动性|marketplace/.test(query.toLowerCase()) && chunk.id === "jeannen-blog-marketplace-cold-start") score += 12;
+          if (/失败|漏斗|没有流量|没有访问|没有销售|止损|归因/.test(query.toLowerCase()) && chunk.id === "jeannen-blog-funnel-failure-diagnosis") score += 12;
+          if (/预售|预购|交付|退款|支持成本|重做|返工/.test(query.toLowerCase()) && ["jeannen-blog-preorder-delivery-risk", "jeannen-blog-signal-ladder"].includes(chunk.id)) score += 10;
+          if (/学习|技能|编程|组件|模板|复用|技术栈/.test(query.toLowerCase()) && chunk.id === "jeannen-blog-build-to-learn-reuse") score += 10;
+          if (/产品|市场|分发|实验设计|学习板/.test(query.toLowerCase()) && chunk.id === "jeannen-blog-pmd-experiment-board") score += 8;
+          if (/转化率|漏斗|动力|阻力|触点|激活|注册|成交/.test(lowerBrief) && chunk.id === "yt-conversion-force-friction-touchpoints") score += 18;
+          if (/muse|ai全景|人工智能全景|技术变革|ai.{0,8}创业机会|ai.{0,8}使用|未来场景/.test(lowerBrief) && chunk.id === "yt-ai-muse-layer-map") score += 18;
+          let dwarkeshBoost = 0;
+          if (/深度研究|研究报告|研究流程|课题|问题定义|研究问题/.test(lowerBrief) && ["dwarkesh-question-first-research", "dwarkesh-interview-research-stack", "dwarkesh-claim-provenance"].includes(chunk.id)) dwarkeshBoost += 12;
+          if (/访谈|播客|专家|嘉宾|采访|转录|transcript|podcast/.test(lowerBrief) && ["dwarkesh-interview-research-stack", "dwarkesh-claim-provenance"].includes(chunk.id)) dwarkeshBoost += 14;
+          if (/争议|正反|反方|钢人|关键分歧|crux|不同观点|路线之争/.test(lowerBrief) && chunk.id === "dwarkesh-steelmanned-crux-map") dwarkeshBoost += 15;
+          if (/预测|时间线|概率|未来趋势|趋势判断|里程碑|校准|forecast|agi/.test(lowerBrief) && ["dwarkesh-forecast-update-ledger", "dwarkesh-steelmanned-crux-map"].includes(chunk.id)) dwarkeshBoost += 14;
+          if (/企业部署|组织采用|决策授权|数据权限|ai\s*权限|agent.{0,8}(权限|信任|治理|责任)|模型能力|ai\s*benchmark|基准测试/.test(lowerBrief) && chunk.id === "dwarkesh-capability-power-stack") dwarkeshBoost += 14;
+          if (/训练|评估|验证性|可验证|反馈延迟|代理指标|rlvr|科研|科学|长周期任务/.test(lowerBrief) && chunk.id === "dwarkesh-verification-topology") dwarkeshBoost += 14;
+          if (/持续学习|在岗学习|部署数据|数据飞轮|客户数据|隐私|数据权利/.test(lowerBrief) && chunk.id === "dwarkesh-deployment-data-flywheel") dwarkeshBoost += 14;
+          if (/算力|芯片|显存|内存|带宽|电力|散热|机房|晶圆|供应链|compute|gpu/.test(lowerBrief) && chunk.id === "dwarkesh-physical-bottleneck-stack") dwarkeshBoost += 16;
+          if (/自动化公司|无人公司|公司形态|稀缺资产|劳动力复制|未来公司|情景分析/.test(lowerBrief) && chunk.id === "dwarkesh-automated-firm-scarcity") dwarkeshBoost += 15;
+          if (/招聘|候选人|人才|作品样本|试岗|研究员|scout/.test(lowerBrief) && chunk.id === "dwarkesh-work-sample-talent-market") dwarkeshBoost += 14;
+          if (/赞助|广告主|受众价值|决策权|预算权|内容商业化|商业合作/.test(lowerBrief) && chunk.id === "dwarkesh-high-value-audience-business") dwarkeshBoost += 14;
+          if (chunk.id.startsWith("dwarkesh-")) score += dwarkeshBoost || -8;
+          if (/学习地图|课程地图|选课|课单|学习计划|学习路径|课程太多|能力建设|能力短板/.test(lowerBrief) && ["yt-learning-map", "yt-learning-horizon-portfolio", "yt-map-work-sample-loop", "yt-founder-skill-tree-budget"].includes(chunk.id)) score += 20;
+          if (/学习地图|课程地图|课程太多/.test(lowerBrief) && chunk.id === "yt-learning-map") score += 12;
+          if (/1\s*[\/／]\s*3\s*[\/／]\s*5\s*[\/／]\s*10|未来\s*(1|3|5|10)\s*年|长期储备|近期使用|时间预算|学习投资/.test(lowerBrief) && chunk.id === "yt-learning-horizon-portfolio") score += 20;
+          if (/案例地图|案例学习|搞砸|落地之夜|最佳实践|开源之夜|失败案例|成功案例|案例迁移/.test(lowerBrief) && chunk.id === "yt-case-map-evidence-balance") score += 20;
+          if (/创业者技能树|能力缺口|学习预算|股权学习|融资学习|创业能力/.test(lowerBrief) && chunk.id === "yt-founder-skill-tree-budget") score += 20;
+          if (/学以致用|作品样本|学习作业|课程作业|学习复盘|地图版本|证明学会/.test(lowerBrief) && !/招聘|候选人|人才|研究员|试岗/.test(lowerBrief) && chunk.id === "yt-map-work-sample-loop") score += 20;
+          return { ...chunk, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit);
+    }
+
+    function renderKnowledge(results) {
+      kbResultCount.textContent = results.length ? `${results.length} / ${(window.YITANG_BUSINESS_KB || []).length} cards` : `${(window.YITANG_BUSINESS_KB || []).length} cards`;
+      if (!results.length) {
+        kbPanel.innerHTML = "<article><div class=\"kb-empty-icon\"><i data-lucide=\"search-x\"></i></div><h3>没有命中</h3><p>请补充业务类型、用户、场景或收入方式。</p></article>";
+        refreshIcons();
+        return;
+      }
+      kbPanel.innerHTML = results.map((chunk) => `
+        <article>
+          <div class="kb-card-top"><div class="kb-meta">${chunk.sourceUrl ? `<a href="${escapeHtml(chunk.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(chunk.source)} <i data-lucide="external-link"></i></a>` : escapeHtml(chunk.source)}</div><span class="score-chip">${chunk.score}</span></div>
+          <h3>${escapeHtml(chunk.title)}</h3>
+          <p>${escapeHtml(chunk.summary)}</p>
+          ${chunk.visualEvidence ? `<strong>图像证据</strong><p>${escapeHtml(chunk.visualEvidence)}</p>` : ""}
+          <strong>Mentor 用法</strong>
+          <p>${escapeHtml(chunk.mentorUse)}</p>
+        </article>
+      `).join("");
+      refreshIcons();
+    }
+
+    function knowledgeMarkdown(results) {
+      return results.map((chunk, index) => [
+        `${index + 1}. ${chunk.title}`,
+        `   - 来源：${chunk.source}`,
+        ...(chunk.sourceUrl ? [`   - 公开链接：${chunk.sourceUrl}`] : []),
+        `   - 摘要：${chunk.summary}`,
+        ...(chunk.visualEvidence ? [`   - 图像证据：${chunk.visualEvidence}`] : []),
+        `   - 用法：${chunk.mentorUse}`
+      ].join("\n")).join("\n");
+    }
+
+    function topQuestions(results) {
+      return results.flatMap((chunk) => chunk.questions || []).slice(0, 10);
+    }
+
+    function getBrief() {
+      return businessBrief.value.trim();
+    }
+
+    function requireBrief() {
+      const brief = getBrief();
+      if (brief) return brief;
+      setStatus("请先描述一个业务问题、项目或待决策选项。", "error");
+      businessBrief.focus();
+      return null;
+    }
+
+    function renderOutput(text, title) {
+      output.textContent = text;
+      output.classList.remove("empty");
+      outputTitle.textContent = title;
+      output.scrollTop = 0;
+    }
+
+    function firstSentence(text) {
+      const cleaned = text.replace(/\s+/g, " ").trim();
+      const parts = cleaned.split(/[。！？!?]/);
+      return (parts[0] || cleaned).slice(0, 100);
+    }
+
+    function qualityGateQuestions() {
+      return [
+        "有没有具体用户，而不是泛泛说“创业者、老板、企业”？",
+        "有没有具体场景，而不是泛泛说“提升效率、降本增效”？",
+        "有没有当前替代方案，而不是只说“竞品不行”？",
+        "有没有不解决的明确成本，包括钱、时间、风险或机会损失？",
+        "有没有真实行为证据，例如付费、预订、复访、留存、转介绍？"
+      ];
+    }
+
+    function isHighRiskPersonalDecision(brief) {
+      return /人生|红点|职业|转行|长期|终局|使命|创业方向|合伙|重大选择/.test(brief);
+    }
+
+    function evidenceAuditLines(brief) {
+      const highRisk = isHighRiskPersonalDecision(brief);
+      return [
+        "- 用户事实：只记录用户明确陈述的经历、数字、行为和约束，不补写动机。",
+        "- Agent 推断：每条推断都要能回指事实，并允许用户修正。",
+        "- 待验证假设：缺少真实行为、时间分配、付费或取舍记录时，保持为假设。",
+        highRisk
+          ? "- 当前置信度：证据不足时只写低 / 中 / 高及理由；不锁定人格，不输出无量表分数。"
+          : "- 当前置信度：按证据强度说明低 / 中 / 高，不用精确数字制造确定感。"
+      ];
+    }
+
+    function counterEvidenceLines(brief) {
+      return [
+        "- 最强反证：哪条已知事实最不支持当前主结论？",
+        "- 替代解释：至少列出两种同样能解释现象的竞争假设。",
+        "- 未控制变量：二选一或对比是否同时混入价格、规模、开放性、署名、时间等变量？",
+        isHighRiskPersonalDecision(brief)
+          ? "- 行为验证：设计一个 30 天可逆实验，写明投入、可观察行动、继续 / 调整 / 停止阈值与复盘日。"
+          : "- 行为验证：设计最低成本实验，提前定义继续 / 调整 / 停止阈值。"
+      ];
+    }
+
+    function bestPracticeDecompileLines() {
+      return [
+        "- 目标与尺度：先定义要提升的单一能力，以及 60 分 / 85 分各自对应的可观察表现。",
+        "- 样本选择：覆盖多个高水平样本和至少一个失败或普通样本，避免只看幸存者。",
+        "- 机制反编译：拆出共同结构、关键决策、制作过程与反馈回路，不照抄表面形式。",
+        "- 迁移边界：列出渠道、资源、品牌、时间与用户差异，说明哪些条件不能复制。",
+        "- 最小练习：做一个低风险版本，提前设定评价人、指标、反馈时间和下一版改动。"
+      ];
+    }
+
+    function isMediaAssetTopic(brief) {
+      return /媒体|pr|播客|访谈|背书|个人\s*品牌|个人\s*ip|公关|独立开发|独立产品|快速发布|退出|出售|收购|广告|创始人依赖/i.test(brief);
+    }
+
+    function mediaAssetLines() {
+      return [
+        "- 证据分级：分开创始人自述、合作内容、平台成功案例、编辑采访与相对独立证据，并记录发布日期。",
+        "- 主张账本：为收入、用户数、增长、退出价格和客户结果保存原始来源、时间范围与可核验状态。",
+        "- 媒体转化链：每次曝光只设置一个目标受众、一个核心论点、一个证据包和一个可追踪 CTA。",
+        "- 内容复用：把访谈拆成摘要、短片、异议回答、案例卡、销售页背书和知识库条目，避免一次性曝光。",
+        "- 资产质量：检查创始人依赖、渠道集中、支持负担、技术债、收入质量、文档与可交接性。",
+        "- 结果指标：追踪反向链接、品牌搜索、订阅、合格线索、试用、付费和成交，不把上媒体次数当结果。"
+      ];
+    }
+
+    function isBuildLearnTopic(brief) {
+      return /独立开发|独立产品|快速发布|ship|mvp|技术\s*poc|落地页|文案|预售|预购|冷启动|双边市场|product\s*hunt|失败复盘|人工交付/i.test(brief);
+    }
+
+    function buildLearnLines() {
+      return [
+        "- 三板定位：本轮主板只能选 Product、Market 或 Distribution 之一，并写明暂不处理的两板问题。",
+        "- 分层关口：Gate 0 技术 POC -> Gate 1 人工可交付 -> Gate 2 可自助使用 -> Gate 3 可安全收费 -> Gate 4 可规模化。",
+        "- 信号阶梯：曝光 -> 点击 -> 注册 -> 激活 -> 预售/付款 -> 重复使用 -> 留存/复购；不跨层外推。",
+        "- 漏斗诊断：先定位最早断点，再决定补分发、改受众/信息、调价格/信任，还是修交付与留存。",
+        "- 预售责任：记录范围、交付日、质量、退款、支持、最大订单量、每单工时和返工率。",
+        "- 图像账本：记录页面、原型、排名、订单、经营面板等截图的日期、信号层级、支持主张和证明边界。",
+        "- 复盘写回：每个实验只记录一个主变量、结果、替代解释、停止/继续/加注阈值和可复用资产。"
+      ];
+    }
+
+    function isDeepResearchTopic(brief) {
+      return /深度研究|研究报告|研究流程|访谈|专家|嘉宾|转录|预测|时间线|概率|趋势|技术战略|算力|芯片|显存|电力|供应链|agi|rlvr|持续学习|训练范式|自动化公司|数据飞轮|情景分析/i.test(brief);
+    }
+
+    function deepResearchLines() {
+      return [
+        "- 问题卡：写清要支持的决策、唯一核心问题、时间盒、交付物和证据门槛。",
+        "- 主张溯源：每条结论标记说话人、日期、事实 / 解释 / 预测 / 情景 / 第一方自报和复核状态。",
+        "- 关键分歧：分别写支持方与反对方的最强因果链，找出能让双方更新的共同 crux。",
+        "- 预测账本：记录操作化里程碑、主观概率、最强反证、更新条件、复盘日和实际结果。",
+        "- 能力到结果：能力 -> 可用性 -> 可靠性 -> 数据权限 -> 信任 -> 授权 -> 资源 -> 协调 -> 可归责结果。",
+        "- 验证拓扑：检查对错判据、环境能否重置、可并行次数、反馈延迟、代理风险和不可逆损失。",
+        "- 资源约束：检查计算、内存、网络、电力、机房、供应链、资本、替代性和交付周期。",
+        "- 图文证据：章节和转录只定位发言；概念图只表达模型；时间线、预测和供应链数字必须绑定来源与日期。"
+      ];
+    }
+
+    function isLearningMapTopic(brief) {
+      const learningIntent = /学习地图|课程地图|选课|课单|学习计划|学习路径|能力建设|能力短板|创业者技能树|案例学习|课程复盘|学以致用/i.test(brief);
+      const learningWorkSample = /作品样本/i.test(brief) && !/招聘|候选人|人才|研究员|试岗/i.test(brief);
+      return learningIntent || learningWorkSample;
+    }
+
+    function learningMapLines() {
+      return [
+        "- 当前问题：先写 30 天内必须支持的一个决策、行动或业务关口，不从课程名称出发。",
+        "- 学习组合：区分当前问题、未来 3–12 个月高概率使用和 1/3/5/10 年长期储备，并给出时间预算。",
+        "- 地图定位：只选一个当前主模块，标记前置能力、暂缓内容和删除条件，避免平均补课。",
+        "- 方法与案例：为方法论配置成功样本、失败或普通样本，分别提取机制、反例和迁移边界。",
+        "- 作品样本：课程必须产出可评价的决策、实验、SOP、画布或业务动作，并指定评价人与截止日。",
+        "- 证据阶梯：收藏/听完 < 作业完成 < 实际使用 < 行为或业务结果，不跨层外推。",
+        "- 复盘更新：记录地图版本、新增/删除/降级理由、结果证据和下一次季度复盘日。",
+        "- 图像边界：地图只表示课程拓扑，书封/人物照/案例封面只做导航，不证明学习效果。"
+      ];
+    }
+
+    function decisionNextQuestion(brief) {
+      if (!/(方案|选项|选择|决定|还是|\bvs\b|[ABCＡＢＣ][：:])/i.test(brief)) {
+        return "你现在到底要决定什么？请列出至少两个真实选项，并说明为什么这个决策值得花时间分析。";
+      }
+      if (!/(小时|预算|成本|收益|约束|时间|风险|元|万|周|月)/.test(brief)) {
+        return "你想分析到哪一层：①简单拆拆 ②主要矛盾 ③公式定量 ④完整财务账？";
+      }
+      return "先选一个方案：它最明确的成本是什么，最可能带来的收益又是什么？";
+    }
+
+    function generateCoachTurn() {
+      const brief = requireBrief();
+      if (!brief) return;
+      const type = selectedBusinessType(brief);
+      const evidence = retrieveKnowledge(brief, 5);
+      const questions = topQuestions(evidence);
+      renderKnowledge(evidence);
+
+      const directAskPattern = /(帮我判断|能不能做|怎么增长|怎么融资|定价|给方案|商业计划|完整方案|MVP)/;
+      const boundary = directAskPattern.test(brief)
+        ? "你这个请求已经接近直接商业咨询。我会先收住，不替你判断成败，只把它当作训练业务判断力的例子。"
+        : "我先不急着给建议，而是按教练流程把问题拉到最前置的关键假设。";
+
+      const nextQuestion = coachMode.value === "decision"
+        ? decisionNextQuestion(brief)
+        : questions[0] || "请先说清楚：谁在什么场景下，为哪个问题付出了什么明确成本？";
+      const draft = [
+        "# 下一轮教练对话",
+        "",
+        "## 1. 身份边界",
+        boundary,
+        "",
+        "## 2. 当前入口",
+        `- 业务类型：${type}`,
+        `- 当前阶段：${stageLabels[stageSelect.value]}`,
+        `- 教练模式：${modeLabels[coachMode.value]}`,
+        "",
+        "## 3. 本轮只问一题",
+        nextQuestion,
+        "",
+        "## 4. 如果用户答偏，纠偏话术",
+        "你这段回答有价值，但它跳到了后面的模块。我们先回到刚才的问题：请只回答当前关口，不要先谈方案、增长或壁垒。",
+        "",
+        "## 5. 质量检查",
+        coachMode.value === "decision"
+          ? [
+              "- 选项是否真能比较，还是把执行顺序误写成三选一？",
+              "- 是否写清现金、时间、注意力、信誉和机会成本？",
+              "- 是否区分市场窗口与个人行动窗口？",
+              "- 是否提前设定停止、继续和加注的证据门槛？"
+            ].join("\n")
+          : qualityGateQuestions().map((item) => `- ${item}`).join("\n"),
+        "",
+        "## 6. 本轮知识库依据",
+        knowledgeMarkdown(evidence)
+      ].join("\n");
+
+      renderOutput(draft, "下一轮教练问题");
+      refreshCanvasWithBrief(brief);
+      saveWorkspace();
+      setStatus("已按教练流程生成下一轮追问。");
+    }
+
+    function generateTutorDraft() {
+      if (coachMode.value === "decision") {
+        generateDecisionDraft();
+        return;
+      }
+      const brief = requireBrief();
+      if (!brief) return;
+      const oneLine = firstSentence(brief);
+      const type = selectedBusinessType(brief);
+      const stage = stageLabels[stageSelect.value] || "想法期";
+      const evidence = retrieveKnowledge(brief, 6);
+      const metrics = internetMetrics[type] || internetMetrics["AI SaaS 工具"];
+      const questions = topQuestions(evidence);
+      renderKnowledge(evidence);
+
+      const draft = [
+        "# 第一轮商业 Mentor 诊断",
+        "",
+        "## 一、业务一句话",
+        oneLine,
+        "",
+        "## 二、身份边界与当前教练流程",
+        "- 我不会替你判断这个项目一定能不能成，也不会把没有证据的判断写成事实。",
+        "- 当前最重要的任务是：把想法拆成可验证的单一关键假设，并匹配最低成本验证方式。",
+        `- 业务类型：${type}`,
+        `- 阶段：${stage}`,
+        `- 教练模式：${modeLabels[coachMode.value]}`,
+        "",
+        "## 三、检索到的知识库证据",
+        knowledgeMarkdown(evidence),
+        "",
+        "## 四、259 拆解",
+        "- 价值假设：用户是否真的为这个问题投入钱、时间、迁移成本或组织成本。",
+        "- 增长假设：如果价值成立，是否存在可重复获客、转介绍、复购或续费路径。",
+        "- 五步法：先验证需求，再验证解决方案，然后才谈商业模式、增长和壁垒。",
+        "- 画布：先补齐早期用户、具体需求、当前替代方案、收入、成本和核心指标，再谈渠道与壁垒。",
+        "",
+        "## 五、审美检查：真结构 vs 像结构",
+        qualityGateQuestions().map((item) => `- ${item}`).join("\n"),
+        "",
+        "## 六、Top 3 关键假设",
+        "| 排名 | 关键假设 | 为什么关键 | 最低成本验证 |",
+        "| --- | --- | --- | --- |",
+        `| 1 | 早期用户有强烈、具体、正在发生的痛点 | ${type} 如果需求不刚，后面的方案、增长和壁垒都只是空转 | 访谈 10 个目标用户，要求说出当前替代方案、不解决成本和最近一次真实行为 |`,
+        "| 2 | 用户愿意为结果付费，而不是只觉得想法有趣 | 喜欢不等于付费，口头反馈不能替代交易 | 做人工交付或预售页，给出明确价格，观察付款、预订或预算确认 |",
+        "| 3 | Agent 的追问质量能稳定高于通用聊天 | 用户不是缺一个更会聊天的 AI，而是缺能迫使他想清楚的结构化流程 | 用人工+半自动跑 5-10 次对话，记录用户是否行动、复访或愿意付费 |",
+        "",
+        "## 七、48 小时验证卡",
+        "1. 只选一条假设，不同时验证需求、方案和价格。",
+        "2. 访谈或跑通 5-10 个目标用户，不做完整产品。",
+        "3. 每次对话记录用户原话、替代方案、证据类型和下一步行动。",
+        "4. 设置硬标准：没有真实行为、预订、付费、复访或转介绍，就不算需求过关。",
+        "",
+        "## 八、互联网指标看板",
+        metrics.map((metric) => `- ${metric}`).join("\n"),
+        "",
+        "## 九、最佳实践反编译与迁移边界",
+        ...bestPracticeDecompileLines(),
+        "",
+        "## 十、下一轮导师追问",
+        ...questions.map((question) => `- ${question}`),
+        "- 这句话是真结构，还是听起来像结构？",
+        "- 哪个前置关口没有过，却被你提前跳过去了？",
+        "",
+        "## 十一、Agent 训练闭环",
+        "- 沉淀结构化案例：行业、类型、阶段、用户原话、追问路径、关键假设。",
+        "- 沉淀证据质量：观点、替代方案、真实行为、付费、留存、转介绍。",
+        "- 沉淀结果反馈：48 小时或一周后检查是否发生行动与反证。",
+        "- 复盘误判：放过伪结构、过早给建议、验证层级错配，都要变成下一轮规则。",
+        "",
+        "## 十二、事实 / 推断 / 待验证假设与置信度",
+        ...evidenceAuditLines(brief),
+        "",
+        "## 十三、反证、替代解释与未控制变量",
+        ...counterEvidenceLines(brief),
+        ...(isLearningMapTopic(brief) ? [
+          "",
+          "## 附录：问题驱动学习地图",
+          ...learningMapLines()
+        ] : []),
+        ...(isDeepResearchTopic(brief) ? [
+          "",
+          "## 附录：深度研究与预测账本",
+          ...deepResearchLines()
+        ] : []),
+        ...(isBuildLearnTopic(brief) ? [
+          "",
+          "## 附录：构建-发布-学习账本",
+          ...buildLearnLines()
+        ] : []),
+        ...(isMediaAssetTopic(brief) ? [
+          "",
+          "## 附录：媒体证据与资产化",
+          ...mediaAssetLines()
+        ] : [])
+      ].join("\n");
+
+      renderOutput(draft, "商业 Mentor 诊断");
+      refreshCanvasWithBrief(brief);
+      saveWorkspace();
+      setStatus("已检索资料库并生成第一轮导师稿。");
+    }
+
+    function generateDecisionDraft() {
+      const brief = requireBrief();
+      if (!brief) return;
+      const type = selectedBusinessType(brief);
+      const evidence = retrieveKnowledge(`${brief} ROI 决策 机会成本 可逆性 时间窗口 止损`, 7);
+      renderKnowledge(evidence);
+
+      const draft = [
+        "# 科学决策备忘录草稿",
+        "",
+        "## 一、决策题目",
+        firstSentence(brief),
+        "",
+        "## 二、边界",
+        "- 我负责补全选项、成本、收益、风险和主要矛盾，不替你拍板。",
+        "- 所有数字都要标记来源、区间和置信度；未知项保留为待验证假设。",
+        `- 业务类型：${type}`,
+        "",
+        "## 三、分析深度",
+        "- ① 简单拆拆：列清成本收益。",
+        "- ② 主要矛盾：确认最影响选择的冲突。",
+        "- ③ 公式定量：把关键变量写成可计算区间。",
+        "- ④ 完整财务账：比较乐观、基准、悲观情景。",
+        "- 当前建议默认从②开始；证据不足时不伪装成精确财务模型。",
+        "",
+        "## 四、多方案 ROI 画布",
+        "| 选项 | 直接收益 | 长期收益 | 现金成本 | 时间/注意力 | 风险 | 可逆性 | 学习速度 |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
+        "| A | 待填写 | 待填写 | 待填写 | 待填写 | 待填写 | 高/中/低 | 快/中/慢 |",
+        "| B | 待填写 | 待填写 | 待填写 | 待填写 | 待填写 | 高/中/低 | 快/中/慢 |",
+        "| C | 待填写 | 待填写 | 待填写 | 待填写 | 待填写 | 高/中/低 | 快/中/慢 |",
+        "",
+        "## 五、主要矛盾与关键不确定性",
+        "1. 这次决策真正要优化的是现金回报、学习速度、确定性，还是长期资产？只能选一个主目标。",
+        "2. 哪个未知项一旦被证实或证伪，会直接改变方案排序？",
+        "3. 三个方案是否互斥，还是应该改写为先后顺序？",
+        "",
+        "## 六、高度扫描",
+        "- 长期复利：验证期结束后，什么资产仍会继续产生价值？",
+        "- 可逆性：四周后发现信号差，掉头代价有多大？",
+        "- 机会成本：同样的时间、现金和注意力，最强替代用途是什么？",
+        "- 时间窗口：现在做的优势来自市场变化，还是个人势能？",
+        "",
+        "## 七、停止 / 继续 / 加注标准",
+        "- 停止：提前写明最低样本量和失败证据，避免沉没成本续命。",
+        "- 继续：出现真实行为、付费、行动闭环或复访，而不只是口头认可。",
+        "- 加注：核心假设已过关，且单位经济、交付质量和获客路径至少有一条可重复证据。",
+        "",
+        "## 八、最小决策实验",
+        "1. 只测试最会改变方案排序的一条关键假设。",
+        "2. 设定样本量、期限、预算和失败判据。",
+        "3. 记录用户原话、真实行为、拒绝原因和后续结果。",
+        "4. 到期强制复盘，不用更多开发掩盖坏信号。",
+        "",
+        "## 九、知识库依据",
+        knowledgeMarkdown(evidence),
+        "",
+        "## 十、事实 / 推断 / 待验证假设与置信度",
+        ...evidenceAuditLines(brief),
+        "",
+        "## 十一、反证、替代解释与未控制变量",
+        ...counterEvidenceLines(brief),
+        "",
+        "## 十二、下一轮只问一题",
+        decisionNextQuestion(brief)
+      ].join("\n");
+
+      renderOutput(draft, "科学决策备忘录");
+      refreshCanvasWithBrief(brief);
+      saveWorkspace();
+      setStatus("已生成科学决策备忘录草稿。");
+    }
+
+    function refreshCanvasWithBrief(brief) {
+      document.querySelectorAll(".canvas-cell").forEach((cell) => {
+        const title = cell.dataset.title;
+        const editable = cell.querySelector("[contenteditable]");
+        if (!editable) return;
+        editable.textContent = `${canvasHints[title]}\n\n业务背景：${firstSentence(brief)}`;
+      });
+    }
+
+    function canvasMarkdown() {
+      const lines = ["# 关键假设拆解画布", ""];
+      document.querySelectorAll(".canvas-cell").forEach((cell) => {
+        const title = cell.dataset.title;
+        const text = cell.querySelector("[contenteditable]").innerText.trim();
+        lines.push(`## ${title}`, text || "待填写", "");
+      });
+      return lines.join("\n");
+    }
+
+    async function copyText(text, message) {
+      try {
+        await navigator.clipboard.writeText(text);
+        setStatus(message);
+      } catch (error) {
+        setStatus("浏览器限制了复制权限，请手动选中文本复制。", "error");
+      }
+    }
+
+    function setStatus(message, type = "success") {
+      statusLine.textContent = message;
+      statusLine.dataset.type = type;
+      window.clearTimeout(setStatus.timer);
+      setStatus.timer = window.setTimeout(() => {
+        statusLine.textContent = "";
+        delete statusLine.dataset.type;
+      }, 2400);
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === "function") {
+        window.lucide.createIcons({ attrs: { "stroke-width": 1.8 } });
+      }
+    }
+
+    function updateCounter() {
+      briefCounter.textContent = `${businessBrief.value.length} / 3000`;
+    }
+
+    function updateModeUI(mode) {
+      coachMode.value = mode;
+      modeSegments.forEach((button) => {
+        const active = button.dataset.mode === mode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      modeDescription.textContent = modeDescriptions[mode] || modeDescriptions.truman;
+    }
+
+    function resetCanvasContent() {
+      document.querySelectorAll(".canvas-cell [contenteditable]").forEach((node) => {
+        const title = node.closest(".canvas-cell").dataset.title;
+        node.textContent = canvasHints[title] || "待填写";
+      });
+    }
+
+    function workspaceSnapshot() {
+      return {
+        brief: businessBrief.value,
+        businessType: businessType.value,
+        stage: stageSelect.value,
+        mode: coachMode.value,
+        output: output.textContent,
+        outputTitle: outputTitle.textContent,
+        canvas: [...document.querySelectorAll(".canvas-cell [contenteditable]")].map((node) => node.innerText)
+      };
+    }
+
+    function saveWorkspace() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(workspaceSnapshot()));
+        draftStatus.innerHTML = '<i data-lucide="cloud-check"></i>已自动保存';
+        refreshIcons();
+      } catch (error) {
+        draftStatus.textContent = "本地保存不可用";
+      }
+    }
+
+    function queueSave() {
+      draftStatus.innerHTML = '<i data-lucide="cloud-upload"></i>正在保存';
+      refreshIcons();
+      window.clearTimeout(queueSave.timer);
+      queueSave.timer = window.setTimeout(saveWorkspace, 320);
+    }
+
+    function restoreWorkspace() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+        if (!saved) return;
+        businessBrief.value = saved.brief || "";
+        businessType.value = saved.businessType || "auto";
+        stageSelect.value = saved.stage || "idea";
+        updateModeUI(saved.mode || "truman");
+        if (saved.output) renderOutput(saved.output, saved.outputTitle || "分析结果");
+        if (Array.isArray(saved.canvas)) {
+          document.querySelectorAll(".canvas-cell [contenteditable]").forEach((node, index) => {
+            if (saved.canvas[index]) node.textContent = saved.canvas[index];
+          });
+        }
+      } catch (error) {
+        localStorage.removeItem(storageKey);
+      }
+    }
+
+    function downloadText(text, filename) {
+      const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+      setStatus("Markdown 已下载。");
+    }
+
+    function pulseButton(button, callback) {
+      button.classList.add("is-busy");
+      button.setAttribute("aria-busy", "true");
+      callback();
+      window.setTimeout(() => {
+        button.classList.remove("is-busy");
+        button.removeAttribute("aria-busy");
+      }, 420);
+    }
+
+    const coachTurnButton = document.getElementById("coach-turn");
+    const generatePlanButton = document.getElementById("generate-plan");
+    const retrieveButton = document.getElementById("retrieve-kb");
+
+    coachTurnButton.addEventListener("click", () => pulseButton(coachTurnButton, generateCoachTurn));
+    generatePlanButton.addEventListener("click", () => pulseButton(generatePlanButton, generateTutorDraft));
+    retrieveButton.addEventListener("click", () => pulseButton(retrieveButton, () => {
+      const brief = requireBrief();
+      if (!brief) return;
+      const results = retrieveKnowledge(brief, 8);
+      renderKnowledge(results);
+      renderOutput([
+        "# 资料库检索结果",
+        "",
+        knowledgeMarkdown(results),
+        "",
+        "下一步：生成下一问，或生成完整结构化报告。"
+      ].join("\n"), "知识库证据");
+      saveWorkspace();
+      setStatus("已完成本地资料库检索。");
+    }));
+
+    modeSegments.forEach((button) => {
+      button.addEventListener("click", () => {
+        updateModeUI(button.dataset.mode);
+        queueSave();
+      });
+    });
+
+    businessBrief.addEventListener("input", () => {
+      updateCounter();
+      queueSave();
+    });
+    businessType.addEventListener("change", queueSave);
+    stageSelect.addEventListener("change", queueSave);
+    document.querySelectorAll(".canvas-cell [contenteditable]").forEach((node) => node.addEventListener("input", queueSave));
+
+    document.getElementById("load-example").addEventListener("click", () => {
+      businessBrief.value = coachMode.value === "decision"
+        ? "未来 8 周，我要在 A：课程摘要资料库、B：半自动商业教练工作台、C：人工 + AI 付费陪练之间决定先后顺序。目标是验证互联网 / AI 创业者的真实付费需求；约束是每周 10 小时、预算 3000 元、目前没有稳定客户。"
+        : "我想为正在验证新方向的互联网创业者提供 AI 商业陪练。用户带着一个真实业务问题进入，Agent 通过单轮追问、关键假设和 48 小时验证卡推动行动；当前替代方案是通用聊天 AI、课程笔记或找朋友讨论。";
+      updateCounter();
+      queueSave();
+      businessBrief.focus();
+      setStatus("已载入示例，可直接修改。", "neutral");
+    });
+
+    document.getElementById("copy-prompt").addEventListener("click", () => copyText(agentPrompt, "Agent Prompt 已复制。"));
+    document.getElementById("copy-canvas").addEventListener("click", () => copyText(canvasMarkdown(), "画布 Markdown 已复制。"));
+    document.getElementById("copy-canvas-secondary").addEventListener("click", () => copyText(canvasMarkdown(), "画布 Markdown 已复制。"));
+    document.getElementById("copy-output").addEventListener("click", () => {
+      if (output.classList.contains("empty")) {
+        setStatus("暂无可复制的分析结果。", "error");
+        return;
+      }
+      copyText(output.textContent, "分析结果已复制。");
+    });
+    document.getElementById("download-output").addEventListener("click", () => {
+      if (output.classList.contains("empty")) {
+        setStatus("请先生成一份分析结果。", "error");
+        return;
+      }
+      const date = new Date().toISOString().slice(0, 10);
+      downloadText(output.textContent, `business-tutor-${date}.md`);
+    });
+
+    document.getElementById("reset-canvas").addEventListener("click", () => {
+      if (!window.confirm("重置九格画布？当前编辑内容会被清除。")) return;
+      resetCanvasContent();
+      saveWorkspace();
+      setStatus("259 画布已重置。", "neutral");
+    });
+
+    document.getElementById("clear-workbench").addEventListener("click", () => {
+      if ((businessBrief.value || !output.classList.contains("empty")) && !window.confirm("清空工作台和本地草稿？")) return;
+      businessBrief.value = "";
+      businessType.value = "auto";
+      stageSelect.value = "idea";
+      updateModeUI("truman");
+      output.textContent = "# 等待开始\n\n输入一个真实业务问题，然后生成下一问或完整报告。";
+      output.classList.add("empty");
+      outputTitle.textContent = "分析结果";
+      kbPanel.innerHTML = '<article><div class="kb-empty-icon"><i data-lucide="database-zap"></i></div><h3>等待检索</h3><p>输入业务问题后点击“检索证据”或直接生成报告。</p></article>';
+      kbResultCount.textContent = `${(window.YITANG_BUSINESS_KB || []).length} cards`;
+      resetCanvasContent();
+      localStorage.removeItem(storageKey);
+      updateCounter();
+      refreshIcons();
+      setStatus("工作台和本地草稿已清空。", "neutral");
+    });
+
+    businessBrief.addEventListener("keydown", (event) => {
+      if (!(event.ctrlKey || event.metaKey) || event.key !== "Enter") return;
+      event.preventDefault();
+      if (event.shiftKey) generateTutorDraft();
+      else generateCoachTurn();
+    });
+
+    const observedSections = [...document.querySelectorAll("main section[id]")];
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        document.querySelectorAll(".sidebar-nav a").forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`);
+        });
+      }, { rootMargin: "-20% 0px -65%", threshold: [0.01, 0.25, 0.6] });
+      observedSections.forEach((section) => observer.observe(section));
+    }
+
+    restoreWorkspace();
+    updateModeUI(coachMode.value || "truman");
+    updateCounter();
+    document.getElementById("header-kb-count").textContent = `${(window.YITANG_BUSINESS_KB || []).length} cards`;
+    kbResultCount.textContent = `${(window.YITANG_BUSINESS_KB || []).length} cards`;
+    refreshIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI、CV、AIGC、LLM 推理与 Agent 的离线学习知识库">
+<title>AI / CV / AIGC 离线学习知识库 | 离线 AI 学习知识库</title>
+<style>
+:root { --ink:#16302c; --muted:#56706a; --paper:#f7faf7; --surface:#ffffff; --line:#d3dfda; --green:#087c69; --teal:#006f82; --coral:#c94e2e; --gold:#996200; --soft-green:#e7f4ee; --soft-coral:#fff0eb; --soft-blue:#eaf4f6; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif; line-height:1.65; }
+a { color:#006d73; text-decoration-thickness:1px; text-underline-offset:3px; }
+a:hover { color:#b84428; }
+.shell { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+.topbar { background:#113d36; color:#fff; border-bottom:4px solid #d26a35; }
+.topbar .shell { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:13px 0; }
+.brand { color:#fff; font-weight:700; text-decoration:none; letter-spacing:0; }
+.topnav { display:flex; flex-wrap:wrap; gap:14px; }
+.topnav a { color:#d7ebe5; text-decoration:none; font-size:14px; }
+.hero { background:#e6f2ed; border-bottom:1px solid var(--line); padding:48px 0 42px; }
+.eyebrow { margin:0 0 10px; color:#087c69; font-weight:700; font-size:13px; letter-spacing:0; text-transform:uppercase; }
+h1,h2,h3,h4 { line-height:1.28; margin:0; color:#123d37; letter-spacing:0; }
+h1 { max-width:900px; font-size:40px; }
+h2 { font-size:26px; margin-bottom:14px; }
+h3 { font-size:18px; margin-bottom:8px; }
+h4 { font-size:16px; margin-bottom:6px; }
+p { margin:0 0 12px; }
+.lead { max-width:900px; color:#38544e; font-size:18px; }
+main { padding:30px 0 52px; }
+section { margin:0 0 34px; }
+.section-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; }
+.section-head p { color:var(--muted); margin:0; font-size:14px; }
+.notice { border-left:4px solid var(--coral); background:var(--soft-coral); padding:14px 16px; }
+.notice.info { border-color:var(--teal); background:var(--soft-blue); }
+.grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
+.grid.two { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.item { border:1px solid var(--line); border-top:4px solid var(--green); background:var(--surface); padding:17px; border-radius:6px; }
+.item.teal { border-top-color:var(--teal); }
+.item.coral { border-top-color:var(--coral); }
+.item.gold { border-top-color:var(--gold); }
+.kicker { color:var(--muted); font-size:13px; font-weight:700; margin-bottom:7px; }
+.pill { display:inline-block; margin:0 5px 5px 0; padding:2px 7px; border:1px solid #b7d4c9; border-radius:999px; background:#f3fbf7; color:#285d52; font-size:12px; }
+.flow { display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:7px; align-items:stretch; }
+.flow.five { grid-template-columns:repeat(5, minmax(0,1fr)); }
+.flow.six { grid-template-columns:repeat(6, minmax(0,1fr)); }
+.flow.eight { grid-template-columns:repeat(8, minmax(0,1fr)); }
+.flow div { position:relative; padding:12px 9px; background:#fff; border:1px solid var(--line); text-align:center; font-size:13px; }
+.flow div:not(:last-child)::after { content:"→"; position:absolute; right:-8px; top:50%; z-index:2; transform:translateY(-50%); color:var(--coral); font-size:18px; }
+.path-toc { position:sticky; top:0; z-index:20; box-shadow:0 8px 18px rgba(18,61,55,.08); }
+.metric-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); border-left:4px solid var(--teal); background:#fff; margin:0 0 30px; }
+.metric { min-height:94px; padding:16px 18px; border-right:1px solid var(--line); }
+.metric:last-child { border-right:0; }
+.metric strong { display:block; color:#123d37; font-size:28px; line-height:1.1; }
+.metric span { display:block; margin-top:7px; color:var(--muted); font-size:13px; }
+.stage-map { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:7px; align-items:stretch; }
+.stage-node { position:relative; min-width:0; min-height:112px; padding:13px 8px 11px; border:1px solid var(--line); border-top:5px solid var(--stage-color); border-radius:4px; background:#fff; color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+.stage-node:hover,.stage-node:focus-visible { border-color:var(--stage-color); outline:0; box-shadow:0 5px 14px rgba(18,61,55,.13); transform:translateY(-2px); }
+.stage-node[aria-pressed="true"] { border-color:var(--stage-color); background:var(--stage-soft); box-shadow:inset 0 0 0 1px var(--stage-color); }
+.stage-node:not(:last-child)::after { content:"→"; position:absolute; right:-10px; top:46px; z-index:3; width:12px; color:#a1442d; font-weight:700; text-align:center; pointer-events:none; }
+.stage-index { display:block; color:var(--stage-color); font-size:12px; font-weight:700; }
+.stage-label { display:block; min-height:40px; margin:5px 0 4px; color:#173e37; font-size:14px; font-weight:700; line-height:1.4; }
+.stage-count { display:block; color:var(--muted); font-size:12px; }
+.stage-inspector { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:0; margin-top:12px; border:1px solid var(--line); border-left:5px solid var(--stage-color,#256f5b); background:#fff; }
+.inspector-main,.inspector-side { padding:19px 21px; }
+.inspector-side { border-left:1px solid var(--line); background:#f1f6f3; }
+.inspector-kicker { margin:0 0 6px; color:var(--stage-color,#256f5b); font-size:12px; font-weight:700; }
+.inspector-question { margin:9px 0; color:#294c45; font-size:16px; font-weight:700; }
+.inspector-summary { color:var(--muted); }
+.inspector-meta { margin:0 0 10px; color:var(--muted); font-size:13px; }
+.inspector-link { display:inline-block; margin-top:3px; font-weight:700; }
+.concept-list { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.concept-chip { padding:3px 8px; border:1px solid color-mix(in srgb,var(--stage-color,#256f5b) 45%,#fff); border-radius:999px; background:#fff; color:#294c45; font-size:12px; }
+.viz-grid { display:grid; grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr); gap:28px; align-items:start; }
+.viz-panel { min-width:0; border-top:3px solid #2d7061; padding-top:14px; }
+.viz-panel h3 { margin-bottom:4px; }
+.viz-caption { color:var(--muted); font-size:13px; }
+.bar-chart { display:grid; gap:8px; margin-top:15px; }
+.bar-row { display:grid; grid-template-columns:92px minmax(0,1fr) 32px; gap:9px; align-items:center; width:100%; padding:2px 0; border:0; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.bar-row:hover .bar-fill,.bar-row:focus-visible .bar-fill { filter:saturate(1.2); }
+.bar-row:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.bar-row[aria-current="true"] .bar-name { color:var(--stage-color); }
+.bar-row[aria-current="true"] .bar-track { box-shadow:0 0 0 2px color-mix(in srgb,var(--stage-color) 45%,#fff); }
+.bar-name { overflow:hidden; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.bar-track { position:relative; height:14px; overflow:hidden; background:#e5ece8; }
+.bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--stage-color); }
+.bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.heatmap-wrap { overflow-x:auto; margin-top:15px; }
+.heatmap { display:grid; grid-template-columns:minmax(148px,1.45fr) repeat(8,minmax(54px,.6fr)); min-width:720px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.heat-label,.heat-head,.heat-cell { min-height:43px; padding:7px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.heat-head { display:flex; align-items:center; justify-content:center; background:#eef4f1; color:#31554e; font-size:11px; font-weight:700; line-height:1.2; text-align:center; }
+.heat-label { display:flex; flex-direction:column; justify-content:center; background:#fff; font-size:12px; font-weight:700; line-height:1.25; }
+.heat-label small { margin-top:2px; color:var(--muted); font-weight:400; }
+.heat-cell { display:flex; align-items:center; justify-content:center; background:#fff; color:#fff; font-size:12px; font-weight:700; }
+.heat-cell.level-0 { color:#9baba6; background:#f5f7f6; }
+.heat-cell.level-1 { color:#355d53; background:#dcece5; }
+.heat-cell.level-2 { background:#5a9b88; }
+.heat-cell.level-3 { background:#185f52; }
+.heat-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:9px; color:var(--muted); font-size:12px; }
+.heat-legend span::before { content:""; display:inline-block; width:10px; height:10px; margin-right:5px; border:1px solid #c9d6d1; vertical-align:-1px; background:var(--legend-color); }
+.timeline { position:relative; margin:8px 0 0 10px; padding-left:30px; }
+.timeline::before { content:""; position:absolute; top:6px; bottom:7px; left:7px; width:2px; background:#b9cbc5; }
+.timeline-item { position:relative; display:grid; grid-template-columns:112px minmax(190px,.72fr) minmax(0,1.28fr); gap:18px; padding:0 0 24px; }
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-marker { position:absolute; top:4px; left:-30px; width:16px; height:16px; border:4px solid #fff; border-radius:50%; background:var(--timeline-color); box-shadow:0 0 0 1px var(--timeline-color); }
+.timeline-period { color:var(--timeline-color); font-size:14px; font-weight:700; }
+.timeline-question { color:#193f38; font-weight:700; }
+.timeline-detail { color:#3f5d56; }
+.timeline-target { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
+.detail-table-toggle { margin-top:18px; }
+.stage-section { scroll-margin-top:86px; padding-top:7px; border-top:1px solid var(--line); }
+.repo-status { display:inline-block; padding:2px 7px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:11px; white-space:nowrap; }
+.repo-status.current { border-color:#84b7a7; background:#e7f4ee; color:#1c5f50; }
+.repo-status.caution { border-color:#e0b6a8; background:#fff0eb; color:#8f3f2c; }
+.repo-table td:first-child { min-width:190px; }
+.repo-table td:nth-child(2) { min-width:150px; }
+.repo-table td:nth-child(4) { min-width:290px; }
+.static-bars { display:grid; gap:9px; margin-top:13px; }
+.static-bar-row { display:grid; grid-template-columns:150px minmax(0,1fr) 34px; gap:10px; align-items:center; }
+.static-bar-name { overflow:hidden; color:#294c45; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.static-bar-track { height:14px; overflow:hidden; background:#e5ece8; }
+.static-bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--bar-color,#2d7061); }
+.static-bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.repo-callout { border-top:3px solid var(--teal); padding-top:13px; }
+.media-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:15px; }
+.media-figure { min-width:0; margin:0; border:1px solid var(--line); background:#fff; }
+.media-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#101817; }
+.media-figure figcaption { padding:10px 12px; color:#3f5d56; font-size:13px; }
+.transcript-block { display:grid; grid-template-columns:72px minmax(0,1fr); gap:13px; padding:11px 0; border-bottom:1px solid var(--line); }
+.transcript-block[hidden] { display:none; }
+.transcript-time { font-weight:700; white-space:nowrap; }
+.transcript-text { margin:0; color:#294c45; }
+table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); }
+th,td { padding:10px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+th { background:#e9f3ef; color:#214c43; font-size:14px; }
+td { font-size:14px; }
+.table-wrap { overflow-x:auto; border-radius:6px; }
+ul,ol { margin:8px 0 0; padding-left:21px; }
+li { margin:4px 0; }
+code { background:#e8f1ee; border-radius:3px; padding:1px 4px; color:#164d43; }
+.small { color:var(--muted); font-size:13px; }
+.source-list { columns:2; column-gap:32px; }
+.source-list li { break-inside:avoid; }
+.chapter-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; list-style:none; padding:0; }
+.chapter-list a { display:block; height:100%; padding:13px; border:1px solid var(--line); background:#fff; text-decoration:none; border-radius:6px; }
+.chapter-list a:hover { border-color:var(--teal); }
+.chapter-list strong { display:block; color:#123d37; }
+.chapter-list span { color:var(--muted); font-size:13px; }
+.filter { width:100%; margin:0 0 12px; padding:11px 12px; border:1px solid #a9c4ba; border-radius:4px; font:inherit; color:var(--ink); }
+.filter-grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(220px,1fr); gap:10px; margin-bottom:8px; }
+.filter-grid .filter { margin:0; background:#fff; }
+.toc { border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
+.toc a { margin-right:13px; font-size:14px; }
+details { border:1px solid var(--line); border-radius:6px; background:#fff; margin:10px 0; }
+summary { cursor:pointer; padding:12px 14px; color:#174b42; font-weight:700; }
+details > div { padding:0 14px 14px; }
+.lecture { border-left:4px solid var(--teal); background:#fff; padding:15px 17px; margin:12px 0; }
+.lecture h3 { font-size:18px; }
+.lecture-meta { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.reading-list { margin-top:10px; }
+.reading-list li { margin:7px 0; }
+.reading-note { color:var(--muted); font-size:13px; }
+.catalog-table td:first-child { min-width:220px; }
+.catalog-table td:nth-child(2) { min-width:180px; }
+footer { border-top:1px solid var(--line); color:var(--muted); padding:20px 0 34px; font-size:13px; }
+@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } }
+@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } }
+@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell"><a class="brand" href="index.html">AI OFFLINE KB</a><nav class="topnav" aria-label="主导航"><a href="index.html" aria-current="page">首页</a><a href="knowledge_path.html">知识主线</a><a href="sources.html">来源综述</a><a href="how2ai.html">How2AI 课程</a><a href="stanford_cs25.html">Stanford CS25</a><a href="stanford_cs336.html">Stanford CS336</a><a href="karpathy.html">Karpathy</a><a href="ai_toolkit.html">AI Toolkit</a><a href="kaggle_genai.html">Kaggle GenAI</a><a href="agent_architecture.html">Agent 架构</a><a href="papers.html">论文矩阵</a><a href="catalog.html">全部链接</a></nav></div></header>
+<div class="hero"><div class="shell"><p class="eyebrow">OFFLINE LEARNING LIBRARY · 2026-07-15</p><h1>AI / CV / AIGC 离线学习知识库</h1><p class="lead">将 How2AI、Diffusion、LLM Reasoning、Transformer、训练系统与评测闭环组织为可断网复习的本地课程库。</p></div></div>
+<main class="shell">
+<section class="notice info"><strong>离线使用说明：</strong>本页、课程页、论文矩阵和来源综述均为本地 HTML，无外部脚本、字体或图片依赖。当前知识库索引 <strong>475</strong> 个唯一 URL，覆盖 <strong>36</strong> 个来源域名；<strong>475/475</strong> 项已具有技术类别、中文学习定位和阅读优先级，其中 108 项标记为论文/预印本。原网页、视频和论文全文仍需要联网访问。</section>
+<section>
+  <div class="section-head"><h2>从资料到能力的七个模块</h2><p>按“表征 → 模型 → 生成 → 系统 → 评测”而非按网页来源学习。</p></div>
+  <div class="grid">
+    <article class="item"><p class="kicker">01 · 研究与表示</p><h3>数据、归纳偏置与泛化</h3><p>理解训练分布、监督信号、结构不变性与表征质量如何共同决定泛化。先读 How2AI 的 data/structure，再用 Karpathy 的训练调试流程落地。</p><span class="pill">representation</span><span class="pill">generalization</span></article>
+    <article class="item teal"><p class="kicker">02 · 模型底座</p><h3>Transformer 与 Foundation Models</h3><p>把 attention、位置编码、norm、MLP、tokenizer、KV cache、MoE 和 scaling 当作可拆分的工程变量，而不是一个黑盒“LLM”。</p><span class="pill">architecture</span><span class="pill">scaling</span></article>
+    <article class="item coral"><p class="kicker">03 · 多模态</p><h3>Alignment、Fusion 与 Transfer</h3><p>区分模态对齐、跨模态交互、信息融合和任务迁移。模型同时看见图文不代表学到了可验证的跨模态因果关系。</p><span class="pill">VLM</span><span class="pill">multimodal</span></article>
+    <article class="item gold"><p class="kicker">04 · AIGC</p><h3>Diffusion、Flow 与少步生成</h3><p>用“路径、参数化、条件、求解器、表示空间”五层理解 DDPM、Score-SDE、Flow Matching、DiT、VAE 与 guidance。</p><span class="pill">diffusion</span><span class="pill">flow matching</span></article>
+    <article class="item teal"><p class="kicker">05 · 推理与 Agent</p><h3>Search、Tool Use 与验证</h3><p>让模型在状态、工具、预算、验证器和失败恢复中闭环决策。任务成功率必须和调用成本、trace 质量一并记录。</p><span class="pill">reasoning</span><span class="pill">agents</span></article>
+    <article class="item coral"><p class="kicker">06 · 后训练与交互</p><h3>反馈分布、实时协作与复现</h3><p>从 LoRA、on-policy distillation、推理确定性到实时交互模型，关注训练时的轨迹是否覆盖部署时真正会出现的状态。</p><span class="pill">post-training</span><span class="pill">systems</span></article>
+    <article class="item"><p class="kicker">07 · 评测与治理</p><h3>环境、轨迹、安全与人类监督</h3><p>把静态 benchmark 升级为含隐藏约束、状态转移、权限、副作用和人工接管的评测环境，再把失败轨迹回流训练。</p><span class="pill">evaluation</span><span class="pill">human-in-the-loop</span></article>
+  </div>
+</section>
+<section>
+  <div class="section-head"><h2>一条完整技术主线</h2><p>每一个箭头都对应可测试的系统假设。</p></div>
+  <div class="flow"><div>数据与任务<br><small>分布、结构、标注</small></div><div>表征学习<br><small>不变性与特征</small></div><div>Transformer<br><small>规模与上下文</small></div><div>多模态<br><small>对齐、融合、迁移</small></div><div>生成模型<br><small>扩散、流、采样</small></div><div>Agent<br><small>搜索、工具、验证</small></div><div>闭环系统<br><small>评测、反馈、治理</small></div></div>
+  <p class="notice">工程上最容易被遗漏的是最后一段：更大模型只会改变能力上限；环境覆盖、评测质量、轨迹数据、回归测试和人工接管决定系统是否能持续可用。</p>
+</section>
+<section>
+  <div class="section-head"><h2>知识库入口</h2><p>先读离线内容，再按需打开外部原文。</p></div>
+  <ul class="chapter-list">
+    <li><a href="knowledge_path.html"><strong>统一知识主线（建议从这里开始）</strong><span>将全部条目合并为 8 层能力堆栈、技术演进、概念边界和 10 周路线。</span></a></li>
+    <li><a href="sources.html"><strong>十三个来源的技术综述</strong><span>明确每个课程、博客、代码和视频来源解决的问题、边界与互补关系。</span></a></li>
+    <li><a href="how2ai.html"><strong>MIT How2AI 课程地图</strong><span>按讲次保留子主题、slides/video 与全部课程 readings。</span></a></li>
+    <li><a href="stanford_cs25.html"><strong>Stanford CS25 · Transformers United V6</strong><span>9 个 2026 前沿讲次、精选录播、论文和面向工程师的 4 周研讨路线。</span></a></li>
+    <li><a href="stanford_cs336.html"><strong>Stanford CS336 · Language Modeling from Scratch</strong><span>19 讲、5 个实现作业、17 份本地课件和 18 场可搜索字幕录播，串起语言模型完整生命周期。</span></a></li>
+    <li><a href="karpathy.html"><strong>Karpathy GitHub 学习地图</strong><span>63 个公开仓库快照，从 micrograd、nanochat 和 C/CUDA 推进到 autoresearch。</span></a></li>
+    <li><a href="ai_toolkit.html"><strong>Ostris AI Toolkit 训练地图</strong><span>从数据与 buckets、LoRA/LoKr、量化和 flow matching 推进到采样评测、恢复与 UI/CLI 运行。</span></a></li>
+    <li><a href="kaggle_genai.html"><strong>Kaggle 5-Day Gen AI Intensive</strong><span>5 场直播串联 Prompt、Embedding/RAG、Agent、领域适配与 GenAI MLOps，含中文综述、时间轴、关键帧和完整英文自动逐字稿。</span></a></li>
+    <li><a href="agent_architecture.html"><strong>AI Agent 架构趋势及演进</strong><span>从 workflow/agentic 和 context engineering 推进到 MCP/AI Gateway、状态恢复、OpenTelemetry 与持续评测，含本地 720p 视频、幻灯片和 Whisper 中文稿。</span></a></li>
+    <li><a href="how2ai_full_report.html"><strong>How2AI 完整中文报告</strong><span>原有课程报告的离线副本：知识地图、技术主线和学习路径。</span></a></li>
+    <li><a href="diffusion_full_guide.html"><strong>Diffusion 专题报告</strong><span>DDPM、Score-SDE、Flow Matching、VAE、DiT、Guidance 与实验。</span></a></li>
+    <li><a href="reasoning_full_guide.html"><strong>LLM 推理与 Agent 指南</strong><span>CS 159、Lil’Log、Transformer Taxonomy、Thinking Machines 与 Labelbox。</span></a></li>
+    <li><a href="papers.html"><strong>论文与资料矩阵</strong><span>99 条课程阅读记录，按主题、优先级和本地中文注释聚合。</span></a></li>
+    <li><a href="catalog.html"><strong>全部链接索引</strong><span>475 个唯一链接的来源、类别、阅读状态与原始 URL。</span></a></li>
+  </ul>
+</section>
+<section>
+  <div class="section-head"><h2>8 周离线自学节奏</h2><p>每周要求有可检查产出，而非只增加阅读时长。</p></div>
+  <div class="table-wrap"><table><thead><tr><th>周</th><th>主题</th><th>离线主读</th><th>必须产出</th></tr></thead><tbody>
+  <tr><td>1</td><td>数据、表示与研究方法</td><td>How2AI Week 1–2；论文矩阵中的表征/调试资料。</td><td>数据—目标—指标三列表和一个可复现实验模板。</td></tr>
+  <tr><td>2</td><td>Transformer 配方</td><td>Taxonomy 与 Lil’Log 的 attention/Transformer 条目。</td><td>模型卡：attention、位置、norm、MLP、KV cache、tokenizer。</td></tr>
+  <tr><td>3</td><td>多模态</td><td>How2AI Week 5–7。</td><td>比较 alignment / fusion / transfer 的实验设计。</td></tr>
+  <tr><td>4</td><td>扩散与流</td><td>Diffusion 专题报告；AI Toolkit 的数据与 config 解剖。</td><td>DDPM/Flow Matching toy，或固定 prompt/seed 的最小 LoRA 基线。</td></tr>
+  <tr><td>5</td><td>Foundation / Multimodal LLM</td><td>How2AI Week 9–11；Taxonomy。</td><td>为一个任务写清预训练、适配、量化和评测方案。</td></tr>
+  <tr><td>6</td><td>推理、搜索和工具</td><td>CS 159 模块与 LLM 推理指南。</td><td>带工具 schema、状态与 verifier 的最小 Agent。</td></tr>
+  <tr><td>7</td><td>后训练与运行时</td><td>Thinking Machines 条目；AI Toolkit 的量化、cache、恢复与 UI/CLI 边界。</td><td>FullFT/LoRA、显存优化或不同 sampler 的公平对照实验。</td></tr>
+  <tr><td>8</td><td>评测、安全与人机协作</td><td>Labelbox 条目与 How2AI HAI。</td><td>含隐藏约束、失败路径和人工接管的 evaluation harness。</td></tr>
+  </tbody></table></div>
+</section>
+<section class="notice"><strong>使用边界：</strong>“全文离线学习”在这里指课程结构、技术解释、学习任务、阅读定位与来源元数据都可离线查看。知识库不复制论文、视频、Google Drive/Colab 或商业博客的全文；它们仍以原始链接保留，避免版权、访问权限与版本漂移问题。</section>
+</main>
+<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；CS336 官方讲义、作业仓库与自动字幕另保留本地快照。</footer>
+</body></html>

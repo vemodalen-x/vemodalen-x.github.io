@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "platform": "小红书",
+    "profileUrl": "https://www.xiaohongshu.com/user/profile/5ffa863800000000010037ec",
+    "userId": "5ffa863800000000010037ec",
+    "retrieved": "2026-07-14",
+    "accessStatus": "partial",
+    "accessNote": "公开 SSR 元数据曾成功返回；后续页面请求触发安全限制 300012。未尝试绕过登录、验证码或平台安全措施。"
+  },
+  "profile": {
+    "nickname": "曾天真学习笔记",
+    "redId": "4952107620",
+    "location": "浙江杭州",
+    "bioSummary": "具有大厂 AI 内容算法与团队带队经验，主要分享 AIGC、算法职业发展和就业困惑。",
+    "followingLabel": "10+",
+    "fansLabel": "1千+",
+    "engagementLabel": "1万+",
+    "topics": [
+      "AI 内容算法",
+      "AIGC",
+      "算法职业发展",
+      "就业咨询",
+      "算法团队管理"
+    ]
+  },
+  "records": [
+    {
+      "id": "xhs-zeng-algorithm-bottleneck-engineering-survival",
+      "title": "一些感悟：算法瓶颈、工程现实与生存博弈",
+      "category": "AI 算法职业与工程现实",
+      "likeCountLabel": "36",
+      "contentStatus": "metadata-only",
+      "url": "https://www.xiaohongshu.com/user/profile/5ffa863800000000010037ec",
+      "summary": "仅核验到公开标题和互动数字，正文尚未取得。标题显示内容可能涉及算法能力边界、工程约束和职业环境，但在读取正文前不提炼具体结论。",
+      "tags": [
+        "算法瓶颈",
+        "工程现实",
+        "职业发展",
+        "待提炼"
+      ]
+    }
+  ]
+}

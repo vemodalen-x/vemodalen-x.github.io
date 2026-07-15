@@ -4,25 +4,37 @@
   <img src="https://raw.githubusercontent.com/vemodalen-x/vemodalen-x.github.io/main/assets/junxian-wu.jpg" alt="Junxian Wu" width="160">
 </a>
 
-Forward-Deployed AI Engineer for **Computer Vision**, **Edge Model Deployment**, and **Multimodal Workflows**.
+**Senior AI Engineer | Vision, Agentic & Multimodal Systems**
 
-I connect vision models to product systems: data, training, export, C++/Android runtime, visual-quality evaluation, debugging, and handoff.
+## From perception to production.
 
-Based in Singapore. Best fit: Forward-Deployed AI, Applied AI, Computer Vision ML, Multimodal AI, and ML Systems roles where models must become reliable workflows.
+I build reliable vision and agentic AI systems from perception and reasoning through runtime integration, evaluation, and production handoff.
 
-## Can Own
+My production foundation is **Vision & Edge AI**. **Computational Photography** is the differentiated domain; **Agentic & Multimodal AI** is the growth direction.
 
-- **Model-to-runtime path**: move models from PyTorch-era development into TFLite/ONNX/TensorRT-style deployment paths.
-- **Camera AI feature delivery**: combine segmentation, matting, depth, detection, tracking, and rendering into stable camera behavior.
-- **Visual-quality loop**: convert vague image-quality failures into hard cases, data plans, comparison reports, and acceptance gates.
-- **Multimodal workflow prototype**: build VLM/LLM workflows with structured outputs, provider comparison, fallback logic, and reproducible traces.
+Based in Singapore. Best fit: Applied AI, Forward-Deployed AI, Agentic AI, Multimodal AI, Computer Vision, and ML Systems roles.
+
+## System Spine
+
+- **Perception**: segmentation, matting, depth, detection, tracking, and multimodal inputs.
+- **Reasoning**: product rules, workflow state, prompts, schemas, and controllable behavior.
+- **Runtime**: C++/Android, GPU pipelines, services, APIs, provider routing, and edge deployment.
+- **Evaluation**: hard cases, comparison reports, traces, failure taxonomies, and release gates.
+- **Handoff**: explicit assumptions, interfaces, debug paths, acceptance criteria, and operating knowledge.
+
+## Evidence Pillars
+
+- **Production foundation - Vision & Edge AI**: training-to-deployment workflows and native runtime integration.
+- **Differentiation - Computational Photography**: perception-to-rendering systems with visual-quality evaluation.
+- **Growth vector - Agentic & Multimodal AI**: local RAG, structured outputs, routing, failure handling, and evaluation.
 
 ## Proof Paths
 
 - [PDF CV](https://raw.githubusercontent.com/vemodalen-x/vemodalen-x.github.io/main/assets/junxian-wu-cv.pdf): sanitized two-page CV for screening.
-- [Technical map](https://vemodalen-x.github.io/technical-lines.html): Tech Lead view by technical lines and stacks.
-- [Selected work](https://vemodalen-x.github.io/work.html): public-safe case studies.
-- [CV](https://vemodalen-x.github.io/resume.html): concise role summary.
+- [Selected work](https://vemodalen-x.github.io/work.html): three evidence pillars and the operating method connecting them.
+- [Agentic systems](https://vemodalen-x.github.io/agentic-systems.html): public proof for the growth direction.
+- [CV](https://vemodalen-x.github.io/resume.html): concise role history and technical evidence.
+- [Technical map](https://vemodalen-x.github.io/technical-lines.html): compact reference by the five-stage system spine.
 
 ## Operating Principles
 
@@ -31,15 +43,6 @@ Based in Singapore. Best fit: Forward-Deployed AI, Applied AI, Computer Vision M
 - Edge cases decide quality.
 - Evaluation before claims.
 - Public work should be useful without exposing customer names, internal paths, model artifacts, logs, or private thresholds.
-
-## Technical Lines
-
-- Vision model platform and deployment foundation.
-- On-device vision systems.
-- Computational photography and GPU rendering.
-- Agentic multimodal workflows.
-- Data, evaluation, and simulation infrastructure.
-- Service delivery and production handoff.
 
 ## Links
 

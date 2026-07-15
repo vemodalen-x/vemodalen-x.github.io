@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MIT MAS.S60 How2AI Spring 2025 技术报告</title>
+  <style>
+    :root {
+      --fg: #1b1f24;
+      --muted: #5f6b7a;
+      --line: #d8dee6;
+      --bg: #f7f8fa;
+      --accent: #0b6bcb;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 24px 72px;
+      background: #fff;
+      min-height: 100vh;
+      box-shadow: 0 0 0 1px rgba(20, 30, 45, .04);
+    }
+    h1, h2, h3, h4 {
+      line-height: 1.25;
+      margin-top: 1.6em;
+    }
+    h1 { font-size: 32px; margin-top: 0; }
+    h2 { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 28px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3f8;
+      text-align: left;
+    }
+    code {
+      background: #eef1f5;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    li { margin: 4px 0; }
+    @media (max-width: 760px) {
+      main { padding: 24px 14px 56px; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+<main>
+<h1 id="mit-mass60-how2ai-spring-2025">MIT MAS.S60 How2AI Spring 2025 技术报告</h1>
+<p>Source: https://mit-mi.github.io/how2ai-course/spring2025/schedule/</p>
+<p>说明：本报告基于课程 schedule 页面自动解析生成。页面只给出日期、主题、slides/video 链接与 readings；对论文核心贡献的判断仅在标题和公认资料足够可靠时给出，无法可靠判断的条目标记为“需进一步阅读确认”。</p>
+<h2 id="1">1. 课程定位</h2>
+<p>MAS.S60 How2AI Spring 2025 面向的是“如何做 AI 研究与系统构建”这个问题，而不是只讲单一模型或单一应用。课程从 AI research workflow、数据和表示学习切入，逐步进入模型架构、多模态学习、大模型、现代生成模型、交互式 agent 和 Human-AI interaction。它的技术范围覆盖 AI/CV/AIGC 工程师最常见的完整链路：数据与目标定义、模型结构选择、预训练/微调/部署、多模态对齐与融合、生成模型路线、偏好学习与安全交互。</p>
+<p>适合读者包括：已经能训练/微调模型但希望建立论文脉络的 AI engineer；做 CV、VLM、AIGC 或 agent 的工程师；需要快速理解多模态与 foundation model 技术演进的研究型产品/算法负责人。课程不适合作为零基础机器学习入门，它默认读者愿意读论文、做实验，并能把工具链和研究问题连接起来。</p>
+<h2 id="2">2. 全局知识地图</h2>
+<h3 id="21-ai-research-foundations">2.1 AI research foundations</h3>
+<ul>
+<li>覆盖讲次：Week 1, Week 2 practical tools</li>
+<li>核心问题：把 AI 研究拆成问题定义、文献阅读、实验设计、工具链和 debug 闭环。</li>
+<li>关键技术：论文阅读与写作、实验假设、PyTorch、Hugging Face、训练诊断、研究项目构思。</li>
+<li>与前后模块关系：为后续模型、数据和多模态主题提供研究方法与工程执行底座。</li>
+<li>工程实践价值：工程师可以把它转化为实验记录模板、训练检查清单和模型迭代流程。</li>
+</ul>
+<h3 id="22-data-representation-and-generalization">2.2 Data, representation, and generalization</h3>
+<ul>
+<li>覆盖讲次：Week 2, Week 4 Discussion 1</li>
+<li>核心问题：数据模态、结构、训练目标和规模如何决定表示质量与泛化行为。</li>
+<li>关键技术：representation learning、self-supervision、generalization、double descent、grokking、data quality。</li>
+<li>与前后模块关系：承接研究方法，向模型架构和 foundation model 的可扩展训练过渡。</li>
+<li>工程实践价值：直接影响数据配比、预训练目标、评测集设计和泛化风险控制。</li>
+</ul>
+<h3 id="23-model-architectures">2.3 Model architectures</h3>
+<ul>
+<li>覆盖讲次：Week 4, Week 5 Discussion 2</li>
+<li>核心问题：不同数据结构需要什么归纳偏置，以及 Transformer 为什么成为通用架构。</li>
+<li>关键技术：CNN、RNN/attention、Transformer、ViT、Deep Sets、GNN/GAT、GraphSAGE、ConvNeXt。</li>
+<li>与前后模块关系：从单模态结构先验过渡到多模态对齐与大模型统一建模。</li>
+<li>工程实践价值：帮助工程师选择视觉、序列、集合、图和混合模态输入的模型骨架。</li>
+</ul>
+<h3 id="24-multimodal-learning">2.4 Multimodal learning</h3>
+<ul>
+<li>覆盖讲次：Week 5-7, Discussion 3-4</li>
+<li>核心问题：异构模态如何建立联系、对齐语义、显式交互，并在模态间迁移能力。</li>
+<li>关键技术：contrastive alignment、image-text relation、fusion、cross-modal interaction、translation、transfer。</li>
+<li>与前后模块关系：以 representation 和 architecture 为基础，连接到 multimodal LLM 的预训练与推理。</li>
+<li>工程实践价值：对 CV/AIGC 工程尤其关键，覆盖图文检索、视觉问答、医学/机器人/生成式多模态系统。</li>
+</ul>
+<h3 id="25-large-foundation-models">2.5 Large foundation models</h3>
+<ul>
+<li>覆盖讲次：Week 9, Week 11, Discussion 5-6</li>
+<li>核心问题：规模化预训练、指令调优、参数高效适配、量化和多模态 LLM 扩展如何协同。</li>
+<li>关键技术：scaling laws、instruction tuning、LoRA、quantization、MoE、MAE、LLaVA、any-to-any MLLM。</li>
+<li>与前后模块关系：把多模态学习的对齐/融合问题放入大模型训练、适配和部署框架中。</li>
+<li>工程实践价值：最贴近 production model design：数据配比、adapter 设计、推理成本、开放模型追赶商业模型。</li>
+</ul>
+<h3 id="26-generative-models">2.6 Generative models</h3>
+<ul>
+<li>覆盖讲次：Week 12, Week 13 Discussion 7</li>
+<li>核心问题：现代生成模型如何从 diffusion 扩展到 flow matching、rectified flow 与媒体 foundation models。</li>
+<li>关键技术：Diffusion Transformer、latent flow matching、rectified flow、video/media generation、conditional generation。</li>
+<li>与前后模块关系：与 multimodal foundation model 合流，面向图像、视频、音乐、动作等 AIGC 任务。</li>
+<li>工程实践价值：为 AIGC 工程提供采样效率、可控生成、多模态生成管线和高分辨率合成的技术路线。</li>
+</ul>
+<h3 id="27-interactive-agents-and-human-ai-interaction">2.7 Interactive agents and Human-AI interaction</h3>
+<ul>
+<li>覆盖讲次：Week 14-15</li>
+<li>核心问题：模型如何通过偏好、反馈、环境交互和人机协作形成可控、可靠的智能体能力。</li>
+<li>关键技术：RLHF、DPO、reasoning RL、reward design、VLA、multimodal agents、human-in-the-loop、safety。</li>
+<li>与前后模块关系：把 static model 推向交互式 agent，要求生成、感知、推理和安全机制一起设计。</li>
+<li>工程实践价值：适合做 AI agent、机器人、教育辅导、Web task agent 和安全评测方向的工程落地。</li>
+</ul>
+<h2 id="3">3. 按周技术梳理</h2>
+<h3 id="week-1">Week 1</h3>
+<h4 id="2025-02-04-introduction">2025-02-04 Introduction</h4>
+<ul>
+<li>主题：Introduction</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec1%20-%20introduction.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/0MYt0u3CW5I">video</a></li>
+<li>关键问题：AI 研究问题如何提出、验证和表达。；多模态、表示学习和 AIGC 在课程中如何串联。</li>
+<li>子主题：Course syllabus and requirements；Introduction to AI and AI research</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2209.03430">Foundations and Trends in Multimodal Machine Learning: Principles, Challenges, and Open Questions</a></li>
+<li><a href="https://arxiv.org/abs/1705.09406">Multimodal Machine Learning: A Survey and Taxonomy</a></li>
+<li><a href="https://arxiv.org/abs/1206.5538">Representation Learning: A Review and New Perspectives</a></li>
+<li>在整体技术路线中的作用：提供课程全景和 AI/多模态/表示学习的入口阅读。</li>
+</ul>
+<h4 id="2025-02-06-introduction-to-ai-research">2025-02-06 Introduction to AI Research</h4>
+<ul>
+<li>主题：Introduction to AI Research</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec1.2%20-%20AI%20research.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/104FX8MYKAM">video</a></li>
+<li>关键问题：AI 研究问题如何提出、验证和表达。；多模态、表示学习和 AIGC 在课程中如何串联。</li>
+<li>子主题：Introduction to AI and AI research；Generating ideas, reading and writing papers, AI experimentation</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：建立 AI 研究流程：找问题、读论文、做实验、写作和迭代。</li>
+</ul>
+<h3 id="week-2">Week 2</h3>
+<h4 id="2025-02-11-foundation-1-data-structure-information">2025-02-11 Foundation 1: Data, structure, information</h4>
+<ul>
+<li>主题：Foundation 1: Data, structure, information</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec2%20-%20data.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/fLybbXyfN28">video</a></li>
+<li>关键问题：数据模态与结构如何影响可学习性。；训练目标与泛化之间的关系是什么。</li>
+<li>子主题：Common data modalities；Data collection strategies；Training objectives and generalization</li>
+<li>推荐阅读：</li>
+<li><a href="https://www.science.org/doi/abs/10.1126/science.aaa8415">Machine learning: Trends, Perspectives, and Prospects</a></li>
+<li><a href="https://arxiv.org/abs/1206.5538">Representation Learning: A Review and New Perspectives</a></li>
+<li><a href="https://arxiv.org/abs/2209.03430">Foundations and Trends in Multimodal Machine Learning: Principles, Challenges, and Open Questions</a></li>
+<li><a href="https://arxiv.org/abs/2104.13478">Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges</a></li>
+<li>在整体技术路线中的作用：把模型能力追溯到数据模态、结构和训练目标，为 representation learning 奠基。</li>
+</ul>
+<h4 id="2025-02-14-foundation-2-practical-ai-tools">2025-02-14 Foundation 2: Practical AI tools</h4>
+<ul>
+<li>主题：Foundation 2: Practical AI tools</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/Debugging%20Tips.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/NOSuy0NOe9k">video</a></li>
+<li>关键问题：如何快速搭建训练与微调实验。；如何定位训练失败、数据问题和实现 bug。</li>
+<li>子主题：Getting started with PyTorch；Huggingface packages；Debugging machine learning models</li>
+<li>推荐阅读：</li>
+<li><a href="https://karpathy.github.io/2019/04/25/recipe/">A Recipe for Training Neural Networks</a></li>
+<li><a href="https://colab.research.google.com/drive/1EDsjYRrAiujUew0GRJ_hyVoNMsSDnlnx?usp=sharing">Fine-tuning a Code LLM on Custom Code on a single GPU</a></li>
+<li><a href="https://colab.research.google.com/drive/1SoTu6gvYcLNDqPwNPTWmsSYF-l-UfHPx?usp=sharing">MAS.S60 Pytorch Introduction</a></li>
+<li>在整体技术路线中的作用：把研究问题落到 PyTorch/Hugging Face/debug 的工程执行面。</li>
+</ul>
+<h3 id="week-3">Week 3</h3>
+<h4 id="2025-02-18-no-class-shifted-presidents-day">2025-02-18 No class, shifted President's day</h4>
+<ul>
+<li>主题：No class, shifted President's day</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：无技术讲授。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：课程暂停，无新增技术主线。</li>
+</ul>
+<h4 id="2025-02-20-project-proposal-presentations">2025-02-20 Project proposal presentations</h4>
+<ul>
+<li>主题：Project proposal presentations</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：如何把课程主题转化为明确问题、实验假设和可展示结果。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：把前两周的研究方法转化为可检验项目问题。</li>
+</ul>
+<h3 id="week-4">Week 4</h3>
+<h4 id="2025-02-25-foundation-3-model-architectures">2025-02-25 Foundation 3: Model architectures</h4>
+<ul>
+<li>主题：Foundation 3: Model architectures</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec3%20-%20models.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/V0gRkmu4mFY">video</a></li>
+<li>关键问题：序列、图像、集合、图分别需要什么结构假设。；Transformer 与 attention 为什么能统一多类输入。</li>
+<li>子主题：Structure and invariances；Temporal sequence models；Spatial convolution models；Models for sets and graphs</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2104.13478">Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges</a></li>
+<li><a href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a></li>
+<li><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></li>
+<li><a href="https://arxiv.org/abs/1409.0473">Neural Machine Translation by Jointly Learning to Align and Translate</a></li>
+<li><a href="https://arxiv.org/abs/1703.06114">Deep Sets</a></li>
+<li><a href="https://arxiv.org/abs/1710.10903">Graph Attention Networks</a></li>
+<li>在整体技术路线中的作用：解释结构先验如何从序列、图像、集合、图扩展到通用 Transformer。</li>
+</ul>
+<h4 id="2025-02-25-discussion-1-learning-and-generalization">2025-02-25 Discussion 1: Learning and generalization</h4>
+<ul>
+<li>主题：Discussion 1: Learning and generalization</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：规模、优化、数据质量与泛化异常现象如何相互作用。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/pdf/2410.09649">Learning the Bitter Lesson</a></li>
+<li><a href="https://arxiv.org/pdf/2303.06173">Unifying Grokking and Double Descent</a></li>
+<li><a href="https://arxiv.org/pdf/2209.01610">Generalization in Neural Networks</a></li>
+<li><a href="https://arxiv.org/pdf/2306.11644">Textbooks are all you Need</a></li>
+<li><a href="https://arxiv.org/pdf/2207.07528">A Conceptual Pipeline for Machine Learning</a></li>
+<li>在整体技术路线中的作用：讨论规模、数据质量和泛化现象，为大模型 scaling 主题铺垫。</li>
+</ul>
+<h3 id="week-5">Week 5</h3>
+<h4 id="2025-03-04-multimodal-1-connections-and-alignment">2025-03-04 Multimodal 1: Connections and alignment</h4>
+<ul>
+<li>主题：Multimodal 1: Connections and alignment</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec4%20-%20multimodal.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/kixc1mh55yY">video</a></li>
+<li>关键问题：不同模态是否能形成共享语义空间。；contrastive view、文本监督和 self-supervised 表示如何影响对齐。</li>
+<li>子主题：Heterogeneity, connections, and interactions；Multimodal technical challenges；Alignment and transformers</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2209.03430">Foundations and Trends in Multimodal Machine Learning: Principles, Challenges, and Open Questions</a></li>
+<li><a href="https://arxiv.org/abs/2005.10243">What Makes for Good Views for Contrastive Learning?</a></li>
+<li><a href="https://link.springer.com/article/10.1007/s13735-019-00187-6">Characterization and classification of semantic image-text relations</a></li>
+<li><a href="https://arxiv.org/abs/2210.01936">When and why vision-language models behave like bags-of-words, and what to do about it?</a></li>
+<li>在整体技术路线中的作用：开启多模态主线：先解决异构模态之间的语义连接和对齐。</li>
+</ul>
+<h4 id="2025-03-06-discussion-2-modern-ai-architectures">2025-03-06 Discussion 2: Modern AI architectures</h4>
+<ul>
+<li>主题：Discussion 2: Modern AI architectures</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：本讲在课程路线中的定位需结合 slides/video 进一步确认。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2301.03728">Scaling Laws for Generative Mixed-Modal Models</a></li>
+<li><a href="https://arxiv.org/abs/2404.07965">Not All Tokens Are What You Need for Pretraining</a></li>
+<li><a href="https://arxiv.org/abs/2209.06794">PaLI: A Jointly-Scaled Multilingual Language-Image Model</a></li>
+<li><a href="https://arxiv.org/abs/2405.17927">The Evolution of Multimodal Model Architectures</a></li>
+<li><a href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a></li>
+<li><a href="https://arxiv.org/abs/2201.03545">A ConvNet for the 2020s</a></li>
+<li><a href="https://arxiv.org/abs/1706.02216">Inductive Representation Learning on Large Graphs</a></li>
+<li><a href="https://arxiv.org/abs/1811.01900">Janossy Pooling: Learning Deep Permutation-Invariant Functions for Variable-Size Inputs</a></li>
+<li>在整体技术路线中的作用：对比现代架构选择，帮助理解为什么不同模态最终趋向 token 化和 attention 化。</li>
+</ul>
+<h3 id="week-6">Week 6</h3>
+<h4 id="2025-03-11-multimodal-2-interactions-and-fusion">2025-03-11 Multimodal 2: Interactions and fusion</h4>
+<ul>
+<li>主题：Multimodal 2: Interactions and fusion</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec5%20-%20fusion.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/Hsv1mOIZ1Ag">video</a></li>
+<li>关键问题：多模态模型什么时候真的利用跨模态交互。；fusion 的收益如何被可靠评估。</li>
+<li>子主题：Cross-modal interactions；Multimodal fusion</li>
+<li>推荐阅读：</li>
+<li><a href="https://dl.acm.org/doi/pdf/10.1145/319382.319398">Ten Myths of Multimodal Interaction</a></li>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S0167865513002584">Multimodal interaction: A review</a></li>
+<li><a href="https://arxiv.org/abs/2302.12247">Quantifying &amp; Modeling Multimodal Interactions: An Information Decomposition Framework</a></li>
+<li><a href="https://aclanthology.org/2020.emnlp-main.62/">Does my multimodal model learn cross-modal interactions? It’s harder to tell than you might think!</a></li>
+<li>在整体技术路线中的作用：从对齐进一步走向显式跨模态交互，回答何时需要 fusion 而不只是拼接表示。</li>
+</ul>
+<h4 id="2025-03-13-discussion-3-multimodal-alignment">2025-03-13 Discussion 3: Multimodal alignment</h4>
+<ul>
+<li>主题：Discussion 3: Multimodal alignment</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：不同模态是否能形成共享语义空间。；contrastive view、文本监督和 self-supervised 表示如何影响对齐。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/pdf/2405.07987">The Platonic Representation Hypothesis</a></li>
+<li><a href="https://arxiv.org/abs/2005.10243">What Makes for Good Views for Contrastive Learning?</a></li>
+<li><a href="https://arxiv.org/pdf/2502.16282">Understanding the Emergence of Multimodal Representation Alignment</a></li>
+<li><a href="https://arxiv.org/abs/2410.23179">Does equivariance matter at scale?</a></li>
+<li><a href="https://arxiv.org/pdf/2103.00020">Learning Transferable Visual Models From Natural Language Supervision?</a></li>
+<li><a href="https://arxiv.org/pdf/2104.14294">Emerging Properties in Self-Supervised Vision Transformers</a></li>
+<li><a href="https://arxiv.org/abs/2209.03430">Foundations &amp; trends in multimodal machine learning - Principles, challenges, and open questions</a></li>
+<li>在整体技术路线中的作用：深化 representation alignment 的理论与经验依据，连接 CLIP/self-supervised/scale。</li>
+</ul>
+<h3 id="week-7">Week 7</h3>
+<h4 id="2025-03-18-multimodal-3-cross-modal-transfer">2025-03-18 Multimodal 3: Cross-modal transfer</h4>
+<ul>
+<li>主题：Multimodal 3: Cross-modal transfer</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec6%20-%20crossmodal.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/k4kywHmr3AA">video</a></li>
+<li>关键问题：能力如何在模态间迁移。；fusion、alignment、translation 三条路线如何选择。</li>
+<li>子主题：Cross-modal learning via fusion；Cross-modal learning via alignment；Cross-modal learning via translation</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2303.00915v3">LLaVA-Med: Training a Large Language-and-Vision Assistant for Biomedicine in One Day</a></li>
+<li><a href="https://arxiv.org/abs/2309.11499">DreamLLM: Synergistic Multimodal Comprehension and Creation</a></li>
+<li><a href="https://arxiv.org/abs/2303.03378">PaLM-E: An Embodied Multimodal Language Model</a></li>
+<li>在整体技术路线中的作用：把对齐和融合转化为迁移能力，覆盖医学、机器人和理解-生成一体化系统。</li>
+</ul>
+<h4 id="2025-03-20-discussion-4-multimodal-interactions">2025-03-20 Discussion 4: Multimodal interactions</h4>
+<ul>
+<li>主题：Discussion 4: Multimodal interactions</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：多模态模型什么时候真的利用跨模态交互。；fusion 的收益如何被可靠评估。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S0167865513002584">Multimodal interaction: A review</a></li>
+<li><a href="https://arxiv.org/abs/2302.12247">Quantifying &amp; Modeling Multimodal Interactions: An Information Decomposition Framework</a></li>
+<li><a href="https://aclanthology.org/2020.emnlp-main.62/">Does my multimodal model learn cross-modal interactions? It’s harder to tell than you might think!</a></li>
+<li><a href="https://arxiv.org/abs/2306.14824">Kosmos-2: Grounding Multimodal Large Language Models to the World</a></li>
+<li><a href="https://arxiv.org/abs/2405.09818">Chameleon: Mixed-modal early-fusion foundation models</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-031-73397-0_18">MM1: Methods, Analysis and Insights from Multimodal LLM Pre-training</a></li>
+<li><a href="https://arxiv.org/pdf/2407.21770">MoMa: Efficient Early-Fusion Pre-training with Mixture of Modality-Aware Experts</a></li>
+<li>在整体技术路线中的作用：强调多模态模型评测必须验证真实交互，而不是只看单模态 shortcut。</li>
+</ul>
+<h3 id="week-8">Week 8</h3>
+<h4 id="2025-03-25-no-class-spring-break">2025-03-25 No class, spring break</h4>
+<ul>
+<li>主题：No class, spring break</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：无技术讲授。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：课程暂停，无新增技术主线。</li>
+</ul>
+<h3 id="week-9">Week 9</h3>
+<h4 id="2025-04-01-large-models-1-large-foundation-models">2025-04-01 Large models 1: Large foundation models</h4>
+<ul>
+<li>主题：Large models 1: Large foundation models</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec7%20-%20large%20models.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/ZFLRDEUSX68">video</a></li>
+<li>关键问题：训练数据、计算预算和模型规模如何配比。；指令调优、LoRA、量化如何影响部署。</li>
+<li>子主题：Pre-training data；Self-supervised learning；Fine-tuning, instructing, alignment</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2203.15556">Training Compute-Optimal Large Language Models</a></li>
+<li><a href="https://arxiv.org/abs/2204.07705">Super-NaturalInstructions: Generalization via Declarative Instructions on 1600+ NLP Tasks</a></li>
+<li><a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a></li>
+<li><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts">A Visual Guide to Mixture of Experts (MoE)</a></li>
+<li><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization">A Visual Guide to Quantization</a></li>
+<li><a href="https://arxiv.org/abs/2310.03744">Improved Baselines with Visual Instruction Tuning</a></li>
+<li>在整体技术路线中的作用：把 scaling、预训练数据、指令调优和高效部署纳入同一大模型工程框架。</li>
+</ul>
+<h4 id="2025-04-03-project-midterm-presentations">2025-04-03 Project midterm presentations</h4>
+<ul>
+<li>主题：Project midterm presentations</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：如何把课程主题转化为明确问题、实验假设和可展示结果。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：检查项目假设、实验设计与初步结果，连接理论学习和实践反馈。</li>
+</ul>
+<h3 id="week-10">Week 10</h3>
+<h4 id="2025-04-08-no-class-members-week">2025-04-08 No class, member's week</h4>
+<ul>
+<li>主题：No class, member's week</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：无技术讲授。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：课程暂停，无新增技术主线。</li>
+</ul>
+<h3 id="week-11">Week 11</h3>
+<h4 id="2025-04-15-large-models-2-large-multimodal-models">2025-04-15 Large models 2: Large multimodal models</h4>
+<ul>
+<li>主题：Large models 2: Large multimodal models</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec8%20-%20large%20multimodal%20models.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/p_GGsKgGxSo">video</a></li>
+<li>关键问题：如何把视觉/其他模态接入 LLM。；多模态预训练、adapter 和 early/late fusion 有何权衡。</li>
+<li>子主题：Multimodal pre-training；Adapting large language models to multimodal；Multimodal LLMs with generation</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2302.12247">Quantifying &amp; Modeling Multimodal Interactions: An Information Decomposition Framework</a></li>
+<li><a href="https://arxiv.org/abs/1906.00295">Multimodal Transformer for Unaligned Multimodal Language Sequences</a></li>
+<li><a href="https://arxiv.org/abs/2111.06377">Masked Autoencoders Are Scalable Vision Learners</a></li>
+<li><a href="https://arxiv.org/abs/2504.07951">Scaling Laws for Native Multimodal Models Scaling Laws for Native Multimodal Models</a></li>
+<li><a href="https://arxiv.org/abs/2504.06256">Transfer between Modalities with MetaQueries</a></li>
+<li>在整体技术路线中的作用：说明如何把 LLM 扩展为 multimodal LLM，并处理预训练、适配和生成问题。</li>
+</ul>
+<h4 id="2025-04-17-discussion-5-large-language-models">2025-04-17 Discussion 5: Large language models</h4>
+<ul>
+<li>主题：Discussion 5: Large language models</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：如何把视觉/其他模态接入 LLM。；多模态预训练、adapter 和 early/late fusion 有何权衡。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a></li>
+<li><a href="https://arxiv.org/abs/2312.06635">Gated Linear Attention Transformers with Hardware-Efficient Training</a></li>
+<li><a href="https://arxiv.org/abs/2402.15018">Unintended Impacts of LLM Alignment on Global Representation</a></li>
+<li><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization">A Visual Guide to Quantization</a></li>
+<li><a href="https://arxiv.org/abs/2106.09685">Scaling Instruction-Finetuned Language Models</a></li>
+<li>在整体技术路线中的作用：从适配、硬件效率、量化和 alignment 副作用角度补强 LLM 工程判断。</li>
+</ul>
+<h3 id="week-12">Week 12</h3>
+<h4 id="2025-04-22-large-models-3-modern-generative-models">2025-04-22 Large models 3: Modern generative models</h4>
+<ul>
+<li>主题：Large models 3: Modern generative models</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec9%20-%20generative%20AI.pdf">slides</a></li>
+<li>Video：null</li>
+<li>关键问题：diffusion、flow matching、rectified flow 的建模差异是什么。；如何面向图像/视频/音乐/动作做可控生成。</li>
+<li>子主题：Diffusion models；Controllable generation；Flow Matching</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2212.09748">Scalable Diffusion Models with Transformers</a></li>
+<li><a href="https://arxiv.org/abs/2307.08698">Flow Matching in Latent Space</a></li>
+<li><a href="https://arxiv.org/abs/2403.03206">Scaling Rectified Flow Transformers for High-Resolution Image Synthesis</a></li>
+<li><a href="https://arxiv.org/abs/2410.13720">Movie Gen: A Cast of Media Foundation Models</a></li>
+<li>在整体技术路线中的作用：从 diffusion 进入 flow matching/rectified flow，连接 AIGC 模型质量与采样效率。</li>
+</ul>
+<h4 id="2025-04-24-discussion-6-large-multimodal-models">2025-04-24 Discussion 6: Large multimodal models</h4>
+<ul>
+<li>主题：Discussion 6: Large multimodal models</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：如何把视觉/其他模态接入 LLM。；多模态预训练、adapter 和 early/late fusion 有何权衡。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/pdf/2303.16199">LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-init Attention</a></li>
+<li><a href="https://arxiv.org/pdf/2403.14520">Cobra: Extending Mamba to Multi-Modal Large Language Model for Efficient Inference</a></li>
+<li><a href="https://arxiv.org/abs/2401.06395">ModaVerse: Efficiently Transforming Modalities with LLMs</a></li>
+<li><a href="https://arxiv.org/pdf/2411.09439">Spider: Any-to-Many Multimodal LLM</a></li>
+<li><a href="https://arxiv.org/pdf/2402.05935">SPHINX-X: Scaling Data and Parameters for a Family of Multi-modal Large Language Models</a></li>
+<li><a href="https://arxiv.org/pdf/2404.16821">How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites</a></li>
+<li><a href="https://arxiv.org/pdf/2309.05519">NExT-GPT: Any-to-Any Multimodal LLM</a></li>
+<li><a href="https://arxiv.org/pdf/2404.08347">Learning to rebalance multi-modal optimization by adaptively masking subnetworks</a></li>
+<li>在整体技术路线中的作用：说明如何把 LLM 扩展为 multimodal LLM，并处理预训练、适配和生成问题。</li>
+</ul>
+<h3 id="week-13">Week 13</h3>
+<h4 id="2025-04-29-no-class-chi-week">2025-04-29 No class, CHI week</h4>
+<ul>
+<li>主题：No class, CHI week</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：无技术讲授。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：课程暂停，无新增技术主线。</li>
+</ul>
+<h4 id="2025-05-01-discussion-7-generative-ai">2025-05-01 Discussion 7: Generative AI</h4>
+<ul>
+<li>主题：Discussion 7: Generative AI</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：diffusion、flow matching、rectified flow 的建模差异是什么。；如何面向图像/视频/音乐/动作做可控生成。</li>
+<li>子主题：无</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/pdf/2502.09992">Large Language Diffusion Models</a></li>
+<li><a href="https://arxiv.org/pdf/2402.01103">Compositional Generative Modeling: A Single Model is Not All You Need</a></li>
+<li><a href="https://arxiv.org/abs/2210.02747">Flow Matching for Generative Modeling</a></li>
+<li><a href="https://arxiv.org/abs/2412.06264">Flow Matching Guide and Code</a></li>
+<li><a href="https://arxiv.org/abs/2504.01338">FlowMotion: Target-Predictive Conditional Flow Matching for Jitter-Reduced Text-to-Motion Generation</a></li>
+<li><a href="https://arxiv.org/abs/2504.13535">MusFlow: Multimodal Music Generation via Conditional Flow Matching</a></li>
+<li><a href="https://arxiv.org/abs/2311.07625">Unraveling the Connections Between Flow Matching and Diffusion Probabilistic Models</a></li>
+<li><a href="https://arxiv.org/abs/2412.11024">Exploring Diffusion and Flow Matching Under Generator Matching</a></li>
+<li>在整体技术路线中的作用：用最新生成模型阅读讨论 diffusion 与 flow matching 的统一和分化。</li>
+</ul>
+<h3 id="week-14">Week 14</h3>
+<h4 id="2025-05-06-interaction-1-interactive-agents-and-reasoning">2025-05-06 Interaction 1: Interactive agents and reasoning</h4>
+<ul>
+<li>主题：Interaction 1: Interactive agents and reasoning</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec10%20-%20interaction.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/3SOjOG2oL1w">video</a></li>
+<li>关键问题：偏好学习和强化学习如何驱动推理能力。；reward 设计为什么会产生安全和可靠性风险。</li>
+<li>子主题：Reinforcement learning；Multi-step reasoning</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/1706.03741">Deep reinforcement learning from human preferences</a></li>
+<li><a href="https://arxiv.org/abs/2501.12948">Deepseek-r1: Incentivizing reasoning capability in LLMs via reinforcement learning</a></li>
+<li><a href="https://openai.com/index/faulty-reward-functions/">Faulty reward functions in the wild</a></li>
+<li><a href="https://arxiv.org/abs/2305.18290">Direct preference optimization: Your language model is secretly a reward model</a></li>
+<li>在整体技术路线中的作用：把模型从静态预测推进到偏好优化、强化学习和多步推理。</li>
+</ul>
+<h4 id="2025-05-08-project-final-presentations">2025-05-08 Project final presentations</h4>
+<ul>
+<li>主题：Project final presentations</li>
+<li>Slides：null</li>
+<li>Video：null</li>
+<li>关键问题：如何把课程主题转化为明确问题、实验假设和可展示结果。</li>
+<li>子主题：无</li>
+<li>推荐阅读：无</li>
+<li>在整体技术路线中的作用：用项目结果闭环课程知识体系。</li>
+</ul>
+<h3 id="week-15">Week 15</h3>
+<h4 id="2025-05-13-interaction-2-human-ai-interaction">2025-05-13 Interaction 2: Human AI interaction</h4>
+<ul>
+<li>主题：Interaction 2: Human AI interaction</li>
+<li>Slides：<a href="https://mit-mi.github.io/how2ai-course/spring2025/schedule/lec11%20-%20human.pdf">slides</a></li>
+<li>Video：<a href="https://youtu.be/NrmLjmXU66M">video</a></li>
+<li>关键问题：人类反馈、交互媒介和安全评估如何进入 AI 系统设计。</li>
+<li>子主题：Interaction mediums；Human in the loop learning；Safety and reliability</li>
+<li>推荐阅读：</li>
+<li><a href="https://arxiv.org/abs/2503.16434">Interactive Sketchpad: A Multimodal Tutoring System for Collaborative, Visual Problem-Solving</a></li>
+<li><a href="https://arxiv.org/abs/2410.19100">VideoWebArena: Evaluating Multimodal Agents on Video Understanding Web Tasks</a></li>
+<li><a href="https://arxiv.org/abs/2406.09246">OpenVLA: An Open-Source Vision-Language-Action Model</a></li>
+<li><a href="https://arxiv.org/abs/2402.11753">ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3290605.3300233">Guidelines for Human-AI Interaction</a></li>
+<li>在整体技术路线中的作用：从用户、反馈、安全和可靠性角度约束交互式 AI 系统设计。</li>
+</ul>
+<h2 id="4">4. 核心论文与资料矩阵</h2>
+<p>下表按主题去重整理 readings；完整逐讲出现矩阵见 <code>reading_matrix.csv</code>。</p>
+<table>
+<thead>
+<tr>
+<th>category</th>
+<th>title</th>
+<th>研究问题</th>
+<th>核心贡献</th>
+<th>建议</th>
+<th>与课程主题的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI research foundations</td>
+<td><a href="https://karpathy.github.io/2019/04/25/recipe/">A Recipe for Training Neural Networks</a></td>
+<td>围绕《A Recipe for Training Neural Networks》标题所指问题展开；需进一步阅读正文确认。</td>
+<td>给出神经网络训练、debug 和逐步扩展实验的实践流程，对工程训练闭环直接有用。</td>
+<td>精读</td>
+<td>Foundation 2: Practical AI tools</td>
+</tr>
+<tr>
+<td>AI research foundations</td>
+<td><a href="https://colab.research.google.com/drive/1SoTu6gvYcLNDqPwNPTWmsSYF-l-UfHPx?usp=sharing">MAS.S60 Pytorch Introduction</a></td>
+<td>如何搭建、调试和复现实用 AI 训练流程。</td>
+<td>需进一步阅读确认</td>
+<td>参考</td>
+<td>Foundation 2: Practical AI tools</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/pdf/2207.07528">A Conceptual Pipeline for Machine Learning</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 1: Learning and generalization</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/pdf/2209.01610">Generalization in Neural Networks</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 1: Learning and generalization</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/pdf/2410.09649">Learning the Bitter Lesson</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 1: Learning and generalization</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://www.science.org/doi/abs/10.1126/science.aaa8415">Machine learning: Trends, Perspectives, and Prospects</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>综述机器学习的发展趋势、前景和关键研究方向。</td>
+<td>泛读</td>
+<td>Foundation 1: Data, structure, information</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/abs/1206.5538">Representation Learning: A Review and New Perspectives</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>系统梳理表示学习的目标、方法和开放问题，是理解后续 self-supervised 与 foundation model 的基础综述。</td>
+<td>精读</td>
+<td>Introduction、Foundation 1: Data, structure, information</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/pdf/2306.11644">Textbooks are all you Need</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 1: Learning and generalization</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/pdf/2405.07987">The Platonic Representation Hypothesis</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>讨论不同模型/模态表示是否向共享语义结构收敛，是理解表示对齐的理论视角。</td>
+<td>泛读</td>
+<td>Discussion 3: Multimodal alignment</td>
+</tr>
+<tr>
+<td>Data, representation, and generalization</td>
+<td><a href="https://arxiv.org/pdf/2303.06173">Unifying Grokking and Double Descent</a></td>
+<td>数据、目标和表示如何影响泛化、迁移和涌现行为。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 1: Learning and generalization</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/pdf/2402.01103">Compositional Generative Modeling: A Single Model is Not All You Need</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2412.11024">Exploring Diffusion and Flow Matching Under Generator Matching</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2210.02747">Flow Matching for Generative Modeling</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>提出/系统化 flow matching 生成建模框架，是理解 rectified/continuous flow 路线的基础。</td>
+<td>精读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2412.06264">Flow Matching Guide and Code</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>综述或教程性质资料；核心贡献是整理该主题的概念、方法谱系和开放问题。</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2307.08698">Flow Matching in Latent Space</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>在 latent space 中使用 flow matching 做生成建模，连接扩散替代路线与高效生成。</td>
+<td>泛读</td>
+<td>Large models 3: Modern generative models</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2504.01338">FlowMotion: Target-Predictive Conditional Flow Matching for Jitter-Reduced Text-to-Motion Generation</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/pdf/2502.09992">Large Language Diffusion Models</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2410.13720">Movie Gen: A Cast of Media Foundation Models</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>面向视频/媒体生成的 foundation model 资料，体现生成模型从图像扩展到多媒体。</td>
+<td>泛读</td>
+<td>Large models 3: Modern generative models</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2504.13535">MusFlow: Multimodal Music Generation via Conditional Flow Matching</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2212.09748">Scalable Diffusion Models with Transformers</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>把 Diffusion 与 Transformer 结合形成可扩展图像生成模型路线。</td>
+<td>精读</td>
+<td>Large models 3: Modern generative models</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2403.03206">Scaling Rectified Flow Transformers for High-Resolution Image Synthesis</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>将 rectified flow transformer 扩展到高分辨率图像合成。</td>
+<td>泛读</td>
+<td>Large models 3: Modern generative models</td>
+</tr>
+<tr>
+<td>Generative models</td>
+<td><a href="https://arxiv.org/abs/2311.07625">Unraveling the Connections Between Flow Matching and Diffusion Probabilistic Models</a></td>
+<td>如何用 diffusion、flow matching 或统一生成模型高质量地产生图像、视频、动作、音乐等内容。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 7: Generative AI</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/2402.11753">ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>研究 ASCII art 形式的 jailbreak 攻击，服务于安全与可靠性讨论。</td>
+<td>泛读</td>
+<td>Interaction 2: Human AI interaction</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/1706.03741">Deep reinforcement learning from human preferences</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>用人类偏好训练强化学习系统，是 RLHF 思路的重要早期工作。</td>
+<td>精读</td>
+<td>Interaction 1: Interactive agents and reasoning</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/2501.12948">Deepseek-r1: Incentivizing reasoning capability in LLMs via reinforcement learning</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>从标题看，该资料讨论用强化学习激励 LLM 推理能力；具体技术细节需进一步阅读确认。</td>
+<td>泛读</td>
+<td>Interaction 1: Interactive agents and reasoning</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/2305.18290">Direct preference optimization: Your language model is secretly a reward model</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>把偏好优化转化为直接优化语言模型的目标，绕开显式 reward model 的复杂性。</td>
+<td>精读</td>
+<td>Interaction 1: Interactive agents and reasoning</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://openai.com/index/faulty-reward-functions/">Faulty reward functions in the wild</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>用案例说明 reward 设计失误会导致非预期行为，是 agent alignment 的工程警示。</td>
+<td>泛读</td>
+<td>Interaction 1: Interactive agents and reasoning</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://dl.acm.org/doi/abs/10.1145/3290605.3300233">Guidelines for Human-AI Interaction</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>总结 Human-AI interaction 设计准则，适合作为交互式 AI 产品评审清单。</td>
+<td>精读</td>
+<td>Interaction 2: Human AI interaction</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/2503.16434">Interactive Sketchpad: A Multimodal Tutoring System for Collaborative, Visual Problem-Solving</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Interaction 2: Human AI interaction</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/2406.09246">OpenVLA: An Open-Source Vision-Language-Action Model</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>开源 vision-language-action 模型，连接多模态理解与机器人/动作执行。</td>
+<td>泛读</td>
+<td>Interaction 2: Human AI interaction</td>
+</tr>
+<tr>
+<td>Interactive agents and Human-AI interaction</td>
+<td><a href="https://arxiv.org/abs/2410.19100">VideoWebArena: Evaluating Multimodal Agents on Video Understanding Web Tasks</a></td>
+<td>模型如何在偏好、反馈、环境任务和人机协作中保持有效、可控与可靠。</td>
+<td>用视频理解 Web 任务评估多模态 agent，体现 agent 评测从静态 QA 向真实任务迁移。</td>
+<td>泛读</td>
+<td>Interaction 2: Human AI interaction</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts">A Visual Guide to Mixture of Experts (MoE)</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>以教程形式解释 MoE 的专家路由和容量扩展逻辑，适合理解稀疏大模型设计。</td>
+<td>参考</td>
+<td>Large models 1: Large foundation models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization">A Visual Guide to Quantization</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>以教程形式解释量化原理与工程权衡，适合作为部署压缩参考资料。</td>
+<td>参考</td>
+<td>Large models 1: Large foundation models、Discussion 5: Large language models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/pdf/2403.14520">Cobra: Extending Mamba to Multi-Modal Large Language Model for Efficient Inference</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2309.11499">DreamLLM: Synergistic Multimodal Comprehension and Creation</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Multimodal 3: Cross-modal transfer</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://colab.research.google.com/drive/1EDsjYRrAiujUew0GRJ_hyVoNMsSDnlnx?usp=sharing">Fine-tuning a Code LLM on Custom Code on a single GPU</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Foundation 2: Practical AI tools</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2310.03744">Improved Baselines with Visual Instruction Tuning</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>LLaVA 相关视觉指令微调基线，连接 LLM 与视觉输入的指令跟随能力。</td>
+<td>泛读</td>
+<td>Large models 1: Large foundation models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2306.14824">Kosmos-2: Grounding Multimodal Large Language Models to the World</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>强调 grounding，把多模态大模型输出与世界/视觉区域建立联系。</td>
+<td>泛读</td>
+<td>Discussion 4: Multimodal interactions</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/pdf/2303.16199">LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-init Attention</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>通过低秩增量矩阵做参数高效微调，降低大模型定制训练成本。</td>
+<td>精读</td>
+<td>Large models 1: Large foundation models、Discussion 5: Large language models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2111.06377">Masked Autoencoders Are Scalable Vision Learners</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>用高比例 mask 的图像重建预训练视觉编码器，证明 MAE 可扩展到强视觉表示。</td>
+<td>精读</td>
+<td>Large models 2: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://link.springer.com/chapter/10.1007/978-3-031-73397-0_18">MM1: Methods, Analysis and Insights from Multimodal LLM Pre-training</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 4: Multimodal interactions</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2401.06395">ModaVerse: Efficiently Transforming Modalities with LLMs</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/pdf/2309.05519">NExT-GPT: Any-to-Any Multimodal LLM</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/pdf/2402.05935">SPHINX-X: Scaling Data and Parameters for a Family of Multi-modal Large Language Models</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/pdf/2411.09439">Spider: Any-to-Many Multimodal LLM</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2204.07705">Super-NaturalInstructions: Generalization via Declarative Instructions on 1600+ NLP Tasks</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Large models 1: Large foundation models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2203.15556">Training Compute-Optimal Large Language Models</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>提出 compute-optimal scaling 视角，强调参数量与训练 token 数的平衡。</td>
+<td>精读</td>
+<td>Large models 1: Large foundation models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2402.15018">Unintended Impacts of LLM Alignment on Global Representation</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 5: Large language models</td>
+</tr>
+<tr>
+<td>Large foundation models</td>
+<td><a href="https://arxiv.org/abs/2210.01936">When and why vision-language models behave like bags-of-words, and what to do about it?</a></td>
+<td>大模型如何通过规模化预训练、指令调优、适配和压缩获得可部署能力。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Multimodal 1: Connections and alignment</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/2201.03545">A ConvNet for the 2020s</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>将图像切成 patch token 后使用 Transformer 做视觉识别，推动视觉模型从 CNN 向 ViT 迁移。</td>
+<td>精读</td>
+<td>Foundation 3: Model architectures、Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>提出完全基于自注意力的 Transformer 架构，成为 LLM、ViT 和多模态 Transformer 的核心基础。</td>
+<td>精读</td>
+<td>Foundation 3: Model architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/1703.06114">Deep Sets</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>刻画 permutation-invariant set function 的神经网络建模形式，是集合输入建模的经典基础。</td>
+<td>精读</td>
+<td>Foundation 3: Model architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/pdf/2104.14294">Emerging Properties in Self-Supervised Vision Transformers</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>分析自监督 ViT 中涌现的视觉表示属性。</td>
+<td>泛读</td>
+<td>Discussion 3: Multimodal alignment</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/2312.06635">Gated Linear Attention Transformers with Hardware-Efficient Training</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 5: Large language models</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/2104.13478">Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>用对称性、群、图、流形等视角统一解释不同结构数据上的深度学习模型。</td>
+<td>精读</td>
+<td>Foundation 1: Data, structure, information、Foundation 3: Model architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/1710.10903">Graph Attention Networks</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>把 attention 机制引入图神经网络，用邻居自适应权重进行图表示学习。</td>
+<td>精读</td>
+<td>Foundation 3: Model architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/1706.02216">Inductive Representation Learning on Large Graphs</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>系统梳理表示学习的目标、方法和开放问题，是理解后续 self-supervised 与 foundation model 的基础综述。</td>
+<td>精读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/1811.01900">Janossy Pooling: Learning Deep Permutation-Invariant Functions for Variable-Size Inputs</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/1409.0473">Neural Machine Translation by Jointly Learning to Align and Translate</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>在神经机器翻译中引入对齐/attention 思路，为序列建模和跨模态对齐提供早期基础。</td>
+<td>泛读</td>
+<td>Foundation 3: Model architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/2404.07965">Not All Tokens Are What You Need for Pretraining</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Model architectures</td>
+<td><a href="https://arxiv.org/abs/2301.03728">Scaling Laws for Generative Mixed-Modal Models</a></td>
+<td>如何为特定数据结构或 token 序列设计有效的归纳偏置与注意力机制。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2405.09818">Chameleon: Mixed-modal early-fusion foundation models</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>探索 mixed-modal early-fusion foundation model，把不同模态更早地放入统一序列建模。</td>
+<td>泛读</td>
+<td>Discussion 4: Multimodal interactions</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://link.springer.com/article/10.1007/s13735-019-00187-6">Characterization and classification of semantic image-text relations</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Multimodal 1: Connections and alignment</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2410.23179">Does equivariance matter at scale?</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 3: Multimodal alignment</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://aclanthology.org/2020.emnlp-main.62/">Does my multimodal model learn cross-modal interactions? It’s harder to tell than you might think!</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>指出识别多模态模型是否学到跨模态交互并不简单，强调评测设计的重要性。</td>
+<td>精读</td>
+<td>Multimodal 2: Interactions and fusion、Discussion 4: Multimodal interactions</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2209.03430">Foundations and Trends in Multimodal Machine Learning: Principles, Challenges, and Open Questions</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>从原则、挑战和开放问题层面总结多模态机器学习，为课程多模态模块提供总览框架。</td>
+<td>精读</td>
+<td>Introduction、Foundation 1: Data, structure, information、Multimodal 1: Connections and alignment 等 4 讲</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/pdf/2404.16821">How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/pdf/2404.08347">Learning to rebalance multi-modal optimization by adaptively masking subnetworks</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 6: Large multimodal models</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/pdf/2103.00020">Learning Transferable Visual Models From Natural Language Supervision?</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>用大规模图文对比学习训练可迁移视觉模型，是 CLIP 路线的代表工作。</td>
+<td>精读</td>
+<td>Discussion 3: Multimodal alignment</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2303.00915v3">LLaVA-Med: Training a Large Language-and-Vision Assistant for Biomedicine in One Day</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>把大语言-视觉助手训练到生物医学场景，体现领域数据与视觉指令调优的结合。</td>
+<td>泛读</td>
+<td>Multimodal 3: Cross-modal transfer</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/pdf/2407.21770">MoMa: Efficient Early-Fusion Pre-training with Mixture of Modality-Aware Experts</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 4: Multimodal interactions</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://www.sciencedirect.com/science/article/pii/S0167865513002584">Multimodal interaction: A review</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>综述或教程性质资料；核心贡献是整理该主题的概念、方法谱系和开放问题。</td>
+<td>泛读</td>
+<td>Multimodal 2: Interactions and fusion、Discussion 4: Multimodal interactions</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/1705.09406">Multimodal Machine Learning: A Survey and Taxonomy</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>按多模态表示、翻译、对齐、融合、协同学习等任务整理早期多模态学习 taxonomy。</td>
+<td>精读</td>
+<td>Introduction</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/1906.00295">Multimodal Transformer for Unaligned Multimodal Language Sequences</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>面向未对齐多模态序列建模跨模态交互，是多模态 Transformer/fusion 的代表工作。</td>
+<td>泛读</td>
+<td>Large models 2: Large multimodal models</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2209.06794">PaLI: A Jointly-Scaled Multilingual Language-Image Model</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2303.03378">PaLM-E: An Embodied Multimodal Language Model</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>将多模态语言模型用于 embodied 场景，连接感知、语言和动作规划。</td>
+<td>泛读</td>
+<td>Multimodal 3: Cross-modal transfer</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2302.12247">Quantifying &amp; Modeling Multimodal Interactions: An Information Decomposition Framework</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>用信息分解框架量化和建模多模态交互，有助于判断融合是否真的利用跨模态信号。</td>
+<td>精读</td>
+<td>Multimodal 2: Interactions and fusion、Discussion 4: Multimodal interactions、Large models 2: Large multimodal models</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2504.07951">Scaling Laws for Native Multimodal Models Scaling Laws for Native Multimodal Models</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Large models 2: Large multimodal models</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://dl.acm.org/doi/pdf/10.1145/319382.319398">Ten Myths of Multimodal Interaction</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>从人机交互角度纠正常见多模态交互假设，帮助避免只从模型指标理解交互系统。</td>
+<td>精读</td>
+<td>Multimodal 2: Interactions and fusion</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2405.17927">The Evolution of Multimodal Model Architectures</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 2: Modern AI architectures</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2504.06256">Transfer between Modalities with MetaQueries</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Large models 2: Large multimodal models</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/pdf/2502.16282">Understanding the Emergence of Multimodal Representation Alignment</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>需进一步阅读确认</td>
+<td>泛读</td>
+<td>Discussion 3: Multimodal alignment</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td><a href="https://arxiv.org/abs/2005.10243">What Makes for Good Views for Contrastive Learning?</a></td>
+<td>异构模态之间如何对齐、融合、交互、迁移或统一建模。</td>
+<td>分析 contrastive learning 中不同 view 设计对表示质量的影响。</td>
+<td>精读</td>
+<td>Multimodal 1: Connections and alignment、Discussion 3: Multimodal alignment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 技术主线分析</h2>
+<h3 id="51-representation-learning-foundation-models">5.1 从 representation learning 到 foundation models</h3>
+<p>课程先用 representation learning、data structure、generalization 建立底层问题：模型不是凭空泛化，而是在数据分布、训练目标和归纳偏置共同作用下学到可迁移表示。随后通过 scaling laws、instruction tuning、LoRA、quantization、MoE 等资料，把“学到好表示”推进到“在给定 compute/data/latency 约束下训练和部署可复用 foundation model”。这条线对工程最重要的启发是：先明确目标分布和评测，再决定预训练/微调/检索/adapter，而不是直接套最新模型。</p>
+<h3 id="52-multimodal-alignment-fusion-transfer">5.2 从单模态模型到 multimodal alignment / fusion / transfer</h3>
+<p>单模态部分强调结构先验：图像有局部性，序列有时序依赖，集合需要置换不变性，图需要邻接结构。多模态部分则把问题改写为三层：alignment 解决共享语义空间，fusion 解决交互与互补信息，transfer 解决能力跨模态迁移。工程上，这对应三类系统设计：图文检索/CLIP 类系统优先 alignment；VQA、情感分析、机器人感知等任务需要 interaction/fusion；医学、embodied AI、理解-生成一体化系统更依赖 transfer。</p>
+<h3 id="53-transformer-multimodal-llm">5.3 从 Transformer 到 multimodal LLM</h3>
+<p>Transformer 的关键作用不是只替代 RNN/CNN，而是把不同数据转成 token 后统一处理。ViT 把图像 patch 化，Multimodal Transformer 处理未对齐多模态序列，LLaVA/PaLI/Kosmos/Chameleon/MM1/NExT-GPT 等资料则把视觉、文本、生成、grounding 和 any-to-any 输入输出纳入 LLM 框架。这里的核心工程问题是模态接入位置：early fusion 能提供更强统一建模但训练更贵；adapter/projector 路线更易复用 LLM；grounding 和交互任务要求评测超出静态 caption 或 VQA。</p>
+<h3 id="54-diffusion-flow-matching-generative-modeling">5.4 从 diffusion 到 flow matching / generative modeling</h3>
+<p>生成模型主线从 Diffusion Transformer 和可控生成进入 flow matching、latent flow matching、rectified flow。课程把它放在 large models 之后，是因为现代 AIGC 不再只是单个图像生成模型，而是媒体 foundation model：图像、视频、动作、音乐等模态共享生成建模、条件控制和 scaling 问题。工程师需要关注的不是“diffusion 或 flow matching 谁赢”，而是训练稳定性、采样步数、条件控制、分辨率扩展、多模态一致性和服务成本。</p>
+<h3 id="55-static-model-interactive-agent-human-in-the-loop-ai">5.5 从 static model 到 interactive agent / human-in-the-loop AI</h3>
+<p>课程最后转向 interactive agents、reasoning、human-in-the-loop 和 safety，说明模型部署后会进入反馈环境。RLHF、DPO、reward function failures、DeepSeek-R1、VideoWebArena、OpenVLA、Human-AI guidelines 等资料共同指向一个判断：agent 系统不是单纯更强的 base model，而是模型、环境、奖励/偏好、工具调用、用户交互和安全边界的组合系统。</p>
+<h2 id="6">6. 面向工程实践的启发</h2>
+<h3 id="61">6.1 最值得优先学的主题</h3>
+<ul>
+<li>AI Engineer：Practical AI tools、Large foundation models、LoRA/quantization、interactive agents and preference optimization。它们最直接影响训练成本、调试效率和部署方案。</li>
+<li>CV Engineer：Model architectures、ViT/MAE、Geometric Deep Learning、multimodal alignment、CLIP/VLM 路线。它们决定视觉 backbone、预训练目标和图文迁移能力。</li>
+<li>AIGC Engineer：Modern generative models、Diffusion Transformer、Flow Matching、Movie Gen、multimodal LLM with generation。它们对应图像/视频/动作/音乐生成管线和可控生成策略。</li>
+</ul>
+<h3 id="62-production-model-design">6.2 对 production model design 有直接价值的资料</h3>
+<ul>
+<li>A Recipe for Training Neural Networks：可转成训练 debug checklist。</li>
+<li>Attention Is All You Need、ViT、MAE：帮助理解当前视觉和多模态 backbone 的 token 化设计。</li>
+<li>Training Compute-Optimal Large Language Models：直接影响 data/compute/model size 配比。</li>
+<li>LoRA、Quantization、MoE visual guide：对应微调成本、推理成本和容量扩展。</li>
+<li>Quantifying &amp; Modeling Multimodal Interactions、Does my multimodal model learn cross-modal interactions：帮助设计多模态 ablation 与评测。</li>
+<li>DPO、Deep reinforcement learning from human preferences、Faulty reward functions：对应 alignment、偏好优化和 agent 安全风险。</li>
+</ul>
+<h3 id="63-research-taste-idea-generation">6.3 偏 research taste / idea generation 的内容</h3>
+<p>Platonic Representation Hypothesis、Understanding the Emergence of Multimodal Representation Alignment、Does equivariance matter at scale、Unintended Impacts of LLM Alignment on Global Representation、Compositional Generative Modeling 等资料更适合用来生成研究问题。它们未必马上变成产品功能，但能帮助判断为什么某些模型行为出现、哪些评测可能失真、哪些假设值得做 ablation。</p>
+<h3 id="64">6.4 可转化为实验项目的方向</h3>
+<ul>
+<li>小规模 CLIP/contrastive alignment：比较 view 设计、数据噪声和 hard negatives 对检索性能的影响。</li>
+<li>多模态 fusion ablation：验证模型是否真正使用跨模态交互，而不是依赖单模态 shortcut。</li>
+<li>LoRA vs full fine-tuning vs quantized fine-tuning：在固定 GPU 预算下比较质量、速度和显存。</li>
+<li>MAE/ViT 小规模复现：比较 mask ratio、patch size 和下游线性探测。</li>
+<li>Diffusion vs flow matching toy benchmark：比较采样步数、FID/CLIPScore 或任务特定指标。</li>
+<li>DPO/RLHF toy alignment：用偏好数据比较 reward model 与 direct preference objective。</li>
+<li>Multimodal agent evaluation：参考 VideoWebArena 思路，构造视频理解或网页操作任务集。</li>
+</ul>
+<h2 id="7">7. 建议学习路线</h2>
+<h3 id="71-4">7.1 4 周速读路线</h3>
+<ul>
+<li>第 1 周：读 Week 1-2 与 Week 4 的 slides/readings，建立研究流程、数据/表示/架构基础。重点读 Representation Learning、Geometric Deep Learning、Attention、ViT、Karpathy recipe。</li>
+<li>第 2 周：读 Week 5-7 多模态模块，重点理解 alignment、fusion、transfer 三分法。精读 Multimodal survey、What Makes Good Views、CLIP、interaction/fusion 评测资料。</li>
+<li>第 3 周：读 Week 9/11 大模型与多模态 LLM，重点看 scaling、LoRA、quantization、LLaVA/PaLI/Chameleon/MM1 这类路线。</li>
+<li>第 4 周：读 Week 12-15，建立 AIGC 和 agent 视角。重点看 DiT、Flow Matching、DPO、RLHF、Human-AI guidelines。</li>
+</ul>
+<h3 id="72-8">7.2 8 周精读路线</h3>
+<p>详见 <code>study_plan.md</code>。简化版节奏是：1) 研究方法与工具；2) 表示与架构；3) 多模态对齐；4) 多模态交互与迁移；5) LLM 工程；6) multimodal LLM；7) generative modeling；8) agent 与 HAI，并输出一个 synthesis report 或 reproduction 项目。</p>
+<h3 id="73-paper-reproduction">7.3 适合做 paper reproduction 的候选题</h3>
+<ul>
+<li>ViT：小数据集上 patch size、augmentation、预训练/从零训练对比。</li>
+<li>CLIP / contrastive learning：图文或图像增强 view 的对比学习复现。</li>
+<li>Deep Sets / GAT：在集合或图数据上复现结构归纳偏置效果。</li>
+<li>LoRA：固定 GPU 预算下对比不同 rank、target module 和量化设置。</li>
+<li>MAE：复现 mask ratio 对表示质量的影响。</li>
+<li>DiT 或 flow matching toy model：比较采样效率和生成质量。</li>
+<li>DPO：在小型偏好数据上比较 SFT 与 DPO 的行为差异。</li>
+</ul>
+<h3 id="74-survey-tech-report">7.4 适合做 survey / tech report 的候选题</h3>
+<ul>
+<li>Multimodal alignment 从 CLIP 到 multimodal LLM 的技术演进。</li>
+<li>Fusion vs alignment vs translation：多模态迁移系统设计取舍。</li>
+<li>Multimodal LLM 架构：projector/adapter、early fusion、any-to-any 的成本与能力边界。</li>
+<li>Diffusion、rectified flow 与 flow matching 的统一视角和工程差异。</li>
+<li>Preference optimization 从 RLHF 到 DPO/Reasoning RL 的路线。</li>
+<li>Human-in-the-loop AI 的评测、反馈和安全机制。</li>
+</ul>
+</main>
+</body>
+</html>

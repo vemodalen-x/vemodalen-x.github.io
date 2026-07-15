@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-07-15T19:58:00+08:00",
+  "courseId": "5WdV5f34d2d94267",
+  "courseTitle": "聪明精益：张磊的3个业务实验",
+  "homework": {
+    "status": "submitted",
+    "answerId": "1680021",
+    "nps": 9,
+    "publicAnswer": false
+  },
+  "coverage": {
+    "candyCount": 3,
+    "candyLearned": 3,
+    "documentCount": 4,
+    "sheetTabCount": 3,
+    "representativeImagesCached": 5
+  },
+  "candy": [
+    {
+      "sectionId": 1791,
+      "title": "张磊3个业务的五步法画布",
+      "status": "learned",
+      "sourceUrl": "https://yitang.top/fs-doc/5WdV5f34d2d94267/GzxPdwlGDol3kUxKtVKc3b13nae?fromAcl=lesson-founder",
+      "coverage": ["内衣洗衣液五步画布", "扭蛋机五步画布", "动漫电商五步画布"],
+      "keyModels": ["需求", "解决方案与产品内核", "商业模式与单元模型", "增长指标", "壁垒强度"]
+    },
+    {
+      "sectionId": 1792,
+      "title": "张磊给一堂学员的一封信",
+      "status": "learned",
+      "sourceUrl": "https://yitang.top/fs-doc/5WdV5f34d2d94267/EzhndBR2XovBStxGvgCcgQWfnwb?fromAcl=lesson-founder",
+      "questionCount": 11,
+      "keyModels": ["五步法预判", "低成本实验谱", "2B/2G风险验证", "创业者成长阶段", "假产品边界", "单店渠道模型", "平台用户错配"],
+      "representativeImages": [
+        "notes/assets/yitang-5wdv-candy/letter-visual-01.png",
+        "notes/assets/yitang-5wdv-candy/letter-visual-02.png"
+      ]
+    },
+    {
+      "sectionId": 1793,
+      "title": "扭蛋机和动漫社区电商业务数据包",
+      "status": "learned",
+      "sectionUrl": "https://yitang.top/lesson/section/1793",
+      "documents": [
+        {
+          "title": "扭蛋机项目记录",
+          "sourceUrl": "https://yitang.top/fs-doc/5WdV5f34d2d94267/doxcnNDvVZx0VBh16LbKjIC4Nzg?fromAcl=lesson-founder",
+          "coverage": ["两周测试设计", "价格与展示调整", "用户行为", "流量估算", "5日SKU销量"]
+        },
+        {
+          "title": "动漫社区电商业务数据包",
+          "sourceUrl": "https://yitang.top/fs-doc/5WdV5f34d2d94267/ZxDJd1lWgovjHaxnBgYcULfWnkf?fromAcl=lesson-founder",
+          "coverage": ["单件成本", "上架吞吐量", "仓库决策", "漫展漏斗", "线上销售计划"]
+        }
+      ],
+      "sheet": {
+        "title": "扭蛋机详细测试数据",
+        "sourceUrl": "https://yitanger.feishu.cn/sheets/shtcnMj1TvtHpHg7OdBG29j3v1g",
+        "tabs": [
+          {
+            "name": "扭蛋-北京每月数据",
+            "status": "visually_verified",
+            "representativeMetrics": {"units": 722, "sales": 7537.6, "grossProfit": 4901.7, "grossMargin": 0.65},
+            "image": "notes/assets/yitang-5wdv-candy/sheet-beijing-monthly.png"
+          },
+          {
+            "name": "扭蛋-广州每天数据",
+            "status": "visually_verified",
+            "dateLabel": "7月26日",
+            "representativeMetrics": {"units": 80, "sales": 322, "profit": 113, "profitMargin": 0.351},
+            "image": "notes/assets/yitang-5wdv-candy/sheet-guangzhou-daily.png"
+          },
+          {
+            "name": "扭蛋机销量统计",
+            "status": "visually_verified",
+            "representativeMetrics": {"annualSales3Machines": 44310, "annualSales6Machines": 63300, "estimatedProfit3Machines": 5170, "estimatedProfit6Machines": 7215},
+            "image": "notes/assets/yitang-5wdv-candy/sheet-sales-model.png"
+          }
+        ]
+      }
+    }
+  ],
+  "localNotes": [
+    "notes/yitang-5wdv-candy-notes-2026-07-15.md",
+    "notes/yitang-5wdv-candy-notes-2026-07-15.html"
+  ],
+  "boundary": "Original summaries and representative evidence only. No full paid transcript or full-sheet mirror; course figures are not independently audited."
+}

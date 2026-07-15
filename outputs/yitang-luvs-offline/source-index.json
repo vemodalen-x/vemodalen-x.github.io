@@ -1,0 +1,611 @@
+{
+  "sourceLessonUrl": "https://yitang.top/lesson/luvS64ef293fbe0d?tab=candy",
+  "builtAt": "2026-07-14T13:25:09.430Z",
+  "sourceAuditDates": [
+    "2026-07-10T11:37:21.158Z",
+    "2026-07-10T11:37:22.977Z"
+  ],
+  "usageBoundary": "Authenticated course metadata and image index. Notes contain original summaries rather than transcripts or full paid materials.",
+  "lesson": {
+    "id": "luvS64ef293fbe0d",
+    "name": "全员必修 ·一堂课程学习地图",
+    "subtitle": "用4小时换未来200小时学习效率",
+    "teacher": "许楚Truman 一堂CEO",
+    "coverImage": "https://cdn.yitang.top/upload/ether-public/yitang/171102417054ef0b5c32292e8fee367cedde26b3afb38dcb5f.png",
+    "lessonStatus": 100,
+    "homeworkExists": true,
+    "homeworkCompleted": true,
+    "candyUnlocked": true,
+    "sectionCount": 2,
+    "candyCount": 4
+  },
+  "courseSections": [
+    {
+      "id": 2113,
+      "title": "一堂方法论课程地图",
+      "durationMinutes": 199,
+      "url": "https://yitang.top/lesson/section/2113?tab=content",
+      "externalDocs": [
+        "https://yitang.top/fs-doc/luvS64ef293fbe0d/XDPFd9y44oAkj3xJMF6ciFrhnFd?fromAcl=lesson-founder",
+        "https://cdn.yitang.top/yitang-fe-static/assets/media/test.m4a"
+      ],
+      "sourceDescription": "一堂方法论课程地图\n1/2\n全员必修 ·一堂课程学习地图\n\n很多同学表示，一堂的课程太多，不知道该从哪里学起更适合自己当下的情况，也不知道课程之间到底有什么联系。还有的同学表示，自己的时间和选课券有限，能不能提前了解一下每节课的精华，让自己在选择的时候游刃有余。 所以为了让大家能够手握地图，心中不慌，我们做了这节《一堂学习地图必修课》。\n\n这里是课程的第一部分： 「方法论课程学习」。\n\nTruman体系性地带大家解锁「一堂无限进步大地图」，及其串联起的110+节方法论课的重点与联系。\n\n站在顶层视角带你全面理解，一堂追求的\"知识体系\"，一次性讲透如何实现个人能力成长、高潜管理者段位提升、创业者提升创业成功率背后的技能树，以及循序渐进的成长路线图。\n\n如果你希望面向十年、真正体系性地学习和进步，这节课一定不要错过。因为花时间理解一堂课表的价值，远远超过你学习任何一堂具体的课，这节课也会成倍提升未来几百个小时的学习效率！\n\n使用方法\n1. 课程视频\n2. 课程文档\n作业\n\n这节课，我给大家留了两个作业，你可以2选1完成。当然我鼓励你听完课后，都尝试写一写。\n\n第一个作业：学习心得题\n\n听了这节课，你对一堂的学习地图，有哪些新的收获和体会？跟你之前理解的有没有什么不一样？在一堂，你印象最深，对你最有帮助的课程/方法论是哪个？欢迎你说说你的思考和心得。\n\n第二个作业：长期规划题\n\n听完今天的课，你预判自己未来不同时期最需要学习的课有哪些？需要用到的课又有哪些？如果往前看N年（比如1/3/5/10年)，你觉得哪些课可以提前学习和储备？\n\nCandy\n\n1.「一堂地图PK大赛」优秀作业\n\n2.《一堂无限进步大地图100%全高清版》\n\n上一节\n下一节",
+      "images": [
+        {
+          "src": "https://cdn.yitang.top/upload/ether-public/yitang/1622107897279113703a1ce07ad797cfd0759e79cacff2ee9c.png",
+          "alt": "image.png",
+          "width": 724,
+          "height": 40,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/upload/ether-public/yitang/1650961844bfd22532ae0105855361bab25a5172a7e022889e.png",
+          "alt": "",
+          "width": 780,
+          "height": 369,
+          "role": "source-visual"
+        }
+      ]
+    },
+    {
+      "id": 1739,
+      "title": "一堂案例课程地图",
+      "durationMinutes": 163,
+      "url": "https://yitang.top/lesson/section/1739?tab=content",
+      "externalDocs": [
+        "https://yitang.top/fs-doc/6073618f2b7fcc2f825c24e59ad77d53/BEU5dqZy7o2j1uxywk1cNgcin6b",
+        "https://cdn.yitang.top/yitang-fe-static/assets/media/test.m4a"
+      ],
+      "sourceDescription": "一堂案例课程地图\n2/2\n全员必修 ·一堂课程学习地图\n\n为了能让大家提前了解每节课的精华，让自己在选择的时候游刃有余，我们做了《一堂学习地图必修课》。\n\n这节课分为两个部分，这里是第二部分 「案例学习」。\n\n很多同学可能会疑惑，相对于方法论课程，案例课的价值是什么？一堂到底有哪些案例课？如何分类？每个案例里到底讲了什么？哪些最适合我来学？\n\n这节课，我们按照搞砸之夜、落地之夜、最佳实践和开源之夜四个类型把案例分类，给大家串讲了至2024年正式上架的所有案例课，遍历每个案例的TOP3亮点，背后关联的方法论，以及推荐谁学。\n\n案例教学法是一堂非常重要的教学手段，希望你务必用几个小时来学习这节课，因为这节课同样能成倍提升你未来的学习效率，并且加强你对方法论的吸收和理解！\n\n使用方法\n1. 课程视频\n2. 课程文档\n作业Candy\n\n这节课，我给大家留了两个作业，你可以2选1完成。当然我鼓励你听完课后，都尝试写一写。\n\n第一个作业：学习心得题\n\n听了这节课，你对一堂的学习地图，有哪些新的收获和体会？跟你之前理解的有没有什么不一样？在一堂，你印象最深，对你最有帮助的课程/方法论是哪个？欢迎你说说你的思考和心得。\n\n第二个作业：长期规划题\n\n听完今天的课，你预判自己未来不同时期最需要学习的课有哪些？需要用到的课又有哪些？如果往前看N年（比如1/3/5/10年)，你觉得哪些课可以提前学习和储备？\n\nCandy\n\n1.「一堂地图PK大赛」优秀作业\n\n2.《一堂无限进步大地图100%全高清版》\n\n上一节\n去写作业",
+      "images": [
+        {
+          "src": "https://cdn.yitang.top/upload/ether-public/yitang/1622107897279113703a1ce07ad797cfd0759e79cacff2ee9c.png",
+          "alt": "image.png",
+          "width": 724,
+          "height": 40,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/upload/ether-public/yitang/1650961844bfd22532ae0105855361bab25a5172a7e022889e.png",
+          "alt": "",
+          "width": 780,
+          "height": 369,
+          "role": "source-visual"
+        }
+      ]
+    }
+  ],
+  "candies": [
+    {
+      "id": 1736,
+      "title": "创业者技能树",
+      "type": "真实材料",
+      "sectionUrl": "https://yitang.top/lesson/section/1736?tab=candy",
+      "documentUrl": "https://yitang.top/fs-doc/d285ab65a3fbc18e7b2bcb3a381103f4/VsSvdgXRdo4BSIxnlaMc2EMHnlh",
+      "headings": [],
+      "textLength": 1785,
+      "imageCount": 37,
+      "images": [
+        {
+          "src": "https://yitang.top/api/feishu/media/RFQTbmDx9ohuaoxJ2ENcvkfYn2f",
+          "alt": "",
+          "width": 1080,
+          "height": 1525,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/GCP5bTskGows1yxlncSceimynqb",
+          "alt": "",
+          "width": 1080,
+          "height": 1555,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/IeaabHOrboADcqxS3O4ct14znRc",
+          "alt": "",
+          "width": 352,
+          "height": 500,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/Su8bbOV8Qo9jD1xOiFncAeB8nJa",
+          "alt": "",
+          "width": 540,
+          "height": 811,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/D54iblkAWoPhfMxjdewcT90znBh",
+          "alt": "",
+          "width": 292,
+          "height": 418,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/WQ1VbBU15oqv68xSotJctehfnSd",
+          "alt": "",
+          "width": 270,
+          "height": 390,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/L5qMb1BxuoVSOCxxfN9cl704nXc",
+          "alt": "",
+          "width": 540,
+          "height": 730,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/DRhZbmCtLoTmZ3xZwlrcNxIqn1e",
+          "alt": "",
+          "width": 450,
+          "height": 640,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/KeGWbTpPFolIhvx0kJLck5rSnJf",
+          "alt": "",
+          "width": 1080,
+          "height": 1401,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/FNkObJh02o4j0rxpDDscFV4WnQb",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/Or3ubj1ZOooixexQikVckGdSn6s",
+          "alt": "",
+          "width": 540,
+          "height": 703,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/EkEqbEpznoEZdNxXn3ccCCdunMe",
+          "alt": "",
+          "width": 540,
+          "height": 807,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/SJvRbbGJ6ohOvixcqmucYA3En1d",
+          "alt": "",
+          "width": 500,
+          "height": 401,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/V9lKb5P7IoHhnxxnCWVcQHLTnfc",
+          "alt": "",
+          "width": 540,
+          "height": 730,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/HdkYboROKoLEFpxj4Uccdkgvnch",
+          "alt": "",
+          "width": 1080,
+          "height": 1457,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/XM44btmpooWTdXxG7yPcD75Dnxd",
+          "alt": "",
+          "width": 952,
+          "height": 1296,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/D5JhbF4YNoWfSFxax0McxENmncf",
+          "alt": "",
+          "width": 540,
+          "height": 782,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/GG1Kb50l9odcdex9T0ecsp6OnYf",
+          "alt": "",
+          "width": 540,
+          "height": 810,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/MH9BbFHS3owFAdxMDwAcd6mGnOc",
+          "alt": "",
+          "width": 820,
+          "height": 1078,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/HYilbr6ECoacV5xyjXacn5WZnKe",
+          "alt": "",
+          "width": 540,
+          "height": 730,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/Yv7ZbVBRVoaNCmxKlOTcqeQnnAh",
+          "alt": "",
+          "width": 444,
+          "height": 590,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/EiFjbrc6ooU33oxjF1McUiHkn6d",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/VawJbIfpEoTBbjx1Vrmc7bxdngc",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/CKt1bOx24ouSbnxSuymcIiKjnjd",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/PvlLbJFvDoMcLSxaHnYce5Irnqf",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/QlAAb1YnroGEpZx0gWVcXXbcnVc",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/QydRbN8Yxo6QpJxrFrBczSLHn3c",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/QUvkbgY5woAAk7xzr4Fc1jdKn8x",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://yitang.top/api/feishu/media/T5XSbe0ZioynvDx7cT6c1aLfnUg",
+          "alt": "",
+          "width": 0,
+          "height": 0,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/2540ce52e43fa0eb3edb912024a66343.png",
+          "alt": "",
+          "width": 465,
+          "height": 465,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/fee9458c29cdccf10af7ec01155dc7f0.png",
+          "alt": "",
+          "width": 120,
+          "height": 120,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/c63400db5b847836997bcb8542006e52.png",
+          "alt": "",
+          "width": 760,
+          "height": 760,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/3511fec6a1eb50633e4e3cdb2680d748.png",
+          "alt": "",
+          "width": 940,
+          "height": 940,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://wx.qlogo.cn/mmhead/jtG27NVSJJAqKj8xjlMtYXIHvNaFQbseOxkjm3qO7mM/0",
+          "alt": "",
+          "width": 959,
+          "height": 960,
+          "role": "comment-avatar"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/8030c27b9bf7546000ccdba1b45ee8fd.png",
+          "alt": "",
+          "width": 940,
+          "height": 940,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/835492b967afc64d88c1d1a98e6611bf.png",
+          "alt": "",
+          "width": 634,
+          "height": 634,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://wx.qlogo.cn/mmhead/ibwPV1498s4ZtBTJrRh0yGPtcQSEoyUyXzG2C9LJKj04YKcEz2KdfRCLmSgCLCkuEzPib926EvrqY/0",
+          "alt": "",
+          "width": 120,
+          "height": 120,
+          "role": "comment-avatar"
+        }
+      ]
+    },
+    {
+      "id": 1740,
+      "title": "《马拉松大课的5个优秀案例精选》",
+      "type": "mini分享",
+      "sectionUrl": "https://yitang.top/lesson/section/1740?tab=candy",
+      "documentUrl": "https://yitang.top/fs-doc/cc0cc8d24ab7d88f87eca29394bfa271/J0dTdBbJ4oQhFDxaj7WcRF3LnPh",
+      "headings": [],
+      "textLength": 2022,
+      "imageCount": 9,
+      "images": [
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/3f7071b203382d40bde4e6976b64e7f9.png",
+          "alt": "",
+          "width": 2560,
+          "height": 1088,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/d0e5b0900263c0fbedbcdd414e95075e.png",
+          "alt": "",
+          "width": 2366,
+          "height": 1280,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/1a3aa11e6f0af20727088bf558e225b7.png",
+          "alt": "",
+          "width": 1438,
+          "height": 504,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/2cae4eb64a4375d3203d4178d9bf7939.png",
+          "alt": "",
+          "width": 1294,
+          "height": 448,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/f0601aeb8264b0052e54bbd413289ab6.png",
+          "alt": "",
+          "width": 1290,
+          "height": 450,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/1da5e785a241f3195a386b39bfbe45c5.png",
+          "alt": "",
+          "width": 951,
+          "height": 951,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/3511fec6a1eb50633e4e3cdb2680d748.png",
+          "alt": "",
+          "width": 940,
+          "height": 940,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/98098f1aed16524c7cd4f2ce37e12a6c.png",
+          "alt": "",
+          "width": 959,
+          "height": 960,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/cadd1ce1d4b93eea12e34f3e1519a4f6.png",
+          "alt": "",
+          "width": 1080,
+          "height": 1079,
+          "role": "source-visual"
+        }
+      ]
+    },
+    {
+      "id": 2115,
+      "title": "《一堂无限进步大地图100%全高清版》",
+      "type": "画布模板",
+      "sectionUrl": "https://yitang.top/lesson/section/2115?tab=candy",
+      "documentUrl": "https://yitang.top/fs-doc/luvS64ef293fbe0d/X8OBdCMB1oaKQOx6UeTcq2gRnTe?fromAcl=lesson-founder",
+      "headings": [],
+      "textLength": 481,
+      "imageCount": 4,
+      "images": [
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/b27c5fd5d476cca0715280470c23922e.png",
+          "alt": "",
+          "width": 11811,
+          "height": 4961,
+          "role": "primary-map"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/1f554b8de05639a6f8495baa2e52f7db.png",
+          "alt": "",
+          "width": 640,
+          "height": 640,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://wx.qlogo.cn/mmhead/uiafdeQjiaJKicLGSdgr5pSTpUxOk1nDceCe5d5HicKlkCibrpqnXGHpHN8v7TY0iaphUFibCnMh4Jo8hk/0",
+          "alt": "",
+          "width": 1080,
+          "height": 1080,
+          "role": "comment-avatar"
+        },
+        {
+          "src": "https://wx.qlogo.cn/mmhead/Qe8f8S7jPz3ykRvggicS1HavNBbKd2nk7Ccmmm2tbzd8/0",
+          "alt": "",
+          "width": 640,
+          "height": 640,
+          "role": "comment-avatar"
+        }
+      ]
+    },
+    {
+      "id": 2114,
+      "title": "「一堂地图PK大赛」优秀作业",
+      "type": "A",
+      "sectionUrl": "https://yitang.top/lesson/section/2114?tab=candy",
+      "documentUrl": "https://yitang.top/fs-doc/luvS64ef293fbe0d/F4Mad6AOGojyMHxJJkVcFeuwndh?fromAcl=lesson-founder",
+      "headings": [],
+      "textLength": 3039,
+      "imageCount": 14,
+      "images": [
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/5900b7afe0833bbfc1c3817d951aff5e.png",
+          "alt": "",
+          "width": 738,
+          "height": 1280,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/2d66a99407cd874050cfe669c2dfc5d2.jpg",
+          "alt": "",
+          "width": 828,
+          "height": 409,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/7b467e44b9d64728b8f71fd8c58f26f7.jpg",
+          "alt": "",
+          "width": 835,
+          "height": 419,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/458d1710211587e4ad99ab3c5335c13a.jpg",
+          "alt": "",
+          "width": 829,
+          "height": 423,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/f082df9d095b82bafdad8131097dfc45.png",
+          "alt": "",
+          "width": 832,
+          "height": 421,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/62aefdb1a3ad5e9acd2005682afaa552.png",
+          "alt": "",
+          "width": 830,
+          "height": 419,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/77dd285415ab827c058781233d928543.png",
+          "alt": "",
+          "width": 832,
+          "height": 426,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/918b3523e211ccde052f8c00fa633b28.png",
+          "alt": "",
+          "width": 1616,
+          "height": 558,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/7b3ed775078640497498a87ea087ea10.png",
+          "alt": "",
+          "width": 1590,
+          "height": 568,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/homework/prod/508e2d7375902b4bdfa5f94043a7a109.png",
+          "alt": "",
+          "width": 1710,
+          "height": 232,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/b558f8a382d6708a66565bca85ed7163.png",
+          "alt": "",
+          "width": 1322,
+          "height": 180,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/88f0ed20a6759795be1b205da442349b.png",
+          "alt": "",
+          "width": 1320,
+          "height": 178,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/a829e19a99daa07fa981ef8bf3dcb38a.png",
+          "alt": "",
+          "width": 1280,
+          "height": 1045,
+          "role": "source-visual"
+        },
+        {
+          "src": "https://cdn.yitang.top/localfile/prod/9c3f86c2376657a8199db90c2544464d.png",
+          "alt": "",
+          "width": 1322,
+          "height": 180,
+          "role": "source-visual"
+        }
+      ]
+    }
+  ],
+  "visualAudit": {
+    "candyImageNodes": 64,
+    "primaryMaps": 1,
+    "commentAvatars": 4,
+    "sourceVisuals": 59,
+    "keyVisuals": [
+      {
+        "role": "course-cover",
+        "src": "https://cdn.yitang.top/upload/ether-public/yitang/171102417054ef0b5c32292e8fee367cedde26b3afb38dcb5f.png",
+        "boundary": "Navigation metaphor; not course-structure evidence."
+      },
+      {
+        "role": "course-page-asset",
+        "src": "https://cdn.yitang.top/upload/ether-public/yitang/1650961844bfd22532ae0105855361bab25a5172a7e022889e.png",
+        "boundary": "Sharing banner; not learning-result evidence."
+      },
+      {
+        "role": "case-cover",
+        "src": "https://cdn.yitang.top/localfile/prod/3f7071b203382d40bde4e6976b64e7f9.png",
+        "boundary": "Identifies one Feishu case; the mechanism requires the case content."
+      },
+      {
+        "role": "work-sample-photo",
+        "src": "https://cdn.yitang.top/localfile/prod/5900b7afe0833bbfc1c3817d951aff5e.png",
+        "boundary": "Identifies a contributor; not evidence that the method transfers."
+      },
+      {
+        "role": "primary-map",
+        "src": "https://cdn.yitang.top/localfile/prod/b27c5fd5d476cca0715280470c23922e.png",
+        "width": 11811,
+        "height": 4961,
+        "boundary": "Shows the curriculum topology; does not prove learning outcomes."
+      }
+    ]
+  }
+}

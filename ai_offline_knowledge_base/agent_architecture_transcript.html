@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI、CV、AIGC、LLM 推理与 Agent 的离线学习知识库">
+<title>AI Agent 架构演进 · 清洗中文稿 | 离线 AI 学习知识库</title>
+<style>
+:root { --ink:#16302c; --muted:#56706a; --paper:#f7faf7; --surface:#ffffff; --line:#d3dfda; --green:#087c69; --teal:#006f82; --coral:#c94e2e; --gold:#996200; --soft-green:#e7f4ee; --soft-coral:#fff0eb; --soft-blue:#eaf4f6; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif; line-height:1.65; }
+a { color:#006d73; text-decoration-thickness:1px; text-underline-offset:3px; }
+a:hover { color:#b84428; }
+.shell { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+.topbar { background:#113d36; color:#fff; border-bottom:4px solid #d26a35; }
+.topbar .shell { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:13px 0; }
+.brand { color:#fff; font-weight:700; text-decoration:none; letter-spacing:0; }
+.topnav { display:flex; flex-wrap:wrap; gap:14px; }
+.topnav a { color:#d7ebe5; text-decoration:none; font-size:14px; }
+.hero { background:#e6f2ed; border-bottom:1px solid var(--line); padding:48px 0 42px; }
+.eyebrow { margin:0 0 10px; color:#087c69; font-weight:700; font-size:13px; letter-spacing:0; text-transform:uppercase; }
+h1,h2,h3,h4 { line-height:1.28; margin:0; color:#123d37; letter-spacing:0; }
+h1 { max-width:900px; font-size:40px; }
+h2 { font-size:26px; margin-bottom:14px; }
+h3 { font-size:18px; margin-bottom:8px; }
+h4 { font-size:16px; margin-bottom:6px; }
+p { margin:0 0 12px; }
+.lead { max-width:900px; color:#38544e; font-size:18px; }
+main { padding:30px 0 52px; }
+section { margin:0 0 34px; }
+.section-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; }
+.section-head p { color:var(--muted); margin:0; font-size:14px; }
+.notice { border-left:4px solid var(--coral); background:var(--soft-coral); padding:14px 16px; }
+.notice.info { border-color:var(--teal); background:var(--soft-blue); }
+.grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
+.grid.two { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.item { border:1px solid var(--line); border-top:4px solid var(--green); background:var(--surface); padding:17px; border-radius:6px; }
+.item.teal { border-top-color:var(--teal); }
+.item.coral { border-top-color:var(--coral); }
+.item.gold { border-top-color:var(--gold); }
+.kicker { color:var(--muted); font-size:13px; font-weight:700; margin-bottom:7px; }
+.pill { display:inline-block; margin:0 5px 5px 0; padding:2px 7px; border:1px solid #b7d4c9; border-radius:999px; background:#f3fbf7; color:#285d52; font-size:12px; }
+.flow { display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:7px; align-items:stretch; }
+.flow.five { grid-template-columns:repeat(5, minmax(0,1fr)); }
+.flow.six { grid-template-columns:repeat(6, minmax(0,1fr)); }
+.flow.eight { grid-template-columns:repeat(8, minmax(0,1fr)); }
+.flow div { position:relative; padding:12px 9px; background:#fff; border:1px solid var(--line); text-align:center; font-size:13px; }
+.flow div:not(:last-child)::after { content:"→"; position:absolute; right:-8px; top:50%; z-index:2; transform:translateY(-50%); color:var(--coral); font-size:18px; }
+.path-toc { position:sticky; top:0; z-index:20; box-shadow:0 8px 18px rgba(18,61,55,.08); }
+.metric-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); border-left:4px solid var(--teal); background:#fff; margin:0 0 30px; }
+.metric { min-height:94px; padding:16px 18px; border-right:1px solid var(--line); }
+.metric:last-child { border-right:0; }
+.metric strong { display:block; color:#123d37; font-size:28px; line-height:1.1; }
+.metric span { display:block; margin-top:7px; color:var(--muted); font-size:13px; }
+.stage-map { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:7px; align-items:stretch; }
+.stage-node { position:relative; min-width:0; min-height:112px; padding:13px 8px 11px; border:1px solid var(--line); border-top:5px solid var(--stage-color); border-radius:4px; background:#fff; color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+.stage-node:hover,.stage-node:focus-visible { border-color:var(--stage-color); outline:0; box-shadow:0 5px 14px rgba(18,61,55,.13); transform:translateY(-2px); }
+.stage-node[aria-pressed="true"] { border-color:var(--stage-color); background:var(--stage-soft); box-shadow:inset 0 0 0 1px var(--stage-color); }
+.stage-node:not(:last-child)::after { content:"→"; position:absolute; right:-10px; top:46px; z-index:3; width:12px; color:#a1442d; font-weight:700; text-align:center; pointer-events:none; }
+.stage-index { display:block; color:var(--stage-color); font-size:12px; font-weight:700; }
+.stage-label { display:block; min-height:40px; margin:5px 0 4px; color:#173e37; font-size:14px; font-weight:700; line-height:1.4; }
+.stage-count { display:block; color:var(--muted); font-size:12px; }
+.stage-inspector { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:0; margin-top:12px; border:1px solid var(--line); border-left:5px solid var(--stage-color,#256f5b); background:#fff; }
+.inspector-main,.inspector-side { padding:19px 21px; }
+.inspector-side { border-left:1px solid var(--line); background:#f1f6f3; }
+.inspector-kicker { margin:0 0 6px; color:var(--stage-color,#256f5b); font-size:12px; font-weight:700; }
+.inspector-question { margin:9px 0; color:#294c45; font-size:16px; font-weight:700; }
+.inspector-summary { color:var(--muted); }
+.inspector-meta { margin:0 0 10px; color:var(--muted); font-size:13px; }
+.inspector-link { display:inline-block; margin-top:3px; font-weight:700; }
+.concept-list { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.concept-chip { padding:3px 8px; border:1px solid color-mix(in srgb,var(--stage-color,#256f5b) 45%,#fff); border-radius:999px; background:#fff; color:#294c45; font-size:12px; }
+.viz-grid { display:grid; grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr); gap:28px; align-items:start; }
+.viz-panel { min-width:0; border-top:3px solid #2d7061; padding-top:14px; }
+.viz-panel h3 { margin-bottom:4px; }
+.viz-caption { color:var(--muted); font-size:13px; }
+.bar-chart { display:grid; gap:8px; margin-top:15px; }
+.bar-row { display:grid; grid-template-columns:92px minmax(0,1fr) 32px; gap:9px; align-items:center; width:100%; padding:2px 0; border:0; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.bar-row:hover .bar-fill,.bar-row:focus-visible .bar-fill { filter:saturate(1.2); }
+.bar-row:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.bar-row[aria-current="true"] .bar-name { color:var(--stage-color); }
+.bar-row[aria-current="true"] .bar-track { box-shadow:0 0 0 2px color-mix(in srgb,var(--stage-color) 45%,#fff); }
+.bar-name { overflow:hidden; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.bar-track { position:relative; height:14px; overflow:hidden; background:#e5ece8; }
+.bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--stage-color); }
+.bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.heatmap-wrap { overflow-x:auto; margin-top:15px; }
+.heatmap { display:grid; grid-template-columns:minmax(148px,1.45fr) repeat(8,minmax(54px,.6fr)); min-width:720px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.heat-label,.heat-head,.heat-cell { min-height:43px; padding:7px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.heat-head { display:flex; align-items:center; justify-content:center; background:#eef4f1; color:#31554e; font-size:11px; font-weight:700; line-height:1.2; text-align:center; }
+.heat-label { display:flex; flex-direction:column; justify-content:center; background:#fff; font-size:12px; font-weight:700; line-height:1.25; }
+.heat-label small { margin-top:2px; color:var(--muted); font-weight:400; }
+.heat-cell { display:flex; align-items:center; justify-content:center; background:#fff; color:#fff; font-size:12px; font-weight:700; }
+.heat-cell.level-0 { color:#9baba6; background:#f5f7f6; }
+.heat-cell.level-1 { color:#355d53; background:#dcece5; }
+.heat-cell.level-2 { background:#5a9b88; }
+.heat-cell.level-3 { background:#185f52; }
+.heat-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:9px; color:var(--muted); font-size:12px; }
+.heat-legend span::before { content:""; display:inline-block; width:10px; height:10px; margin-right:5px; border:1px solid #c9d6d1; vertical-align:-1px; background:var(--legend-color); }
+.timeline { position:relative; margin:8px 0 0 10px; padding-left:30px; }
+.timeline::before { content:""; position:absolute; top:6px; bottom:7px; left:7px; width:2px; background:#b9cbc5; }
+.timeline-item { position:relative; display:grid; grid-template-columns:112px minmax(190px,.72fr) minmax(0,1.28fr); gap:18px; padding:0 0 24px; }
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-marker { position:absolute; top:4px; left:-30px; width:16px; height:16px; border:4px solid #fff; border-radius:50%; background:var(--timeline-color); box-shadow:0 0 0 1px var(--timeline-color); }
+.timeline-period { color:var(--timeline-color); font-size:14px; font-weight:700; }
+.timeline-question { color:#193f38; font-weight:700; }
+.timeline-detail { color:#3f5d56; }
+.timeline-target { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
+.detail-table-toggle { margin-top:18px; }
+.stage-section { scroll-margin-top:86px; padding-top:7px; border-top:1px solid var(--line); }
+.repo-status { display:inline-block; padding:2px 7px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:11px; white-space:nowrap; }
+.repo-status.current { border-color:#84b7a7; background:#e7f4ee; color:#1c5f50; }
+.repo-status.caution { border-color:#e0b6a8; background:#fff0eb; color:#8f3f2c; }
+.repo-table td:first-child { min-width:190px; }
+.repo-table td:nth-child(2) { min-width:150px; }
+.repo-table td:nth-child(4) { min-width:290px; }
+.static-bars { display:grid; gap:9px; margin-top:13px; }
+.static-bar-row { display:grid; grid-template-columns:150px minmax(0,1fr) 34px; gap:10px; align-items:center; }
+.static-bar-name { overflow:hidden; color:#294c45; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.static-bar-track { height:14px; overflow:hidden; background:#e5ece8; }
+.static-bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--bar-color,#2d7061); }
+.static-bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.repo-callout { border-top:3px solid var(--teal); padding-top:13px; }
+.media-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:15px; }
+.media-figure { min-width:0; margin:0; border:1px solid var(--line); background:#fff; }
+.media-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#101817; }
+.media-figure figcaption { padding:10px 12px; color:#3f5d56; font-size:13px; }
+.transcript-block { display:grid; grid-template-columns:72px minmax(0,1fr); gap:13px; padding:11px 0; border-bottom:1px solid var(--line); }
+.transcript-block[hidden] { display:none; }
+.transcript-time { font-weight:700; white-space:nowrap; }
+.transcript-text { margin:0; color:#294c45; }
+table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); }
+th,td { padding:10px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+th { background:#e9f3ef; color:#214c43; font-size:14px; }
+td { font-size:14px; }
+.table-wrap { overflow-x:auto; border-radius:6px; }
+ul,ol { margin:8px 0 0; padding-left:21px; }
+li { margin:4px 0; }
+code { background:#e8f1ee; border-radius:3px; padding:1px 4px; color:#164d43; }
+.small { color:var(--muted); font-size:13px; }
+.source-list { columns:2; column-gap:32px; }
+.source-list li { break-inside:avoid; }
+.chapter-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; list-style:none; padding:0; }
+.chapter-list a { display:block; height:100%; padding:13px; border:1px solid var(--line); background:#fff; text-decoration:none; border-radius:6px; }
+.chapter-list a:hover { border-color:var(--teal); }
+.chapter-list strong { display:block; color:#123d37; }
+.chapter-list span { color:var(--muted); font-size:13px; }
+.filter { width:100%; margin:0 0 12px; padding:11px 12px; border:1px solid #a9c4ba; border-radius:4px; font:inherit; color:var(--ink); }
+.filter-grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(220px,1fr); gap:10px; margin-bottom:8px; }
+.filter-grid .filter { margin:0; background:#fff; }
+.toc { border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
+.toc a { margin-right:13px; font-size:14px; }
+details { border:1px solid var(--line); border-radius:6px; background:#fff; margin:10px 0; }
+summary { cursor:pointer; padding:12px 14px; color:#174b42; font-weight:700; }
+details > div { padding:0 14px 14px; }
+.lecture { border-left:4px solid var(--teal); background:#fff; padding:15px 17px; margin:12px 0; }
+.lecture h3 { font-size:18px; }
+.lecture-meta { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.reading-list { margin-top:10px; }
+.reading-list li { margin:7px 0; }
+.reading-note { color:var(--muted); font-size:13px; }
+.catalog-table td:first-child { min-width:220px; }
+.catalog-table td:nth-child(2) { min-width:180px; }
+footer { border-top:1px solid var(--line); color:var(--muted); padding:20px 0 34px; font-size:13px; }
+@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } }
+@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } }
+@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell"><a class="brand" href="index.html">AI OFFLINE KB</a><nav class="topnav" aria-label="主导航"><a href="index.html">首页</a><a href="knowledge_path.html">知识主线</a><a href="sources.html">来源综述</a><a href="how2ai.html">How2AI 课程</a><a href="stanford_cs25.html">Stanford CS25</a><a href="stanford_cs336.html">Stanford CS336</a><a href="karpathy.html">Karpathy</a><a href="ai_toolkit.html">AI Toolkit</a><a href="kaggle_genai.html">Kaggle GenAI</a><a href="agent_architecture.html" aria-current="page">Agent 架构</a><a href="papers.html">论文矩阵</a><a href="catalog.html">全部链接</a></nav></div></header>
+<div class="hero"><div class="shell"><p class="eyebrow">OFFLINE LEARNING LIBRARY · 2026-07-15</p><h1>AI Agent 架构演进 · 清洗中文稿</h1><p class="lead">无原始字幕视频的本地 Whisper large-v3 转写，保留分钟级时间戳、章节定位和关键词检索。</p></div></div>
+<main class="shell">
+<div class="toc"><strong>本页：</strong><a href="agent_architecture.html">返回架构地图</a><a href="#agent-transcript-1">01</a><a href="#agent-transcript-2">02</a><a href="#agent-transcript-3">03</a><a href="#agent-transcript-4">04</a><a href="#agent-transcript-5">05</a><a href="#agent-transcript-6">06</a><a href="#agent-transcript-7">07</a><a href="#agent-transcript-8">08</a><a href="#agent-transcript-9">09</a><a href="#agent-transcript-10">10</a><a href="#agent-transcript-11">11</a><a href="#agent-transcript-12">12</a></div>
+<section class="notice info"><strong>文字稿状态：</strong>视频页面无字幕；本稿由 <code>openai/whisper-large-v3</code> 在本地 16 kHz 单声道音频上生成。已按 5 分钟长音频窗口转写并校正可由幻灯片确认的产品名，不是人工逐字校对稿。</section>
+<section><div class="section-head"><h2>搜索文字稿</h2><p>按关键词或章节过滤</p></div><div class="filter-grid"><input class="filter" id="agent-transcript-filter" type="search" placeholder="搜索 context、MCP、RocketMQ、TTFT、评测等"><select class="filter" id="agent-transcript-chapter"><option value="">全部章节</option><option value="1">01 · Software 1.0 → 2.0 → 3.0</option><option value="2">02 · AI Agent 核心要素与开发全景</option><option value="3">03 · Workflow 与 Agentic 的混合选择</option><option value="4">04 · 单 Agent 与多 Agent</option><option value="5">05 · Prompt Engineering → Context Engineering</option><option value="6">06 · AI 原生应用参考架构</option><option value="7">07 · Nacos 与 Higress：MCP 注册和 AI Gateway</option><option value="8">08 · RocketMQ 与长任务状态恢复</option><option value="9">09 · OpenTelemetry 全链路可观测性</option><option value="10">10 · TED、TTFT、TPOT 与 Trace</option><option value="11">11 · 评测作为持续回归测试</option><option value="12">12 · LoongSuite 与开源项目路线</option></select></div><p class="small" id="agent-transcript-count">显示 30 个分钟段落。</p></section>
+<section class="transcript-day" data-chapter="1" id="agent-transcript-1"><div class="section-head"><h2>01 · Software 1.0 → 2.0 → 3.0</h2><p>00:00–02:10</p></div><p>编程对象从显式代码、神经网络权重推进到以 Prompt 驱动的大语言模型；AI 原生应用的本质是把概率模型纳入软件控制流。</p><div class="transcript-block" data-chapter="1"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=0" target="_blank" rel="noreferrer">00:00</a></div><p class="transcript-text">很高兴今天来成都跟大家一起交流分享我是来自阿里云云原生团队的画名叫旺桃主要在做AI应用的开发包括一些可观测性等等一些方面的事情今天给大家分享的主题是AIAgent的发展趋势和架构演进然后主要从这几个方面给大家介绍一下一个是编程范式的演进第二个是我们AIAgent的核心眼镜的一个路线第三个是AI原生应用架构的一些实践首先我们来看一个引用了一个大牛的一篇slide就是叫AndrejKarpathy他是特斯拉的自动驾驶负责人然后也是OpenAI的一个创始人然后他在一篇分享里面提到的我们编程范式的一个眼镜就是在软件1.0时代我们看这儿</p></div><div class="transcript-block" data-chapter="1"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=60" target="_blank" rel="noreferrer">01:00</a></div><p class="transcript-text">我们是通过计算机的编程的语言去对我们的计算机进行编程的其实大家熟悉的我们的JavaPython然后Pascal这些语言都是在做这个事情在2.0的时代我们是在做什么在用神经网络的一个参数权证的调整去对我们的神经网络进行编程那在大模型时代出来以后其实我们的编程范式发生了非常深刻的变化它体现在我们的编程对象变成了大语言模型就是LM在GPU上面运行的LM而不是我们原来的传统的计算机这是在CPU上面运行的C计算机而我们的编程语言不再是JavaGoPython这样的语言了而是用我们的提示词其实我们编写的是一个提示词这提示词运行在大语言模型上所以我们是通过提示词对大语言模型进编程编程出来的应用我们叫做AI的原生应用是这样一个概念</p></div><div class="transcript-block" data-chapter="1"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=120" target="_blank" rel="noreferrer">02:00</a></div><p class="transcript-text">所以它对我们的开发范式的和我们对应用开发的理解都有非常多的思维的转变那么我们来看一下AI原生应用到底它有哪些概念或者它的架构是什么样的我们看一个全景图这个是一个我们定义的一个开发的全景图首先我们从中间开始一个AIagent它有几个非常核心的概念一个就是感知它需要去感知我们内部外部的环境能够去做一些输入和输出它需要一个大脑也就是我们的大模型去帮我们做决策它需要一些工具去调用外面的工具然后包括去使用一些MCP的工具来执行一些必要的动作最后它还需要一些记忆这个记忆包括长期和短期的记忆也就是在应用执行中的上下文是非常关键的那这几个要素呢构成AIAgent的一个核心那Agent之间呢它也可能会有一些通讯的手段</p></div></section><section class="transcript-day" data-chapter="2" id="agent-transcript-2"><div class="section-head"><h2>02 · AI Agent 核心要素与开发全景</h2><p>02:10–05:30</p></div><p>Agent 由感知、模型决策、工具和长短期记忆组成；外围还需要开发框架、运行时、模型与 MCP 服务、配置/注册、消息系统和可观测性。</p><div class="transcript-block" data-chapter="2"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=180" target="_blank" rel="noreferrer">03:00</a></div><p class="transcript-text">那么我们怎么去开发一个Agent呢首先我们上面有一些开发框架不同的语言现在有非常多的开发框架我们通过高代码低代码这样的简单做一个区分然后通过不同语言可以看到我们有非常多的框架能够帮我们简化这个开发的步骤然后我们也可以通过一些工具包括现在的比较舌的那个通音码CursorCloudCode这样的东西帮我们去生成这样的agent那生成出来以后呢这个agent它需要在需要一些计算的资源来帮它去执行需要一个Runtime这个Runtime呢可以是现在我们的K8S上面运行的也可以是跑在一些Service的运行室比如说函数计算啊这样的一些运行室里面那它依赖的一些模型当然是在GPU上运行的那这个MCP的工具呢也是需要一个Runtime所以MCP的server它也需要在这样的一些计算的环境里面去运行那有了这个运行的环境呢它会还底层会依赖一些我们的通用的中间件能力</p></div><div class="transcript-block" data-chapter="2"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=240" target="_blank" rel="noreferrer">04:00</a></div><p class="transcript-text">去提供一些通用的服务比如说我们可以通过NACOS这样的中间件去完成我们的prompt就是提示词的一个管理以及这个MCP的注册动态发现这后面会讲通过我们的AI网关去对于多个模型和MCP进行一个统一的代理那通过消息队列去完成我们一些常任务多周期的这种任务的异构化的改造对然后再当然还有一部分很关键的是我们的可观测性就这个agent大家知道它运行它是不太确定的很多时候那我们得要知道它内部的运行情况怎么样帮助我们去正好的评估我们的运行的行为所以需要对它的数据进行采集那我们有一些采集的探针比如说LoongSuite这样的探针开源的探针去采集这些包括token的消耗以及模型的输入和输出等等有了这些东西我们可以对Azure的行为进行分析包括它的性能成本和质量进行分析这是我们定义的一个</p></div><div class="transcript-block" data-chapter="2"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=300" target="_blank" rel="noreferrer">05:00</a></div><p class="transcript-text">这是我们的一个定义的一个全景的一个图那agent的开发的时候有哪几个关键问题我这里列了几个关键问题我们今天可以跟大家分享和讨论的就是第一个是用搭建agent的时候我们是用哪种模式到底是用workflow的这种还是agentic的模式还有agent我们需要单的agent还是多agent还有在提示词的工程我们是如何实践的还是说用现在的最近的比较流行的叫context的上下文的工程就三个话题我们一个一个来讲一下第一个就是workflowworkflow模式的话其实很简单其实我们在编发A型的时候会把一些固定的流程比如说我们传统的业务流程通过一些预定好的步骤通过这样的一些低代码或者高代码的平台的方式能够把它去编排出来那它的好处就是确定性很高我们知道有些东西是我们一定不能出错的比较确定的这种流程我们可以通过这种模式来进行</p></div></section><section class="transcript-day" data-chapter="3" id="agent-transcript-3"><div class="section-head"><h2>03 · Workflow 与 Agentic 的混合选择</h2><p>05:30–07:30</p></div><p>固定流程提供确定性，Agentic loop 用模型动态规划下一步；真实系统通常按任务风险、准确性与 GPU 成本组合两者。</p><div class="transcript-block" data-chapter="3"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=360" target="_blank" rel="noreferrer">06:00</a></div><p class="transcript-text">但是在一些复杂的场景或者任务的时候它就会显得拨筋见肘了比如说我们有一些agent他需要完成非常不确定的因为我不知道这个流程下一步该往下走很多时候是这样的在这种场景下我们其实有一种叫agentic的模式其实它是一种通过大模型来告诉你下一步应该如何执行它帮助你做规划做执行的这样一种模式它的好处就是灵活性会比较高然后一些典型的场景比如说我们现在常见的DeepResearch还有CodingAgent就是我们现在在冤城的助手CursorCloudCode做的事情还有Minus这样一些Agent他们基本上就是用Agentic的模式真实的场景在实践下来我们发现其实并不是说二选一但实际上我们有很多的场景是要做一些妥协的这里妥协点主要是两个一个是准确性一个是成本</p></div><div class="transcript-block" data-chapter="3"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=420" target="_blank" rel="noreferrer">07:00</a></div><p class="transcript-text">就是准确性是一个很确定的事情因为我们很多的流程比如说我要去做一个东西的识别比如我图片的识别或者是发票的识别这样的一个场景我们明确地知道必须是要准确地识别出来某一个特定的字段这种时候我们可以完全用workflow的方式去帮我们提升准确性但是还有一个要考虑的点比如说我们要去从一些复杂的文本里面提取字段的时候我们可以通过大模型但是大模型的成本比较贵就是我们完成同样的事情可能用GPU的成本可能是我们用CPU的成本的十倍或者甚至以上这种时候我们也需要去权衡到底用哪种方式所以它是一个这种混合的这种模式然后第二个话题就是说单agent和多agent就是什么样的情况下我们应该用单agent什么样的情况下要做多agent就是其实在我们目前实践下来</p></div></section><section class="transcript-day" data-chapter="4" id="agent-transcript-4"><div class="section-head"><h2>04 · 单 Agent 与多 Agent</h2><p>07:30–09:40</p></div><p>默认使用更易开发维护的单 Agent；当上下文膨胀、任务很长或需要角色协作时再拆成多 Agent，并以 Deep Research 的 leader-worker 模式举例。</p><div class="transcript-block" data-chapter="4"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=480" target="_blank" rel="noreferrer">08:00</a></div><p class="transcript-text">就是在大多数场景下针对简单的目标明确的场景我们其实推荐还是用单agent的这种方式但是单agent的好处呢它是比如说我们开发各方面维护是比较会简单一些但是呢它也有一些局限性就是当这个任务我们知道模型的上下纹的窗口是有限的当我们的agent越来越复杂它一步一步执行的时候它每次会带越来越多的上下文这样的话我们上下文拔到一定窗口的情况下那这个模型的会出现一些幻觉甚至一些不确定的行为这时候我们就要考虑是不是一个agent就能够完成了所以我们做了一些拆分原则就是说我们在如无必要的情况下无增实习这是奥卡姆提到原理就是我们在正常情况下我们尽量地使用单agent但是在一些我们明确地发现这个任务是非常长然后需要复杂的协作的情况下我们建议是用多A型的来完成</p></div><div class="transcript-block" data-chapter="4"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=540" target="_blank" rel="noreferrer">09:00</a></div><p class="transcript-text">而且多A型的有个好处就是我们发现通过完成同样的编程的编码任务我们用同样的模型如果是用多个A型的协作可以大大提升我们在复杂场底下的准确率这是一个经过实验或者各方面实践验证出来的效果比如说这个例子里面的DeepResearch的场景它是一个多A型的典型场景就是它有一个Leader这个Leader会去负责把任务进行拆解然后把这些任务具体的一些调研的Research的任务分给一些子A型的然后再由它子A型的结果进行汇总再返回给用户这个时候多A型的处理就会更加的优雅一些然后第三个就是我们的提示词工程和上下文工程其实这个提示词工程是之前比较火的一个概念就是它解决的是一个我要怎么样去跟模型交互问出一个正确的问题让模型能够准确地回答我的这个问题的</p></div></section><section class="transcript-day" data-chapter="5" id="agent-transcript-5"><div class="section-head"><h2>05 · Prompt Engineering → Context Engineering</h2><p>09:40–12:00</p></div><p>复杂 Agent 的输入不仅是 Prompt，还包含 RAG 文档、工具结果、状态与记忆；上下文工程负责在有限窗口内选择、排序和复用信息。稳定前缀与变化内容后置有利于 KV Cache。</p><div class="transcript-block" data-chapter="5"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=600" target="_blank" rel="noreferrer">10:00</a></div><p class="transcript-text">它关注点呢就是说我这个提示词要包含一个比较清晰的上下文以及一些例子另外呢还有一些关键的这个关键词等等一些它构成了我们的这个提示词但是呢我发现最近这个ContextEngineering这个概念在内外是非常流行了越来越流行了那原因在于说我们的agent越来越复杂这个agent在执行的过程中它有很多的不确定性那么再加上我们对模型的上下文又是有限的那么其实我们要解决的一个问题是在有限的一个上下文窗口里面怎么去给模型最有效的信息这里面就发现我们这个上下文里面在复杂的agent场景下它需要有不光是提示词它还需要我们可能做一些rag检索回来的一些文档然后我们可能会去调用一些tools反回的调用一些tools反回的一些结果然后还有我们当前上下文的一些状态</p></div><div class="transcript-block" data-chapter="5"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=660" target="_blank" rel="noreferrer">11:00</a></div><p class="transcript-text">这些东西都要作为一个上下文传递给模型那这个时候我们要去挑选最合适的这个内容传递给模型这个时候就是有一门很讲究的艺术了就是我们要怎么去把这些东西组装成一个上下文为给模型那么还有一个点就是说我们的模型的推理它其实是有缓存的比如说在模型推理阶段有QVcache那我们的上下文其实的内容的重复程度很大程度上决定了我们推理的效率有没有命中那个上下文所以我们在构建上下文的时候通常是希望能够尽量地附用我们一些就是确定性的一些数据然后再把一些变化的内容尽量地往模型的后面就是上下文的后面去放这样的话其实让前面更多的内容是固定的情况下能够命中KVCache在推理的社会缓存所以上下文工程也是一个目前比较需要大家去关注的一个方向</p></div></section><section class="transcript-day" data-chapter="6" id="agent-transcript-6"><div class="section-head"><h2>06 · AI 原生应用参考架构</h2><p>12:00–15:00</p></div><p>用户流量经 API Gateway 进入 Agent Runtime，再由 AI Gateway 连接多模型与工具；数据库/向量库、Nacos、消息系统和 OpenTelemetry 分别承担知识、治理、状态与观测职责。</p><div class="transcript-block" data-chapter="6"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=720" target="_blank" rel="noreferrer">12:00</a></div><p class="transcript-text">然后有了上面三个议题接下来是给大家展示了一下现在这个AI原生应用的一个参考架构就是我们可以看到中间的这个是我们的agentagent它可以用各种开发框架开发出来然后运行在一些运行时之上并且它可能会去调用一些数据库或者上端数据库去获取额外的数据那么流量我们是从用户进来以后经过我们的API网关然后到达agent以后它会去跟模型进行交互因为跟模型交互的过程中需要有一个统一的AI网关作为代理这个代理可以解决通用的一些能力比如说token的一些限流一些这个统一的模型的调用的协议的转化等等一些东西因为我们后面偷端的模型可能是不一定是只有一个的有多个然后同时它可以作为一个工具的一个代理</p></div><div class="transcript-block" data-chapter="6"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=780" target="_blank" rel="noreferrer">13:00</a></div><p class="transcript-text">就是我们的MCPServerMCPServer它其实也可以因为有很多的MCP服务在后面比如说我们有公有云的服务也有公共的服务也有私有的服务然后我们可以通过NACOS来完成统一的MCP的注册和动态的提示词管理然后通过消息事件消息去实现这种异步长周期下面的状态管理当然所有的这些东西都会通过可观测性来进行统一的采集标准的OpenTelemetry协议通过LoongSuite这个采集器把它统一送到我们的一个可观测的平台上做统一的监控和诊断以及模型的评估这是我们参考的一个架构那么接下来的话我会介绍一下这几个关键的组件第一个SpringAI阿里巴巴它其实解决的就是我们的帮助Java应用开发者去开发我们的更好的开发我们的一个AI原生应用就是它基于我们的开源的SpringAI的组件</p></div><div class="transcript-block" data-chapter="6"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=840" target="_blank" rel="noreferrer">14:00</a></div><p class="transcript-text">然后在上面其实有封装了更多的能力比如说我刚才说到的Agentic的Flow然后WorkflowAgentic的模式Workflow模式以及单Agent多Agent的一些抽象和配置还有在基于上面我们基于更上层的业务场景有构建的通用的agent叫JMANUS就是Java里面的MANUS实现这个下一位讲师我们会分享这个项目议题然后还有像这个一些典型的agent的场景比如说deepsearchdeepresearch以及这个dataagent等等对这是目前Java开发者来说的话开发一个应用的话比较完整功能的一个框架当然Python也有一些框架今天可能就没有时间关系没有提及然后像我们的Nacos现在Nacos它的指的其实在这个AI原声音其实在这个AI原生应用的场景下呢它的值得也很明确原来在微服务时代它是一个动态的配置管理和注册的中心</p></div></section><section class="transcript-day" data-chapter="7" id="agent-transcript-7"><div class="section-head"><h2>07 · Nacos 与 Higress：MCP 注册和 AI Gateway</h2><p>15:00–17:00</p></div><p>Nacos 被用于企业内部 MCP 注册发现、健康检查和 Prompt 管理；Higress 统一代理模型与 MCP 流量，承接认证、限流、缓存和协议适配。</p><div class="transcript-block" data-chapter="7"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=900" target="_blank" rel="noreferrer">15:00</a></div><p class="transcript-text">那现在呢我们知道现在agent它在去访问各种tools的时候它可以在本地起一个local的server去访问我们的一些传统的微服务运用这些就是我们以前可能的微服务它把它转成了mcp暴露给agent那我们也有一些可以通过一些远端的这种mcp的server去访问这些传统的服务当然也有些三方的MCP的服务比如说我们在公共云很多的MCP市场上去搜寻高德地图啊各种tools那势必我们有一些MCP的服务是要在企业内部去落地而不适合在公共的市场上去暴露的所以说我们需要一个有私有化的MCP的助德中心帮助我们统一在企业内部去管理和运维这些MCP的服务对还有做一些健康检查啊动态管理啊管整管理的能力对这个是目前Nacos的一个能力然后Higress的话</p></div><div class="transcript-block" data-chapter="7"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=960" target="_blank" rel="noreferrer">16:00</a></div><p class="transcript-text">它其实刚才说到它是一个AI网关的一个核心角色在中间的这块东西就是我们的AIAgents和模型之间有一个核心的这个AI网关的一个代理的能力就是它可以做到我们的一些核心的AI的一些能力比如说ALM的缓存相当的一些检索还有像Token的一些限流在安全方面包括一些协议的适配我可能要去适配多个OpenAI的那个模型的协议以及API的统一管理对然后最近在做的这块呢就是MCP的代理的这块东西就是我们怎么把一些私有化的公共的服务统一的暴露到那个agent这边来并且做一些细腻度的一些认证还有我们的这个发现的一些能力对协议转化就是我们把一些OpenAI的传统的OpenAI的协议转成这个标准的MCP协议都是可以通过这个AI网关和MCP网关来承接的然后RocketMQ呢</p></div></section><section class="transcript-day" data-chapter="8" id="agent-transcript-8"><div class="section-head"><h2>08 · RocketMQ 与长任务状态恢复</h2><p>17:00–19:10</p></div><p>把长周期 Agent session 的中间输出写入消息流，使消费节点失败后能切换并继续传递结果，避免从头重复昂贵的模型推理。</p><div class="transcript-block" data-chapter="8"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1020" target="_blank" rel="noreferrer">17:00</a></div><p class="transcript-text">在这里面解决了一个是什么问题呢就是AIagent我们发现跟就是复杂场景下它会进行多轮的交互和对话对吧那其实这个过程可能有中间有很多临时或者说中间的一些状态比如说这个模型给你的返回值它可能是一个阶段性的它可能是流逝给你返回的但是呢如果中间出现任何的一个场景它出现了中断这个时候我们就要进行一些重试了因为这个流程就完全断掉了其实我们发现重试的成本是相当高的因为重试的你要去重新发起一次GPU的计算它的计算成本是远高于原来的微幅的场景下CPU时代的计算它可能是刚才说的10倍以上的成本所以有点像我举个例子这里有点像我们什么呢就是那个下载文件的时候那个断点续传能力是吧我们可能这个文件下载到一半突然中断了这个时候我们在这个场景下就得重重再下过但是我们希望解决的一个问题</p></div><div class="transcript-block" data-chapter="8"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1080" target="_blank" rel="noreferrer">18:00</a></div><p class="transcript-text">就是说我们能够去从中间的这个阶段去恢复过来那通过消息堆裂呢我们可以做这样一件事情就是把我们发现了一种新的模型就是说把AI框架下的session呢作为一个消息的topic进行管理那一个智能体应用它会跟模型交互以后返回给用户的观众它把所有的中间的结果都丢给这个消息队列来存储那这个有一个消费者去消费这个队列这种数据比如说这里的网关正常的话它会把这些送给我们的前端的客户当然如果出现一个当一个网关或者说一个消费节点出现了问题它挂掉了的情况下其实我们可以动态地把它切换到另外一个消费者它接着可以接着订阅这些还存储在对联里面的中间的数据可以接着往客户端去返回这样就解决了我们前面说的它在中断的过程中需要去重试重新去耗费GPU的这样的一个问题</p></div><div class="transcript-block" data-chapter="8"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1140" target="_blank" rel="noreferrer">19:00</a></div><p class="transcript-text">然后接下来就是可观测性的一些介绍就是我们在AI应用的开发过程中其实总结下来的可观测性上就有三大痛点第一个我怎么把它用起来第二个就是怎么用得省第三个是怎么用得好第一个问题就是说我们把这些AN用搭起来它就调用模型发现推理过程特别慢特别卡或者是报错不知道慢在哪里对吧这个是一个要把它怎么把它用起来的问题然后第二个就是发现用了一段时间之后怎么我这个账单突然一下子就爆炸了或者这个token怎么消耗这么多到底消耗在哪了不知道怎么把它用得更加经济节省然后第三个就是这个模型或者agent回答的质量好不好我们也不清楚那需要对它进行一个评估怎么把它用得更好解决这三个问题</p></div></section><section class="transcript-day" data-chapter="9" id="agent-transcript-9"><div class="section-head"><h2>09 · OpenTelemetry 全链路可观测性</h2><p>19:10–21:50</p></div><p>围绕“用起来、用得省、用得好”采集客户端、网关、Agent、工具、模型和 GPU 的 traces、metrics、logs、输入输出与 token 消耗。</p><div class="transcript-block" data-chapter="9"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1200" target="_blank" rel="noreferrer">20:00</a></div><p class="transcript-text">那么解决这三个问题的话我们现在推荐的这个方案呢就是我们需要首先在我们整个agent运行的整条链路中去通过一些可观测的数据的采集探检把这些可观测数据给采上来这些数据包含什么呢包含我们的所有的链路的信息就是从头到尾这里从端测到API网关到AIagent再到这个AI网关再到我们的模型内部它的每一个环节到底发生了什么我们都希望把它记录下来这里面包括调用的输入输出token的消耗然后tools的使用等等第二个就是一些关键的指标把它收集上来我们能够去反映当前运行的行为第三个就是模型的通过刚才采集的数据对我们的agent的行为进行一个质量的分析和评估这里我们通过OpenTelemetry开源的标准它这里面有SDK</p></div><div class="transcript-block" data-chapter="9"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1260" target="_blank" rel="noreferrer">21:00</a></div><p class="transcript-text">开源的SDK也有我们一些探针的方案就是说把一些探针动态地挂载到这个应用里面就AM应用它可以比如说是JavaPython构建的这种应用它可以通过探针打到这个应用里面去它能够动态地采集这些数据然后同时呢在模型内部我们发现很多模型它都是VM或SGLang这种推理加速框架去拉起来的模型那它其实也是个Python应用我们可以把探针挂在这里去采集这个在模型内部的推理的一些流程能够去采集它的细节的信息同时在GPU层面也可以去采集这些GPU的一些使用的一些信息有了这些数据的话我们可以进行下面的三个处理然后就是我们应该要关注哪些就是关键指标这里可以简单介绍一下首先在应用里面在agent里面原来的微服务时代我们可能的黄金三指标是RED</p></div></section><section class="transcript-day" data-chapter="10" id="agent-transcript-10"><div class="section-head"><h2>10 · TED、TTFT、TPOT 与 Trace</h2><p>21:50–24:10</p></div><p>视频提出用 Token/Error/Duration 补充传统 RED，并用 TTFT、TPOT、KV Cache 命中率区分 prefill 与 decode；单次 trace 关联工作流节点、耗时、token 和模型内部阶段。</p><div class="transcript-block" data-chapter="10"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1320" target="_blank" rel="noreferrer">22:00</a></div><p class="transcript-text">就是RequestErrorDuration但是现在我们发现在AI应用里面更关键的是我们的token我们其实把这个换掉叫TEDtokenerror和duration是最关键的三个指标我们需要关注的那在模型这边推理加速的时候其实有两个非常关键的指标需要关注一个叫ttfttimetofirsttoken一个叫tpottimeperoutputtoken第一个指标它取决于什么就是我们的上下文input给到模型到模型吐出第一个token的时间这个叫做手包延迟时间它决定了我们的模型推理的流畅度然后第二个呢就是从第一个手包出来以后再到它把所有的包都出来玩那中间在除以它平均的这个耗时得到一个数叫做TPOT就是说我手包延迟以后我平均的每包的那个传输时间这个反映的就是decode的阶段</p></div><div class="transcript-block" data-chapter="10"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1380" target="_blank" rel="noreferrer">23:00</a></div><p class="transcript-text">在模型decode的阶段的一个关键性的所以这两个指标是一定要关注的然后像关键的一些模型推理的阶段像KVCache的缓存命中率以及GPU的一些利用率等等包括一些吞吐的能力那在评估的场景下主要是要关注像准确性啊偏见毒性就是这个下一面有一个slide会介绍然后在刚才说了指标嘛现在是就是还有一个trace就是trace呢能够帮我们去非常清晰地看到一次的模型推理调用内部它的一个实时的运行状况到底经过了哪些节点对吧在这里怎么看呢就是比如说我们通过标准的OpenTelemetry的tracing协议我们可以采集到每一个关键的环节这个截图里面呢就是我是用一个define的demodefine搭起来的一个workflow加上它去调用一个VLM7B的一个模型那么通过这个trace调用量首先可以看到它的时间然后总的token消耗</p></div><div class="transcript-block" data-chapter="10"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1440" target="_blank" rel="noreferrer">24:00</a></div><p class="transcript-text">以及它的input是什么output是什么然后每一个define的下面的workflow的关键的那个节点的信息以及它的耗时分别是什么看到耗时比较长的是在这个LM调用在这里它token消耗是这么多再到模型内部通过我们的全链路的tracing的能力把模型内部的一些消耗也会给你反映出来通过这个trace能够去准确地看到我们每一次执行的情况然后就是评估评估也是在AIagent这个场景下非常重要的一个概念就是它相当于我们传统的软件开发里面的一个回归测试我认为并且这个流程它是一个这种循环的结构而不是一个一次性的行为首先我们在开发阶段开发诸位给进了之后我们有一个通过tracing我们有一个通过tracing和模型的输入输出能够对它进行一个初步的一个评估吧然后这个评估的话会有两种类型一种叫做人工的评估</p></div></section><section class="transcript-day" data-chapter="11" id="agent-transcript-11"><div class="section-head"><h2>11 · 评测作为持续回归测试</h2><p>24:10–28:00</p></div><p>开发早期使用人工和已知答案样例，稳定后引入 LLM-as-a-Judge；上线后持续抽取 traces，并分别评价 planning、工具选择/参数和 RAG 召回质量。</p><div class="transcript-block" data-chapter="11"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1500" target="_blank" rel="noreferrer">25:00</a></div><p class="transcript-text">它比较适合在AI应用开发的前期去进行就是它的首先就是说需要去人为的核对我们的这个AI应用是不是挑选我们首先挑选一些固定的一些case并且是我们知道这个模型的返回是明确知道结果的那种case然后人为地去评估运行的结果是不是在这个过程中满足我们的预期的当它到达一定的稳态以后我们可以把它转为一个叫LM的就是用第三方的模型来帮我们进行评估这样的话可以提升更好的一个扩展性和提升一个效率当然这个流程的话到了评估完成以后到了线上部署我们会线上持续地去追踪这个线上的数据就刚才说的指标tracing以及日志等等一些能力去反馈和优化我们的agent然后再通过agent不断地去迭代这循环往复那么在评估的时候有哪些重点要关注的地方</p></div><div class="transcript-block" data-chapter="11"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1560" target="_blank" rel="noreferrer">26:00</a></div><p class="transcript-text">就是我分了三个阶段一个叫planningplanning就是我在模型在拆分任务或者说agent在拆分任务的时候它到底拆分的准不准确有没有重复的或者有没有准确的最短路径或者说是它绕了弯路等等这些方向是我们需要去评估的重点要考虑的一些要素还有一块是工具的调用因为很多时候模型的输入不稳定很多时候是因为那个tools调用是有问题的它没有选择正确的tools第一个第二个是它可能在tools参数识别的时候识别的不准确传递给了错误的信息这些东西都是我们要在评估阶段关键要考虑的还有像RAG的阶段就是在召回的过程中需要去关注它的语料的一些照回是不是有相关性是不是有这个重复等等那有了这些以后我们可以通过这些数据送到一个可观测平台这个平台里面呢我们可以去持续地自动化地定时地去抽取一些</p></div><div class="transcript-block" data-chapter="11"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1620" target="_blank" rel="noreferrer">27:00</a></div><p class="transcript-text">线上的运行的数据然后对它进行一些因为这些数据都是一些评估的模板我们定义好了这些模板以后就可以自动化地在线上持续运行了然后它可以把这些东西打成一个分数比如说这个是不是一分一分就是做得非常好零分就是做得不好那可能最后就变成一个零到一的一个数字能够帮助我们去数字化的去分析对OK然后就是关于刚才说的一套可观测的东西呢就是这里跟大家介绍一下最近我们刚刚发布了一个开源项目就是叫做LongSuite这个Long就是中文的那个龙的意思然后这个Suite就是采集套件的意思我们希望基于开源的OpenTelemetry社区的一些基础上我们提供了针对AIAgent开发所需要的各种框架的一些可自动化采集的探针能力比如说有Java的有Go的和Python的探针这些探针针对我们刚才说的</p></div></section><section class="transcript-day" data-chapter="12" id="agent-transcript-12"><div class="section-head"><h2>12 · LoongSuite 与开源项目路线</h2><p>28:00–29:50</p></div><p>LoongSuite 基于 OpenTelemetry 为 Java、Go、Python 和 AI 框架提供探针；结尾串联 Spring AI Alibaba、Higress、Nacos、RocketMQ 与 A2A/评测能力规划。</p><div class="transcript-block" data-chapter="12"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1680" target="_blank" rel="noreferrer">28:00</a></div><p class="transcript-text">用不同语言开发出来的Agent能够去自动捕获它的一些数据包括指标Trace还有日志InputOutput这些东西可以送到开源的一些存储比如说任何的OTLP就是标准的OpenTelemetry协议兼容的一个控制台比如说Jaeger或者是Elasticsearch这些也可以报到一个上播到云服务上面通过云平台来帮你去完成这些数据的存储和展示和托管那基于它们来完成这个刚才说的性能成本和质量的一个分析和评估对然后最后的就是简单介绍一下就是咱们这边几个开源项目的一些规划这些都是开源项目然后像SpringAIAlibaba的话我们后面会去做一些包括A2A协议的支持还有会做一个评估控制一个控制台来提升我们整体的开发调试和评估的一个效率像这个HiGras的话会去增强我们的一些AI插件</p></div><div class="transcript-block" data-chapter="12"><div class="transcript-time"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1740" target="_blank" rel="noreferrer">29:00</a></div><p class="transcript-text">还有一些RAG的一些插件像Nacos的话现在会做就是也在近期3.X的版本里面会提供这个动态prop还有A2A协议的一些支持能力刚才说的RocketMQ的一些能力也会在近期一两个月内刚才讲到的那种把它发布到开源社区然后从LoongSuite的话它是会去针对更多主流的开源框架比如说那个Python的很多的一些框架现在我们最近刚刚在做这个DeFi开源就是DeFi的这个可观测性的支持这个马上就会上线这个在开源里面已经有PR在做了然后还有一些A2A协议还有端端端的可观测性的一些支持对OK好那我这边的分享因为时间仍然正好也到此结束了好</p></div></section>
+<script>
+const agentFilter = document.getElementById('agent-transcript-filter');
+const agentChapter = document.getElementById('agent-transcript-chapter');
+const agentBlocks = [...document.querySelectorAll('.transcript-block')];
+const agentSections = [...document.querySelectorAll('.transcript-day')];
+const agentCount = document.getElementById('agent-transcript-count');
+function filterAgentTranscript() {
+  const query = agentFilter.value.trim().toLowerCase();
+  const chapter = agentChapter.value;
+  let visible = 0;
+  agentBlocks.forEach((block) => {
+    const match = (!chapter || block.dataset.chapter === chapter) && block.textContent.toLowerCase().includes(query);
+    block.hidden = !match;
+    if (match) visible += 1;
+  });
+  agentSections.forEach((section) => {
+    section.hidden = ![...section.querySelectorAll('.transcript-block')].some((block) => !block.hidden);
+  });
+  agentCount.textContent = `显示 ${visible} 个分钟段落。`;
+}
+agentFilter.addEventListener('input', filterAgentTranscript);
+agentChapter.addEventListener('change', filterAgentTranscript);
+</script>
+</main>
+<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；CS336 官方讲义、作业仓库与自动字幕另保留本地快照。</footer>
+</body></html>

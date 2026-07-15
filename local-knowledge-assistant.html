@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Knowledge Assistant | Local</title>
+  <meta name="description" content="本地个人知识助手，用精选方法卡辅助学习、决策、项目和复盘。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="tutor-app knowledge-assistant-app">
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="app-header">
+    <nav class="app-header-inner" aria-label="Primary navigation">
+      <a class="app-brand" href="local-knowledge-assistant.html" aria-label="个人知识助手首页">
+        <span class="app-brand-mark" aria-hidden="true"><i data-lucide="library-big"></i></span>
+        <span>
+          <strong>Knowledge Assistant</strong>
+          <small>Local method workspace</small>
+        </span>
+      </a>
+      <div class="app-health" role="status">
+        <span class="health-dot" aria-hidden="true"></span>
+        Local KB · <span id="header-kb-count">0 cards</span>
+      </div>
+      <div class="app-header-links">
+        <a href="index.html">Public site</a>
+        <a href="business-tutor-agent.html">Business Tutor</a>
+        <a class="active" href="local-knowledge-assistant.html">Knowledge</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page app-shell">
+    <aside class="sidebar app-sidebar" aria-label="助手导航">
+      <div class="sidebar-product">
+        <div class="avatar" aria-hidden="true"><i data-lucide="brain"></i></div>
+        <div>
+          <strong>日常助手</strong>
+          <span>学习 · 决策 · 项目 · 复盘</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav" aria-label="页面导航">
+        <a class="active" href="#assistant-workbench"><i data-lucide="panel-top"></i><span>工作台</span></a>
+        <a href="#method-library"><i data-lucide="library"></i><span>方法库</span></a>
+        <a href="#daily-loop"><i data-lucide="repeat-2"></i><span>实践闭环</span></a>
+        <a href="#source-boundary"><i data-lucide="book-open-check"></i><span>来源边界</span></a>
+      </nav>
+      <div class="sidebar-boundary">
+        <i data-lucide="shield-check" aria-hidden="true"></i>
+        <div>
+          <strong>本地优先</strong>
+          <span>输入只保存在当前浏览器。</span>
+        </div>
+      </div>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro app-intro">
+        <div>
+          <p class="eyebrow">Personal method workspace</p>
+          <h1>把当前问题转成可调查、可实践、可复盘的下一步。</h1>
+          <p>助手检索本地摘要级方法卡。它不替你拍板，只负责找主要问题、设计最小行动并留下复盘标准。</p>
+        </div>
+        <div class="intro-facts" aria-label="能力说明">
+          <span><i data-lucide="hard-drive"></i>本地运行</span>
+          <span><i data-lucide="search"></i>方法检索</span>
+          <span><i data-lucide="file-down"></i>Markdown 导出</span>
+        </div>
+      </section>
+
+      <section id="assistant-workbench" class="workspace-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h2>个人知识工作台</h2>
+          </div>
+          <span class="workspace-badge"><i data-lucide="workflow"></i>Evidence to action</span>
+        </div>
+
+        <div class="workspace-grid">
+          <div class="workspace-panel composer-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-kicker">Input</span>
+                <h3>描述当前问题</h3>
+              </div>
+              <span class="draft-state" id="draft-status"><i data-lucide="cloud-check"></i>已自动保存</span>
+            </div>
+
+            <div class="mode-block">
+              <span class="field-label" id="mode-label">应用模式</span>
+              <div class="segmented-control" role="group" aria-labelledby="mode-label">
+                <button type="button" class="mode-segment active" data-mode="learn" aria-pressed="true"><i data-lucide="graduation-cap"></i><span>学习</span></button>
+                <button type="button" class="mode-segment" data-mode="decide" aria-pressed="false"><i data-lucide="scale"></i><span>决策</span></button>
+                <button type="button" class="mode-segment" data-mode="project" aria-pressed="false"><i data-lucide="kanban-square"></i><span>项目</span></button>
+                <button type="button" class="mode-segment" data-mode="review" aria-pressed="false"><i data-lucide="history"></i><span>复盘</span></button>
+              </div>
+              <p class="mode-description" id="mode-description">把学习目标连接到真实任务、最小作品和反馈循环。</p>
+            </div>
+
+            <div class="brief-field">
+              <div class="field-heading">
+                <label class="field-label" for="question-input">问题、目标或最近一次行动</label>
+                <button type="button" class="text-button" id="load-example"><i data-lucide="wand-sparkles"></i>载入示例</button>
+              </div>
+              <textarea id="question-input" class="agent-input" rows="9" maxlength="3000" placeholder="例如：未来 30 天如何系统学习 RAG，并产出一个能放进求职作品集的项目？"></textarea>
+              <div class="field-meta">
+                <span>建议写清目标、期限、已知事实和限制。</span>
+                <span id="input-counter">0 / 3000</span>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <button type="button" class="primary-action" id="analyze-question"><i data-lucide="scan-search"></i>分析并生成下一步</button>
+              <button type="button" class="secondary-action" id="retrieve-methods"><i data-lucide="database-search"></i>只检索方法</button>
+              <button type="button" class="secondary-action" id="daily-review"><i data-lucide="calendar-check-2"></i>今日复盘</button>
+              <div class="utility-actions">
+                <button type="button" class="icon-button danger" id="clear-workbench" aria-label="清空工作台" data-tooltip="清空工作台"><i data-lucide="trash-2"></i></button>
+              </div>
+            </div>
+            <p class="status-line" id="status-line" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="workspace-panel result-panel">
+            <div class="panel-header result-header">
+              <div>
+                <span class="panel-kicker">Output</span>
+                <h3 id="output-title">等待开始</h3>
+              </div>
+              <div class="result-actions">
+                <button type="button" class="icon-button" id="copy-output" aria-label="复制结果" data-tooltip="复制结果"><i data-lucide="copy"></i></button>
+                <button type="button" class="icon-button" id="download-output" aria-label="下载 Markdown" data-tooltip="下载 Markdown"><i data-lucide="download"></i></button>
+              </div>
+            </div>
+            <pre class="agent-output empty" id="assistant-output"># 等待开始
+
+输入一个真实问题，选择模式，然后生成下一步。
+
+助手不会替你做最终决定。它会帮助你：
+- 区分事实、推断和未知项
+- 找到当前主要矛盾
+- 设计最小调查或实践
+- 设定继续、改变和停止标准</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="method-library" class="support-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Method library</p>
+            <h2>本地方法卡</h2>
+          </div>
+          <span class="section-note" id="kb-result-count">0 cards</span>
+        </div>
+        <div class="assistant-search-row">
+          <label class="visually-hidden" for="method-search">搜索方法卡</label>
+          <input id="method-search" class="agent-select assistant-search-input" type="search" placeholder="搜索：调查、主要矛盾、RAG、验证、复盘">
+          <button type="button" class="secondary-action" id="search-methods"><i data-lucide="search"></i>搜索</button>
+        </div>
+        <div class="kb-panel" id="kb-panel"></div>
+      </section>
+
+      <section id="daily-loop" class="support-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Operating loop</p>
+            <h2>七步实践闭环</h2>
+          </div>
+          <span class="section-note">调查 · 聚焦 · 实践 · 修正</span>
+        </div>
+        <div class="method-stack assistant-method-stack">
+          <article><span>01</span><h3>定义任务</h3><p>写清对象、结果、期限和评价标准。</p></article>
+          <article><span>02</span><h3>调查事实</h3><p>区分事实、推断、未知项和来源。</p></article>
+          <article><span>03</span><h3>分析矛盾</h3><p>列出冲突、约束、参与者和阶段。</p></article>
+          <article><span>04</span><h3>找到关键</h3><p>选择最能改变全局的当前约束。</p></article>
+          <article><span>05</span><h3>最小实践</h3><p>用最低成本行动检验关键判断。</p></article>
+          <article><span>06</span><h3>收集反馈</h3><p>记录真实行为、反证和意外结果。</p></article>
+          <article><span>07</span><h3>修正再行动</h3><p>决定继续、改变、推广或停止。</p></article>
+        </div>
+      </section>
+
+      <section id="source-boundary" class="sources-section">
+        <details>
+          <summary>
+            <span><i data-lucide="book-open" aria-hidden="true"></i><strong>来源、方法与使用边界</strong></span>
+            <span>展开查看</span>
+          </summary>
+          <div class="source-list">
+            <p>默认先调用 18 张跨来源“核心主线”卡，再按问题下钻《毛泽东选集》、一堂、Levels.io、WaytoAGI、Latent.Space、Jeannen、Dwarkesh 与 Truman 等专题来源。</p>
+            <p>《毛选》内容按现代个人学习与项目场景重新组织。历史语境中的对抗语言不直接迁移到个人关系；多数意见不替代证据；聚焦中心任务不覆盖安全、法律和伦理底线。</p>
+            <p>知识库结构参考 PARA 的行动性分类、渐进式摘要，以及 Obsidian 的 Properties、Internal Links 和 Search。</p>
+            <p><a href="notes/00-personal-knowledge-master-map.md">打开全库总地图</a> · <a href="notes/mao-selected-works-methodology.md">打开《毛选》方法论 MOC</a> · <a href="knowledge/README.md">打开知识库 README</a></p>
+          </div>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer app-footer">
+    <span><i data-lucide="hard-drive" aria-hidden="true"></i>127.0.0.1 本地运行 · 草稿保存在当前浏览器</span>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@1.23.0/dist/umd/lucide.min.js"></script>
+  <script src="knowledge/yitang-business-kb.js"></script>
+  <script src="knowledge/mao-method-kb.js"></script>
+  <script src="knowledge/levels-indie-kb.js"></script>
+  <script src="knowledge/waytoagi-method-kb.js"></script>
+  <script src="knowledge/latent-space-reading-kb.js"></script>
+  <script src="knowledge/ai-engineering-method-kb.js"></script>
+  <script src="knowledge/core-method-kb.js"></script>
+  <script>
+    const modeConfig = {
+      learn: {
+        label: "学习",
+        description: "把学习目标连接到真实任务、最小作品和反馈循环。",
+        boosts: ["学习", "实践", "调查研究", "资料萃取", "表达"]
+      },
+      decide: {
+        label: "决策",
+        description: "区分事实与推断，寻找主要矛盾、可逆性和转折条件。",
+        boosts: ["主要矛盾", "决策", "战略", "阶段", "证据"]
+      },
+      project: {
+        label: "项目",
+        description: "从目标到试点、反馈、推广条件和责任闭环。",
+        boosts: ["试点", "MVP", "验证", "执行", "反馈", "中心工作"]
+      },
+      review: {
+        label: "复盘",
+        description: "用结果和反证更新判断，决定继续、改变或停止。",
+        boosts: ["复盘", "实践", "反馈", "迭代", "停止条件"]
+      }
+    };
+
+    const coreCards = window.CORE_METHOD_KB || [];
+    const maoCards = window.MAO_METHOD_KB || [];
+    const businessCards = (window.YITANG_BUSINESS_KB || []).map((card) => ({ ...card, domain: card.domain || "商业" }));
+    const levelsCards = window.LEVELS_INDIE_KB || [];
+    const waytoagiCards = window.WAYTOAGI_METHOD_KB || [];
+    const latentSpaceCards = window.LATENT_SPACE_READING_KB || [];
+    const engineeringCards = window.AI_ENGINEERING_METHOD_KB || [];
+    const allCards = [...coreCards, ...maoCards, ...businessCards, ...levelsCards, ...waytoagiCards, ...latentSpaceCards, ...engineeringCards];
+    const storageKey = "personal-knowledge-assistant-v1";
+    let currentMode = "learn";
+
+    const input = document.getElementById("question-input");
+    const output = document.getElementById("assistant-output");
+    const outputTitle = document.getElementById("output-title");
+    const statusLine = document.getElementById("status-line");
+    const kbPanel = document.getElementById("kb-panel");
+    const resultCount = document.getElementById("kb-result-count");
+    const modeDescription = document.getElementById("mode-description");
+    const draftStatus = document.getElementById("draft-status");
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[char]));
+    }
+
+    function tokenize(value) {
+      return Array.from(new Set(String(value).toLowerCase().split(/[^\u4e00-\u9fa5a-z0-9]+/).filter((term) => term.length > 1)));
+    }
+
+    function cardText(card) {
+      return `${card.title} ${(card.tags || []).join(" ")} ${card.summary} ${card.mentorUse} ${(card.questions || []).join(" ")}`.toLowerCase();
+    }
+
+    function retrieve(query, limit = 8, requireQueryMatch = false) {
+      const terms = tokenize(query);
+      const boosts = modeConfig[currentMode].boosts;
+      return allCards.map((card) => {
+        const text = cardText(card);
+        let score = 0;
+        let queryScore = 0;
+        terms.forEach((term) => {
+          if (text.includes(term)) {
+            const termScore = term.length > 2 ? 4 : 2;
+            score += termScore;
+            queryScore += termScore;
+          }
+        });
+        boosts.forEach((term) => {
+          if (text.includes(term.toLowerCase())) score += 3;
+        });
+        if (card.priority === "core") score += 5;
+        if (card.domain === "方法论") score += 2;
+        return { ...card, score, queryScore };
+      }).filter((card) => !requireQueryMatch || card.queryScore > 0)
+        .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, "zh-CN")).slice(0, limit);
+    }
+
+    function renderCards(cards) {
+      resultCount.textContent = `${cards.length} / ${allCards.length} cards`;
+      if (!cards.length) {
+        kbPanel.innerHTML = '<article><div class="kb-empty-icon"><i data-lucide="search-x"></i></div><h3>没有命中</h3><p>换一个更具体的问题、场景或约束。</p></article>';
+        refreshIcons();
+        return;
+      }
+      kbPanel.innerHTML = cards.map((card) => `
+        <article>
+          <div class="kb-card-top">
+            <div class="kb-meta">${card.sourceUrl ? `<a href="${escapeHtml(card.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(card.source)} <i data-lucide="external-link"></i></a>` : escapeHtml(card.source)}</div>
+            <span class="score-chip">${card.score || card.domain}</span>
+          </div>
+          <h3>${escapeHtml(card.title)}</h3>
+          <p>${escapeHtml(card.summary)}</p>
+          <strong>应用方式</strong>
+          <p>${escapeHtml(card.mentorUse)}</p>
+        </article>
+      `).join("");
+      refreshIcons();
+    }
+
+    function methodMarkdown(cards) {
+      return cards.map((card, index) => [
+        `${index + 1}. ${card.title}`,
+        `   - 来源：${card.source}${card.sourceUrl ? ` (${card.sourceUrl})` : ""}`,
+        `   - 方法：${card.summary}`,
+        `   - 应用：${card.mentorUse}`,
+        `   - 追问：${(card.questions || []).slice(0, 2).join("；")}`
+      ].join("\n")).join("\n");
+    }
+
+    function requireInput() {
+      const value = input.value.trim();
+      if (value) return value;
+      setStatus("请先写下一个真实问题或最近一次行动。", "error");
+      input.focus();
+      return null;
+    }
+
+    function renderOutput(text, title) {
+      output.textContent = text;
+      output.classList.remove("empty");
+      outputTitle.textContent = title;
+      output.scrollTop = 0;
+      saveWorkspace();
+    }
+
+    function analyze() {
+      const question = requireInput();
+      if (!question) return;
+      const cards = retrieve(question, 6);
+      renderCards(cards);
+      const today = new Date().toISOString().slice(0, 10);
+      const text = [
+        `# ${modeConfig[currentMode].label}行动卡`, "",
+        `日期：${today}`, "",
+        "## 当前问题", "", question, "",
+        "## 事实、推断与未知项", "",
+        "- 已知事实：只写可以回指来源、行为或数据的内容。",
+        "- 当前推断：写出你暂时相信但仍可能错误的解释。",
+        "- 关键未知：哪条未知一旦查清，会改变选择？", "",
+        "## 当前主要矛盾", "",
+        "- 候选约束：需求 / 能力 / 时间 / 现金流 / 分发 / 协作 / 信息。",
+        "- 选择标准：哪个约束改变后，其他问题会显著缓解？",
+        "- 转换条件：何时需要重新判断主要矛盾？", "",
+        "## 检索到的方法", "", methodMarkdown(cards), "",
+        "## 最小调查或实践", "",
+        "1. 选择一个 30-90 分钟能完成的调查或行动。",
+        "2. 事先写出支持、反对当前判断的证据标准。",
+        "3. 记录真实结果和意外，不只记录感受。", "",
+        "## 继续、改变、停止", "",
+        "- 继续：出现什么行为或结果？",
+        "- 改变：哪些反证要求修改方法？",
+        "- 停止：达到什么期限或成本后不再投入？", "",
+        "## 复盘日期", "", `- 建议：${today} 起 7 天内完成一次复盘。`
+      ].join("\n");
+      renderOutput(text, `${modeConfig[currentMode].label}行动卡`);
+      setStatus("已生成行动卡。");
+    }
+
+    function retrieveOnly() {
+      const question = requireInput();
+      if (!question) return;
+      const cards = retrieve(question, 10);
+      renderCards(cards);
+      renderOutput(["# 方法检索结果", "", methodMarkdown(cards)].join("\n"), "方法检索");
+      setStatus("已完成本地方法检索。");
+    }
+
+    function dailyReview() {
+      currentMode = "review";
+      updateModeUI("review");
+      const context = input.value.trim() || "今天的学习、工作和生活行动";
+      const cards = retrieve(context, 5);
+      renderCards(cards);
+      const today = new Date().toISOString().slice(0, 10);
+      renderOutput([
+        `# 今日复盘 ${today}`, "",
+        "## 1. 实践", "- 今天实际完成了什么？不要写计划。", "",
+        "## 2. 结果", "- 出现了哪些可观察结果、反馈或反证？", "",
+        "## 3. 主要矛盾", "- 今天真正限制进展的因素是什么？它和早上的判断一致吗？", "",
+        "## 4. 认识更新", "- 哪个判断被支持、被削弱或需要放弃？", "",
+        "## 5. 明日中心任务", "- 明天唯一最重要的可交付成果是什么？", "",
+        "## 6. 最小行动", "- 明天开始后的前 30 分钟具体做什么？", "",
+        "## 参考方法", "", methodMarkdown(cards)
+      ].join("\n"), "今日复盘");
+      setStatus("已生成今日复盘模板。");
+    }
+
+    function updateModeUI(mode) {
+      currentMode = mode;
+      document.querySelectorAll(".mode-segment").forEach((button) => {
+        const active = button.dataset.mode === mode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      modeDescription.textContent = modeConfig[mode].description;
+      saveWorkspace();
+    }
+
+    function setStatus(message, type = "success") {
+      statusLine.textContent = message;
+      statusLine.dataset.type = type;
+      window.clearTimeout(setStatus.timer);
+      setStatus.timer = window.setTimeout(() => {
+        statusLine.textContent = "";
+        delete statusLine.dataset.type;
+      }, 2400);
+    }
+
+    function saveWorkspace() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          input: input.value,
+          mode: currentMode,
+          output: output.textContent,
+          outputTitle: outputTitle.textContent
+        }));
+        draftStatus.innerHTML = '<i data-lucide="cloud-check"></i>已自动保存';
+        refreshIcons();
+      } catch (error) {
+        draftStatus.textContent = "本地保存不可用";
+      }
+    }
+
+    function queueSave() {
+      draftStatus.innerHTML = '<i data-lucide="cloud-upload"></i>正在保存';
+      refreshIcons();
+      window.clearTimeout(queueSave.timer);
+      queueSave.timer = window.setTimeout(saveWorkspace, 320);
+    }
+
+    function restoreWorkspace() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+        if (!saved) return;
+        input.value = saved.input || "";
+        updateModeUI(saved.mode || "learn");
+        if (saved.output) renderOutput(saved.output, saved.outputTitle || "分析结果");
+      } catch (error) {
+        localStorage.removeItem(storageKey);
+      }
+    }
+
+    async function copyOutput() {
+      if (output.classList.contains("empty")) return setStatus("暂无可复制结果。", "error");
+      try {
+        await navigator.clipboard.writeText(output.textContent);
+        setStatus("结果已复制。");
+      } catch (error) {
+        setStatus("浏览器限制了复制权限，请手动复制。", "error");
+      }
+    }
+
+    function downloadOutput() {
+      if (output.classList.contains("empty")) return setStatus("请先生成结果。", "error");
+      const blob = new Blob([output.textContent], { type: "text/markdown;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `knowledge-assistant-${new Date().toISOString().slice(0, 10)}.md`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+      setStatus("Markdown 已下载。");
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === "function") {
+        window.lucide.createIcons({ attrs: { "stroke-width": 1.8 } });
+      }
+    }
+
+    document.querySelectorAll(".mode-segment").forEach((button) => button.addEventListener("click", () => updateModeUI(button.dataset.mode)));
+    input.addEventListener("input", () => {
+      document.getElementById("input-counter").textContent = `${input.value.length} / 3000`;
+      queueSave();
+    });
+    document.getElementById("analyze-question").addEventListener("click", analyze);
+    document.getElementById("retrieve-methods").addEventListener("click", retrieveOnly);
+    document.getElementById("daily-review").addEventListener("click", dailyReview);
+    document.getElementById("copy-output").addEventListener("click", copyOutput);
+    document.getElementById("download-output").addEventListener("click", downloadOutput);
+    document.getElementById("search-methods").addEventListener("click", () => {
+      const query = document.getElementById("method-search").value.trim();
+      renderCards(retrieve(query || modeConfig[currentMode].boosts.join(" "), 12, Boolean(query)));
+    });
+    document.getElementById("method-search").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") document.getElementById("search-methods").click();
+    });
+    document.getElementById("load-example").addEventListener("click", () => {
+      const examples = {
+        learn: "未来 30 天如何系统学习 RAG，并产出一个能放进求职作品集的项目？我有 Python 和 CV 经验，每周可投入 8 小时，但资料很多、实践不足。",
+        decide: "我需要在继续完善个人主页、集中求职、做 AI 商业陪练 MVP 三者之间确定未来两周的主次顺序。",
+        project: "我想把现有课程方法库做成本地个人助手，但还不清楚最小可用范围、验证用户和停止条件。",
+        review: "本周整理了很多笔记，也做了网页工作台，但没有形成对外作品或真实用户反馈。"
+      };
+      input.value = examples[currentMode];
+      input.dispatchEvent(new Event("input"));
+      input.focus();
+      setStatus("已载入示例。", "neutral");
+    });
+    document.getElementById("clear-workbench").addEventListener("click", () => {
+      if ((input.value || !output.classList.contains("empty")) && !window.confirm("清空工作台和本地草稿？")) return;
+      input.value = "";
+      output.textContent = "# 等待开始\n\n输入一个真实问题，选择模式，然后生成下一步。";
+      output.classList.add("empty");
+      outputTitle.textContent = "等待开始";
+      localStorage.removeItem(storageKey);
+      document.getElementById("input-counter").textContent = "0 / 3000";
+      renderCards(coreCards.slice(0, 12));
+      setStatus("工作台已清空。", "neutral");
+    });
+
+    const observedSections = [...document.querySelectorAll("main section[id]")];
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        document.querySelectorAll(".sidebar-nav a").forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`));
+      }, { rootMargin: "-20% 0px -65%", threshold: [0.01, 0.25, 0.6] });
+      observedSections.forEach((section) => observer.observe(section));
+    }
+
+    restoreWorkspace();
+    updateModeUI(currentMode);
+    document.getElementById("input-counter").textContent = `${input.value.length} / 3000`;
+    document.getElementById("header-kb-count").textContent = `${allCards.length} cards`;
+    renderCards(coreCards.slice(0, 12));
+    refreshIcons();
+  </script>
+</body>
+</html>

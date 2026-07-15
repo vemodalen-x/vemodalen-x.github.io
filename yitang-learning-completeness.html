@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>一堂学习完整性审计</title>
+  <meta name="description" content="一堂当前可访问课程、Candy、图像和 AI 教练的本地学习完整性审计。">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #667085;
+      --line: #d9dee7;
+      --soft: #f5f7fa;
+      --paper: #ffffff;
+      --green: #13795b;
+      --green-soft: #e9f6f1;
+      --blue: #2457c5;
+      --blue-soft: #edf3ff;
+      --amber: #a15c00;
+      --amber-soft: #fff3dd;
+      --red: #b42318;
+      --red-soft: #fff0ee;
+      --shadow: 0 8px 24px rgba(23, 32, 42, .06);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a { color: var(--blue); }
+
+    .app-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      padding: 10px clamp(18px, 4vw, 54px);
+      background: rgba(255, 255, 255, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .app-bar strong { font-size: 16px; }
+
+    .app-bar nav { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .app-bar nav a {
+      padding: 7px 9px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      border-radius: 6px;
+    }
+
+    .app-bar nav a:hover { color: var(--ink); background: var(--soft); }
+
+    main { width: min(1220px, calc(100% - 32px)); margin: 24px auto 56px; }
+
+    .page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: end;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 { margin-bottom: 9px; font-size: clamp(28px, 4vw, 42px); line-height: 1.14; }
+
+    .page-head p { max-width: 760px; margin-bottom: 0; color: var(--muted); line-height: 1.7; }
+
+    .audit-date { color: var(--muted); font-size: 13px; white-space: nowrap; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      min-height: 112px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric strong { display: block; margin-bottom: 8px; font-size: 27px; }
+    .metric span { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .metric.good strong { color: var(--green); }
+    .metric.warn strong { color: var(--amber); }
+
+    .scope-note {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--amber-soft);
+      border: 1px solid #f0cf94;
+      border-radius: 8px;
+      color: #68410d;
+      line-height: 1.65;
+    }
+
+    .scope-note b { font-size: 18px; }
+
+    section { padding: 30px 0 0; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 { margin-bottom: 4px; font-size: 22px; }
+    .section-head p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+
+    .table-shell {
+      overflow-x: auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    table { width: 100%; border-collapse: collapse; min-width: 850px; }
+    th, td { padding: 13px 15px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); background: #fafbfc; font-size: 12px; font-weight: 700; }
+    td { font-size: 13px; line-height: 1.55; }
+    tr:last-child td { border-bottom: 0; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .coach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .coach {
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .coach-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .coach h3 { margin-bottom: 12px; font-size: 17px; }
+    .coach ol { margin: 0; padding-left: 20px; color: #344054; font-size: 13px; line-height: 1.65; }
+    .coach p { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    figure {
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: #eef1f5;
+    }
+
+    figcaption { padding: 12px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    figcaption strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 13px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .panel {
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h3 { margin-bottom: 12px; font-size: 16px; }
+    .panel ul { margin: 0; padding-left: 20px; color: #344054; font-size: 13px; line-height: 1.75; }
+    .panel a { overflow-wrap: anywhere; }
+
+    .gap-panel { background: var(--red-soft); border-color: #f5c5c0; }
+    .gap-panel h3 { color: var(--red); }
+
+    footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.65; }
+
+    @media (max-width: 980px) {
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .coach-grid, .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .app-bar { align-items: flex-start; }
+      .app-bar nav { display: none; }
+      main { width: min(100% - 20px, 1220px); margin-top: 16px; }
+      .page-head { grid-template-columns: 1fr; gap: 10px; }
+      .metrics, .coach-grid, .gallery, .two-col { grid-template-columns: 1fr; }
+      .metric { min-height: 94px; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-bar">
+    <strong>一堂学习审计</strong>
+    <nav aria-label="页面导航">
+      <a href="#courses">课程</a>
+      <a href="#coaches">AI 教练</a>
+      <a href="#visuals">图像</a>
+      <a href="#artifacts">本地资料</a>
+      <a href="yitang-ai-muse-framework.html">MUSE</a>
+      <a href="business-tutor-agent.html">Business Tutor</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Authenticated learning coverage</p>
+        <h1>一堂课程与 AI 教练完整性审计</h1>
+        <p>核对当前账号可见课程、课内条目、Candy、课件图片和四类 AI 教练流程。数字只表示可验证的本地覆盖，不把权限外内容写成已学习。</p>
+      </div>
+      <div class="audit-date">审计日期 2026-07-15</div>
+    </div>
+
+    <div class="metrics" aria-label="完整性指标">
+      <article class="metric good"><strong>5 / 5</strong><span>当前“我的课程”可见课程已完成本地学习覆盖</span></article>
+      <article class="metric good"><strong>35 / 35</strong><span>22 个主课条目与 13 个 Candy 均有摘要或审计记录</span></article>
+      <article class="metric good"><strong>333 / 333</strong><span>通用课件图像：330 直接缓存，3 张登录浏览器截取</span></article>
+      <article class="metric good"><strong>4 / 4</strong><span>教学官、科学决策、人生红点与 Truman 复盘完整实测</span></article>
+      <article class="metric warn"><strong>5 / 176</strong><span>平台总目录中当前账号可见的课程范围</span></article>
+    </div>
+
+    <div class="scope-note" role="note">
+      <b>!</b>
+      <div><strong>范围边界：</strong>五个课程页均显示课程/作业完成与 Candy 解锁；账号底层字段仍为已选 2、已完成 2、非会员。其余 171 门没有正文访问依据，因此不声称已学习。</div>
+    </div>
+    <div class="scope-note" role="note">
+      <b>+</b>
+      <div><strong>补充课程：</strong>《聪明精益：张磊的 3 个业务实验》作业已提交（answerId 1680021），3 个 Candy、4 篇文档和飞书表格 3 个工作表已完成本地学习覆盖；该课程独立记账，不改写“我的课程”5/176口径。</div>
+    </div>
+
+    <section id="courses">
+      <div class="section-head">
+        <div><h2>当前课程</h2><p>课程页状态与本地成果交叉核对</p></div>
+        <span class="status">可见范围 100%</span>
+      </div>
+      <div class="table-shell">
+        <table>
+          <thead><tr><th>课程</th><th>课内条目</th><th>平台信号</th><th>本地覆盖</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td><strong>创业者技能树</strong></td><td>12 主课 / 0 Candy</td><td>完成课程；Candy 页已解锁、无条目</td><td>12 个图文小节、来源索引、图像缓存</td><td><span class="status">完成</span></td></tr>
+            <tr><td><strong>AI 新范式篇</strong></td><td>4 主课 / 5 Candy</td><td>完成作业；课件与 AI 教练已学完</td><td>259、五步法、关键假设、双三角、科学四词、案例与受保护课件图</td><td><span class="status">完成*</span></td></tr>
+            <tr><td><strong>科学决策审美篇</strong></td><td>3 主课 / 3 Candy</td><td>完成作业；两节回放已学完</td><td>ROI 三角、案例集、20 张画布、长期路径与 AI 落地</td><td><span class="status">完成</span></td></tr>
+            <tr><td><strong>人生红点认知篇</strong></td><td>1 主课 / 1 Candy</td><td>完成作业；回放已学完</td><td>核心模型、3 张图、匿名化 Candy、作业与教练反证测试</td><td><span class="status">完成</span></td></tr>
+            <tr><td><strong>一堂课程学习地图</strong></td><td>2 主课 / 4 Candy</td><td>完成作业；Candy 已解锁</td><td>方法论/案例地图、64 张 Candy 图和独立离线包</td><td><span class="status">完成</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:10px 2px 0;color:var(--muted);font-size:12px;line-height:1.6">* AI 新范式飞书正文在当前结构化采集器中仍为部分可读；已有历史笔记、完整大纲和受保护课件图补足摘要级覆盖，不把当前不可稳定提取的原文伪报为重新抓取完成。</p>
+    </section>
+
+    <section id="coaches">
+      <div class="section-head">
+        <div><h2>AI 教练状态机</h2><p>按真实网页流程逐轮完成，不使用越过问题的预设脚本</p></div>
+        <span class="status">4 / 4 已实测</span>
+      </div>
+      <div class="coach-grid">
+        <article class="coach">
+          <div class="coach-top"><h3>新人第一课教学官</h3><span class="status">报告完成</span></div>
+          <ol><li>身份与画像</li><li>热身与双三角</li><li>259 / 五步法</li><li>关键假设与验证</li><li>科学体系</li><li>覆盖门槛与诊断报告</li></ol>
+          <p>学习重点：当前问题、答偏纠正、四模块覆盖账本、证据不足不出报告。</p>
+        </article>
+        <article class="coach">
+          <div class="coach-top"><h3>科学决策搭档</h3><span class="status">备忘录完成</span></div>
+          <ol><li>决策与价值</li><li>选择分析深度</li><li>并行方案画布</li><li>主要矛盾</li><li>纠偏与高度扫描</li><li>停止/继续/加注/切换</li></ol>
+          <p>学习重点：方案可以是主辅组合；用户挑战绝对结论时降级为假设，并列新证据更新条件。</p>
+        </article>
+        <article class="coach">
+          <div class="coach-top"><h3>人生红点架构师</h3><span class="status">边界完成</span></div>
+          <ol><li>背景与关键选择</li><li>高峰与低谷</li><li>榜样与未来画面</li><li>真实取舍</li><li>反证与替代解释</li><li>候选报告</li></ol>
+          <p>学习重点：长期方向是候选假设，不锁定身份；保护情绪安全，并用可逆行为实验复核。</p>
+        </article>
+        <article class="coach">
+          <div class="coach-top"><h3>Truman For复盘营</h3><span class="status">总结信完成</span></div>
+          <ol><li>复盘契约</li><li>起心动念与使用瞬间</li><li>投入 / 价值镜像</li><li>长期后果与阻力</li><li>30 分钟最小体检</li><li>对象、期限与结果回传</li></ol>
+          <p>学习重点：一轮一问、固定主线、行动回传；本地实现压缩过度肯定，分离销售转场，并增加实验伦理护栏。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="visuals">
+      <div class="section-head">
+        <div><h2>视觉证据</h2><p>图片记录“支持什么”和“不能证明什么”</p></div>
+      </div>
+      <div class="gallery">
+        <figure><img src="assets/yitang-accessible/user-visuals/key-choice-analysis-probability-roi.png" alt="关键选择分析、成功概率与ROI阶段图"><figcaption><strong>关键选择与阶段加注</strong>支持先调研、再选择、快速验证、最后加注；不证明具体项目成功概率。</figcaption></figure>
+        <figure><img src="assets/yitang-accessible/user-visuals/conversion-rate-hacker-force-friction-touchpoints.png" alt="转化率黑客爬山地图与动力阻力触点模型"><figcaption><strong>转化率能力与三变量</strong>支持按动力、阻力、触点拆关键假设；课件图不能证明具体策略带来增长。</figcaption></figure>
+        <figure><img src="assets/yitang-accessible/user-visuals/ai-muse-framework-v2.png" alt="一堂人工智能全景图MUSE模型"><figcaption><strong><a href="yitang-ai-muse-framework.html">AI MUSE 四层全景</a></strong>分开变革、创业、使用和奇迹层；打开 HTML 工作台检查跨层证据。</figcaption></figure>
+        <figure><img src="assets/yitang-luvs/infinite-progress-map.png" alt="一堂无限进步学习地图"><figcaption><strong>无限进步地图</strong>支持课程拓扑与能力路径；地图本身不证明学会。</figcaption></figure>
+        <figure><img src="notes/assets/yitang-1869/red-dot-path-diagram.png" alt="人生红点与路径示意图"><figcaption><strong>红点与动态路径</strong>支持方向稳定、路径可调；不能识别个人真实红点。</figcaption></figure>
+        <figure><img src="notes/assets/yitang-5wdv/key-12-slide-165.png" alt="动漫电商业务模式组合验证图"><figcaption><strong><a href="notes/yitang-casebook-and-smart-lean-2026-07-15.html">聪明精益三项业务实验</a></strong>129 案例索引、三项实验与 234 张课件图证据目录；代表图不等于整套付费课件镜像。</figcaption></figure>
+        <figure><img src="notes/assets/yitang-5wdv-candy/sheet-sales-model.png" alt="扭蛋机销售额与利润估算表"><figcaption><strong><a href="notes/yitang-5wdv-candy-notes-2026-07-15.html">聪明精益 Candy 数据账本</a></strong>三张画布、11 组答疑、两份运营记录与 3 个飞书工作表已学习。</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="artifacts">
+      <div class="section-head"><div><h2>本地成果</h2><p>全部可离线打开，不写回个人主页</p></div></div>
+      <div class="two-col">
+        <article class="panel">
+          <h3>学习资料</h3>
+          <ul>
+            <li><a href="notes/yitang-learning-completeness-2026-07-14.md">完整性审计笔记</a></li>
+            <li><a href="notes/yitang-elective-complete-learning-notes.md">统一课程学习笔记</a></li>
+            <li><a href="notes/yitang-elective-source-index.md">课程来源索引</a></li>
+            <li><a href="notes/yitang-299-ai-new-paradigm-notes.md">AI 新范式笔记</a></li>
+            <li><a href="notes/yitang-section-1869-life-red-dot-notes.html">人生红点图文笔记</a></li>
+            <li><a href="notes/yitang-luvS-learning-map-notes.html">学习地图图文笔记</a></li>
+            <li><a href="notes/yitang-casebook-and-smart-lean-2026-07-15.html">创业复盘案例集 × 聪明精益图文学习台</a></li>
+            <li><a href="notes/yitang-5wdv-candy-notes-2026-07-15.html">聪明精益课后 Candy 图文笔记</a></li>
+            <li><a href="knowledge/yitang-casebook-index.json">129 个创业复盘案例标题索引</a></li>
+            <li><a href="knowledge/yitang-5wdv-candy-index.json">聪明精益 Candy 机器索引</a></li>
+            <li><a href="yitang-ai-muse-framework.html">MUSE AI 机会分层工作台</a></li>
+            <li><a href="outputs/yitang-luvs-offline/index.html">学习地图独立离线包</a></li>
+          </ul>
+        </article>
+        <article class="panel gap-panel">
+          <h3>不可越过的缺口</h3>
+          <ul>
+            <li>平台总目录 176 门，当前“我的课程”只显示 5 门。</li>
+            <li>其余 171 门没有正文、Candy 和图片访问证据。</li>
+            <li>账号字段 2/2 与五个课程页完成横幅不一致，审计保留冲突。</li>
+            <li>本地保存的是原创摘要与证据索引，不是付费课逐字稿。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      机器可读数据：<a href="knowledge/yitang-learning-completeness.json">knowledge/yitang-learning-completeness.json</a>。Business Tutor 的 RAG 卡片与系统 Prompt 已写回模块覆盖、决策纠偏和长期红点边界。
+    </footer>
+  </main>
+</body>
+</html>

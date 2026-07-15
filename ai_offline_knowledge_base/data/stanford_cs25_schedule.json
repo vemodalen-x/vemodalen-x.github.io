@@ -1,0 +1,138 @@
+[
+  {
+    "date": "2026-04-02",
+    "title": "Overview of Transformers",
+    "speaker": "CS25 instructors",
+    "category": "Model architectures",
+    "summary": "回顾 ML/NLP 与 Transformer 的历史、工作机制、影响、近期突破和开放挑战，并以小数据语言学习、RAG-aware scaling、渐进扩层、fMRI 表征和幻觉定义展示研究切面。",
+    "engineering_value": "建立统一模型卡：tokenization、attention、训练数据、参数知识、检索知识、评测和失败模式。",
+    "slides_url": "https://drive.google.com/file/d/153Gu4BIfpnn6jj6WmXlsyD7kv702zcrB/view?usp=sharing",
+    "video_url": "https://www.youtube.com/watch?v=bHSDPgZYie0",
+    "readings": [
+      {
+        "title": "Baby Scale: Investigating Models Trained on Individual Children's Language Input",
+        "url": "https://arxiv.org/abs/2603.29522",
+        "category": "Data, representation, and generalization",
+        "note": "在儿童自然语言输入量级上训练模型，研究数据规模、个体数据差异与语言能力涌现。"
+      },
+      {
+        "title": "Bringing Up a Bilingual BabyLM: Investigating Multilingual Language Acquisition Using Small-Scale Models",
+        "url": "https://arxiv.org/abs/2603.29552",
+        "category": "Data, representation, and generalization",
+        "note": "用小规模语言模型模拟不同双语输入结构，研究多语言学习的数据配置与能力差异。"
+      },
+      {
+        "title": "To Memorize or to Retrieve: Scaling Laws for RAG-Considerate Pretraining",
+        "url": "https://arxiv.org/abs/2604.00715",
+        "category": "Large foundation models",
+        "note": "在固定数据预算下研究预训练语料与检索库之间的分配，连接参数记忆、RAG 与 scaling laws。"
+      },
+      {
+        "title": "Curriculum-Guided Layer Scaling for Language Model Pretraining",
+        "url": "https://arxiv.org/abs/2506.11389",
+        "category": "Large foundation models",
+        "note": "将数据难度课程与渐进增加网络层数同步，探索更节省计算的语言模型预训练。"
+      },
+      {
+        "title": "Interpretable Cross-Network Attention for Resting-State fMRI Representation Learning",
+        "url": "https://arxiv.org/abs/2603.00786",
+        "category": "Multimodal learning",
+        "note": "以 masked reconstruction 和跨脑网络 attention 学习可解释的静息态 fMRI 表征。"
+      },
+      {
+        "title": "A Unified Definition of Hallucination: It's The World Model, Stupid!",
+        "url": "https://arxiv.org/abs/2512.21577",
+        "category": "Interactive agents and Human-AI interaction",
+        "note": "尝试把多种幻觉定义统一为可被用户观察到的不准确内部世界建模；属于概念框架，需结合原文边界阅读。"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "From Representation Learning to World Modeling through Joint Embedding Predictive Architectures",
+    "speaker": "Hazel Nam & Lucas Maes",
+    "category": "Data, representation, and generalization",
+    "summary": "以 Causal-JEPA 和 LeWorldModel 说明世界模型从像素重建转向潜空间预测：前者加入对象级关系偏置，后者强调从原始像素端到端稳定训练的简洁配方。",
+    "engineering_value": "比较重建目标与潜空间预测目标，并分别消融结构偏置、规划质量和控制任务效率。",
+    "slides_url": "https://drive.google.com/file/d/1bF5Yfzf-FG5iNIAgsXn2DwVD3l3ymvZW/view?usp=drive_fs",
+    "video_url": null,
+    "readings": []
+  },
+  {
+    "date": "2026-04-16",
+    "title": "On the Tradeoffs of State Space Models and Transformers",
+    "speaker": "Albert Gu",
+    "category": "Model architectures",
+    "summary": "比较次二次 State Space Models、现代线性序列模型与 Transformer 的建模和性能特征，强调数据分辨率、tokenization 与应用域会改变架构优劣，并讨论 tokenizer-free H-Nets。",
+    "engineering_value": "同一数据、参数预算和硬件上比较质量、吞吐、长序列内存与 tokenizer 成本，避免只比较理论复杂度。",
+    "slides_url": null,
+    "video_url": "https://www.youtube.com/watch?v=OyimE74UMF8&list=PLoROMvodv4rNiJRchCzutFw5ItR_Z27CM&index=44",
+    "readings": []
+  },
+  {
+    "date": "2026-04-23",
+    "title": "The Ultra-Scale Talk: Scaling Training to Thousands of GPUs",
+    "speaker": "Nouamane Tazi",
+    "category": "Large foundation models",
+    "summary": "从工程角度解释 5D parallelism、MoE 的扩展与稳定性、通信模式、性能调优和大规模训练 benchmark。",
+    "engineering_value": "用算力利用率、通信占比、显存峰值、故障恢复和有效 tokens/s 评估分布式训练方案。",
+    "slides_url": "https://drive.google.com/file/d/1dxdC76Rk_o6UEd5AqhHjp0rapsxYOR6j/view?usp=sharing",
+    "video_url": null,
+    "readings": []
+  },
+  {
+    "date": "2026-04-30",
+    "title": "From Next-Token Prediction to Next-Generation Intelligence: The Future of Pretraining",
+    "speaker": "Shrimai Prabhumoye",
+    "category": "Large foundation models",
+    "summary": "讨论数据选择、混合和排序、前置 reasoning-rich data，以及在预训练阶段使用强化学习目标将 Chain-of-Thought 作为探索行为。",
+    "engineering_value": "对照随机数据顺序、课程式预训练和 post-training，验证能力来自数据排序还是额外计算/数据。",
+    "slides_url": "https://drive.google.com/open?id=1dxdC76Rk_o6UEd5AqhHjp0rapsxYOR6j&usp=drive_fs",
+    "video_url": null,
+    "readings": []
+  },
+  {
+    "date": "2026-05-07",
+    "title": "Distinct Modes of Generalization from Parameters and Context, and Paths to Bridge the Gap",
+    "speaker": "Andrew Lampinen",
+    "category": "Data, representation, and generalization",
+    "summary": "比较知识通过参数更新与上下文输入获得时产生的不同泛化模式，并讨论数据增强、检索和强化学习如何缩小差距。",
+    "engineering_value": "为同一知识设计 fine-tuning、in-context 和 retrieval 三种注入方式，测试组合泛化与分布外迁移。",
+    "slides_url": "https://drive.google.com/file/d/1-YIOa5Yal4RCjAsV-0tnW_NNDGbY1GTo/view?usp=sharing",
+    "video_url": null,
+    "readings": []
+  },
+  {
+    "date": "2026-05-14",
+    "title": "Advancing Science and Medicine with Collaborative AI Agents",
+    "speaker": "Vivek Natarajan",
+    "category": "Interactive agents and Human-AI interaction",
+    "summary": "以 AI co-scientist 和 AMIE 为例讨论协作式科学/医疗系统：多 Agent 生成与改进假设，以及辅助临床推理和医生决策。页面中的效果描述属于特定研究设置，不能直接外推到临床部署。",
+    "engineering_value": "将模型准确率与实验验证、证据追溯、专家复核、风险分级和 human override 分开评估。",
+    "slides_url": null,
+    "video_url": null,
+    "readings": []
+  },
+  {
+    "date": "2026-05-21",
+    "title": "From Language Models to Native Multimodal Intelligence",
+    "speaker": "Victoria Lin",
+    "category": "Multimodal learning",
+    "summary": "讨论从语言模型走向原生多模态系统时可迁移的架构/训练原则，以及模态表示、自回归建模、稀疏性、模态专家化和实时多模态的新问题。",
+    "engineering_value": "明确共享抽象推理与 modality-aware computation 的边界，并分别测跨模态利用率、延迟和专业化收益。",
+    "slides_url": "https://drive.google.com/file/d/10Doblrt3Le_FpbVQoMP0DbuCIO3rtWPW/view?usp=sharing",
+    "video_url": null,
+    "readings": []
+  },
+  {
+    "date": "2026-05-28",
+    "title": "Serving Transformers: Lessons from the Trenches of Production Inference",
+    "speaker": "Charles Frye",
+    "category": "Large foundation models",
+    "summary": "把 Transformer 从训练推向生产 serving，关注大规模 GPU 推理中的前向计算、批处理、吞吐、延迟和工程故障经验。",
+    "engineering_value": "建立 p50/p95 latency、tokens/s、KV cache、batch 组成、冷启动、故障率与单位请求成本的生产基线。",
+    "slides_url": "https://drive.google.com/file/d/1mwRSslwZUCph1Au-9tY3ZJPrjXTnbAxm/view?usp=drive_fs",
+    "video_url": null,
+    "readings": []
+  }
+]

@@ -1,1 +1,38 @@
+# Local browser profiles, temporary downloads, and QA state
 tmp/
+
+# Python / Node / editor caches
+__pycache__/
+*.py[cod]
+node_modules/
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Local credentials must never enter this public-site repository
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Rebuildable third-party source checkouts, videos, audio, and extracted frames.
+# Compact JSON snapshots directly under tools/data remain versioned.
+tools/data/*/
+
+# Rebuildable exports, checkpoints, and visual-regression captures.
+# Small authored deliverables and the linked yitang-luvs offline page remain versioned.
+outputs/yitang-learning-offline/
+outputs/*.zip
+outputs/waytoagi-import.checkpoint.json
+outputs/*-desktop.png
+outputs/*-mobile.png
+outputs/**/site-verification/
+outputs/**/cv-render/
+outputs/**/*.inspect.ndjson
+outputs/**/preview-*.png

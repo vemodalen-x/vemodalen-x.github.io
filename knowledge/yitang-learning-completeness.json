@@ -1,0 +1,249 @@
+{
+  "builtAt": "2026-07-14T23:10:00+08:00",
+  "scopeStatement": "Complete local learning coverage for the five courses currently visible on the authenticated My Courses page. This is not a claim that all 176 catalog courses are accessible or learned.",
+  "accountAudit": {
+    "myCoursesVisible": 5,
+    "catalogCourseCount": 176,
+    "selectLessonCountField": 2,
+    "completedLessonCountField": 2,
+    "score": 19,
+    "grade": "一年级",
+    "memberStatus": false,
+    "coursePageCompletionBannerCount": 5,
+    "coursePageCandyUnlockedCount": 5,
+    "unavailableCatalogCourses": 171,
+    "boundary": "The five current course pages all show course/homework completion and unlocked Candy. The account-level selected/completed fields still report 2/2, so both signals are retained rather than silently reconciled."
+  },
+  "coverage": {
+    "currentVisibleCourses": {
+      "expected": 5,
+      "covered": 5,
+      "complete": true
+    },
+    "lessonArtifacts": {
+      "expected": 35,
+      "covered": 35,
+      "content": 22,
+      "candy": 13,
+      "complete": true,
+      "note": "33 refreshed sections from four course families plus the Red Dot core lesson and Candy set."
+    },
+    "primaryDocuments": {
+      "expected": 5,
+      "currentlyReadable": 4,
+      "coveredByCurrentOrPriorExtraction": 5,
+      "completeForSummary": true,
+      "currentAccessGap": "The AI New Paradigm Feishu document exposes its title, full outline and lead section in the logged-in browser, but the structured collector still marks the body as partially readable. Prior local notes and the browser-captured visual preserve summary coverage."
+    },
+    "candyExternalDocuments": {
+      "expected": 11,
+      "audited": 11,
+      "complete": true,
+      "additionalRedDotCandySet": "Audited separately with anonymized pattern summaries."
+    },
+    "generalCourseImages": {
+      "expected": 333,
+      "directCached": 330,
+      "browserCaptured": 3,
+      "effectiveCached": 333,
+      "complete": true
+    },
+    "learningMapCandyImages": {
+      "expected": 64,
+      "cached": 64,
+      "complete": true,
+      "note": "Maintained as a dedicated offline package; overlaps may exist with the general asset set."
+    },
+    "redDotCoreImages": {
+      "expected": 3,
+      "cached": 3,
+      "complete": true
+    },
+    "supplementalUserVisuals": {
+      "expected": 3,
+      "cached": 3,
+      "complete": true,
+      "note": "Key-choice/ROI, conversion force-friction-touchpoint and AI MUSE visuals supplied after the authenticated course crawl."
+    },
+    "aiCoachSystems": {
+      "expected": 4,
+      "tested": 4,
+      "complete": true
+    }
+  },
+  "courses": [
+    {
+      "id": "VhN05d3038a8c5ba",
+      "title": "入学礼包：创业者技能树",
+      "contentArtifacts": 12,
+      "candyArtifacts": 0,
+      "platformSignal": "恭喜顺利完成课程；Candy 页面已解锁但当前无条目",
+      "localCoverage": "12/12 section summaries, source index and course image cache",
+      "notes": [
+        "notes/yitang-elective-complete-learning-notes.md",
+        "notes/yitang-elective-source-index.md"
+      ]
+    },
+    {
+      "id": "G0mU5fbccf5ada26",
+      "title": "业务高手第一课：AI 新范式篇",
+      "contentArtifacts": 4,
+      "candyArtifacts": 5,
+      "platformSignal": "恭喜顺利完成作业；课件与 AI 教练已学完；Candy 已解锁",
+      "localCoverage": "4/4 content, 5/5 Candy, prior transcript-level summary, current outline and protected visual",
+      "notes": [
+        "notes/yitang-299-ai-new-paradigm-notes.md",
+        "notes/yitang-G0mU-ai-new-paradigm-candy-notes.md"
+      ]
+    },
+    {
+      "id": "RlY0641830d438b3",
+      "title": "科学决策审美篇",
+      "contentArtifacts": 3,
+      "candyArtifacts": 3,
+      "platformSignal": "恭喜顺利完成作业；两节回放已学完；Candy 已解锁",
+      "localCoverage": "3/3 content, 3/3 Candy, ROI cases, canvases and long-term path materials",
+      "notes": [
+        "notes/yitang-elective-complete-learning-notes.md",
+        "notes/yitang-homework-science-decision-2026-07-10.md"
+      ]
+    },
+    {
+      "id": "Hr_f655f23747552",
+      "title": "人生红点认知篇",
+      "contentArtifacts": 1,
+      "candyArtifacts": 1,
+      "platformSignal": "恭喜顺利完成作业；回放已学完；Candy 已解锁",
+      "localCoverage": "Core lesson, three visual models, anonymized Candy patterns, homework and coach boundary test",
+      "notes": [
+        "notes/yitang-section-1869-life-red-dot-notes.md",
+        "notes/yitang-1869-candy-and-red-dot-coach-evaluation.md",
+        "notes/yitang-section-1869-homework-draft.md"
+      ]
+    },
+    {
+      "id": "luvS64ef293fbe0d",
+      "title": "一堂课程学习地图",
+      "contentArtifacts": 2,
+      "candyArtifacts": 4,
+      "platformSignal": "恭喜顺利完成作业；Candy 已解锁；方法论回放已学完",
+      "localCoverage": "2/2 content, 4/4 Candy, 64/64 dedicated images and standalone offline package",
+      "notes": [
+        "notes/yitang-luvS-learning-map-notes.html",
+        "notes/yitang-luvS-learning-map-candy-notes-2026-07-14.md",
+        "outputs/yitang-luvs-offline/index.html"
+      ]
+    }
+  ],
+  "coachSystems": [
+    {
+      "id": "newcomer-first-lesson-teaching-officer",
+      "title": "新人第一课教学官",
+      "testedAt": "2026-07-14",
+      "status": "complete",
+      "stateMachine": [
+        "identity boundary",
+        "persona and style",
+        "warm-up",
+        "double triangle",
+        "259/five-step",
+        "key hypothesis and low-cost validation",
+        "scientific system",
+        "coverage gate",
+        "diagnostic report"
+      ],
+      "learnedRules": [
+        "One core question per turn",
+        "Detect and repair off-question answers",
+        "Maintain a four-module coverage ledger",
+        "Do not produce the final report before every module has evidence",
+        "Separate dialogue evidence from unverified product conclusions"
+      ]
+    },
+    {
+      "id": "decision-partner",
+      "title": "科学决策搭档",
+      "testedAt": "2026-07-14",
+      "status": "complete",
+      "stateMachine": [
+        "decision and value",
+        "analysis depth",
+        "parallel option canvas",
+        "cost/benefit completion",
+        "main contradiction",
+        "correction and hypothesis downgrade",
+        "long-term height scan",
+        "stop/continue/add/switch conditions",
+        "decision memo"
+      ],
+      "learnedRules": [
+        "Do not force a choice when options are a sequence or main/support combination",
+        "Treat learning speed and reusable assets as early-stage benefits",
+        "Accept user correction and state what new evidence changes the ranking",
+        "Final memo separates facts, inferences and assumptions",
+        "Never write future payment or conversion as an observed fact"
+      ]
+    },
+    {
+      "id": "first-life-red-dot-architect",
+      "title": "第一人生红点架构师",
+      "testedAt": "2026-07-11",
+      "status": "complete",
+      "stateMachine": [
+        "background",
+        "key choices",
+        "peaks",
+        "lows",
+        "role models",
+        "unconstrained future",
+        "trade-off",
+        "counterevidence",
+        "candidate report"
+      ],
+      "learnedRules": [
+        "Long-term direction is a candidate hypothesis, not a locked identity",
+        "Use multiple evidence sources and at least two alternative explanations",
+        "Avoid emotional coercion and disaster language",
+        "Require a reversible behavior experiment before raising confidence"
+      ]
+    }
+  ],
+  "visualEvidence": [
+    {
+      "path": "assets/yitang-accessible/user-visuals/key-choice-analysis-probability-roi.png",
+      "supports": "Key-choice matrix, staged evidence accumulation, probability and ROI progression.",
+      "cannotProve": "It cannot establish the probability of success for a specific founder or industry."
+    },
+    {
+      "path": "assets/yitang-accessible/user-visuals/conversion-rate-hacker-force-friction-touchpoints.png",
+      "supports": "Conversion capability progression and the force, friction and touchpoint decomposition.",
+      "cannotProve": "The slide cannot prove that a tactic caused conversion improvement or that a learner reached a particular level."
+    },
+    {
+      "path": "assets/yitang-accessible/user-visuals/ai-muse-framework-v2.png",
+      "supports": "The E/S/U/M layer separation and the emergence, change and propulsion relationships between layers.",
+      "cannotProve": "The map cannot prove that a technical capability will create adoption, payment or a future social outcome."
+    },
+    {
+      "path": "assets/yitang-accessible/protected-browser-captures/candy-1713-hamburger-selection.png",
+      "supports": "The source page and video frame for the industrialized product-selection case.",
+      "cannotProve": "A frame alone does not prove the claimed operational or sales outcome."
+    },
+    {
+      "path": "assets/yitang-luvs/infinite-progress-map.png",
+      "supports": "The topology of the long-term learning map.",
+      "cannotProve": "A map does not prove learning, behavior change or business results."
+    },
+    {
+      "path": "notes/assets/yitang-1869/red-dot-path-diagram.png",
+      "supports": "The distinction between a stable long-term direction and adjustable paths.",
+      "cannotProve": "It cannot identify a person's true long-term direction."
+    }
+  ],
+  "hardLimitations": [
+    "The remaining 171 catalog courses are not present in the authenticated My Courses list and are not claimed as learned.",
+    "The account-level selected/completed fields report 2/2 while five course pages show completion banners; both signals remain visible in the audit.",
+    "The AI New Paradigm Feishu document is only partially readable to the structured collector in the current session, although prior notes, the full outline and its protected visual are locally preserved.",
+    "Local notes are original summaries and evidence indexes, not reproduced paid-course transcripts."
+  ]
+}

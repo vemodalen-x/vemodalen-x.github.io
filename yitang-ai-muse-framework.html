@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MUSE AI 机会分层工作台</title>
+  <meta name="description" content="将 AI 技术变革、创业机会、工作流使用与未来愿景分层，并检查跨层商业假设的本地工作台。">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18212b;
+      --muted: #667085;
+      --line: #d8dee7;
+      --line-strong: #b7c0cd;
+      --surface: #ffffff;
+      --canvas: #f3f5f7;
+      --nav: #111820;
+      --focus: #1769aa;
+      --m: #c53e32;
+      --m-soft: #fff0ed;
+      --u: #16795a;
+      --u-soft: #e9f7f1;
+      --s: #a86400;
+      --s-soft: #fff3dc;
+      --e: #087c9d;
+      --e-soft: #e8f7fb;
+      --danger: #b42318;
+      --danger-soft: #fff0ee;
+      --shadow: 0 8px 24px rgba(24, 33, 43, .06);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid rgba(23, 105, 170, .22);
+      outline-offset: 2px;
+    }
+    a { color: inherit; }
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 10px;
+      color: #fff;
+      background: var(--nav);
+      transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+      padding: 8px 28px;
+      color: #fff;
+      background: var(--nav);
+      border-bottom: 1px solid #26313c;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      color: #0f1820;
+      background: #f2c94c;
+      border-radius: 6px;
+      font-weight: 900;
+    }
+    .brand strong { display: block; font-size: 15px; }
+    .brand small { display: block; margin-top: 2px; color: #aeb8c4; font-size: 11px; }
+    .topnav { display: flex; align-items: center; gap: 4px; }
+    .topnav a {
+      padding: 8px 10px;
+      color: #cbd3dc;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .topnav a:hover { color: #fff; background: #202b36; }
+
+    main { width: min(1320px, calc(100% - 32px)); margin: 22px auto 48px; }
+    .page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--focus);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: 34px; line-height: 1.2; }
+    .page-head p:not(.eyebrow) { max-width: 780px; margin: 0; color: var(--muted); line-height: 1.7; }
+    .head-facts { display: flex; gap: 18px; }
+    .head-fact { min-width: 100px; padding-left: 12px; border-left: 2px solid var(--line-strong); }
+    .head-fact strong { display: block; font-size: 18px; }
+    .head-fact span { color: var(--muted); font-size: 11px; }
+
+    .project-bar {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) auto auto;
+      gap: 14px;
+      align-items: end;
+      margin: 18px 0 14px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .field-label { display: block; margin-bottom: 7px; color: #344054; font-size: 12px; font-weight: 750; }
+    .project-input {
+      width: 100%;
+      height: 42px;
+      padding: 9px 11px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+    }
+    .project-input::placeholder { color: #98a2b3; }
+    .stage-control { display: flex; height: 42px; border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; }
+    .stage-button {
+      min-width: 62px;
+      padding: 0 10px;
+      color: #475467;
+      background: #fff;
+      border: 0;
+      border-right: 1px solid var(--line);
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .stage-button:last-child { border-right: 0; }
+    .stage-button[aria-pressed="true"] { color: #fff; background: #344054; }
+    .button-row { display: flex; gap: 8px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 42px;
+      padding: 0 13px;
+      color: #344054;
+      background: #fff;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .button:hover { background: #f8fafc; }
+    .button.primary { color: #fff; background: #1769aa; border-color: #1769aa; }
+    .button.primary:hover { background: #12588f; }
+    .button svg { width: 16px; height: 16px; }
+    .icon-button {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      color: #344054;
+      background: #fff;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .icon-button:hover { background: #f8fafc; }
+    .icon-button svg { width: 18px; height: 18px; }
+
+    .view-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .view-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 0 14px;
+      color: var(--muted);
+      background: transparent;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 750;
+    }
+    .view-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--focus); }
+    .view-tab svg { width: 16px; height: 16px; }
+    .view[hidden] { display: none; }
+
+    .overview-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(320px, .75fr); gap: 14px; }
+    .model-panel, .inspector, .bridge-panel, .score-panel, .source-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 60px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .panel-head h2, .panel-head h3 { margin: 0; font-size: 16px; }
+    .panel-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .panel-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #475467;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .panel-status::before { width: 7px; height: 7px; background: #12b76a; border-radius: 50%; content: ""; }
+
+    .layer-stack { padding: 18px; }
+    .layer {
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr) minmax(200px, .65fr) 24px;
+      gap: 14px;
+      align-items: center;
+      width: 100%;
+      min-height: 102px;
+      padding: 14px 16px;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .layer:hover { border-color: currentColor; }
+    .layer.active { border-color: currentColor; box-shadow: inset 4px 0 0 currentColor; }
+    .layer-letter {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 25px;
+      font-weight: 900;
+    }
+    .layer-copy strong { display: block; color: var(--ink); font-size: 18px; }
+    .layer-copy span { display: block; margin-top: 5px; color: #475467; font-size: 13px; line-height: 1.55; }
+    .layer-signals { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .signal { padding: 4px 7px; color: #344054; background: rgba(255, 255, 255, .74); border: 1px solid rgba(52, 64, 84, .15); border-radius: 5px; font-size: 11px; }
+    .layer > svg { width: 18px; height: 18px; }
+    .layer-m { color: var(--m); background: var(--m-soft); }
+    .layer-m .layer-letter { background: var(--m); }
+    .layer-u { color: var(--u); background: var(--u-soft); }
+    .layer-u .layer-letter { background: var(--u); }
+    .layer-s { color: var(--s); background: var(--s-soft); }
+    .layer-s .layer-letter { background: var(--s); }
+    .layer-e { color: var(--e); background: var(--e-soft); }
+    .layer-e .layer-letter { background: var(--e); }
+    .connector {
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr);
+      gap: 14px;
+      min-height: 38px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .connector-line { position: relative; width: 2px; height: 26px; margin: auto; background: var(--line-strong); }
+    .connector-line::before {
+      position: absolute;
+      top: -2px;
+      left: -4px;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid var(--line-strong);
+      border-left: 2px solid var(--line-strong);
+      transform: rotate(45deg);
+      content: "";
+    }
+    .connector strong { color: #344054; }
+
+    .inspector { overflow: hidden; }
+    .inspector-accent { height: 5px; background: var(--m); }
+    .inspector-body { padding: 18px; }
+    .layer-title { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
+    .layer-title-badge {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      color: #fff;
+      background: var(--m);
+      border-radius: 6px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .layer-title h2 { margin: 0 0 3px; font-size: 20px; }
+    .layer-title p { margin: 0; color: var(--muted); font-size: 12px; }
+    .insight-block { padding: 14px 0; border-top: 1px solid var(--line); }
+    .insight-block:first-of-type { border-top: 0; }
+    .insight-block h3 { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; font-size: 13px; }
+    .insight-block h3 svg { width: 15px; height: 15px; color: var(--focus); }
+    .insight-block p { margin: 0; color: #344054; font-size: 13px; line-height: 1.65; }
+    .insight-block ul { margin: 0; padding-left: 18px; color: #344054; font-size: 13px; line-height: 1.7; }
+    .project-context {
+      padding: 12px;
+      color: #344054;
+      background: #f7f9fb;
+      border-left: 3px solid var(--line-strong);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .project-context strong { display: block; margin-bottom: 3px; color: var(--ink); }
+
+    .bridge-layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; }
+    .bridge-list { display: grid; gap: 12px; }
+    .bridge-panel { overflow: hidden; }
+    .bridge-head {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      background: #f9fafb;
+      border-bottom: 1px solid var(--line);
+    }
+    .bridge-code { color: #344054; font-size: 17px; font-weight: 900; }
+    .bridge-head h2 { margin: 0 0 3px; font-size: 15px; }
+    .bridge-head p { margin: 0; color: var(--muted); font-size: 11px; }
+    .risk-badge { padding: 4px 8px; border-radius: 5px; font-size: 11px; font-weight: 800; }
+    .risk-high { color: var(--danger); background: var(--danger-soft); }
+    .risk-medium { color: #8b5700; background: var(--s-soft); }
+    .risk-ready { color: var(--u); background: var(--u-soft); }
+    .bridge-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 14px 16px 16px; }
+    .bridge-fields label { min-width: 0; }
+    .bridge-input {
+      width: 100%;
+      min-height: 74px;
+      resize: vertical;
+      padding: 9px 10px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .bridge-input::placeholder { color: #98a2b3; }
+
+    .score-panel { position: sticky; top: 76px; align-self: start; overflow: hidden; }
+    .score-body { padding: 18px; }
+    .score-ring {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 15px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .ring {
+      display: grid;
+      width: 76px;
+      height: 76px;
+      place-items: center;
+      background: conic-gradient(var(--focus) var(--score, 0%), #e5e9ef 0);
+      border-radius: 50%;
+      position: relative;
+    }
+    .ring::after { position: absolute; inset: 8px; background: #fff; border-radius: 50%; content: ""; }
+    .ring strong { z-index: 1; font-size: 18px; }
+    .score-ring h2 { margin-bottom: 4px; font-size: 17px; }
+    .score-ring p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .score-metric { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .score-metric span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 11px; }
+    .score-metric strong { font-size: 14px; }
+    .score-warning { margin: 14px 0; padding: 11px 12px; color: #68410d; background: var(--s-soft); border-left: 3px solid var(--s); font-size: 12px; line-height: 1.6; }
+    .score-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .score-actions .button { width: 100%; }
+
+    .source-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: 14px; }
+    .source-panel { overflow: hidden; }
+    .source-image { padding: 16px; background: #eef1f4; }
+    .source-image img { display: block; width: 100%; max-height: 620px; object-fit: contain; background: #fff; border: 1px solid var(--line); }
+    .source-copy { padding: 18px; }
+    .source-copy h2 { margin-bottom: 14px; font-size: 18px; }
+    .source-copy dl { margin: 0; }
+    .source-copy dt { margin-top: 16px; color: #344054; font-size: 12px; font-weight: 800; }
+    .source-copy dd { margin: 5px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .boundary-note { margin-top: 18px; padding: 12px; color: #68410d; background: var(--s-soft); border-left: 3px solid var(--s); font-size: 12px; line-height: 1.65; }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 50;
+      padding: 10px 13px;
+      color: #fff;
+      background: #1d2939;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(16, 24, 40, .2);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      font-size: 12px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    footer { margin-top: 26px; padding-top: 16px; color: var(--muted); border-top: 1px solid var(--line); font-size: 11px; line-height: 1.65; }
+
+    @media (max-width: 1040px) {
+      .overview-grid, .bridge-layout, .source-grid { grid-template-columns: 1fr; }
+      .score-panel { position: static; }
+      .project-bar { grid-template-columns: 1fr auto; }
+      .project-field { grid-column: 1 / -1; }
+    }
+    @media (max-width: 760px) {
+      .topbar { padding: 8px 14px; }
+      .topnav a:not(:last-child) { display: none; }
+      main { width: min(100% - 20px, 1320px); margin-top: 14px; }
+      .page-head { grid-template-columns: 1fr; gap: 14px; }
+      h1 { font-size: 27px; }
+      .head-facts { justify-content: flex-start; }
+      .project-bar { grid-template-columns: 1fr; }
+      .project-field { grid-column: auto; }
+      .stage-control { width: 100%; }
+      .stage-button { flex: 1; min-width: 0; }
+      .button-row { justify-content: flex-end; }
+      .view-tabs { overflow-x: auto; }
+      .view-tab { flex: 0 0 auto; }
+      .layer-stack { padding: 10px; }
+      .layer { grid-template-columns: 54px minmax(0, 1fr) 20px; min-height: 104px; padding: 12px; }
+      .layer-signals { grid-column: 2 / -1; justify-content: flex-start; }
+      .layer-letter { width: 44px; height: 44px; font-size: 21px; }
+      .connector { grid-template-columns: 54px minmax(0, 1fr); }
+      .bridge-head { grid-template-columns: 74px minmax(0, 1fr); }
+      .bridge-head .risk-badge { grid-column: 2; justify-self: start; }
+      .bridge-fields { grid-template-columns: 1fr; }
+      .score-actions { grid-template-columns: 1fr auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .toast { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="topbar">
+    <a class="brand" href="yitang-ai-muse-framework.html">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span><strong>MUSE 商业映射器</strong><small>AI opportunity workspace</small></span>
+    </a>
+    <nav class="topnav" aria-label="相关页面">
+      <a href="yitang-learning-completeness.html">学习审计</a>
+      <a href="business-tutor-agent.html">Business Tutor</a>
+      <a href="assets/yitang-accessible/user-visuals/ai-muse-framework-v2.png">原始课件图</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <header class="page-head">
+      <div>
+        <p class="eyebrow">MUSE Framework · structured reconstruction</p>
+        <h1>AI 机会分层工作台</h1>
+        <p>把技术能力、创业机会、真实使用和未来愿景分开判断。跨层结论必须经过用户、工作流、商业与规模证据。</p>
+      </div>
+      <div class="head-facts" aria-label="模型摘要">
+        <div class="head-fact"><strong>4</strong><span>分析层级</span></div>
+        <div class="head-fact"><strong>3</strong><span>证据桥梁</span></div>
+        <div class="head-fact"><strong id="head-score">0%</strong><span>证据完整度</span></div>
+      </div>
+    </header>
+
+    <section class="project-bar" aria-label="项目上下文">
+      <label class="project-field" for="project-input">
+        <span class="field-label">当前项目或判断</span>
+        <input id="project-input" class="project-input" maxlength="240" placeholder="例如：面向跨境电商团队的 AI 客服质检 Agent">
+      </label>
+      <div>
+        <span class="field-label" id="stage-label">业务阶段</span>
+        <div class="stage-control" role="group" aria-labelledby="stage-label">
+          <button class="stage-button" type="button" data-stage="想法" aria-pressed="true">想法</button>
+          <button class="stage-button" type="button" data-stage="MVP" aria-pressed="false">MVP</button>
+          <button class="stage-button" type="button" data-stage="验证" aria-pressed="false">验证</button>
+          <button class="stage-button" type="button" data-stage="规模" aria-pressed="false">规模</button>
+        </div>
+      </div>
+      <div class="button-row">
+        <button id="load-example" class="button" type="button"><i data-lucide="wand-sparkles"></i><span>AI SaaS 示例</span></button>
+        <button id="reset-workspace" class="icon-button" type="button" aria-label="清空工作台" title="清空工作台"><i data-lucide="rotate-ccw"></i></button>
+      </div>
+    </section>
+
+    <div class="view-tabs" role="tablist" aria-label="工作台视图">
+      <button class="view-tab" type="button" role="tab" aria-selected="true" aria-controls="overview-view" data-view="overview-view"><i data-lucide="layers-3"></i>四层全景</button>
+      <button class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="bridge-view" data-view="bridge-view"><i data-lucide="route"></i>跨层检验</button>
+      <button class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="source-view" data-view="source-view"><i data-lucide="scan-search"></i>来源对照</button>
+    </div>
+
+    <section id="overview-view" class="view" role="tabpanel">
+      <div class="overview-grid">
+        <section class="model-panel" aria-labelledby="model-title">
+          <div class="panel-head">
+            <div><h2 id="model-title">MUSE 四层模型</h2><p>从底层能力向上检查，不把相关性当成因果链。</p></div>
+            <span class="panel-status">本地可用</span>
+          </div>
+          <div class="layer-stack">
+            <button class="layer layer-m active" type="button" data-layer="M" aria-pressed="true">
+              <span class="layer-letter">M</span>
+              <span class="layer-copy"><strong>奇迹层</strong><span>AI 社会的未来愿景与系统性结果</span></span>
+              <span class="layer-signals"><span class="signal">组织形态</span><span class="signal">社会影响</span><span class="signal">长期外部性</span></span>
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+            <div class="connector"><span class="connector-line" aria-hidden="true"></span><span><strong>推动</strong> · 广泛采用与制度条件共同作用</span></div>
+            <button class="layer layer-u" type="button" data-layer="U" aria-pressed="false">
+              <span class="layer-letter">U</span>
+              <span class="layer-copy"><strong>使用层</strong><span>模型、工具与 Agent 如何进入真实工作流</span></span>
+              <span class="layer-signals"><span class="signal">使用触发</span><span class="signal">工作流</span><span class="signal">留存</span></span>
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+            <div class="connector"><span class="connector-line" aria-hidden="true"></span><span><strong>改变</strong> · 产品供给改变行为与协作方式</span></div>
+            <button class="layer layer-s" type="button" data-layer="S" aria-pressed="false">
+              <span class="layer-letter">S</span>
+              <span class="layer-copy"><strong>创业层</strong><span>技术变化涌现出的用户价值与商业机会</span></span>
+              <span class="layer-signals"><span class="signal">用户痛点</span><span class="signal">替代方案</span><span class="signal">付费</span></span>
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+            <div class="connector"><span class="connector-line" aria-hidden="true"></span><span><strong>涌现</strong> · 能力与成本跨过可用阈值</span></div>
+            <button class="layer layer-e" type="button" data-layer="E" aria-pressed="false">
+              <span class="layer-letter">E</span>
+              <span class="layer-copy"><strong>变革层</strong><span>底层模型、算力、数据与工程能力的变化</span></span>
+              <span class="layer-signals"><span class="signal">能力</span><span class="signal">成本</span><span class="signal">可靠性</span></span>
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
+
+        <aside class="inspector" aria-live="polite">
+          <div id="inspector-accent" class="inspector-accent"></div>
+          <div class="inspector-body">
+            <div class="layer-title">
+              <span id="inspector-badge" class="layer-title-badge">M</span>
+              <div><h2 id="inspector-title">奇迹层</h2><p id="inspector-subtitle">未来愿景与系统结果</p></div>
+            </div>
+            <div class="insight-block">
+              <h3><i data-lucide="circle-help"></i>核心问题</h3>
+              <p id="inspector-question"></p>
+            </div>
+            <div class="insight-block">
+              <h3><i data-lucide="badge-check"></i>合格证据</h3>
+              <ul id="inspector-evidence"></ul>
+            </div>
+            <div class="insight-block">
+              <h3><i data-lucide="triangle-alert"></i>常见误判</h3>
+              <p id="inspector-error"></p>
+            </div>
+            <div class="insight-block">
+              <h3><i data-lucide="arrow-up-right"></i>向上输出</h3>
+              <p id="inspector-output"></p>
+            </div>
+            <div class="project-context"><strong>当前映射</strong><span id="project-context">尚未填写项目。当前只显示通用判断标准。</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="bridge-view" class="view" role="tabpanel" hidden>
+      <div class="bridge-layout">
+        <div class="bridge-list">
+          <section class="bridge-panel" data-bridge="es">
+            <header class="bridge-head">
+              <span class="bridge-code">E → S</span>
+              <div><h2>涌现：能力如何变成机会</h2><p>从技术变化到可购买的用户价值</p></div>
+              <span class="risk-badge risk-high" data-risk="es">高缺口</span>
+            </header>
+            <div class="bridge-fields">
+              <label><span class="field-label">能力变化</span><textarea class="bridge-input" data-field="es-capability" placeholder="性能、成本、速度或可靠性发生了什么变化？"></textarea></label>
+              <label><span class="field-label">目标痛点</span><textarea class="bridge-input" data-field="es-pain" placeholder="谁在什么高频场景中受益？"></textarea></label>
+              <label><span class="field-label">成立阈值</span><textarea class="bridge-input" data-field="es-threshold" placeholder="达到什么指标才优于替代方案？"></textarea></label>
+            </div>
+          </section>
+
+          <section class="bridge-panel" data-bridge="su">
+            <header class="bridge-head">
+              <span class="bridge-code">S → U</span>
+              <div><h2>改变：机会如何进入使用</h2><p>从价值主张到可持续工作流</p></div>
+              <span class="risk-badge risk-high" data-risk="su">高缺口</span>
+            </header>
+            <div class="bridge-fields">
+              <label><span class="field-label">工作流入口</span><textarea class="bridge-input" data-field="su-workflow" placeholder="在什么触发点进入现有流程？"></textarea></label>
+              <label><span class="field-label">替代与阻力</span><textarea class="bridge-input" data-field="su-alternative" placeholder="当前如何解决，切换阻力是什么？"></textarea></label>
+              <label><span class="field-label">采用信号</span><textarea class="bridge-input" data-field="su-adoption" placeholder="留存、频率、付费或推荐的证据是什么？"></textarea></label>
+            </div>
+          </section>
+
+          <section class="bridge-panel" data-bridge="um">
+            <header class="bridge-head">
+              <span class="bridge-code">U → M</span>
+              <div><h2>推动：使用如何形成长期结果</h2><p>从局部采用到系统性未来场景</p></div>
+              <span class="risk-badge risk-high" data-risk="um">高缺口</span>
+            </header>
+            <div class="bridge-fields">
+              <label><span class="field-label">规模条件</span><textarea class="bridge-input" data-field="um-scale" placeholder="需要怎样的覆盖率、持续时间与网络效应？"></textarea></label>
+              <label><span class="field-label">外部约束</span><textarea class="bridge-input" data-field="um-constraint" placeholder="制度、组织、伦理或资源约束是什么？"></textarea></label>
+              <label><span class="field-label">反证信号</span><textarea class="bridge-input" data-field="um-counter" placeholder="出现什么事实就应降低未来判断？"></textarea></label>
+            </div>
+          </section>
+        </div>
+
+        <aside class="score-panel">
+          <div class="panel-head"><div><h2>跨层审计</h2><p>填写程度不是事实强度。</p></div></div>
+          <div class="score-body">
+            <div class="score-ring">
+              <div id="score-ring" class="ring"><strong id="score-value">0%</strong></div>
+              <div><h2 id="score-title">尚未成形</h2><p id="score-subtitle">9 个证据位均为空</p></div>
+            </div>
+            <div class="score-metric"><span>最薄弱桥梁</span><strong id="weakest-bridge">E → S · 能力到机会</strong></div>
+            <div class="score-metric"><span>当前阶段</span><strong id="score-stage">想法期</strong></div>
+            <div id="score-warning" class="score-warning">先补最靠近当前决策的证据，不要用未来愿景掩盖用户与工作流缺口。</div>
+            <div class="score-actions">
+              <button id="export-markdown" class="button primary" type="button"><i data-lucide="download"></i><span>导出 Markdown</span></button>
+              <button id="copy-summary" class="icon-button" type="button" aria-label="复制分析摘要" title="复制分析摘要"><i data-lucide="copy"></i></button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="source-view" class="view" role="tabpanel" hidden>
+      <div class="source-grid">
+        <figure class="source-panel" style="margin:0">
+          <div class="panel-head"><div><h2>原始课件截图</h2><p>保留为来源证据，不作为逐字转录依据。</p></div></div>
+          <div class="source-image"><img src="assets/yitang-accessible/user-visuals/ai-muse-framework-v2.png" alt="一堂人工智能全景图 MUSE 模型原始截图"></div>
+        </figure>
+        <section class="source-panel">
+          <div class="source-copy">
+            <h2>结构化转译边界</h2>
+            <dl>
+              <dt>可以确认</dt>
+              <dd>M、U、S、E 四层名称，以及自下而上的“涌现、改变、推动”关系。</dd>
+              <dt>工作台新增</dt>
+              <dd>商业问题、证据标准、常见误判和三段跨层审计，是基于模型的原创应用设计。</dd>
+              <dt>不作转录</dt>
+              <dd>原图中分辨率不足、无法可靠识别的小字标签，未被猜测性补全。</dd>
+              <dt>不作证明</dt>
+              <dd>图示不能证明技术必然被采用、采用必然带来付费，或局部使用必然形成社会结果。</dd>
+            </dl>
+            <div class="boundary-note"><strong>使用边界：</strong>证据完整度只统计字段是否填写，不评价证据真假与质量。最终结论仍需访谈、行为数据、实验和反证。</div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <footer>
+      本页面是对低分辨率课件图的原创结构化重绘，独立保存在本地学习资料中。数据仅写入当前浏览器 localStorage，不写回一堂或个人主页。
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/vendor/lucide-1.23.0.min.js"></script>
+  <script>
+    const STORAGE_KEY = "yitang-muse-workspace-v1";
+    const colors = { M: "#c53e32", U: "#16795a", S: "#a86400", E: "#087c9d" };
+    const layers = {
+      M: {
+        title: "奇迹层",
+        subtitle: "未来愿景与系统结果",
+        question: "只有在广泛采用、制度适配和外部约束同时成立时，可能出现什么长期结果？",
+        evidence: ["跨组织或跨行业采用数据", "二阶影响与外部性观察", "制度、伦理和资源约束"],
+        error: "把局部成功案例、产品叙事或技术趋势直接写成必然的社会未来。",
+        output: "带条件、时间范围和反证标准的未来场景。"
+      },
+      U: {
+        title: "使用层",
+        subtitle: "工作流与持续采用",
+        question: "模型、工具或 Agent 在哪个触发点进入谁的工作流，并持续替代哪一步？",
+        evidence: ["任务触发、频率与完成路径", "留存、复用和人工接管数据", "集成成本与切换阻力"],
+        error: "把注册、首次试用或演示反馈当成稳定采用。",
+        output: "可重复的使用闭环、行为变化和留存机制。"
+      },
+      S: {
+        title: "创业层",
+        subtitle: "用户价值与商业机会",
+        question: "谁在什么高频或高损失场景中，愿意为什么更好结果改变预算或行为？",
+        evidence: ["明确用户与购买决策者", "现有替代方案和可量化痛点", "付费、续费或强行为承诺"],
+        error: "把市场热度、技术能力或用户口头兴趣当成可达商业机会。",
+        output: "清晰的目标用户、价值主张、商业模式与最小验证。"
+      },
+      E: {
+        title: "变革层",
+        subtitle: "技术能力与工程边界",
+        question: "底层能力、成本、速度或可靠性具体改变了什么，在哪些条件下仍然失败？",
+        evidence: ["同任务基准与真实样本", "单位成本、延迟和可靠性", "失败模式、安全与工程约束"],
+        error: "把实验室基准、单次演示或模型能力等同于生产可用性。",
+        output: "可被用户感知、可稳定交付的能力变化。"
+      }
+    };
+    const fieldGroups = {
+      es: ["es-capability", "es-pain", "es-threshold"],
+      su: ["su-workflow", "su-alternative", "su-adoption"],
+      um: ["um-scale", "um-constraint", "um-counter"]
+    };
+    const bridgeNames = {
+      es: "E → S · 能力到机会",
+      su: "S → U · 机会到使用",
+      um: "U → M · 使用到未来"
+    };
+
+    const state = { project: "", stage: "想法", activeLayer: "M", fields: {} };
+    let toastTimer;
+
+    function readSavedState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+        if (!saved || typeof saved !== "object") return;
+        state.project = typeof saved.project === "string" ? saved.project : "";
+        state.stage = ["想法", "MVP", "验证", "规模"].includes(saved.stage) ? saved.stage : "想法";
+        state.activeLayer = layers[saved.activeLayer] ? saved.activeLayer : "M";
+        state.fields = saved.fields && typeof saved.fields === "object" ? saved.fields : {};
+      } catch (error) {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    function setActiveLayer(layerKey) {
+      state.activeLayer = layerKey;
+      const data = layers[layerKey];
+      document.querySelectorAll(".layer").forEach((button) => {
+        const active = button.dataset.layer === layerKey;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      document.getElementById("inspector-accent").style.background = colors[layerKey];
+      const badge = document.getElementById("inspector-badge");
+      badge.textContent = layerKey;
+      badge.style.background = colors[layerKey];
+      document.getElementById("inspector-title").textContent = data.title;
+      document.getElementById("inspector-subtitle").textContent = data.subtitle;
+      document.getElementById("inspector-question").textContent = data.question;
+      document.getElementById("inspector-error").textContent = data.error;
+      document.getElementById("inspector-output").textContent = data.output;
+      document.getElementById("inspector-evidence").innerHTML = data.evidence.map((item) => `<li>${item}</li>`).join("");
+      renderProjectContext();
+      saveState();
+    }
+
+    function renderProjectContext() {
+      const context = document.getElementById("project-context");
+      context.textContent = state.project
+        ? `${state.project} · ${state.stage}期 · 当前检查 ${layers[state.activeLayer].title}`
+        : "尚未填写项目。当前只显示通用判断标准。";
+    }
+
+    function setStage(stage) {
+      state.stage = stage;
+      document.querySelectorAll(".stage-button").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.stage === stage));
+      });
+      document.getElementById("score-stage").textContent = `${stage}期`;
+      renderProjectContext();
+      saveState();
+    }
+
+    function bridgeCount(group) {
+      return fieldGroups[group].filter((field) => (state.fields[field] || "").trim()).length;
+    }
+
+    function renderScore() {
+      const counts = Object.fromEntries(Object.keys(fieldGroups).map((group) => [group, bridgeCount(group)]));
+      const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
+      const percent = Math.round((total / 9) * 100);
+      document.getElementById("score-value").textContent = `${percent}%`;
+      document.getElementById("head-score").textContent = `${percent}%`;
+      document.getElementById("score-ring").style.setProperty("--score", `${percent}%`);
+
+      const weakest = Object.entries(counts).sort((a, b) => a[1] - b[1])[0][0];
+      document.getElementById("weakest-bridge").textContent = bridgeNames[weakest];
+      document.getElementById("score-subtitle").textContent = `${total} / 9 个证据位已有记录`;
+
+      let title = "尚未成形";
+      let warning = "先补最靠近当前决策的证据，不要用未来愿景掩盖用户与工作流缺口。";
+      if (total >= 3) { title = "存在关键缺口"; warning = `优先补充 ${bridgeNames[weakest]}，并把描述改写成可观察或可证伪的信号。`; }
+      if (total >= 6) { title = "可进入验证"; warning = `字段较完整，但仍需核验 ${bridgeNames[weakest]} 的证据质量与反例。`; }
+      if (total === 9) { title = "结构已覆盖"; warning = "结构覆盖不等于结论成立。下一步应核验来源、样本偏差和反证条件。"; }
+      document.getElementById("score-title").textContent = title;
+      document.getElementById("score-warning").textContent = warning;
+
+      Object.entries(counts).forEach(([group, count]) => {
+        const badge = document.querySelector(`[data-risk="${group}"]`);
+        badge.className = "risk-badge " + (count === 3 ? "risk-ready" : count > 0 ? "risk-medium" : "risk-high");
+        badge.textContent = count === 3 ? "已记录" : count > 0 ? `${count} / 3` : "高缺口";
+      });
+    }
+
+    function markdownSummary() {
+      const value = (field) => (state.fields[field] || "").trim() || "待补证据";
+      return [
+        "# MUSE AI 机会分层审计",
+        "",
+        `- 项目：${state.project || "未填写"}`,
+        `- 阶段：${state.stage}期`,
+        `- 当前检视层：${state.activeLayer} · ${layers[state.activeLayer].title}`,
+        "",
+        "## E → S：能力到机会",
+        `- 能力变化：${value("es-capability")}`,
+        `- 目标痛点：${value("es-pain")}`,
+        `- 成立阈值：${value("es-threshold")}`,
+        "",
+        "## S → U：机会到使用",
+        `- 工作流入口：${value("su-workflow")}`,
+        `- 替代与阻力：${value("su-alternative")}`,
+        `- 采用信号：${value("su-adoption")}`,
+        "",
+        "## U → M：使用到未来",
+        `- 规模条件：${value("um-scale")}`,
+        `- 外部约束：${value("um-constraint")}`,
+        `- 反证信号：${value("um-counter")}`,
+        "",
+        "> 边界：填写完整度不代表证据真实或结论成立。"
+      ].join("\n");
+    }
+
+    function loadExample() {
+      state.project = "面向跨境电商客服团队的 AI 质检 Agent";
+      state.stage = "MVP";
+      state.activeLayer = "S";
+      state.fields = {
+        "es-capability": "多语言对话分类与风险识别的单位调用成本下降，可在分钟级处理全量会话。",
+        "es-pain": "客服主管目前只能抽检少量会话，漏检会导致退款、平台处罚和培训滞后。",
+        "es-threshold": "在真实历史会话上达到人工可复核的召回率，单会话成本低于现有抽检成本。",
+        "su-workflow": "会话结束后自动进入质检队列，高风险项由主管确认并回写培训任务。",
+        "su-alternative": "当前由主管人工抽检；阻力包括误报、系统集成和一线团队被监控的顾虑。",
+        "su-adoption": "连续四周每周使用、主管复核率、风险闭环时间和付费试点续签。",
+        "um-scale": "尚无跨组织规模证据。",
+        "um-constraint": "劳动关系、隐私合规、平台政策和语言文化差异。",
+        "um-counter": "误报导致团队规避使用，或全量质检未降低退款与处罚。"
+      };
+      hydrate();
+      showToast("已载入 AI SaaS 示例");
+    }
+
+    function resetWorkspace() {
+      if (!window.confirm("清空当前项目与全部证据记录？")) return;
+      state.project = "";
+      state.stage = "想法";
+      state.activeLayer = "M";
+      state.fields = {};
+      localStorage.removeItem(STORAGE_KEY);
+      hydrate();
+      showToast("工作台已清空");
+    }
+
+    function hydrate() {
+      document.getElementById("project-input").value = state.project;
+      document.querySelectorAll(".bridge-input").forEach((input) => { input.value = state.fields[input.dataset.field] || ""; });
+      setStage(state.stage);
+      setActiveLayer(state.activeLayer);
+      renderScore();
+      saveState();
+    }
+
+    readSavedState();
+
+    document.querySelectorAll(".view-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".view-tab").forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+        document.querySelectorAll(".view").forEach((view) => { view.hidden = view.id !== tab.dataset.view; });
+      });
+    });
+    document.querySelectorAll(".layer").forEach((button) => button.addEventListener("click", () => setActiveLayer(button.dataset.layer)));
+    document.querySelectorAll(".stage-button").forEach((button) => button.addEventListener("click", () => setStage(button.dataset.stage)));
+    document.getElementById("project-input").addEventListener("input", (event) => {
+      state.project = event.target.value;
+      renderProjectContext();
+      saveState();
+    });
+    document.querySelectorAll(".bridge-input").forEach((input) => {
+      input.addEventListener("input", () => {
+        state.fields[input.dataset.field] = input.value;
+        renderScore();
+        saveState();
+      });
+    });
+    document.getElementById("load-example").addEventListener("click", loadExample);
+    document.getElementById("reset-workspace").addEventListener("click", resetWorkspace);
+    document.getElementById("export-markdown").addEventListener("click", () => {
+      const blob = new Blob([markdownSummary()], { type: "text/markdown;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "muse-ai-opportunity-audit.md";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Markdown 已导出");
+    });
+    document.getElementById("copy-summary").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(markdownSummary());
+        showToast("分析摘要已复制");
+      } catch (error) {
+        showToast("浏览器未授权剪贴板，请使用导出");
+      }
+    });
+
+    hydrate();
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+</body>
+</html>

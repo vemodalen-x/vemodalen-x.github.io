@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="聪明精益课后 Candy 的原创图文学习笔记、数据账本和 AI 创业迁移。">
+  <title>聪明精益 Candy 图文笔记</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5f6b76;
+      --paper: #ffffff;
+      --soft: #f5f7f8;
+      --line: #d8dee3;
+      --yellow: #f4c430;
+      --green: #138a5b;
+      --blue: #1769aa;
+      --red: #b94a3a;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; line-height: 1.65; }
+    a { color: var(--blue); text-underline-offset: 3px; }
+    .topbar { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); }
+    .topbar-inner { max-width: var(--max); margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 760; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: #111; background: var(--yellow); border: 1px solid #111; border-radius: 6px; font-size: 13px; }
+    nav { display: flex; gap: 18px; font-size: 14px; }
+    nav a { color: var(--ink); text-decoration: none; }
+    header { border-bottom: 1px solid var(--line); background: #fafafa; }
+    .hero { max-width: var(--max); min-height: 430px; margin: 0 auto; padding: 68px 24px 48px; display: grid; grid-template-columns: 1.35fr .65fr; gap: 56px; align-items: end; }
+    .eyebrow { margin: 0 0 16px; color: var(--green); font-weight: 760; text-transform: uppercase; }
+    h1 { max-width: 780px; margin: 0; font-size: clamp(36px, 5vw, 64px); line-height: 1.07; letter-spacing: 0; }
+    .hero p { max-width: 760px; color: var(--muted); font-size: 18px; }
+    .hero-stats { border-left: 4px solid var(--yellow); padding-left: 22px; display: grid; gap: 18px; }
+    .hero-stats div { display: grid; grid-template-columns: 54px 1fr; gap: 12px; align-items: baseline; }
+    .hero-stats strong { font-size: 30px; line-height: 1; }
+    .hero-stats span { color: var(--muted); font-size: 14px; }
+    main { max-width: var(--max); margin: 0 auto; padding: 0 24px 80px; }
+    section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: 150px 1fr; gap: 24px; margin-bottom: 30px; }
+    .section-no { color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    h2 { margin: 0 0 8px; font-size: 32px; line-height: 1.2; letter-spacing: 0; }
+    h3 { margin: 0 0 10px; font-size: 20px; letter-spacing: 0; }
+    .lead { margin: 0; max-width: 800px; color: var(--muted); }
+    .status-strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .status-strip article { min-height: 116px; padding: 20px; border-right: 1px solid var(--line); }
+    .status-strip article:last-child { border-right: 0; }
+    .status-strip strong { display: block; font-size: 26px; }
+    .status-strip span { color: var(--muted); font-size: 14px; }
+    .notice { margin-top: 20px; padding: 18px 20px; border-left: 4px solid var(--green); background: #eef8f3; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+    table { width: 100%; min-width: 880px; border-collapse: collapse; }
+    th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { background: #f0f3f4; font-size: 13px; }
+    tr:last-child td { border-bottom: 0; }
+    .qa-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); border-radius: 6px; overflow: hidden; }
+    .qa-grid article { min-height: 190px; padding: 24px; background: white; }
+    .qa-grid small { color: var(--green); font-weight: 800; }
+    .qa-grid p { margin: 0; color: var(--muted); }
+    .visual-pair { display: grid; grid-template-columns: 1.15fr .85fr; gap: 20px; margin-top: 28px; align-items: start; }
+    figure { margin: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: white; }
+    figure img { width: 100%; height: auto; display: block; }
+    figcaption { padding: 14px 16px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+    .data-band { display: grid; grid-template-columns: 270px 1fr; gap: 28px; padding: 30px 0; border-top: 1px solid var(--line); }
+    .data-band:first-of-type { border-top: 0; }
+    .data-band h3 { color: var(--blue); }
+    .data-band p { margin: 0 0 12px; color: var(--muted); }
+    .data-band ul { margin: 0; padding-left: 20px; }
+    .data-figure { margin-top: 18px; }
+    .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+    .metric { padding: 16px; border-top: 3px solid var(--yellow); background: var(--soft); }
+    .metric strong { display: block; font-size: 25px; }
+    .metric span { color: var(--muted); font-size: 13px; }
+    .upgrade { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .upgrade article { padding: 20px; border-right: 1px solid var(--line); }
+    .upgrade article:last-child { border-right: 0; }
+    .upgrade b { display: block; margin-bottom: 8px; }
+    .upgrade p { margin: 0; color: var(--muted); font-size: 14px; }
+    footer { max-width: var(--max); margin: 0 auto; padding: 28px 24px 48px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hero { min-height: auto; grid-template-columns: 1fr; gap: 28px; padding-top: 48px; }
+      .section-head, .data-band { grid-template-columns: 1fr; gap: 10px; }
+      .status-strip { grid-template-columns: repeat(2, 1fr); }
+      .status-strip article:nth-child(2) { border-right: 0; }
+      .status-strip article:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .qa-grid, .visual-pair { grid-template-columns: 1fr; }
+      .upgrade { grid-template-columns: 1fr; }
+      .upgrade article { border-right: 0; border-bottom: 1px solid var(--line); }
+      .upgrade article:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 560px) {
+      .topbar-inner, main { padding-left: 16px; padding-right: 16px; }
+      .hero { padding: 38px 16px; }
+      h1 { font-size: 38px; }
+      h2 { font-size: 27px; }
+      section { padding: 48px 0; }
+      .status-strip, .metric-row { grid-template-columns: 1fr; }
+      .status-strip article { border-right: 0; border-bottom: 1px solid var(--line); }
+      .status-strip article:last-child { border-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark">259</span><span>Business Tutor 学习台</span></div>
+      <nav><a href="#status">完成度</a><a href="#canvas">画布</a><a href="#letter">答疑</a><a href="#data">数据包</a><a href="#upgrade">AI 迁移</a></nav>
+    </div>
+  </div>
+
+  <header>
+    <div class="hero">
+      <div>
+        <p class="eyebrow">聪明精益 · 课后 Candy</p>
+        <h1>把案例结论还原成可验证的经营账本</h1>
+        <p>三张五步画布、11 组学员答疑、两份运营记录和三个飞书工作表，整理为适合互联网与 AI 创业的证据、单位经济和复制性检查方法。</p>
+      </div>
+      <aside class="hero-stats">
+        <div><strong>3/3</strong><span>Candy 已解锁并学习</span></div>
+        <div><strong>4</strong><span>文档实际读取</span></div>
+        <div><strong>3</strong><span>飞书表格工作表核验</span></div>
+        <div><strong>5</strong><span>代表性图证本地保存</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="status">
+      <div class="section-head"><span class="section-no">01 / STATUS</span><div><h2>提交与学习状态</h2><p class="lead">作业已经正式提交并解锁 Candy；答案未公开。除这次必需的作业提交外，没有把学习笔记写回一堂个人界面。</p></div></div>
+      <div class="status-strip">
+        <article><strong>1680021</strong><span>作业 answerId</span></article>
+        <article><strong>9</strong><span>NPS 评分</span></article>
+        <article><strong>不公开</strong><span>作业公开意愿</span></article>
+        <article><strong>3 已学</strong><span>1791 / 1792 / 1793</span></article>
+      </div>
+      <div class="notice">所有“已学习”状态都有页面正文、结构化摘要或表格截图作为证据；课程数字按“课程自报”处理，不替代外部审计。</div>
+    </section>
+
+    <section id="canvas">
+      <div class="section-head"><span class="section-no">02 / CANVAS</span><div><h2>三个业务的五步画布</h2><p class="lead">五步法把用户问题、产品内核、赚钱单位、增长质量和壁垒分开，防止用一处成功替代整个业务成立。</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>业务</th><th>需求</th><th>产品内核</th><th>单元模型</th><th>增长指标</th><th>壁垒</th></tr></thead>
+          <tbody>
+            <tr><td><strong>内衣洗衣液</strong></td><td>20-35 岁女性；手洗；血渍与异味</td><td>去血渍、长留香</td><td>单订单、单用户</td><td>年营收 4000 万并盈利</td><td>品牌强；迁移成本中</td></tr>
+            <tr><td><strong>扭蛋机</strong></td><td>儿童使用、家长付款；经过与等待场景</td><td>易用、好玩、平价</td><td>订单、柜、点位、商圈、城市、配送</td><td>年增 500 点位、点位毛利率 &gt;20%、月营收 &gt;100 万</td><td>IP 高；独家点位中；规模效应弱</td></tr>
+            <tr><td><strong>动漫电商</strong></td><td>重度日漫用户；稀缺、正品与预算约束</td><td>正品、稀缺、低价</td><td>订单、用户、活动、展会</td><td>月增 3000、转化 20%、月营收 200 万</td><td>独家授权强；成本中；规模效应弱</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice"><strong>导师判断：</strong>画布不应只有答案，还应增加证据等级、反证阈值、数据日期与责任人。否则它仍然只是结构化愿望。</div>
+    </section>
+
+    <section id="letter">
+      <div class="section-head"><span class="section-no">03 / Q&A</span><div><h2>答疑信的八条实战边界</h2><p class="lead">最有价值的不是具体话术，而是哪些问题可以靠调研、哪些必须靠行为，以及低成本测试什么时候会失真。</p></div></div>
+      <div class="qa-grid">
+        <article><small>01 · 预判</small><h3>难关来自五步法</h3><p>“有人要、卖什么、能否卖动、能否赚钱、能否卖爆”分属不同关口，不能相互替代。</p></article>
+        <article><small>02 · 成本</small><h3>实验没有固定段位</h3><p>直接测试、人工服务、借工具、人工替代、最小版本和全量开发都只是手段，选择取决于关键风险。</p></article>
+        <article><small>03 · 2B / 2G</small><h3>先分产品风险与资源风险</h3><p>产品更好就找种子客户共创；持续拿单依赖壁垒，就访谈专家、竞品和价值链角色，再用采购行为复核。</p></article>
+        <article><small>04 · 行为</small><h3>性格不是创业结论</h3><p>内向或外向不是能力高低。要根据取证、销售和组织协同的任务切换行为。</p></article>
+        <article><small>05 · 阶段</small><h3>按阶段调用能力</h3><p>预判选方向，起盘拆假设，增长建组织；底层是实事求是、解放思想和知行合一。</p></article>
+        <article><small>06 · 假产品</small><h3>只替代无需验证的部分</h3><p>假包装可测试购买感知，但不能证明长期效果、安全与稳定性。必须写清替代项与真实项。</p></article>
+        <article><small>07 · 渠道</small><h3>先做出可复用单店模型</h3><p>关系门店用于起步，销量、补货、客诉和利润记录才支持进入连锁；代理不会消除准入与动销门槛。</p></article>
+        <article><small>08 · 平台</small><h3>用户错配会浪费网络效应</h3><p>手办用户与周边付费用户不一致，使早期资产无法顺延。使用者、贡献者和付款者必须分开验证。</p></article>
+      </div>
+      <div class="visual-pair">
+        <figure><img src="assets/yitang-5wdv-candy/letter-visual-01.png" alt="一堂低成本创业全景图"><figcaption>低成本实验是一条从直接测试到全量开发的成本谱，不是越靠左越正确。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv-candy/letter-visual-02.png" alt="一堂高潜力创业者修炼全景图"><figcaption>预判、起盘与增长阶段调用不同能力，底层逻辑持续贯穿。</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="data">
+      <div class="section-head"><span class="section-no">04 / DATA</span><div><h2>扭蛋机：目标、动作与利润不混写</h2><p class="lead">运营记录和表格共同说明：销售上升不等于因果已识别，单点毛利也不等于复制成立。</p></div></div>
+      <div class="data-band">
+        <h3>两周测试记录</h3>
+        <div><p>8 台机器，初始 10 元/次，目标 40 枚/天。后续同时调整到 5 元、增加展示、音乐、联动优惠券和完整值守日。</p><ul><li>5 日销量：12、9、12、26、36，共 95，日均 19。</li><li>小车 27 枚领先，儿童品类强于多数动漫 IP。</li><li>多个变量同时变化，因此后两日增长不能被归因给单一动作。</li></ul></div>
+      </div>
+      <div class="data-band">
+        <h3>北京月度 SKU</h3>
+        <div><div class="metric-row"><div class="metric"><strong>722</strong><span>合计销量</span></div><div class="metric"><strong>7,537.6</strong><span>销售额</span></div><div class="metric"><strong>4,901.7</strong><span>毛利</span></div><div class="metric"><strong>65%</strong><span>表内毛利率</span></div></div><p>表内按 SKU 记录进价、运费、蛋壳、售价、销量、毛利和上月变化，适合做补货与淘汰决策。</p><figure class="data-figure"><img src="assets/yitang-5wdv-candy/sheet-beijing-monthly.png" alt="扭蛋机北京月度数据表"><figcaption>截图保留代表性表格结构；未保存完整付费数据镜像。</figcaption></figure></div>
+      </div>
+      <div class="data-band">
+        <h3>广州单日账本</h3>
+        <div><div class="metric-row"><div class="metric"><strong>80</strong><span>7 月 26 日销量</span></div><div class="metric"><strong>322</strong><span>销售额</span></div><div class="metric"><strong>113</strong><span>利润</span></div><div class="metric"><strong>35.1%</strong><span>利润率</span></div></div><p>销量主要来自变形金刚 24、乐高小车 21、乐高女孩 15 和乐高摩托车 13。SKU 贡献高度不均，不能平均补货。</p><figure class="data-figure"><img src="assets/yitang-5wdv-candy/sheet-guangzhou-daily.png" alt="扭蛋机广州单日数据表"><figcaption>广州 7 月 26 日 7 个 SKU 的销售与利润记录。</figcaption></figure></div>
+      </div>
+      <div class="data-band">
+        <h3>销售额与复制模型</h3>
+        <div><p>3 台与 6 台机器的全年销售额估算约 4.431 万与 6.33 万；扣除 40% 成本、地租、人工和机器损耗后，估算利润约 5,170 与 7,215。</p><p><strong>结论：</strong>机器数翻倍不带来利润线性翻倍，淡旺季、点位成本和运维约束会侵蚀规模收益。</p><figure class="data-figure"><img src="assets/yitang-5wdv-candy/sheet-sales-model.png" alt="广州扭蛋机销售额估算表"><figcaption>销售额估算把季节性与固定成本带入复制判断。</figcaption></figure></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">05 / THROUGHPUT</span><div><h2>动漫电商：吞吐量也是单位经济</h2><p class="lead">库存电商的增长上限可能不是流量，而是拍照、录入、校对、上架、仓储和缺货同步。</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>环节</th><th>课程记录</th><th>经营含义</th></tr></thead>
+          <tbody>
+            <tr><td>单件成本</td><td>合计 10.15 元；含进价、国际运费、捡货、分货、打包、快递、仓储和上架</td><td>毛利必须覆盖完整操作成本，不只看进销差</td></tr>
+            <tr><td>人工上架</td><td>约 6 分钟/件、2 元/件、60 件/人日</td><td>商品信息生产是可计价瓶颈</td></tr>
+            <tr><td>程序辅助</td><td>约 4 分钟/件、1.33 元/件、90 件/人日</td><td>自动化价值应以节省分钟与质量变化衡量</td></tr>
+            <tr><td>2 万件规模</td><td>约 222 人日、2.66 万元</td><td>单件小优化在大规模下形成现金与交付差异</td></tr>
+            <tr><td>漫展漏斗</td><td>经过约 1200、进店约 400、付款记录 72、销售 4335 元</td><td>流量、进店、付款和客单必须分别定义；记录另有 80 人口径需核对</td></tr>
+            <tr><td>线上计划</td><td>每天录入 3000 条、每周上架 1 万件、缺货率低于 1%</td><td>增长目标要绑定供给吞吐、库存质量和责任人</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="upgrade">
+      <div class="section-head"><span class="section-no">06 / AI TRANSFER</span><div><h2>给 AI 商业教练的五项升级</h2><p class="lead">把课程从“知识解释器”升级为“证据与经营约束检查器”。</p></div></div>
+      <div class="upgrade">
+        <article><b>画布加证据列</b><p>假设、证据等级、数据日期、反证阈值、责任人一起保存。</p></article>
+        <article><b>人工兜底计价</b><p>记录每个 AI 任务的人工分钟、重试、审核、异常和支持成本。</p></article>
+        <article><b>角色分图</b><p>分别识别使用者、贡献者、付款者、预算拥有者和责任承担者。</p></article>
+        <article><b>检查吞吐瓶颈</b><p>除获客外，审计数据准备、推理、人工审核、集成、客服和合规容量。</p></article>
+        <article><b>明确混杂变量</b><p>一次只改一个主变量；无法控制时记录替代解释，不把相关性写成因果。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    原创摘要与代表性证据，更新于 2026-07-15。返回 <a href="../yitang-learning-completeness.html">学习完整性仪表板</a> 或查看 <a href="yitang-casebook-and-smart-lean-2026-07-15.html">主课图文学习台</a>。
+  </footer>
+</body>
+</html>

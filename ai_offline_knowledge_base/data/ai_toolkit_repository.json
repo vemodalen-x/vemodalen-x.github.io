@@ -1,0 +1,564 @@
+{
+  "snapshot_date": "2026-07-15",
+  "repository": {
+    "name": "ostris/ai-toolkit",
+    "url": "https://github.com/ostris/ai-toolkit",
+    "description": "The ultimate training toolkit for finetuning diffusion models",
+    "default_branch": "main",
+    "language": "Python",
+    "license": "MIT",
+    "stars": 11316,
+    "forks": 1426,
+    "open_issues_and_pull_requests": 129,
+    "created_at": "2023-07-05T18:45:11Z",
+    "updated_at": "2026-07-15T09:51:45Z",
+    "pushed_at": "2026-07-14T16:42:05Z"
+  },
+  "tree_sha": "18da85153b51eecb4e1005bf6e8d4211712611e2",
+  "tree_truncated": false,
+  "tree_item_count": 773,
+  "supported_model_count": 42,
+  "supported_models": [
+    {
+      "category": "图像生成",
+      "name": "FLUX.1-dev",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-dev"
+    },
+    {
+      "category": "图像生成",
+      "name": "FLUX.2-dev",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.2-dev"
+    },
+    {
+      "category": "图像生成",
+      "name": "FLUX.2-klein-base-4B",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B"
+    },
+    {
+      "category": "图像生成",
+      "name": "FLUX.2-klein-base-9B",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9B"
+    },
+    {
+      "category": "图像生成",
+      "name": "Flex.1-alpha",
+      "url": "https://huggingface.co/ostris/Flex.1-alpha"
+    },
+    {
+      "category": "图像生成",
+      "name": "Flex.2-preview",
+      "url": "https://huggingface.co/ostris/Flex.2-preview"
+    },
+    {
+      "category": "图像生成",
+      "name": "Chroma1-Base",
+      "url": "https://huggingface.co/lodestones/Chroma1-Base"
+    },
+    {
+      "category": "图像生成",
+      "name": "Lumina-Image-2.0",
+      "url": "https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0"
+    },
+    {
+      "category": "图像生成",
+      "name": "Qwen-Image",
+      "url": "https://huggingface.co/Qwen/Qwen-Image"
+    },
+    {
+      "category": "图像生成",
+      "name": "Qwen-Image-2512",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2512"
+    },
+    {
+      "category": "图像生成",
+      "name": "HiDream-I1-Full",
+      "url": "https://huggingface.co/HiDream-ai/HiDream-I1-Full"
+    },
+    {
+      "category": "图像生成",
+      "name": "OmniGen2",
+      "url": "https://huggingface.co/OmniGen2/OmniGen2"
+    },
+    {
+      "category": "图像生成",
+      "name": "Z-Image-Turbo",
+      "url": "https://huggingface.co/Tongyi-MAI/Z-Image-Turbo"
+    },
+    {
+      "category": "图像生成",
+      "name": "Z-Image",
+      "url": "https://huggingface.co/Tongyi-MAI/Z-Image"
+    },
+    {
+      "category": "图像生成",
+      "name": "Z-Image-De-Turbo",
+      "url": "https://huggingface.co/ostris/Z-Image-De-Turbo"
+    },
+    {
+      "category": "图像生成",
+      "name": "SDXL",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0"
+    },
+    {
+      "category": "图像生成",
+      "name": "SD 1.5",
+      "url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5"
+    },
+    {
+      "category": "图像生成",
+      "name": "ERNIE-Image",
+      "url": "https://huggingface.co/baidu/ERNIE-Image"
+    },
+    {
+      "category": "图像生成",
+      "name": "Nucleus-Image",
+      "url": "https://huggingface.co/NucleusAI/Nucleus-Image"
+    },
+    {
+      "category": "图像生成",
+      "name": "Boogu Image 0.1",
+      "url": "https://huggingface.co/Boogu/Boogu-Image-0.1-Base"
+    },
+    {
+      "category": "图像生成",
+      "name": "HiDream O1 Image",
+      "url": "https://huggingface.co/HiDream-ai/HiDream-O1-Image"
+    },
+    {
+      "category": "图像生成",
+      "name": "PRXPixel",
+      "url": "https://huggingface.co/Photoroom/prxpixel-t2i"
+    },
+    {
+      "category": "指令编辑",
+      "name": "FLUX.1-Kontext-dev",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev"
+    },
+    {
+      "category": "指令编辑",
+      "name": "Qwen-Image-Edit",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-Edit"
+    },
+    {
+      "category": "指令编辑",
+      "name": "Qwen-Image-Edit-2509",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-Edit-2509"
+    },
+    {
+      "category": "指令编辑",
+      "name": "Qwen-Image-Edit-2511",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-Edit-2511"
+    },
+    {
+      "category": "指令编辑",
+      "name": "HiDream-E1-1",
+      "url": "https://huggingface.co/HiDream-ai/HiDream-E1-1"
+    },
+    {
+      "category": "指令编辑",
+      "name": "Boogu Image Edit",
+      "url": "https://huggingface.co/Boogu/Boogu-Image-0.1-Edit"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.1 T2V 1.3B",
+      "url": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.1 I2V 14B 480P",
+      "url": "https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-480P-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.1 I2V 14B 720P",
+      "url": "https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-720P-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.1 T2V 14B",
+      "url": "https://huggingface.co/Wan-AI/Wan2.1-T2V-14B-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.2 T2V A14B",
+      "url": "https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.2 I2V A14B",
+      "url": "https://huggingface.co/Wan-AI/Wan2.2-I2V-A14B-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "Wan2.2 TI2V 5B",
+      "url": "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B-Diffusers"
+    },
+    {
+      "category": "视频生成",
+      "name": "LTX-2",
+      "url": "https://huggingface.co/Lightricks/LTX-2"
+    },
+    {
+      "category": "视频生成",
+      "name": "LTX-2.3",
+      "url": "https://huggingface.co/Lightricks/LTX-2.3"
+    },
+    {
+      "category": "视频生成",
+      "name": "Krea 2",
+      "url": "https://huggingface.co/krea/Krea-2-Raw"
+    },
+    {
+      "category": "音频生成",
+      "name": "Ace Step 1.5",
+      "url": "https://huggingface.co/ACE-Step/Ace-Step1.5"
+    },
+    {
+      "category": "音频生成",
+      "name": "Ace Step 1.5 XL",
+      "url": "https://huggingface.co/ACE-Step/acestep-v15-xl-base"
+    },
+    {
+      "category": "实验支持",
+      "name": "Zeta-Chroma",
+      "url": "https://huggingface.co/lodestones/Zeta-Chroma"
+    },
+    {
+      "category": "实验支持",
+      "name": "Ideogram 4 FP8",
+      "url": "https://huggingface.co/ideogram-ai/ideogram-4-fp8"
+    }
+  ],
+  "config_example_count": 25,
+  "config_examples": [
+    {
+      "path": "config/examples/train_lora_flux_24gb.yaml",
+      "title": "train_lora_flux_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_flux_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "must-read",
+      "notes": "README 主线 FLUX LoRA 示例；适合先跑通数据、LoRA、flow matching、采样与 checkpoint 的完整闭环。"
+    },
+    {
+      "path": "config/examples/train_lora_flux_kontext_24gb.yaml",
+      "title": "train_lora_flux_kontext_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_flux_kontext_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_lora_qwen_image_24gb.yaml",
+      "title": "train_lora_qwen_image_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_qwen_image_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "Qwen Image 24GB 示例使用 text embedding cache、量化与 low_vram；这些是该快照配置的取舍，不是所有设备的通用最优值。"
+    },
+    {
+      "path": "config/examples/train_lora_qwen_image_edit_2509_32gb.yaml",
+      "title": "train_lora_qwen_image_edit_2509_32gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_qwen_image_edit_2509_32gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_lora_qwen_image_edit_32gb.yaml",
+      "title": "train_lora_qwen_image_edit_32gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_qwen_image_edit_32gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_lora_wan21_14b_24gb.yaml",
+      "title": "train_lora_wan21_14b_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_wan21_14b_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_lora_wan21_1b_24gb.yaml",
+      "title": "train_lora_wan21_1b_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_wan21_1b_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "Wan2.1 1.3B 示例按单帧图像文件夹训练；配置注释提示它更偏角色学习而非动作学习，应另设视频时序评测。"
+    },
+    {
+      "path": "config/examples/train_lora_wan22_14b_24gb.yaml",
+      "title": "train_lora_wan22_14b_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_wan22_14b_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/modal/modal_train_lora_flux_24gb.yaml",
+      "title": "modal_train_lora_flux_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/modal/modal_train_lora_flux_24gb.yaml",
+      "category": "Modal 云训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/modal/modal_train_lora_flux_schnell_24gb.yaml",
+      "title": "modal_train_lora_flux_schnell_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/modal/modal_train_lora_flux_schnell_24gb.yaml",
+      "category": "Modal 云训练",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_full_fine_tune_flex.yaml",
+      "title": "train_full_fine_tune_flex.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_full_fine_tune_flex.yaml",
+      "category": "全量微调",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_full_fine_tune_lumina.yaml",
+      "title": "train_full_fine_tune_lumina.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_full_fine_tune_lumina.yaml",
+      "category": "全量微调",
+      "priority": "recommended",
+      "notes": "代表性进阶配置；用于核对该模型或运行方式的显存、量化、cache、采样与数据约束，不能把参数外推到其他模型。"
+    },
+    {
+      "path": "config/examples/train_flex_redux.yaml",
+      "title": "train_flex_redux.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_flex_redux.yaml",
+      "category": "Adapter / Redux",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/mod_lora_scale.yaml",
+      "title": "mod_lora_scale.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/mod_lora_scale.yaml",
+      "category": "LoRA 权重调整",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_chroma_24gb.yaml",
+      "title": "train_lora_chroma_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_chroma_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_flex2_24gb.yaml",
+      "title": "train_lora_flex2_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_flex2_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_flex_24gb.yaml",
+      "title": "train_lora_flex_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_flex_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_flux_schnell_24gb.yaml",
+      "title": "train_lora_flux_schnell_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_flux_schnell_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_hidream_48.yaml",
+      "title": "train_lora_hidream_48.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_hidream_48.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_lumina.yaml",
+      "title": "train_lora_lumina.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_lumina.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_omnigen2_24gb.yaml",
+      "title": "train_lora_omnigen2_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_omnigen2_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_lora_sd35_large_24gb.yaml",
+      "title": "train_lora_sd35_large_24gb.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_lora_sd35_large_24gb.yaml",
+      "category": "LoRA 训练",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/extract.example.yml",
+      "title": "extract.example.yml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/extract.example.yml",
+      "category": "权重提取",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/train_slider.example.yml",
+      "title": "train_slider.example.yml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/train_slider.example.yml",
+      "category": "概念 Slider",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    },
+    {
+      "path": "config/examples/generate.example.yaml",
+      "title": "generate.example.yaml",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/config/examples/generate.example.yaml",
+      "category": "生成任务",
+      "priority": "optional",
+      "notes": "仓库提供的任务配置模板；先理解字段与目标，再按当前硬件和模型 README 调整。"
+    }
+  ],
+  "learning_stages": [
+    {
+      "order": 1,
+      "title": "环境与任务边界",
+      "focus": "先选图像、编辑、视频或音频任务，再核对 Python、GPU、显存与模型许可。",
+      "output": "锁定环境与单卡空跑记录"
+    },
+    {
+      "order": 2,
+      "title": "数据、Caption 与 Buckets",
+      "focus": "建立图像/文本配对、trigger、caption dropout、分辨率桶和 held-out 集。",
+      "output": "可审计数据清单与分桶统计"
+    },
+    {
+      "order": 3,
+      "title": "模型、精度与量化",
+      "focus": "区分 backbone、text encoder、VAE、dtype、quantize、qtype、low_vram 与 cache。",
+      "output": "显存、速度与质量基线"
+    },
+    {
+      "order": 4,
+      "title": "LoRA、LoKr 与层选择",
+      "focus": "比较 rank/alpha、全量微调、LoKr、only_if_contains 与 ignore_if_contains。",
+      "output": "单变量适配策略消融"
+    },
+    {
+      "order": 5,
+      "title": "Checkpoint、采样与评测",
+      "focus": "固定 prompt、seed、采样间隔和保留策略，分开测身份、风格、构图与失败率。",
+      "output": "质量—成本—可恢复性报告"
+    },
+    {
+      "order": 6,
+      "title": "UI、CLI 与运行安全",
+      "focus": "理解 YAML job 调度、恢复、日志、UI token、云端运行与中断边界。",
+      "output": "可重复运行手册与故障演练"
+    }
+  ],
+  "architecture_files": [
+    {
+      "path": "run.py",
+      "role": "CLI 入口：加载一个或多个 YAML、处理恢复/名称替换、设置运行环境并顺序执行 job。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/run.py"
+    },
+    {
+      "path": "toolkit/job.py",
+      "role": "Job 工厂：根据配置把任务路由到 Train、Extract、Generate、Mod 或 Extension。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/toolkit/job.py"
+    },
+    {
+      "path": "jobs/TrainJob.py",
+      "role": "训练 Job：组织训练 processes 及其生命周期。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/jobs/TrainJob.py"
+    },
+    {
+      "path": "jobs/process/BaseSDTrainProcess.py",
+      "role": "核心训练过程：连接模型、数据、优化器、采样、保存与日志。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/jobs/process/BaseSDTrainProcess.py"
+    },
+    {
+      "path": "toolkit/config_modules.py",
+      "role": "类型化配置模块：Save、Logging、Sample、Network、Train、Model 与 Dataset 等。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/toolkit/config_modules.py"
+    },
+    {
+      "path": "toolkit/data_loader.py",
+      "role": "数据加载入口：把数据集配置接入 caption、bucket、cache 和 batch。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/toolkit/data_loader.py"
+    },
+    {
+      "path": "jobs/ExtensionJob.py",
+      "role": "扩展任务入口：允许内置或外部 extension 注入专用训练/生成流程。",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/jobs/ExtensionJob.py"
+    }
+  ],
+  "config_sections": [
+    {
+      "name": "name / process / device",
+      "question": "这是什么 job，在什么设备上跑？",
+      "check": "先做最小 dry run；名称、设备与 process 类型写入实验记录。"
+    },
+    {
+      "name": "network",
+      "question": "训练 LoRA、LoKr，还是选择特定层？",
+      "check": "记录 type、linear、linear_alpha、only_if_contains 与 ignore_if_contains。"
+    },
+    {
+      "name": "datasets",
+      "question": "样本、caption、trigger、resolution 和 cache 如何进入训练？",
+      "check": "审计同名文本、分桶分布、caption dropout、重复样本与 held-out 泄漏。"
+    },
+    {
+      "name": "train",
+      "question": "优化目标、步数、优化器与精度如何组合？",
+      "check": "固定 batch/steps/lr/dtype；flowmatch 等目标必须与模型示例一致。"
+    },
+    {
+      "name": "model",
+      "question": "加载哪个 backbone，哪些部件量化或低显存运行？",
+      "check": "分别记录模型名、quantize/qtype、text encoder 精度、low_vram 与 cache。"
+    },
+    {
+      "name": "save / sample / logging / meta",
+      "question": "如何保存、观察、恢复并追溯实验？",
+      "check": "固定 prompt/seed，保留关键 checkpoint，并把配置、版本和样本归档。"
+    }
+  ],
+  "notebooks": [
+    {
+      "path": "notebooks/FLUX_1_dev_LoRA_Training.ipynb",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/notebooks/FLUX_1_dev_LoRA_Training.ipynb"
+    },
+    {
+      "path": "notebooks/FLUX_1_schnell_LoRA_Training.ipynb",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/notebooks/FLUX_1_schnell_LoRA_Training.ipynb"
+    },
+    {
+      "path": "notebooks/SliderTraining.ipynb",
+      "url": "https://github.com/ostris/ai-toolkit/blob/main/notebooks/SliderTraining.ipynb"
+    }
+  ],
+  "warnings": [
+    "模型支持范围和精确依赖版本来自 2026-07-15 README 快照，后续可能变化。",
+    "示例配置中的 24GB、量化、cache、学习率和采样参数只适用于其指明的模型与环境。",
+    "GitHub API 的 open_issues_count 可能同时包含 issues 与 pull requests。",
+    "训练中断应避开 checkpoint 写入时刻，并验证上一 checkpoint 的可恢复性。",
+    "README 中标为 experimental 的平台或模型不应在未验证前进入生产。"
+  ]
+}

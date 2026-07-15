@@ -1,0 +1,74 @@
+{
+  "id": "yitang-truman-replay-learning-2026-07-15",
+  "sourceUrl": "https://ai.yitang.top/replay/truman-for-replay",
+  "capturedAt": "2026-07-15T21:00:00+08:00",
+  "scope": {
+    "partner": "Truman For复盘营",
+    "scenario": "面向互联网与 AI 创业者的 Business Tutor Agent 复盘",
+    "userTurns": 12,
+    "assistantTurns": 12,
+    "completedToClosingLetter": true,
+    "recommendedReplayConversationsAvailable": 0
+  },
+  "verifiedConfiguration": {
+    "partnerId": "a03705d5-987f-4e63-9dc9-164853f92537",
+    "slug": "truman-for-replay",
+    "version": 2,
+    "model": "deepseek-v4-pro",
+    "temperature": 0.7,
+    "topP": 1,
+    "conversationAccess": "unrestricted",
+    "isPublic": false,
+    "isOfficial": false,
+    "openingRemarksPresent": false,
+    "welcomeMessagePresent": false,
+    "autoEnabledTools": [],
+    "canUse": true
+  },
+  "verifiedArchitecture": {
+    "fixedStorylineMentioned": true,
+    "storylineStepCount": 12,
+    "v02AddressesMainlineDrift": true,
+    "runtimePromptControlsFlow": true,
+    "dataPackSupportsToneCourseCompanyScarcityConversionLetters": true,
+    "hiddenStepNamesRecovered": false,
+    "hiddenPromptCopied": false
+  },
+  "observedFunctionalStages": [
+    "复盘契约",
+    "起心动念",
+    "真实使用瞬间",
+    "事实镜像",
+    "偏差确认",
+    "长期后果",
+    "体系映射",
+    "直接阻力",
+    "最小体检",
+    "对象与期限",
+    "结果回传",
+    "总结信"
+  ],
+  "firstSessionCheckup": [
+    "一句话目标与障碍",
+    "2-3 条路径及成功理由",
+    "按前置性、影响、证据缺口和验证成本排序最危险假设",
+    "设计几天内的低成本证伪实验",
+    "约定对象、期限、结果信号和回访日"
+  ],
+  "guardrails": [
+    "肯定最多两句且不升级身份",
+    "镜像结论保持为可反驳假设",
+    "最坏情形必须补预警指标和可逆动作",
+    "课程或服务推荐披露利益关系并允许跳过",
+    "演练、计划、已发出、已执行、已复盘分开记账",
+    "假门、广告和预售实验检查知情、品牌、退款、合规与交付"
+  ],
+  "localArtifacts": [
+    "notes/yitang-truman-replay-learning-2026-07-15.md",
+    "notes/yitang-truman-replay-learning-2026-07-15.html",
+    "knowledge/yitang-truman-replay-index.json",
+    "knowledge/yitang-business-kb.js",
+    "business-tutor-agent.html"
+  ],
+  "boundary": "原创行为观察与产品化摘要；不包含付费课逐字稿、隐藏系统提示词、认证令牌或未发送的真人外联声明。"
+}

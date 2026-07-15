@@ -1,0 +1,582 @@
+{
+  "generatedAt": "2026-07-15T11:18:49.807Z",
+  "sourceUrl": "https://yitanger.feishu.cn/docs/doccn6drhd25ektwP7jG48KWFRa",
+  "sourceTitle": "创业复盘案例集 - 飞书云文档",
+  "sourceTextLengthObserved": 177992,
+  "caseCount": 129,
+  "chapterCount": 6,
+  "collectionMethod": "Authenticated Chrome editor model; case headings only.",
+  "copyrightBoundary": "Heading-level evidence index only; no course transcript or full case text is stored.",
+  "chapters": [
+    {
+      "id": "critical-hypotheses",
+      "title": "关键假设",
+      "start": 1,
+      "end": 20,
+      "count": 20,
+      "cases": [
+        {
+          "number": 1,
+          "title": "餐饮调味料平台"
+        },
+        {
+          "number": 2,
+          "title": "新零售实体店"
+        },
+        {
+          "number": 3,
+          "title": "瑜伽课程预约平台"
+        },
+        {
+          "number": 4,
+          "title": "美业（美发店）供应链"
+        },
+        {
+          "number": 5,
+          "title": "房产项目"
+        },
+        {
+          "number": 6,
+          "title": "幼儿园教育项目"
+        },
+        {
+          "number": 7,
+          "title": "跑步项目"
+        },
+        {
+          "number": 8,
+          "title": "孕产服务项目"
+        },
+        {
+          "number": 9,
+          "title": "互联网医疗项目（慢性病）"
+        },
+        {
+          "number": 10,
+          "title": "5G项目"
+        },
+        {
+          "number": 11,
+          "title": "社区餐饮服务"
+        },
+        {
+          "number": 12,
+          "title": "橱窗新媒体"
+        },
+        {
+          "number": 13,
+          "title": "新医药培训"
+        },
+        {
+          "number": 14,
+          "title": "幼儿园手偶剧"
+        },
+        {
+          "number": 15,
+          "title": "花木电商"
+        },
+        {
+          "number": 16,
+          "title": "法务项目"
+        },
+        {
+          "number": 17,
+          "title": "K12学习能力的直播平台"
+        },
+        {
+          "number": 18,
+          "title": "凉皮产品"
+        },
+        {
+          "number": 19,
+          "title": "治疗颈椎疾病"
+        },
+        {
+          "number": 20,
+          "title": "鲜辣条"
+        }
+      ]
+    },
+    {
+      "id": "demand-judgment",
+      "title": "需求判断",
+      "start": 21,
+      "end": 46,
+      "count": 26,
+      "cases": [
+        {
+          "number": 21,
+          "title": "设计对接平台"
+        },
+        {
+          "number": 22,
+          "title": "养老SaaS"
+        },
+        {
+          "number": 23,
+          "title": "球鞋潮服进销存SaaS"
+        },
+        {
+          "number": 24,
+          "title": "本地建材O2O项目"
+        },
+        {
+          "number": 25,
+          "title": "少儿口才教育"
+        },
+        {
+          "number": 26,
+          "title": "户外教育营地项目"
+        },
+        {
+          "number": 27,
+          "title": "少儿财商"
+        },
+        {
+          "number": 28,
+          "title": "在线画廊"
+        },
+        {
+          "number": 29,
+          "title": "旅行约伴"
+        },
+        {
+          "number": 30,
+          "title": "文具实体店"
+        },
+        {
+          "number": 31,
+          "title": "世界上最大的牙膏"
+        },
+        {
+          "number": 32,
+          "title": "酒店智能管家"
+        },
+        {
+          "number": 33,
+          "title": "针对大学生的独立电商"
+        },
+        {
+          "number": 34,
+          "title": "个性营养配餐"
+        },
+        {
+          "number": 35,
+          "title": "第三方电商服务商"
+        },
+        {
+          "number": 36,
+          "title": "智能电子飞镖靶"
+        },
+        {
+          "number": 37,
+          "title": "周边旅游度假订阅"
+        },
+        {
+          "number": 38,
+          "title": "医疗视频问诊"
+        },
+        {
+          "number": 39,
+          "title": "在线抽奖平台"
+        },
+        {
+          "number": 40,
+          "title": "3个农村市场的项目"
+        },
+        {
+          "number": 41,
+          "title": "代餐减肥服务"
+        },
+        {
+          "number": 42,
+          "title": "茶文化"
+        },
+        {
+          "number": 43,
+          "title": "智能美妆"
+        },
+        {
+          "number": 44,
+          "title": "医美SaaS"
+        },
+        {
+          "number": 45,
+          "title": "潜水旅游平台"
+        },
+        {
+          "number": 46,
+          "title": "智能门禁项目"
+        }
+      ]
+    },
+    {
+      "id": "product-kernel",
+      "title": "产品内核",
+      "start": 47,
+      "end": 73,
+      "count": 27,
+      "cases": [
+        {
+          "number": 47,
+          "title": "中小企业共享设计中心"
+        },
+        {
+          "number": 48,
+          "title": "社区生活项目"
+        },
+        {
+          "number": 49,
+          "title": "室内设计服务"
+        },
+        {
+          "number": 50,
+          "title": "美业服务平台"
+        },
+        {
+          "number": 51,
+          "title": "中小工程服务商"
+        },
+        {
+          "number": 52,
+          "title": "旅行摄影O2O平台"
+        },
+        {
+          "number": 53,
+          "title": "白领早餐外卖"
+        },
+        {
+          "number": 54,
+          "title": "求职平台"
+        },
+        {
+          "number": 55,
+          "title": "甜品店连锁"
+        },
+        {
+          "number": 56,
+          "title": "儿童游戏化百科全书"
+        },
+        {
+          "number": 57,
+          "title": "车队管理类SaaS"
+        },
+        {
+          "number": 58,
+          "title": "孕产恢复项目"
+        },
+        {
+          "number": 59,
+          "title": "客户CRM系统"
+        },
+        {
+          "number": 60,
+          "title": "眼视光行业B2B平台"
+        },
+        {
+          "number": 61,
+          "title": "住院病人营养膳食定制"
+        },
+        {
+          "number": 62,
+          "title": "绿色包装材料"
+        },
+        {
+          "number": 63,
+          "title": "房产买方经纪平台"
+        },
+        {
+          "number": 64,
+          "title": "智能皮肤检测"
+        },
+        {
+          "number": 65,
+          "title": "保险聊天机器人"
+        },
+        {
+          "number": 66,
+          "title": "滋补品新零售"
+        },
+        {
+          "number": 67,
+          "title": "智能客服"
+        },
+        {
+          "number": 68,
+          "title": "医务工作者社区"
+        },
+        {
+          "number": 69,
+          "title": "Airbnb"
+        },
+        {
+          "number": 70,
+          "title": "女性社群创业教育"
+        },
+        {
+          "number": 71,
+          "title": "自动洗头机"
+        },
+        {
+          "number": 72,
+          "title": "茶叶消费品"
+        },
+        {
+          "number": 73,
+          "title": "自助会议空间"
+        }
+      ]
+    },
+    {
+      "id": "business-model",
+      "title": "商业模式",
+      "start": 74,
+      "end": 93,
+      "count": 20,
+      "cases": [
+        {
+          "number": 74,
+          "title": "婴幼儿健康管理"
+        },
+        {
+          "number": 75,
+          "title": "义齿交易平台"
+        },
+        {
+          "number": 76,
+          "title": "新式茶饮的项目"
+        },
+        {
+          "number": 77,
+          "title": "酒店采购平台"
+        },
+        {
+          "number": 78,
+          "title": "茶叶社区团购"
+        },
+        {
+          "number": 79,
+          "title": "校服补定"
+        },
+        {
+          "number": 80,
+          "title": "国际中文在线教育"
+        },
+        {
+          "number": 81,
+          "title": "低碳无糖健康饮食"
+        },
+        {
+          "number": 82,
+          "title": "精酿啤酒屋"
+        },
+        {
+          "number": 83,
+          "title": "线下健康咨询和调理"
+        },
+        {
+          "number": 84,
+          "title": "在线招聘"
+        },
+        {
+          "number": 85,
+          "title": "3个反思案例"
+        },
+        {
+          "number": 86,
+          "title": "在线教育"
+        },
+        {
+          "number": 87,
+          "title": "数字广告追踪SaaS"
+        },
+        {
+          "number": 88,
+          "title": "托幼地产教育"
+        },
+        {
+          "number": 89,
+          "title": "设计类专业服务公司"
+        },
+        {
+          "number": 90,
+          "title": "线下咖啡店分析"
+        },
+        {
+          "number": 91,
+          "title": "精酿啤酒项目"
+        },
+        {
+          "number": 92,
+          "title": "运动类产品找基准值"
+        },
+        {
+          "number": 93,
+          "title": "场馆的租金调研"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "title": "调研",
+      "start": 94,
+      "end": 112,
+      "count": 19,
+      "cases": [
+        {
+          "number": 94,
+          "title": "上海市内可用于特展场馆的租金价格分布"
+        },
+        {
+          "number": 95,
+          "title": "线下培训公考项目"
+        },
+        {
+          "number": 96,
+          "title": "早托门店选址调研"
+        },
+        {
+          "number": 97,
+          "title": "电话机器人"
+        },
+        {
+          "number": 98,
+          "title": "生鲜零售"
+        },
+        {
+          "number": 99,
+          "title": "3D打印美甲"
+        },
+        {
+          "number": 100,
+          "title": "酒店婚礼堂"
+        },
+        {
+          "number": 101,
+          "title": "前衍化学平台"
+        },
+        {
+          "number": 102,
+          "title": "驾考考试"
+        },
+        {
+          "number": 103,
+          "title": "面包店调研"
+        },
+        {
+          "number": 104,
+          "title": "洗车店"
+        },
+        {
+          "number": 105,
+          "title": "青年旅舍"
+        },
+        {
+          "number": 106,
+          "title": "留学产品"
+        },
+        {
+          "number": 107,
+          "title": "工业设计算法平台"
+        },
+        {
+          "number": 108,
+          "title": "调研方法集"
+        },
+        {
+          "number": 109,
+          "title": "老年大学"
+        },
+        {
+          "number": 110,
+          "title": "郑州地区酒店的调研"
+        },
+        {
+          "number": 111,
+          "title": "物联网esim虚拟运营商"
+        },
+        {
+          "number": 112,
+          "title": "栗子智能无人售货机"
+        }
+      ]
+    },
+    {
+      "id": "lean-validation",
+      "title": "精益",
+      "start": 113,
+      "end": 129,
+      "count": 17,
+      "cases": [
+        {
+          "number": 113,
+          "title": "社群电商"
+        },
+        {
+          "number": 114,
+          "title": "海外020订餐"
+        },
+        {
+          "number": 115,
+          "title": "社区新零售"
+        },
+        {
+          "number": 116,
+          "title": "工业品硬件项目"
+        },
+        {
+          "number": 117,
+          "title": "手工实体店"
+        },
+        {
+          "number": 118,
+          "title": "鲜奶品牌"
+        },
+        {
+          "number": 119,
+          "title": "共享模具设计师"
+        },
+        {
+          "number": 120,
+          "title": "保险行业培训"
+        },
+        {
+          "number": 121,
+          "title": "跨城市的O2O物流"
+        },
+        {
+          "number": 122,
+          "title": "智能录音笔"
+        },
+        {
+          "number": 123,
+          "title": "VR项目"
+        },
+        {
+          "number": 124,
+          "title": "小餐饮加盟"
+        },
+        {
+          "number": 125,
+          "title": "老人运动健身服务"
+        },
+        {
+          "number": 126,
+          "title": "珠宝电商"
+        },
+        {
+          "number": 127,
+          "title": "绿植电商"
+        },
+        {
+          "number": 128,
+          "title": "酒店共享空气净化器"
+        },
+        {
+          "number": 129,
+          "title": "家庭终身教育平台"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>创业复盘案例集 × 聪明精益｜图文学习台</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #667085;
+      --line: #d9dee7;
+      --paper: #ffffff;
+      --soft: #f4f6f8;
+      --charcoal: #20252b;
+      --yellow: #f5bd32;
+      --green: #16815f;
+      --blue: #2769b2;
+      --red: #c8493d;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 15px/1.72 Inter, "Microsoft YaHei", system-ui, sans-serif; letter-spacing: 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { display: block; max-width: 100%; }
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(10px); }
+    .topbar-inner { width: min(var(--max), calc(100% - 32px)); min-height: 56px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; color: #111; background: var(--yellow); border-radius: 4px; }
+    nav { display: flex; gap: 18px; overflow-x: auto; white-space: nowrap; }
+    nav a { color: #344054; font-size: 13px; font-weight: 700; }
+    header { background: var(--charcoal); color: #fff; border-bottom: 6px solid var(--yellow); }
+    .hero { width: min(var(--max), calc(100% - 32px)); min-height: 430px; margin: auto; padding: 72px 0 56px; display: grid; align-content: center; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 56px; }
+    .eyebrow { margin: 0 0 14px; color: var(--yellow); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    h1 { max-width: 820px; margin: 0; font-size: clamp(38px, 6vw, 72px); line-height: 1.06; letter-spacing: 0; }
+    .hero p { max-width: 760px; margin: 22px 0 0; color: #d5dae1; font-size: 18px; }
+    .hero-aside { align-self: end; border-left: 1px solid #56606b; padding-left: 28px; }
+    .hero-aside strong { display: block; margin-bottom: 4px; font-size: 28px; color: #fff; }
+    .hero-aside span { display: block; color: #adb5bd; font-size: 13px; }
+    .hero-aside div + div { margin-top: 20px; }
+    main { width: min(var(--max), calc(100% - 32px)); margin: auto; }
+    section { padding: 66px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 36px; margin-bottom: 34px; }
+    .section-no { color: var(--muted); font-size: 12px; font-weight: 800; }
+    h2 { margin: 0; font-size: 34px; line-height: 1.2; }
+    .lead { margin: 12px 0 0; color: var(--muted); max-width: 800px; }
+    .audit { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+    .audit article { min-height: 132px; padding: 22px; border-right: 1px solid var(--line); }
+    .audit article:last-child { border-right: 0; }
+    .audit strong { display: block; font-size: 30px; line-height: 1; }
+    .audit span { display: block; margin-top: 12px; color: var(--muted); }
+    .thesis { margin-top: 28px; padding: 26px 28px; border-left: 6px solid var(--yellow); background: var(--soft); font-size: 19px; font-weight: 700; }
+    .lens-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .lens { position: relative; min-height: 210px; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+    .lens::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--accent); }
+    .lens:nth-child(1), .lens:nth-child(4) { --accent: var(--yellow); }
+    .lens:nth-child(2), .lens:nth-child(5) { --accent: var(--green); }
+    .lens:nth-child(3), .lens:nth-child(6) { --accent: var(--blue); }
+    .lens small { color: var(--muted); font-weight: 800; }
+    .lens h3 { margin: 12px 0 8px; font-size: 20px; }
+    .lens p { margin: 0; color: #475467; }
+    .case-table, .experiment-table { width: 100%; border-collapse: collapse; }
+    .case-table th, .case-table td, .experiment-table th, .experiment-table td { padding: 14px 16px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: var(--soft); font-size: 12px; color: #475467; }
+    .case-table td:first-child { width: 22%; font-weight: 800; }
+    .experiment-band { padding: 30px 0; border-top: 5px solid var(--accent); }
+    .experiment-band + .experiment-band { margin-top: 30px; }
+    .experiment-band.green { --accent: var(--green); }
+    .experiment-band.yellow { --accent: var(--yellow); }
+    .experiment-band.blue { --accent: var(--blue); }
+    .experiment-title { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+    .experiment-title h3 { margin: 0; font-size: 26px; }
+    .experiment-title span { color: var(--muted); font-size: 13px; }
+    .gate-strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+    .gate { min-height: 168px; padding: 18px; border-right: 1px solid var(--line); }
+    .gate:last-child { border-right: 0; }
+    .gate b { display: block; margin-bottom: 8px; color: var(--accent); }
+    .gate p { margin: 0; color: #475467; }
+    .method-flow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: stretch; border: 1px solid var(--line); }
+    .method-flow div { position: relative; padding: 18px 14px; border-right: 1px solid var(--line); background: #fff; }
+    .method-flow div:last-child { border-right: 0; }
+    .method-flow b { display: block; color: var(--green); }
+    .method-flow span { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .matrix { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; }
+    .matrix table { width: 100%; border-collapse: collapse; }
+    .matrix th, .matrix td { padding: 13px 14px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .experiment-card { border: 1px solid var(--line); background: var(--soft); padding: 24px; }
+    .experiment-card h3 { margin: 0 0 16px; }
+    .experiment-card ol { margin: 0; padding-left: 20px; }
+    .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    figure { margin: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; }
+    figure img { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #f7f7f6; }
+    figcaption { padding: 16px; color: #475467; }
+    figcaption strong { display: block; color: var(--ink); }
+    .status { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; }
+    .status > div { padding: 24px; border: 1px solid var(--line); }
+    .status h3 { margin: 0 0 12px; }
+    .status ul { margin: 0; padding-left: 18px; }
+    .locked { border-top: 5px solid var(--red) !important; }
+    .done { border-top: 5px solid var(--green) !important; }
+    footer { padding: 38px 0 60px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: 0; gap: 38px; }
+      .hero-aside { align-self: auto; }
+      .section-head { grid-template-columns: 1fr; gap: 8px; }
+      .audit, .lens-grid { grid-template-columns: repeat(2, 1fr); }
+      .audit article:nth-child(2) { border-right: 0; }
+      .audit article:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .gate-strip { grid-template-columns: repeat(2, 1fr); }
+      .gate:nth-child(2) { border-right: 0; }
+      .gate:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .method-flow { grid-template-columns: 1fr 1fr; }
+      .method-flow div { border-bottom: 1px solid var(--line); }
+      .matrix, .status { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .topbar-inner { min-height: 52px; }
+      nav { display: none; }
+      .hero { padding: 50px 0 42px; }
+      h1 { font-size: 36px; line-height: 1.1; }
+      section { padding: 48px 0; }
+      .audit, .lens-grid, .gate-strip, .gallery, .method-flow { grid-template-columns: 1fr; }
+      .audit article, .gate { border-right: 0; border-bottom: 1px solid var(--line); }
+      .audit article:last-child, .gate:last-child { border-bottom: 0; }
+      .case-table, .experiment-table { display: block; overflow-x: auto; white-space: normal; }
+      h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark">259</span><span>Business Tutor 学习台</span></div>
+      <nav><a href="#audit">证据</a><a href="#lenses">六镜头</a><a href="#experiments">三实验</a><a href="#ai">AI 迁移</a><a href="#visuals">图解</a><a href="#status">边界</a></nav>
+    </div>
+  </div>
+
+  <header>
+    <div class="hero">
+      <div>
+        <p class="eyebrow">创业复盘案例集 × 聪明精益</p>
+        <h1>先验证最危险的假设，再投入下一块资源</h1>
+        <p>129 个复盘案例与张磊 3 个真实业务实验，收束成适合互联网与 AI 创业的关口、证据、单元经济和复制性判断系统。</p>
+      </div>
+      <aside class="hero-aside">
+        <div><strong>129</strong><span>案例标题已核验并按 6 个主题编目</span></div>
+        <div><strong>234</strong><span>课件图已建立章节、尺寸与 OCR 索引</span></div>
+        <div><strong>3</strong><span>业务实验：消费品、线下设备、社区电商</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="audit">
+      <div class="section-head"><span class="section-no">01 / EVIDENCE</span><div><h2>学习证据与边界</h2><p class="lead">已登录 Chrome 中读取主课、主课件与 3 个 Candy，保存原创摘要、机器索引和代表性视觉证据；作业按用户要求提交，答案未公开，学习笔记未写回个人界面。</p></div></div>
+      <div class="audit">
+        <article><strong>6</strong><span>案例集主题：关键假设、需求、产品内核、商业模式、调研、精益</span></article>
+        <article><strong>185 min</strong><span>课程页标注的主课时长，主章节编号 1790</span></article>
+        <article><strong>53</strong><span>图像条目关联到本地代表图，重复图复用文件</span></article>
+        <article><strong>3 learned</strong><span>Candy 正常解锁；4 篇文档与 3 个表格工作表已核验</span></article>
+      </div>
+      <div class="thesis">精益不是“尽量不花钱”，而是用与系统性风险相匹配的最小试错成本，提前获得足以改变决策的证据。</div>
+    </section>
+
+    <section id="lenses">
+      <div class="section-head"><span class="section-no">02 / CASEBOOK</span><div><h2>129 个案例的六个判断镜头</h2><p class="lead">不要按行业背案例，要按业务死亡方式检索案例。每个镜头对应一个不同的证据问题。</p></div></div>
+      <div class="lens-grid">
+        <article class="lens"><small>01 · 案例 1-20</small><h3>关键假设</h3><p>哪条假设一错，业务会直接失效？先处理前置、高风险、低成本可验证的问题。</p></article>
+        <article class="lens"><small>02 · 案例 21-46</small><h3>需求判断</h3><p>谁在什么场景下，为什么必须改变？兴趣、认同和竞品存在都不是付费证据。</p></article>
+        <article class="lens"><small>03 · 案例 47-73</small><h3>产品内核</h3><p>用户真正购买的最小结果是什么？功能表不能代替可用、可付费和可信任。</p></article>
+        <article class="lens"><small>04 · 案例 74-93</small><h3>商业模式</h3><p>以什么单位赚钱？收入要覆盖获取、交付、退款、售后、库存和生命周期成本。</p></article>
+        <article class="lens"><small>05 · 案例 94-112</small><h3>调研</h3><p>当前缺常识、行业情报还是行为证据？调研必须包含反例、上下游和替代解释。</p></article>
+        <article class="lens"><small>06 · 案例 113-129</small><h3>精益</h3><p>怎样在承诺资源前拿到证据？MVP 是实验，不是功能更少的正式产品。</p></article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">03 / PATTERNS</span><div><h2>跨案例反复出现的误判</h2><p class="lead">这些模式比单个行业结论更适合放进商业教练的 RAG。</p></div></div>
+      <table class="case-table">
+        <thead><tr><th>代表案例</th><th>容易误判</th><th>应当追问</th></tr></thead>
+        <tbody>
+          <tr><td>餐饮调味料平台</td><td>需求成立就等于业务成立。</td><td>账期、标准化、增长和团队复制分别过关了吗？</td></tr>
+          <tr><td>5G 项目</td><td>完整方案能体现专业性。</td><td>付款方是谁，先用什么行为证明它愿意买？</td></tr>
+          <tr><td>K12 直播平台</td><td>内容被接受就证明结果改善。</td><td>样本、指标和所声称结果是否匹配？</td></tr>
+          <tr><td>酒店智能管家</td><td>场景越全，产品越接近成功。</td><td>哪个单一场景足以产生可验证价值？</td></tr>
+          <tr><td>保险聊天机器人</td><td>技术与知识库天然是壁垒。</td><td>团队真实拥有哪项交付能力，外部供应变化后还剩什么？</td></tr>
+          <tr><td>数字广告追踪 SaaS</td><td>月收入和毛利率代表单位经济。</td><td>客户生命周期贡献扣除全部成本后是否为正？</td></tr>
+          <tr><td>跨城市 O2O 物流</td><td>App 是业务最重要的资产。</td><td>真正风险是价格、获客、服务标准还是产品界面？</td></tr>
+          <tr><td>VR 项目</td><td>融资会提高成功概率。</td><td>资金是在消除不确定性，还是放大尚未验证的技术押注？</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="experiments">
+      <div class="section-head"><span class="section-no">04 / EXPERIMENTS</span><div><h2>张磊的三个业务实验</h2><p class="lead">相同方法在消费品、线下设备和电商中落地：先拿认知，再做产品；先算利润，再谈规模。</p></div></div>
+
+      <div class="experiment-band green">
+        <div class="experiment-title"><h3>内衣洗衣液</h3><span>需求 → 购买 → 能力 → 增长</span></div>
+        <div class="gate-strip">
+          <div class="gate"><b>有人要吗</b><p>在货架前观察并访谈，约 14 天定位 20-35 岁女性、经期血渍和小瓶易操作需求。</p></div>
+          <div class="gate"><b>能卖动吗</b><p>3D 打印瓶、手贴 10 版包装，以约 1 个月和 1 万元测试价格、外观与卖点。</p></div>
+          <div class="gate"><b>能实现吗</b><p>生物酶解决血渍，微胶囊延长留香；多场景测试用较高成本降低品牌与复购风险。</p></div>
+          <div class="gate"><b>能卖爆吗</b><p>先买现成积木测试赠品假设，再定制放大。先验证营销机制，避免百万级开模与量产押注。</p></div>
+        </div>
+      </div>
+
+      <div class="experiment-band yellow">
+        <div class="experiment-title"><h3>线下扭蛋机</h3><span>卖什么 → 能赚钱 → 能规模化</span></div>
+        <div class="gate-strip" style="grid-template-columns:repeat(3,1fr)">
+          <div class="gate"><b>卖什么</b><p>用二手机器和少量玩具 5 天发布；约两周确认儿童玩具，热点周边库存则构成反例。</p></div>
+          <div class="gate"><b>能赚钱</b><p>通过点位、展示、浮动定价和二维码支付调出单点月收入约 1 万、毛利约 4200 的模型。</p></div>
+          <div class="gate"><b>能规模化</b><p>异地与小区实验暴露购买力、教育成本、季节性、稀缺点位和租金议价，最终否定全国复制。</p></div>
+        </div>
+      </div>
+
+      <div class="experiment-band blue">
+        <div class="experiment-title"><h3>动漫社区电商</h3><span>业务 → 品类 → 渠道</span></div>
+        <div class="gate-strip" style="grid-template-columns:repeat(3,1fr)">
+          <div class="gate"><b>能卖货吗</b><p>借国产货失败，再给竞争商家导流验证带货；但首年用户价值估算仍低于获客成本。</p></div>
+          <div class="gate"><b>卖什么</b><p>对 8 种组合逐轮排除。高流水仍可能因退货、货损、税费和滞销亏损，最终跑通日本二手周边现货。</p></div>
+          <div class="gate"><b>怎么卖</b><p>线上嵌淘宝，线下从摆摊到漫展。优惠券提高进店，购物篮提高客单，但大展位仍要重新算利润。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">05 / OPERATING LOOP</span><div><h2>“调通”业务的执行闭环</h2><p class="lead">每轮实验只处理一个主变量。局部通过后，下一关会出现新的成本和约束。</p></div></div>
+      <div class="method-flow">
+        <div><b>里程碑</b><span>需求 / 内核 / 赚钱 / 增长</span></div>
+        <div><b>假设</b><span>一错即死的前置变量</span></div>
+        <div><b>证据</b><span>当前最缺哪一层</span></div>
+        <div><b>实验</b><span>借资源、最小动作</span></div>
+        <div><b>结果</b><span>行为、付款、利润</span></div>
+        <div><b>更新</b><span>停止 / 调整 / 继续</span></div>
+        <div><b>复制</b><span>新渠道与新成本复测</span></div>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="section-head"><span class="section-no">06 / AI & INTERNET</span><div><h2>迁移到 AI 与互联网创业</h2><p class="lead">把“假包装、借资源、货架观察、单点盈利”翻译成原型、人工闭环、工作流观察和多租户复制。</p></div></div>
+      <div class="matrix">
+        <table>
+          <thead><tr><th>课程动作</th><th>AI / 互联网动作</th></tr></thead>
+          <tbody>
+            <tr><td>假商品包装</td><td>交互原型、假按钮、结果样例、人工生成报告，先测任务与付费。</td></tr>
+            <tr><td>借用现成资源</td><td>先用模型 API、人工审核和现有 SaaS 拼闭环，不急着自训模型。</td></tr>
+            <tr><td>货架现场观察</td><td>进入用户工作流，观察输入、交接、异常、等待和责任成本。</td></tr>
+            <tr><td>单点位赚钱</td><td>单客户可用不代表多租户、安全、合规和销售交付可复制。</td></tr>
+            <tr><td>上游技术能力</td><td>基础模型不是自己的壁垒；数据权利、评估、集成和信任才可能积累。</td></tr>
+          </tbody>
+        </table>
+        <div class="experiment-card">
+          <h3>AI 最小闭环五问</h3>
+          <ol>
+            <li>用户是否把真实任务交给系统？</li>
+            <li>结果是否有可操作的正确性判据？</li>
+            <li>失败时由谁兜底，成本和责任是什么？</li>
+            <li>推理、人工、集成和支持成本是否被价格覆盖？</li>
+            <li>反馈数据能否合法回流并改善指定指标？</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="visuals">
+      <div class="section-head"><span class="section-no">07 / VISUAL EVIDENCE</span><div><h2>关键课件图解</h2><p class="lead">图像用于定位方法和实验结构；课程自报数据不等于外部审计，也不能证明其他业务必然复现。</p></div></div>
+      <div class="gallery">
+        <figure><img src="assets/yitang-5wdv/visual-cd401ffcd063.webp" alt="精益思想的本质"><figcaption><strong>精益的本质</strong>少量试错成本、大幅降低、系统性风险三项必须同时存在。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-01-slide-030.webp" alt="内衣洗衣液需求验证"><figcaption><strong>需求验证</strong>真实货架观察替代先生产，重点是用户、场景和当前替代方案。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-02-slide-050.webp" alt="内衣洗衣液价格包装验证"><figcaption><strong>价格与包装</strong>假产品可以验证购买前可感知要素，但不能证明真实使用效果。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-03-slide-056.webp" alt="内衣洗衣液解决方案验证"><figcaption><strong>解决方案能力</strong>技术测试的成本应与复购和品牌风险相匹配。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/course-11.png" alt="线下扭蛋机需求验证"><figcaption><strong>扭蛋机需求</strong>二手设备、少量 SKU 和现场调研比先研发新硬件更接近风险。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-06-slide-116.png" alt="线下扭蛋机商业模式验证"><figcaption><strong>单元模型</strong>点位、定价、支付和运营共同决定单点利润。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-07-slide-128.png" alt="线下扭蛋机增长验证"><figcaption><strong>复制性</strong>首点盈利不代表跨城市、跨场景仍成立。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-12-slide-165.png" alt="动漫商品组合矩阵"><figcaption><strong>品类组合矩阵</strong>先枚举运营模式，再按资源、前置条件和风险排序实验。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-10-slide-157.png" alt="国产动漫商品测试"><figcaption><strong>失败实验有价值</strong>低成本排除国产 IP 付费假设，避免库存和开发投入。</figcaption></figure>
+        <figure><img src="assets/yitang-5wdv/key-19-slide-224.png" alt="动漫展关键假设与实验结果"><figcaption><strong>实验账本</strong>把流量、进店、选货、购买和客单拆开，防止用总流水掩盖问题。</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="status">
+      <div class="section-head"><span class="section-no">08 / STATUS</span><div><h2>当前可声明与不可声明</h2><p class="lead">学习完成度按证据记录，不用“已打开页面”冒充“已掌握并完成平台任务”。</p></div></div>
+      <div class="status">
+        <div class="done"><h3>主课与案例</h3><ul><li>129 个案例标题与 6 个主题建立索引。</li><li>主课三案例的假设、实验、结果与边界完成原创总结。</li><li>234 张课件图完成机器索引，代表图可离线查看。</li><li>课程数字保留“课程自报”边界。</li></ul></div>
+        <div class="done"><h3>Candy 与作业</h3><ul><li>1791：三个业务五步画布已比较。</li><li>1792：11 组答疑与 2 张核心图已学习。</li><li>1793：两份运营记录与 3 个表格工作表已核验。</li><li>作业 answerId 1680021；未公开，笔记未写回个人界面。</li></ul></div>
+      </div>
+    </section>
+
+    <footer>
+      来源：<a href="https://yitanger.feishu.cn/docs/doccn6drhd25ektwP7jG48KWFRa">创业复盘案例集</a>、<a href="https://yitang.top/lesson/5WdV5f34d2d94267">课程页</a>。机器索引：<a href="../knowledge/yitang-casebook-index.json">案例集索引</a>、<a href="../knowledge/yitang-5wdv-visual-index.json">课件图索引</a>、<a href="../knowledge/yitang-5wdv-candy-index.json">Candy 索引</a>；<a href="yitang-5wdv-candy-notes-2026-07-15.html">打开 Candy 图文笔记</a>。更新时间 2026-07-15。
+    </footer>
+  </main>
+</body>
+</html>

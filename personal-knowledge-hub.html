@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人知识库 | Local</title>
+  <meta name="description" content="本地优先的个人知识库，用于检索、学习、复习和记录。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="tutor-app pkm-hub-app">
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="app-header">
+    <nav class="app-header-inner" aria-label="主导航">
+      <a class="app-brand" href="personal-knowledge-hub.html" aria-label="个人知识库首页">
+        <span class="app-brand-mark" aria-hidden="true"><i data-lucide="library-big"></i></span>
+        <span><strong>个人知识库</strong><small>Local learning workspace</small></span>
+      </a>
+      <div class="app-health" role="status">
+        <span class="health-dot" aria-hidden="true"></span>
+        本地索引 · <span id="header-document-count">正在读取</span>
+      </div>
+      <div class="app-header-links">
+        <a class="active" href="personal-knowledge-hub.html">知识库</a>
+        <a href="local-knowledge-assistant.html">方法助手</a>
+        <a href="index.html">公开主页</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page app-shell pkm-shell">
+    <aside class="sidebar app-sidebar pkm-sidebar" aria-label="知识库导航">
+      <div class="sidebar-product">
+        <div class="avatar" aria-hidden="true"><i data-lucide="brain-circuit"></i></div>
+        <div><strong>学习工作台</strong><span>检索 · 复习 · 应用 · 复盘</span></div>
+      </div>
+      <nav class="sidebar-nav pkm-nav" aria-label="视图导航">
+        <button class="pkm-nav-item active" type="button" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>总览</span></button>
+        <button class="pkm-nav-item" type="button" data-view="map"><i data-lucide="git-branch"></i><span>知识脉络</span></button>
+        <button class="pkm-nav-item" type="button" data-view="library"><i data-lucide="search"></i><span>全库检索</span></button>
+        <button class="pkm-nav-item" type="button" data-view="workflows"><i data-lucide="target"></i><span>行动闭环</span><b id="nav-workflow-count">0</b></button>
+        <button class="pkm-nav-item" type="button" data-view="review"><i data-lucide="brain"></i><span>间隔复习</span><b id="nav-due-count">0</b></button>
+        <button class="pkm-nav-item" type="button" data-view="paths"><i data-lucide="route"></i><span>学习路径</span></button>
+        <button class="pkm-nav-item" type="button" data-view="capture"><i data-lucide="square-pen"></i><span>快速记录</span></button>
+        <button class="pkm-nav-item" type="button" data-view="about"><i data-lucide="settings-2"></i><span>系统说明</span></button>
+      </nav>
+      <div class="sidebar-boundary">
+        <i data-lucide="shield-check" aria-hidden="true"></i>
+        <div><strong>本地优先</strong><span id="storage-status">正在连接持久化服务</span></div>
+      </div>
+    </aside>
+
+    <main id="main" class="content pkm-content">
+      <section class="pkm-view active" data-view-panel="dashboard">
+        <div class="pkm-page-heading">
+          <div><p class="eyebrow">Today</p><h1>今天从一个问题开始。</h1><p>先检索已有资料，再选择方法、行动和复盘时间。</p></div>
+          <button class="primary-action" type="button" data-go-view="library"><i data-lucide="search"></i>搜索知识库</button>
+        </div>
+
+        <div class="pkm-stat-grid" aria-label="知识库统计">
+          <article><span>全部资料</span><strong id="stat-documents">0</strong><small>当前笔记 + 旧库目录</small></article>
+          <article><span>精选内容</span><strong id="stat-curated">0</strong><small>优先进入学习与应用</small></article>
+          <article><span>方法卡</span><strong id="stat-cards">0</strong><small>核心主线 + 专题来源</small></article>
+          <article><span>本次复习</span><strong id="stat-due">0</strong><small id="stat-due-note">从全部到期卡片中均衡抽取</small></article>
+        </div>
+
+        <div class="pkm-dashboard-grid">
+          <section class="pkm-panel pkm-today-panel">
+            <div class="pkm-panel-heading"><div><span class="panel-kicker">Daily loop</span><h2>今日学习闭环</h2></div><span id="today-date"></span></div>
+            <ol class="pkm-daily-steps">
+              <li><span>1</span><div><strong>提出问题</strong><p>写清目标、场景、期限与未知项。</p></div></li>
+              <li><span>2</span><div><strong>检索证据</strong><p>优先看精选笔记，再回到旧库和原始文件。</p></div></li>
+              <li><span>3</span><div><strong>提取方法</strong><p>只保留能支持当前判断的一到三张方法卡。</p></div></li>
+              <li><span>4</span><div><strong>完成行动</strong><p>生成一个可观察结果，并安排下一次复盘。</p></div></li>
+            </ol>
+            <div class="pkm-inline-actions">
+              <button class="secondary-action" type="button" data-go-view="map"><i data-lucide="git-branch"></i>查看知识脉络</button>
+              <button class="secondary-action" type="button" data-go-view="workflows"><i data-lucide="target"></i>建立行动闭环</button>
+              <a class="secondary-action" href="local-knowledge-assistant.html"><i data-lucide="sparkles"></i>调用方法助手</a>
+            </div>
+          </section>
+
+          <section class="pkm-panel">
+            <div class="pkm-panel-heading"><div><span class="panel-kicker">Review</span><h2>复习状态</h2></div><i data-lucide="calendar-clock"></i></div>
+            <div class="pkm-review-meter"><span id="review-meter-bar"></span></div>
+            <p class="pkm-meter-copy" id="review-meter-copy">正在计算复习进度。</p>
+            <button class="primary-action pkm-full-button" type="button" data-go-view="review"><i data-lucide="play"></i>开始今日复习</button>
+          </section>
+        </div>
+
+        <section class="pkm-section-block">
+          <div class="section-heading"><div><p class="eyebrow">Collections</p><h2>主要知识领域</h2></div><button class="text-button" type="button" data-go-view="library">查看全部 <i data-lucide="arrow-right"></i></button></div>
+          <div class="pkm-category-grid" id="dashboard-categories"></div>
+        </section>
+      </section>
+
+      <section class="pkm-view" data-view-panel="map" hidden>
+        <div class="pkm-page-heading compact pkm-map-heading">
+          <div><p class="eyebrow">Knowledge map</p><h1>从问题到复盘，一条主线。</h1><p>18 张核心卡把分散来源收束为六个阶段。点击节点查看应用方式，再下钻专题或回到原始来源。</p></div>
+          <div class="pkm-map-heading-actions">
+            <button class="primary-action" id="map-review-core" type="button"><i data-lucide="brain"></i>复习核心主线</button>
+            <a class="secondary-action" href="notes/00-personal-knowledge-master-map.md" target="_blank"><i data-lucide="file-text"></i>打开总地图</a>
+          </div>
+        </div>
+
+        <section class="pkm-map-summary" aria-label="核心脉络统计">
+          <article><span>核心方法</span><strong id="map-card-count">18</strong><small>跨来源归并卡</small></article>
+          <article><span>行动阶段</span><strong id="map-stage-count">6</strong><small>从方向到治理</small></article>
+          <article><span>来源体系</span><strong id="map-source-count">8</strong><small>保留差异与出处</small></article>
+          <article class="pkm-map-progress-stat"><span>已完成复习</span><strong id="map-reviewed-count">0 / 18</strong><div class="pkm-map-progress"><span id="map-reviewed-bar"></span></div></article>
+        </section>
+
+        <div class="pkm-map-layout">
+          <section class="pkm-map-canvas" aria-labelledby="core-map-title">
+            <div class="pkm-map-section-heading">
+              <div><p class="panel-kicker">Core thread</p><h2 id="core-map-title">六阶段行动脉络</h2></div>
+              <div class="pkm-map-legend"><span><i class="reviewed"></i>已复习</span><span><i></i>待复习</span></div>
+            </div>
+            <div class="pkm-map-stages" id="core-map-stages"></div>
+          </section>
+
+          <aside class="pkm-map-inspector" aria-live="polite">
+            <div class="pkm-map-inspector-top"><span id="core-map-detail-step">步骤 01</span><i data-lucide="focus"></i></div>
+            <h2 id="core-map-detail-title">选择一个核心节点</h2>
+            <p id="core-map-detail-summary">查看这一步解决什么问题，以及如何用于当前行动。</p>
+            <div class="pkm-map-detail-block"><strong>应用方式</strong><p id="core-map-detail-use"></p></div>
+            <div class="pkm-map-detail-block"><strong>复盘追问</strong><ol id="core-map-detail-questions"></ol></div>
+            <div class="pkm-map-detail-block"><strong>合并来源</strong><div class="pkm-map-detail-sources" id="core-map-detail-sources"></div><small id="core-map-detail-merged"></small></div>
+            <div class="pkm-map-inspector-actions"><button class="secondary-action" id="map-review-selected" type="button"><i data-lucide="brain"></i>进入复习</button><a class="secondary-action" href="local-knowledge-assistant.html"><i data-lucide="sparkles"></i>打开方法助手</a></div>
+          </aside>
+        </div>
+
+        <section class="pkm-map-source-section">
+          <div class="section-heading"><div><p class="eyebrow">Source convergence</p><h2>来源如何汇入核心主线</h2></div><span class="section-note">每一列对应一个核心步骤</span></div>
+          <div class="pkm-source-matrix-wrap"><div class="pkm-source-matrix" id="core-source-matrix"></div></div>
+        </section>
+
+        <section class="pkm-map-branch-section">
+          <div class="section-heading"><div><p class="eyebrow">Domain branches</p><h2>从主线下钻专题</h2></div><span class="section-note">共同方法不覆盖领域特殊约束</span></div>
+          <div class="pkm-map-branches" id="core-topic-branches"></div>
+        </section>
+      </section>
+
+      <section class="pkm-view" data-view-panel="library" hidden>
+        <div class="pkm-page-heading compact"><div><p class="eyebrow">Library</p><h1>全库检索</h1><p>默认优先显示高价值资料，可按来源、分类和价值等级收窄。</p></div></div>
+        <section class="pkm-search-panel" aria-label="搜索和筛选">
+          <div class="pkm-search-box"><i data-lucide="search"></i><input id="library-query" type="search" placeholder="搜索标题、摘要、标签或正文关键词" autocomplete="off"><kbd>Ctrl K</kbd></div>
+          <div class="pkm-filter-row">
+            <label><span>分类</span><select id="category-filter"><option value="all">全部分类</option></select></label>
+            <label><span>来源</span><select id="source-filter"><option value="all">全部来源</option><option value="current">精选笔记</option><option value="research">AI 论文目录</option><option value="mitbunny">MIT Bunny X 账号目录</option><option value="dwarkesh">Dwarkesh 公开归档</option><option value="xiaohongshu">小红书公开目录</option><option value="waytoagi">WaytoAGI 目录</option><option value="legacy">旧库索引</option></select></label>
+            <label><span>价值</span><select id="tier-filter"><option value="all" selected>全部等级</option><option value="精选">精选</option><option value="可用">可用</option><option value="待整理">待整理</option></select></label>
+            <label><span>排序</span><select id="sort-filter"><option value="relevance">相关度</option><option value="score">价值分</option><option value="newest">最近更新</option><option value="title">标题</option></select></label>
+            <button class="icon-button" id="reset-filters" type="button" aria-label="重置筛选" data-tooltip="重置筛选"><i data-lucide="rotate-ccw"></i></button>
+          </div>
+        </section>
+        <div class="pkm-results-heading"><strong id="library-result-count">0 条结果</strong><span id="library-result-note">价值评分用于排序，不替代人工判断。</span></div>
+        <div class="pkm-search-feedback" id="search-feedback" hidden>
+          <span>这次检索找到可用证据了吗？</span>
+          <button type="button" data-search-rating="useful"><i data-lucide="thumbs-up"></i>找到了</button>
+          <button type="button" data-search-rating="missing"><i data-lucide="thumbs-down"></i>没有</button>
+        </div>
+        <div class="pkm-document-list" id="document-list"></div>
+        <button class="secondary-action pkm-load-more" id="load-more" type="button"><i data-lucide="chevrons-down"></i>显示更多</button>
+      </section>
+
+      <section class="pkm-view" data-view-panel="workflows" hidden>
+        <div class="pkm-page-heading compact"><div><p class="eyebrow">Evidence to outcome</p><h1>行动闭环</h1><p>把问题、证据、判断和行动放在一起，到期后必须记录结果或修正判断。</p></div><button class="secondary-action" id="new-workflow" type="button"><i data-lucide="plus"></i>新建闭环</button></div>
+        <div class="pkm-workflow-metrics">
+          <article><span>进行中</span><strong id="workflow-active-count">0</strong></article>
+          <article><span>到期复盘</span><strong id="workflow-due-count">0</strong></article>
+          <article><span>已完成</span><strong id="workflow-completed-count">0</strong></article>
+          <article><span>检索有效率</span><strong id="search-success-rate">--</strong></article>
+        </div>
+        <div class="pkm-workflow-layout">
+          <section class="pkm-panel pkm-workflow-form">
+            <div class="pkm-panel-heading"><div><span class="panel-kicker">Decision record</span><h2 id="workflow-form-title">建立新的行动闭环</h2></div><span id="workflow-save-status">本地草稿</span></div>
+            <label><span>要解决的问题</span><textarea id="workflow-question" rows="3" placeholder="当前要改变什么结果？期限和约束是什么？"></textarea></label>
+            <div class="pkm-evidence-block">
+              <div><span>证据</span><button class="text-button" id="find-evidence" type="button"><i data-lucide="search"></i>去检索</button></div>
+              <div class="pkm-evidence-list" id="workflow-evidence"><p>从全库检索结果中点击“加入证据”。</p></div>
+            </div>
+            <label><span>当前判断</span><textarea id="workflow-judgment" rows="4" placeholder="事实支持什么判断？哪些仍是推断？"></textarea></label>
+            <div class="pkm-form-row">
+              <label><span>下一步行动</span><textarea id="workflow-action" rows="4" placeholder="谁在何时交付什么可观察结果？"></textarea></label>
+              <label><span>成功或停止标准</span><textarea id="workflow-criteria" rows="4" placeholder="出现什么证据时继续、修改或停止？"></textarea></label>
+            </div>
+            <div class="pkm-form-row">
+              <label><span>复盘日期</span><input id="workflow-review-date" type="date"></label>
+              <label><span>状态</span><select id="workflow-status"><option value="active">进行中</option><option value="completed">已完成</option><option value="stopped">已停止</option></select></label>
+            </div>
+            <label><span>结果与修正</span><textarea id="workflow-outcome" rows="4" placeholder="到期后记录真实结果、反证和下一轮修正。"></textarea></label>
+            <div class="pkm-inline-actions">
+              <button class="primary-action" id="save-workflow" type="button"><i data-lucide="save"></i>保存闭环</button>
+              <button class="secondary-action" id="complete-workflow" type="button"><i data-lucide="circle-check"></i>记录完成</button>
+              <button class="icon-button danger" id="delete-workflow" type="button" aria-label="删除当前闭环" data-tooltip="删除当前闭环"><i data-lucide="trash-2"></i></button>
+            </div>
+          </section>
+          <aside class="pkm-panel pkm-workflow-guide">
+            <span class="panel-kicker">Quality gate</span><h2>有效闭环的标准</h2>
+            <ol><li>问题有对象、期限与结果</li><li>至少引用一条可追溯证据</li><li>区分事实、判断和未知项</li><li>行动能产生可观察结果</li><li>到期后写结果，不只写感想</li></ol>
+          </aside>
+        </div>
+        <section class="pkm-section-block">
+          <div class="section-heading"><div><p class="eyebrow">Records</p><h2>闭环记录</h2></div><span class="section-note" id="workflow-list-count">0 条</span></div>
+          <div class="pkm-workflow-list" id="workflow-list"></div>
+        </section>
+      </section>
+
+      <section class="pkm-view" data-view-panel="review" hidden>
+        <div class="pkm-page-heading compact">
+          <div><p class="eyebrow">Review</p><h1>间隔复习</h1><p>先主动回忆，再看答案。用小会话保持节奏，完整到期数量不会丢失。</p></div>
+          <div class="pkm-review-session-controls" aria-label="复习会话设置">
+            <label><span>复习专题</span><select id="review-collection-filter"><option value="all">全部专题</option></select></label>
+            <label><span>本次数量</span><select id="review-session-size"><option value="10">10 张</option><option value="20">20 张</option><option value="all">全部</option></select></label>
+            <button class="icon-button" id="restart-review-session" type="button" aria-label="重新生成复习会话" title="重新生成复习会话"><i data-lucide="refresh-cw"></i></button>
+            <button class="icon-button danger" id="reset-review" type="button" aria-label="清空全部复习进度" title="清空全部复习进度"><i data-lucide="trash-2"></i></button>
+          </div>
+        </div>
+        <div class="pkm-review-layout">
+          <section class="pkm-review-card" id="review-card">
+            <div class="pkm-review-card-top"><span id="review-domain">方法卡</span><span id="review-progress">0 / 0</span></div>
+            <div class="pkm-review-front" id="review-front">
+              <p class="panel-kicker">Question</p>
+              <h2 id="review-title">今天没有待复习卡片</h2>
+              <p id="review-question">完成一次检索或新增一张方法卡，也算一次知识维护。</p>
+            </div>
+            <div class="pkm-review-answer" id="review-answer" hidden>
+              <p class="panel-kicker">Answer</p>
+              <p id="review-summary"></p>
+              <div><strong>如何应用</strong><p id="review-use"></p></div>
+              <a id="review-source" href="#" target="_blank" rel="noreferrer">查看来源 <i data-lucide="external-link"></i></a>
+            </div>
+            <button class="primary-action pkm-reveal-button" id="reveal-answer" type="button"><i data-lucide="eye"></i>显示答案</button>
+            <div class="pkm-rating-row" id="rating-row" hidden>
+              <button type="button" data-rating="again"><strong>重来</strong><span>1 天</span></button>
+              <button type="button" data-rating="hard"><strong>困难</strong><span>短间隔</span></button>
+              <button type="button" data-rating="good"><strong>记得</strong><span>正常</span></button>
+              <button type="button" data-rating="easy"><strong>容易</strong><span>长间隔</span></button>
+            </div>
+          </section>
+          <aside class="pkm-review-sidebar">
+            <section class="pkm-panel"><span class="panel-kicker">Queue</span><h2>本次剩余</h2><strong class="pkm-large-number" id="review-remaining">0</strong><p id="review-queue-note">正在生成复习会话。</p></section>
+            <section class="pkm-panel"><span class="panel-kicker">Principle</span><h2>复习规则</h2><p>问题必须先在脑中回答。看完答案后，根据回忆难度评分，而不是根据答案是否熟悉。</p></section>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pkm-view" data-view-panel="paths" hidden>
+        <div class="pkm-page-heading compact"><div><p class="eyebrow">Study paths</p><h1>学习路径</h1><p>围绕真实任务组织内容，不按文件夹顺序机械阅读。</p></div><a class="secondary-action" href="notes/00-learning-clusters-and-coverage-review-2026-07-15.md" target="_blank"><i data-lucide="waypoints"></i>打开全库聚类</a></div>
+        <div class="pkm-path-grid" id="study-paths"></div>
+      </section>
+
+      <section class="pkm-view" data-view-panel="capture" hidden>
+        <div class="pkm-page-heading compact"><div><p class="eyebrow">Capture</p><h1>快速记录</h1><p>把问题、来源、自己的判断和下一步行动写进同一张 Markdown 笔记。</p></div><span class="draft-state" id="capture-status"><i data-lucide="cloud-check"></i>本地草稿</span></div>
+        <div class="pkm-capture-grid">
+          <section class="pkm-panel pkm-capture-form">
+            <label><span>标题</span><input id="capture-title" type="text" placeholder="这张笔记回答什么问题？"></label>
+            <div class="pkm-form-row">
+              <label><span>类型</span><select id="capture-type"><option value="source-note">来源笔记</option><option value="method-card">方法卡</option><option value="project-note">项目笔记</option><option value="review">复盘</option></select></label>
+              <label><span>标签</span><input id="capture-tags" type="text" placeholder="学习, AI, 待验证"></label>
+            </div>
+            <label><span>来源</span><input id="capture-source" type="text" placeholder="URL、书名、文件路径或访谈对象"></label>
+            <label><span>正文</span><textarea id="capture-body" rows="15" placeholder="## 问题&#10;&#10;## 事实与来源&#10;&#10;## 我的判断&#10;&#10;## 反例与边界&#10;&#10;## 下一步行动"></textarea></label>
+            <div class="pkm-inline-actions">
+              <button class="primary-action" id="download-note" type="button"><i data-lucide="download"></i>下载 Markdown</button>
+              <button class="secondary-action" id="copy-note" type="button"><i data-lucide="copy"></i>复制</button>
+              <button class="icon-button danger" id="clear-note" type="button" aria-label="清空草稿" data-tooltip="清空草稿"><i data-lucide="trash-2"></i></button>
+            </div>
+          </section>
+          <aside class="pkm-panel pkm-note-standard">
+            <span class="panel-kicker">Quality gate</span><h2>进入精选层前</h2>
+            <ul><li>用自己的语言写出结论</li><li>保留明确来源和日期</li><li>说明适用场景与边界</li><li>至少有一个反例或待验证项</li><li>能产生下一步行动或复盘问题</li></ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pkm-view" data-view-panel="about" hidden>
+        <div class="pkm-page-heading compact"><div><p class="eyebrow">System</p><h1>系统说明</h1><p>Markdown 是长期资产，JavaScript 索引是可重建的派生物，HTML 是日常入口。</p></div></div>
+        <div class="pkm-about-grid">
+          <section class="pkm-panel"><span class="panel-kicker">Architecture</span><h2>四层结构</h2><ol class="pkm-number-list"><li><span>1</span><div><strong>来源层</strong><p>原始文件、网页和旧知识库。</p></div></li><li><span>2</span><div><strong>笔记层</strong><p>Markdown 来源笔记、MOC 和项目复盘。</p></div></li><li><span>3</span><div><strong>方法层</strong><p>可复用的方法卡、问题与应用边界。</p></div></li><li><span>4</span><div><strong>应用层</strong><p>检索、学习路径、间隔复习和方法助手。</p></div></li></ol></section>
+          <section class="pkm-panel"><span class="panel-kicker">Windows</span><h2>本机运行</h2><pre class="pkm-command">powershell -ExecutionPolicy Bypass -File .\scripts\start-knowledge-assistant.ps1</pre><p>脚本先重建索引，再用 Python 绑定 <code>127.0.0.1</code>。按 <code>Ctrl+C</code> 停止。</p><a href="knowledge/README.md">打开完整 README <i data-lucide="arrow-right"></i></a></section>
+        </div>
+        <section class="pkm-section-block pkm-completeness">
+          <div class="section-heading"><div><p class="eyebrow">Source coverage</p><h2>来源完整性</h2></div><a class="text-button" href="notes/00-source-completeness-audit-2026-07-15.md" target="_blank"><i data-lucide="file-check-2"></i>打开审计</a></div>
+          <div class="pkm-completeness-legend" aria-label="来源完整性等级">
+            <article><b data-level="a">A</b><div><strong>语义精读</strong><p>读完正文或字幕并完成证据、边界、应用与复习。</p></div></article>
+            <article><b data-level="b">B</b><div><strong>结构化学习</strong><p>框架可靠，仍缺全部实验或逐项遍历。</p></div></article>
+            <article><b data-level="c">C</b><div><strong>目录索引</strong><p>可发现和追溯，不能据此引用正文观点。</p></div></article>
+            <article><b data-level="d">D</b><div><strong>受阻来源</strong><p>只有公开简介或少量元数据，不推断正文。</p></div></article>
+            <article><b data-level="e">E</b><div><strong>未入库</strong><p>用户指定过，但尚无可靠目录或正文。</p></div></article>
+          </div>
+          <div class="pkm-completeness-table" role="table" aria-label="主要来源当前状态">
+            <div class="pkm-completeness-row head" role="row"><span role="columnheader">状态</span><strong role="columnheader">来源</strong><p role="columnheader">当前边界</p></div>
+            <div class="pkm-completeness-row" role="row"><span data-level="a" role="cell">A</span><strong role="cell">何恺明、Stanford CS25、OpenClaw、QLoRA、Transformer速查宝典</strong><p role="cell">语义级整理完成；文章层完成不等于其中所有论文已精读或复现实验。</p></div>
+            <div class="pkm-completeness-row" role="row"><span data-level="b" role="cell">B</span><strong role="cell">毛选、Levels.io、LLMs-from-scratch、一堂、Jeannen、Truman、摄影</strong><p role="cell">已有可靠结构；仍需全卷、全站、全章或真实项目结果。</p></div>
+            <div class="pkm-completeness-row" role="row"><span data-level="c" role="cell">C</span><strong role="cell">WaytoAGI、Latent.Space、MIT Bunny 账号、Dwarkesh 归档、旧本机库</strong><p role="cell">13,842、50、300、174 和 1,405 项中，大量条目主要承担目录与短摘录检索。</p></div>
+            <div class="pkm-completeness-row" role="row"><span data-level="d" role="cell">D</span><strong role="cell">TIANYU2FM、小红书曾天真</strong><p role="cell">来源入口已登记，正文仍受平台访问或全量目录缺失限制。</p></div>
+          </div>
+        </section>
+        <section class="pkm-section-block pkm-maintenance">
+          <div class="section-heading"><div><p class="eyebrow">Maintenance</p><h2>数据与索引</h2></div><span class="section-note" id="maintenance-status">等待操作</span></div>
+          <div class="pkm-maintenance-actions">
+            <button class="secondary-action" id="rebuild-index" type="button"><i data-lucide="refresh-cw"></i>重建索引</button>
+            <button class="secondary-action" id="export-backup" type="button"><i data-lucide="archive"></i>导出备份</button>
+            <button class="secondary-action" id="import-backup" type="button"><i data-lucide="upload"></i>恢复备份</button>
+            <input id="backup-file" type="file" accept="application/json,.json" hidden>
+          </div>
+        </section>
+        <section class="pkm-section-block">
+          <div class="section-heading"><div><p class="eyebrow">Open source references</p><h2>采用的实践</h2></div><span class="section-note">GitHub Stars 截至 2026-07-11</span></div>
+          <div class="pkm-reference-list">
+            <a href="https://github.com/siyuan-note/siyuan" target="_blank" rel="noreferrer"><strong>SiYuan</strong><span>45,045 stars</span><p>本地优先、块引用、双向链接、查询与闪卡。</p></a>
+            <a href="https://github.com/logseq/logseq" target="_blank" rel="noreferrer"><strong>Logseq</strong><span>43,781 stars</span><p>Markdown、知识图谱、属性、日记与复习工作流。</p></a>
+            <a href="https://github.com/TriliumNext/Trilium" target="_blank" rel="noreferrer"><strong>TriliumNext</strong><span>36,832 stars</span><p>层级、全文检索、属性、关系图和版本记录。</p></a>
+            <a href="https://github.com/foambubble/foam" target="_blank" rel="noreferrer"><strong>Foam</strong><span>17,283 stars</span><p>以 Markdown、Wiki 链接和 VS Code 保持可迁移性。</p></a>
+            <a href="https://github.com/jackyzha0/quartz" target="_blank" rel="noreferrer"><strong>Quartz</strong><span>12,731 stars</span><p>把 Markdown 转成可搜索、可链接的静态知识网站。</p></a>
+          </div>
+        </section>
+        <section class="sources-section"><details><summary><span><i data-lucide="shield-check"></i><strong>隐私与边界</strong></span><span>展开查看</span></summary><div class="source-list"><p>本页面不调用外部模型，搜索在浏览器内完成；复习、草稿、闭环与效果反馈优先保存到本机 SQLite，并用 localStorage 作为离线降级。Lucide 图标从公共 CDN 加载，离线时只影响图标显示。</p><p>不要把密码、密钥、证件原件、客户隐私或内部机密写入可发布目录。本地服务只绑定 <code>127.0.0.1</code>，不用于公网部署。</p></div></details></section>
+      </section>
+    </main>
+  </div>
+
+  <div class="pkm-toast" id="pkm-toast" role="status" aria-live="polite"></div>
+  <dialog class="pkm-source-dialog" id="source-preview">
+    <div class="pkm-source-dialog-header"><div><span class="panel-kicker">Source preview</span><h2 id="source-preview-title">来源预览</h2><p id="source-preview-meta"></p></div><button class="icon-button" id="close-source-preview" type="button" aria-label="关闭预览"><i data-lucide="x"></i></button></div>
+    <div class="pkm-markdown-preview" id="source-preview-content"></div>
+    <div class="pkm-source-dialog-actions"><button class="secondary-action" id="add-preview-evidence" type="button"><i data-lucide="bookmark-plus"></i>加入行动证据</button><a class="secondary-action" id="open-preview-source" href="#" target="_blank"><i data-lucide="external-link"></i>打开笔记</a></div>
+  </dialog>
+  <script src="https://unpkg.com/lucide@1.23.0/dist/umd/lucide.min.js"></script>
+  <script src="knowledge/personal-kb-index.js"></script>
+  <script src="knowledge/yitang-business-kb.js"></script>
+  <script src="knowledge/mao-method-kb.js"></script>
+  <script src="knowledge/levels-indie-kb.js"></script>
+  <script src="knowledge/waytoagi-method-kb.js"></script>
+  <script src="knowledge/latent-space-reading-kb.js"></script>
+  <script src="knowledge/ai-engineering-method-kb.js"></script>
+  <script src="knowledge/core-method-kb.js"></script>
+  <script src="knowledge/personal-kb-app.js"></script>
+</body>
+</html>

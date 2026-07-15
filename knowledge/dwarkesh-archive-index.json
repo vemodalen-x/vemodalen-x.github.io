@@ -1,0 +1,1762 @@
+{
+  "source": "https://www.dwarkesh.com/archive",
+  "syncedAt": "2026-07-14T13:05:15.502Z",
+  "total": 174,
+  "byType": {
+    "newsletter": 39,
+    "podcast": 133,
+    "restack": 2
+  },
+  "byYear": {
+    "2020": 11,
+    "2021": 4,
+    "2022": 27,
+    "2023": 24,
+    "2024": 30,
+    "2025": 50,
+    "2026": 28
+  },
+  "usageBoundary": "Public archive metadata only. Curated RAG cards contain summaries, not transcripts or full articles.",
+  "posts": [
+    {
+      "id": 206445844,
+      "postDate": "2026-07-10T16:23:56.002Z",
+      "title": "Adam Brown – A deep but accessible introduction to general relativity",
+      "subtitle": "And why black holes are the ultimate power plants.",
+      "slug": "adam-brown-gr",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/adam-brown-gr",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/206445844/70165e4d-bb6b-419a-8532-864600d885f9/transcoded-1783700540.png"
+    },
+    {
+      "id": 204346371,
+      "postDate": "2026-07-01T22:13:17.624Z",
+      "title": "The Winning Essays for the Big Questions About AI ",
+      "subtitle": "Abolishing pandemics/ Getting out of the way of AI automation/ Learning from Hong Kong MTR's business model",
+      "slug": "blog-prize-winners",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/blog-prize-winners",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/38961b9e-fc04-435d-a44b-7e72b0819d86_554x554.jpeg"
+    },
+    {
+      "id": 204275916,
+      "postDate": "2026-06-30T15:53:19.493Z",
+      "title": "Grant Sanderson – AI and the future of math",
+      "subtitle": "Math is where we’ll see superintelligence first. What will it look like?",
+      "slug": "grant-sanderson-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/grant-sanderson-2",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/d0d75829-81cd-413c-be76-a209beb59720_1512x1080.png"
+    },
+    {
+      "id": 203704568,
+      "postDate": "2026-06-26T15:51:34.507Z",
+      "title": "The next big breakthrough will be AIs learning on the job",
+      "subtitle": "Labs are throwing away the most valuable data.",
+      "slug": "the-next-paradigm",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/the-next-paradigm",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/203704568/ecedf5cc-763b-440a-8d87-f182d9d7fef6/transcoded-1782492369.png"
+    },
+    {
+      "id": 202734201,
+      "postDate": "2026-06-19T16:45:03.323Z",
+      "title": "The data black hole at the center of AI",
+      "subtitle": "\"We see these AIs as a galaxy glittering with capabilities, but at their center, invisible to the naked eye, holding all the constellations together, is an unimaginably massive black hole of data.\"",
+      "slug": "the-sample-efficiency-black-hole",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/the-sample-efficiency-black-hole",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/202734201/615de510-7827-403e-a419-9f9c3e755577/transcoded-1781887356.png"
+    },
+    {
+      "id": 202271948,
+      "postDate": "2026-06-16T17:27:51.984Z",
+      "title": "Ada Palmer – Machiavelli is the most misunderstood thinker of all time",
+      "subtitle": "\"He begged to work for the regime that tortured him.\"",
+      "slug": "ada-palmer-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ada-palmer-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/202271948/6c923e6c-254a-4fe9-ae22-bfa34ab6792c/transcoded-1781630679.png"
+    },
+    {
+      "id": 200613353,
+      "postDate": "2026-06-04T16:14:49.690Z",
+      "title": "Alex Imas and Phil Trammell – What remains scarce after AGI?",
+      "subtitle": "“One robot now turns into many robots next year, but the number of ballerinas is the same.”",
+      "slug": "alex-imas-phil-trammell",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/alex-imas-phil-trammell",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/200613353/352b2e49-0c01-42c3-b420-c0a321d0bae4/transcoded-1780589854.png"
+    },
+    {
+      "id": 198847047,
+      "postDate": "2026-05-22T15:38:34.974Z",
+      "title": "Reiner Pope – Chip design from the bottom up",
+      "subtitle": "Working up from basic logic gates to why GPUs, TPUs, FPGAs, and the human brain each look the way they do.",
+      "slug": "reiner-pope-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/reiner-pope-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/198847047/4bd784cb-5a08-41d1-90ab-dfe7f7b9bfeb/transcoded-1779463396.png"
+    },
+    {
+      "id": 198036851,
+      "postDate": "2026-05-16T19:04:16.310Z",
+      "title": "The mistake of conflating intelligence and power",
+      "subtitle": "If your definition of intelligence is \"the ability to achieve your goals across a wide variety of domains\", then Stalin was the most intelligent person who ever lived.",
+      "slug": "the-mistake-of-conflating-intelligence",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/the-mistake-of-conflating-intelligence",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/bd67ed7a-9e42-4d03-8978-11c7b322d5ad_300x168.jpeg"
+    },
+    {
+      "id": 198036394,
+      "postDate": "2026-05-16T19:01:16.289Z",
+      "title": "Notes on pretraining parallelisms and failed training runs. ",
+      "subtitle": "",
+      "slug": "notes-on-pretraining-parallelisms",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/notes-on-pretraining-parallelisms",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/c8ed868d-6197-4209-9d77-1b7513f1c1ae_1264x694.png"
+    },
+    {
+      "id": 198037202,
+      "postDate": "2026-05-16T19:00:59.235Z",
+      "title": "RLVR might be disproportionately bad at science",
+      "subtitle": "the verification loop for theories can be on the order of decades and centuries, and even then we know today as the better theory can often actually make worse predictions",
+      "slug": "rlvr-might-be-disproportionately",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/rlvr-might-be-disproportionately",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/a224a528-8ab3-4269-ab6f-e38c6fbeab1f_960x822.jpeg"
+    },
+    {
+      "id": 197852876,
+      "postDate": "2026-05-15T16:04:58.987Z",
+      "title": "Eric Jang – Building AlphaGo from scratch",
+      "subtitle": "AlphaGo is still the cleanest worked example of the primitives of intelligence: search, learning from experience, and self-play.",
+      "slug": "eric-jang",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/eric-jang",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/197852876/ba8cfc9e-880a-4a08-b678-e46e85cdcf11/transcoded-1778852392.png"
+    },
+    {
+      "id": 196892360,
+      "postDate": "2026-05-08T16:38:22.262Z",
+      "title": "David Reich – Why the Bronze Age was an inflection point in human evolution",
+      "subtitle": "\"Instead of being quiescent, natural selection is everywhere.\"",
+      "slug": "david-reich-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/david-reich-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/196892360/d236686e-53f3-4733-b25b-62116a1dccfd/transcoded-1778253313.png"
+    },
+    {
+      "id": 195859978,
+      "postDate": "2026-04-29T17:07:03.273Z",
+      "title": "Reiner Pope – The math behind how LLMs are trained and served",
+      "subtitle": "It's shocking how much you can deduce about what the labs are doing from a handful of equations and a blackboard",
+      "slug": "reiner-pope",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/reiner-pope",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/195859978/3508a6d4-5c9c-4759-81d9-4607d7f2777f/transcoded-1777482312.png"
+    },
+    {
+      "id": 195478263,
+      "postDate": "2026-04-27T13:51:32.211Z",
+      "title": "More open questions about AI",
+      "subtitle": "Hodge podge of things I was thinking about this weekend.",
+      "slug": "what-ive-been-thinking-april-27",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/what-ive-been-thinking-april-27",
+      "coverImage": ""
+    },
+    {
+      "id": 195361651,
+      "postDate": "2026-04-24T16:37:49.514Z",
+      "title": "Blog prize for the big questions about AI",
+      "subtitle": "The not-so-secret point of this whole contest is so that I can hire a research collaborator",
+      "slug": "blog-prize",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/blog-prize",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/a7d14f96-c3aa-4305-bdc2-27c509bdbedc_1400x923.jpeg"
+    },
+    {
+      "id": 194289889,
+      "postDate": "2026-04-15T15:45:23.854Z",
+      "title": "Jensen Huang – TPU competition, why we should sell chips to China, & Nvidia’s supply chain moat",
+      "subtitle": "“If our next several years are a trillion dollars in scale, we have the supply chain to do it\"",
+      "slug": "jensen-huang",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/jensen-huang",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/194289889/f6efa180-a37f-4d39-ab2b-3afc31092217/transcoded-1776259454.png"
+    },
+    {
+      "id": 194372711,
+      "postDate": "2026-04-15T14:03:00.000Z",
+      "title": "What I learned this week - Can distillation be stopped, Mythos and the cybersecurity equilibrium, Pipeline RL",
+      "subtitle": "April 15, 2025",
+      "slug": "what-i-learned-april-15",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/what-i-learned-april-15",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!QpJ5!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e801a3e-5563-40fc-ba70-4af569d80647_555x772.png"
+    },
+    {
+      "id": 193466212,
+      "postDate": "2026-04-07T15:49:28.486Z",
+      "title": "Michael Nielsen – How science actually progresses",
+      "subtitle": "The true story of Einstein, Newton, and Darwin",
+      "slug": "michael-nielsen",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/michael-nielsen",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/193466212/dac5e2e5-3e27-466d-b4ae-959d21f0722e/transcoded-1775577035.png"
+    },
+    {
+      "id": 191582481,
+      "postDate": "2026-03-20T16:00:55.195Z",
+      "title": "Terence Tao – Kepler, Newton, and the true nature of mathematical discovery",
+      "subtitle": "“And what those stories teach us about how AI will revolutionize math”",
+      "slug": "terence-tao",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/terence-tao",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/191582481/50f725d4-6ccb-4e93-85d3-9e3b38e46f30/transcoded-1774027925.png"
+    },
+    {
+      "id": 190839917,
+      "postDate": "2026-03-13T16:00:42.819Z",
+      "title": "Dylan Patel — Deep dive on the 3 big bottlenecks to scaling AI compute",
+      "subtitle": "Plus, why an H100 is worth more today than 3 years ago",
+      "slug": "dylan-patel",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/dylan-patel",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/190839917/9b1d0baa-a71e-4f85-9ed8-b0e0d6856c61/transcoded-1773436451.png"
+    },
+    {
+      "id": 190633588,
+      "postDate": "2026-03-11T18:55:20.774Z",
+      "title": "The most important question nobody's asking about AI",
+      "subtitle": "“Preface to the highest stakes negotiations in history.”",
+      "slug": "dow-anthropic",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/dow-anthropic",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/190633588/33938ac2-de04-4233-b102-771ed68d5750/transcoded-1773331170.png"
+    },
+    {
+      "id": 190118311,
+      "postDate": "2026-03-06T17:14:20.417Z",
+      "title": "Why Leonardo was a saboteur, Gutenberg went broke, and Florence was weird – Ada Palmer",
+      "subtitle": "Ambassador visiting Renaissance Florence: “Where am I? None of this has existed for a thousand years.\"",
+      "slug": "ada-palmer",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ada-palmer",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/190118311/ab696b1e-fae5-4a23-8656-cc16dfe156ba/transcoded-1773072293.png"
+    },
+    {
+      "id": 187852154,
+      "postDate": "2026-02-13T16:46:36.668Z",
+      "title": "Dario Amodei — \"We are near the end of the exponential\"",
+      "subtitle": "\"That's why I'm sending this message of urgency\"",
+      "slug": "dario-amodei-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/dario-amodei-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/187852154/5723fd43-9712-418c-9427-9f60d7e5c03c/transcoded-1771001052.png"
+    },
+    {
+      "id": 187006312,
+      "postDate": "2026-02-05T18:26:47.718Z",
+      "title": "Notes on Space GPUs",
+      "subtitle": "Turning my Elon prep into a blog post",
+      "slug": "notes-on-space-gpus",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/notes-on-space-gpus",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/2dba4f31-2d4f-485a-835f-5c9bc75f9ce4_300x168.jpeg"
+    },
+    {
+      "id": 186967347,
+      "postDate": "2026-02-05T16:45:08.018Z",
+      "title": "Elon Musk — \"In 36 months, the cheapest place to put AI will be space”",
+      "subtitle": "“Those who live in software land are about to have a hard lesson in hardware.”",
+      "slug": "elon-musk",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/elon-musk",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/186967347/b1b09323-e5b5-4b44-812d-df884b8bd76d/transcoded-1770311734.png"
+    },
+    {
+      "id": 184577698,
+      "postDate": "2026-01-15T16:02:50.064Z",
+      "title": "Hiring scouts to help me find guests",
+      "subtitle": "$100/hour, fully remote. Ideal candidate is maybe a grad student/post doc/or working in one of: bio, history, econ, math/physics, AI/hardware.",
+      "slug": "hiring-scouts-to-help-me-find-guests",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/hiring-scouts-to-help-me-find-guests",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/bbfbfbf2-988e-4a86-9603-27a999afdc10_360x360.webp"
+    },
+    {
+      "id": 184151396,
+      "postDate": "2026-01-10T20:30:07.064Z",
+      "title": "What I've been reading recently - Jan 10, 2026",
+      "subtitle": "Nonlinear dynamics and Chaos, Machines of Loving Grace, Max Hodak’s theory of consciousness, Neural network training makes beautiful fractals",
+      "slug": "notes-jan-10-2026",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/notes-jan-10-2026",
+      "coverImage": "https://substackcdn.com/image/vimeo/w_728,c_limit,d_video_placeholder.png/903855670"
+    },
+    {
+      "id": 182960540,
+      "postDate": "2025-12-30T17:07:17.441Z",
+      "title": "Adam Marblestone — AI is missing something fundamental about the brain",
+      "subtitle": "The brain's secret sauce is its reward functions, not its architecture.",
+      "slug": "adam-marblestone",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/adam-marblestone",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/182960540/1ab2223f-563e-4940-9a24-0d313c31777a/transcoded-1767114375.png"
+    },
+    {
+      "id": 182887993,
+      "postDate": "2025-12-29T18:45:21.565Z",
+      "title": "Capital in the 22nd Century",
+      "subtitle": "Piketty was wrong about the past. He’s probably right about the future.",
+      "slug": "capital-in-the-22nd-century",
+      "type": "restack",
+      "url": "https://philiptrammell.substack.com/cp/182887993",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!okfy!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F73e9cb6c-ef83-4fd3-b235-6aeff8b9c293_1536x1024.png"
+    },
+    {
+      "id": 182443852,
+      "postDate": "2025-12-23T20:24:48.467Z",
+      "title": "Thoughts on AI progress (Dec 2025)",
+      "subtitle": "",
+      "slug": "thoughts-on-ai-progress-dec-2025-video",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/182443852/3ca9ce5d-c13a-450d-8796-29d437e2542e/transcoded-1766521549.png"
+    },
+    {
+      "id": 182083324,
+      "postDate": "2025-12-19T17:41:19.853Z",
+      "title": "Sarah Paine — Why Russia Lost the Cold War",
+      "subtitle": "Oil crisis, Sino-Soviet split, ethnic rebellions, and arms build-up",
+      "slug": "sarah-paine-cold-war",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-cold-war",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/182083324/4f17fb04-57be-46dc-8af2-896450096693/transcoded-1766164364.png"
+    },
+    {
+      "id": 180546460,
+      "postDate": "2025-12-02T21:39:14.968Z",
+      "title": "Thoughts on AI progress (Dec 2025)",
+      "subtitle": "Why I'm moderately bearish in the short term, and explosively bullish in the long term",
+      "slug": "thoughts-on-ai-progress-dec-2025",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025",
+      "coverImage": ""
+    },
+    {
+      "id": 180430423,
+      "postDate": "2025-12-01T18:35:34.056Z",
+      "title": "Podcast Strategy Doc (December 2025)",
+      "subtitle": "",
+      "slug": "dec-strategy-doc",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/dec-strategy-doc",
+      "coverImage": ""
+    },
+    {
+      "id": 179924094,
+      "postDate": "2025-11-25T17:04:02.767Z",
+      "title": "Ilya Sutskever — We're moving from the age of scaling to the age of research",
+      "subtitle": "“These models somehow just generalize dramatically worse than people. It's a very fundamental thing.”",
+      "slug": "ilya-sutskever-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ilya-sutskever-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/179924094/59ee9f3b-e222-4bf4-8bfb-97d69ec33688/transcoded-1764088384.png"
+    },
+    {
+      "id": 179158054,
+      "postDate": "2025-11-17T16:54:09.910Z",
+      "title": "RL is even more information inefficient than you thought",
+      "subtitle": "And implications for RLVR progress",
+      "slug": "bits-per-sample",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/bits-per-sample",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!J6SR!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fea6b8a9c-18d2-4a0f-a940-f04f83fcdd3c_989x690.png"
+    },
+    {
+      "id": 178688356,
+      "postDate": "2025-11-12T17:03:08.609Z",
+      "title": "Satya Nadella — How Microsoft is preparing for AGI",
+      "subtitle": "Plus a tour of Fairwater 2, the most powerful AI datacenter in the world",
+      "slug": "satya-nadella-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/satya-nadella-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/178688356/452351ae-929d-43d0-bfb6-4539ee76b798/transcoded-1762964918.png"
+    },
+    {
+      "id": 177641179,
+      "postDate": "2025-10-31T15:01:37.160Z",
+      "title": "Sarah Paine — How Russia sabotaged China's rise",
+      "subtitle": "Plus, where Russia and China go from here",
+      "slug": "sarah-paine-russo-chinese",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-russo-chinese",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/177641179/f956f371-7b23-4dd1-8df3-67b9d967ad7e/transcoded-1761911778.png"
+    },
+    {
+      "id": 176848811,
+      "postDate": "2025-10-22T17:58:39.871Z",
+      "title": "Thoughts on the AI buildout",
+      "subtitle": "Fab CapEx overhang, 1 GW a week, China privileged in long timelines, and much else ",
+      "slug": "thoughts-on-the-ai-buildout",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/thoughts-on-the-ai-buildout",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!hH1A!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Facf8778a-45d1-402f-b341-7a14efa2f18e_1600x1066.png"
+    },
+    {
+      "id": 176425744,
+      "postDate": "2025-10-17T16:54:33.052Z",
+      "title": "Andrej Karpathy — AGI is still a decade away",
+      "subtitle": "\"The problems are tractable, but they're still difficult”",
+      "slug": "andrej-karpathy",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/andrej-karpathy",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/176425744/248940bd-cafb-4de4-bf60-6b24fae0fa2e/transcoded-1760720000.png"
+    },
+    {
+      "id": 175802370,
+      "postDate": "2025-10-10T15:29:40.052Z",
+      "title": "Nick Lane – Life as we know it is chemically inevitable",
+      "subtitle": "Life is continuous with Earth’s geochemistry",
+      "slug": "nick-lane",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/nick-lane",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/175802370/c3eaa143-65d8-48aa-9bcb-992642d8cc70/transcoded-1760110067.png"
+    },
+    {
+      "id": 175283310,
+      "postDate": "2025-10-04T17:45:00.586Z",
+      "title": "Some thoughts on the Sutton interview",
+      "subtitle": "I have a much better understanding of Sutton’s vision now",
+      "slug": "thoughts-on-sutton",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/thoughts-on-sutton",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/175283310/7e44846b-49c5-4241-86a4-c57622c6a7b8/transcoded-1766512927.png"
+    },
+    {
+      "id": 174939358,
+      "postDate": "2025-10-01T14:03:06.905Z",
+      "title": "On The Vital Question by Nick Lane",
+      "subtitle": "Life is continuous with Earth's geochemistry??",
+      "slug": "the-vital-question",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/the-vital-question",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!GfM9!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc299e01f-5d83-4b04-b903-e217885501be_804x548.png"
+    },
+    {
+      "id": 174609513,
+      "postDate": "2025-09-26T14:48:59.697Z",
+      "title": "Richard Sutton – Father of RL thinks LLMs are a dead end",
+      "subtitle": "LLMs aren’t Bitter-Lesson-pilled",
+      "slug": "richard-sutton",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/richard-sutton",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/174609513/bbf5d079-6be9-4aaf-82d2-57d8584f22d4/transcoded-1758896358.png"
+    },
+    {
+      "id": 173427890,
+      "postDate": "2025-09-12T15:03:02.106Z",
+      "title": "Fully autonomous robots are much closer than you think – Sergey Levine",
+      "subtitle": "Plus, how VLA models work, self-improvement from deployment, and China’s hardware advantage",
+      "slug": "sergey-levine",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sergey-levine",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/173427890/bb23b2a7-219d-463e-9f5d-164721ef56d3/transcoded-1758898981.png"
+    },
+    {
+      "id": 172873013,
+      "postDate": "2025-09-05T15:05:14.631Z",
+      "title": "How Hitler almost starved Britain – Sarah Paine",
+      "subtitle": "“The only thing that really frightened me during the war was the U-boat peril” – Winston Churchill",
+      "slug": "sarah-paine-ww2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-ww2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/172873013/0798040c-0395-47a1-a1c1-7b97cda60b1e/transcoded-1757084500.png"
+    },
+    {
+      "id": 171561010,
+      "postDate": "2025-08-21T16:29:18.613Z",
+      "title": "Evolution designed us to die fast; we can change that — Jacob Kimmel",
+      "subtitle": "Is the answer already in our genome?",
+      "slug": "jacob-kimmel",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/jacob-kimmel",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/171561010/6b6c7dda-3309-4f82-a4e4-788e85444986/transcoded-1755793692.png"
+    },
+    {
+      "id": 171017457,
+      "postDate": "2025-08-15T14:54:54.243Z",
+      "title": "China is killing the US on energy. Does that mean they’ll win AGI? — Casey Handmer",
+      "subtitle": "Plus, how solar fits into the next 10 years",
+      "slug": "casey-handmer",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/casey-handmer",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/171017457/8f59424c-5a86-421d-8d62-fc66c40ff4e8/transcoded-1755268166.png"
+    },
+    {
+      "id": 170334851,
+      "postDate": "2025-08-07T15:58:01.494Z",
+      "title": "Artificial meat is harder than artificial intelligence — Lewis Bollard",
+      "subtitle": "“Chickens are unbeatable at converting grain into protein”",
+      "slug": "lewis-bollard",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/lewis-bollard",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/170334851/baeda064-1f74-4ab7-bf61-1e793c7e603d/transcoded-1754577786.png"
+    },
+    {
+      "id": 169236978,
+      "postDate": "2025-07-25T17:06:52.083Z",
+      "title": "Sarah Paine — How Imperial Japan defeated Tsarist Russia & Qing China",
+      "subtitle": "Plus, the most lopsided naval battle in human history",
+      "slug": "sarah-paine-east-asia",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-east-asia",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/169236978/a625ed34-6f7e-42f5-b82c-1d900924bee9/transcoded-1753462923.png"
+    },
+    {
+      "id": 167987999,
+      "postDate": "2025-07-10T16:11:28.668Z",
+      "title": "Stephen Kotkin — How Stalin became the most powerful dictator in history",
+      "subtitle": "The most consequential figure of the 20th century",
+      "slug": "stephen-kotkin",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/stephen-kotkin",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/167987999/417b996a-0612-40b8-9e49-17ce73fe1ced/transcoded-1752161032.png"
+    },
+    {
+      "id": 167473378,
+      "postDate": "2025-07-03T21:19:05.279Z",
+      "title": "Why I don’t think AGI is right around the corner",
+      "subtitle": "An audio version of the original blog post",
+      "slug": "why-i-dont-think-agi-is-right-around",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/why-i-dont-think-agi-is-right-around",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/350577d4-3dd5-4a98-b093-03c6f02822bb_1029x562.jpeg"
+    },
+    {
+      "id": 167278326,
+      "postDate": "2025-07-01T16:29:24.200Z",
+      "title": "On Kotkin's 2 volumes on Stalin - notes and questions",
+      "subtitle": "In order to understand Stalin, Kotkin basically wrote a whole world history of the 19th/20th century.",
+      "slug": "stalin",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/stalin",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!XDtw!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7124f4d3-16ee-4aec-a02b-f03f6e6ea61f_720x405.jpeg"
+    },
+    {
+      "id": 167056670,
+      "postDate": "2025-06-29T17:26:45.049Z",
+      "title": "Sarah Paine 6 part July lecture series - free tickets for paid subscribers",
+      "subtitle": "6 new lectures from my most popular guest, 4 times over.",
+      "slug": "sarah-paine-6-part-july-lecture-series",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-6-part-july-lecture-series",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!0Gqv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5310058a-a82b-40eb-aaf5-3664ef05bb99_1708x1016.png"
+    },
+    {
+      "id": 166888604,
+      "postDate": "2025-06-26T15:55:45.250Z",
+      "title": "A billion years of evolution in a single afternoon — George Church",
+      "subtitle": "The man behind the last few decades of biotech breakthroughs",
+      "slug": "george-church",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/george-church",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/166888604/6974c510-9b3c-4a9d-a741-c0c28af04057/transcoded-1750952257.png"
+    },
+    {
+      "id": 166313955,
+      "postDate": "2025-06-19T16:03:16.788Z",
+      "title": "Why China's manufacturing economy is dominating — Arthur Kroeber",
+      "subtitle": "“China wants it all, and they can have it\"",
+      "slug": "arthur-kroeber",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/arthur-kroeber",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/166313955/05a0667e-3ea9-4ca8-b2ae-2d3ee5d2a4ae/transcoded-1750333253.png"
+    },
+    {
+      "id": 165778647,
+      "postDate": "2025-06-12T16:32:58.429Z",
+      "title": "\"China is digging out of a crisis. And America’s luck is wearing thin.\" — Ken Rogoff",
+      "subtitle": "A debt shock is coming for both China and the US.",
+      "slug": "ken-rogoff",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ken-rogoff",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/165778647/b271f573-5a88-4bc0-b4be-97f15b868fc3/transcoded-1749729286.png"
+    },
+    {
+      "id": 165028925,
+      "postDate": "2025-06-02T17:31:46.502Z",
+      "title": "Why I don’t think AGI is right around the corner",
+      "subtitle": "Continual learning is a huge bottleneck",
+      "slug": "timelines-june-2025",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/timelines-june-2025",
+      "coverImage": "https://substackcdn.com/image/youtube/w_728,c_limit/nyvmYnz6EAg"
+    },
+    {
+      "id": 164744419,
+      "postDate": "2025-05-30T16:01:07.053Z",
+      "title": "Give AIs a stake in the future",
+      "subtitle": "Part 1 of Classical Liberal AGI",
+      "slug": "give-ais-a-stake-in-the-future",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/give-ais-a-stake-in-the-future",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/3fae5997-cd0b-4002-a343-65c7cb541053_3900x2600.webp"
+    },
+    {
+      "id": 164717983,
+      "postDate": "2025-05-29T15:47:29.140Z",
+      "title": "Xi Jinping’s paranoid approach to AGI, debt crisis, & Politburo politics — Victor Shih",
+      "subtitle": "Or, how China’s political system actually works",
+      "slug": "victor-shih",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/victor-shih",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/164717983/28d857ef-f01b-42fc-8483-75a153bb631f/transcoded-1748522598.png"
+    },
+    {
+      "id": 164189186,
+      "postDate": "2025-05-22T20:53:36.250Z",
+      "title": "Is RL + LLMs enough for AGI? — Sholto Douglas & Trenton Bricken",
+      "subtitle": "Scaling reinforcement learning, tracing circuits, and the path to fully autonomous agents",
+      "slug": "sholto-trenton-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sholto-trenton-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/164189186/bf346473-db10-4e58-bf7d-1199cf8c7940/transcoded-00001.png"
+    },
+    {
+      "id": 162651762,
+      "postDate": "2025-05-01T23:00:27.192Z",
+      "title": "What will automated firms look like?",
+      "subtitle": "An animated exploration",
+      "slug": "ai-firms-narration",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ai-firms-narration",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/162651762/13cf8b33-a2ab-4805-afaf-27fca84d8354/transcoded-1746140283.png"
+    },
+    {
+      "id": 162392947,
+      "postDate": "2025-04-29T15:46:54.640Z",
+      "title": "Mark Zuckerberg — AI will write most Meta code in 18 months",
+      "subtitle": "“The world is going to get a lot funnier, weirder, and quirkier.”",
+      "slug": "mark-zuckerberg-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/mark-zuckerberg-2",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/162392947/8a29d328-1eb3-4277-9a21-7cb9db1c4580/transcoded-00001.png"
+    },
+    {
+      "id": 162037097,
+      "postDate": "2025-04-24T15:53:57.036Z",
+      "title": "Why Rome actually fell: plagues, slavery, & ice age — Kyle Harper",
+      "subtitle": "...and how it could have survived",
+      "slug": "kyle-harper",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/kyle-harper",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/162037097/93c6cacc-a271-459a-9e75-0edfa8b908aa/transcoded-1745510016.png"
+    },
+    {
+      "id": 161809078,
+      "postDate": "2025-04-21T15:33:37.153Z",
+      "title": "Questions about the Future of AI",
+      "subtitle": "Considerations about economics, history, training, deployment, investment, and more",
+      "slug": "questions-about-ai",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/questions-about-ai",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/49ebe1bc-043c-4ba3-8007-f657386ebacf_1152x1274.png"
+    },
+    {
+      "id": 161532341,
+      "postDate": "2025-04-17T16:06:32.421Z",
+      "title": "AGI is still 30 years away — Ege Erdil & Tamay Besiroglu",
+      "subtitle": "The economy will literally double every year afterwards",
+      "slug": "ege-tamay",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ege-tamay",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/161532341/93e983b7-e476-4a26-a5ca-76a0526ca9f2/transcoded-115509.png"
+    },
+    {
+      "id": 160495909,
+      "postDate": "2025-04-03T15:05:11.346Z",
+      "title": "AI 2027: month-by-month model of intelligence explosion — Scott Alexander & Daniel Kokotajlo",
+      "subtitle": "Misaligned hive minds, Xi and Trump waking up, and automated Ilyas accelerating AI progress",
+      "slug": "scott-daniel",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/scott-daniel",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/160495909/b8d67434-dd7a-4dc7-a5fb-37f5bd370a55/transcoded-1743693960.png"
+    },
+    {
+      "id": 159934831,
+      "postDate": "2025-03-26T18:44:45.595Z",
+      "title": "Dwarkesh Patel Wants People to Learn Things",
+      "subtitle": "EP 11 And he has a new book on AI ",
+      "slug": "dwarkesh-patel-wants-people-to-learn",
+      "type": "restack",
+      "url": "https://www.corememory.com/cp/159934831",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/159834068/29183d41-e55d-4ddf-9c98-686a59990728/transcoded-1742917816.png"
+    },
+    {
+      "id": 159824609,
+      "postDate": "2025-03-25T15:25:59.724Z",
+      "title": "AMA: career advice given AGI, how I research ft. Sholto & Trenton",
+      "subtitle": "\"The Scaling Era: An Oral History of AI, 2019-2025\" out now on Stripe Press!",
+      "slug": "scaling-ama",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/scaling-ama",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/159824609/a9c25cc0-06fb-4f78-b848-a0ac9c49b40e/transcoded-1742918072.png"
+    },
+    {
+      "id": 158922207,
+      "postDate": "2025-03-12T16:40:31.244Z",
+      "title": "Joseph Henrich — Humans defeated smarter species with cultural evolution",
+      "subtitle": "Plus how the Catholic Church accidentally caused the Industrial Revolution",
+      "slug": "joseph-henrich",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/joseph-henrich",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/158922207/5d09fd41-b57f-49e6-8b72-72020a891ca5/transcoded-1741813412.png"
+    },
+    {
+      "id": 158452931,
+      "postDate": "2025-03-05T18:12:42.522Z",
+      "title": "Notes on China",
+      "subtitle": "On scale, construction, youngsters, public opinion, censorship, tech, and AI",
+      "slug": "notes-on-china-narration",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/notes-on-china-narration",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/158452931/9a94ab76-9914-4ef4-a343-bf6b0049a3a4/transcoded-1741198297.png"
+    },
+    {
+      "id": 157454089,
+      "postDate": "2025-02-19T15:51:23.737Z",
+      "title": "Satya Nadella — Microsoft’s AGI plan & quantum breakthrough",
+      "subtitle": "AGI is not the real benchmark: 10% economic growth is",
+      "slug": "satya-nadella",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/satya-nadella",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/157454089/7f80f19a-062c-4c0b-97fc-8f2c4f2f63fc/transcoded-1739964817.png"
+    },
+    {
+      "id": 157004096,
+      "postDate": "2025-02-12T19:56:43.642Z",
+      "title": "Jeff Dean & Noam Shazeer — 25 years at Google: from PageRank to AGI",
+      "subtitle": "Two of Gemini's co-leads on Google's path to AGI",
+      "slug": "jeff-dean-and-noam-shazeer",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/jeff-dean-and-noam-shazeer",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/157004096/b88b93a9-8ba0-4dd1-81b5-bb557d48a623/transcoded-1739567774.png"
+    },
+    {
+      "id": 155978999,
+      "postDate": "2025-01-31T16:02:21.880Z",
+      "title": "What fully automated firms will look like",
+      "subtitle": "Everyone is sleeping on the *collective* advantages AIs will have, which have nothing to do with raw IQ: they can be copied, distilled, merged, scaled, and evolved in ways humans simply can't.",
+      "slug": "ai-firm",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/ai-firm",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/81e63a95-d331-43d8-bdfb-a968a6ce213f_1792x1024.webp"
+    },
+    {
+      "id": 156094021,
+      "postDate": "2025-01-30T14:45:25.913Z",
+      "title": "Sarah Paine — How Mao conquered China (lecture & interview)",
+      "subtitle": "How did Mao go from military genius to peacetime disaster? How can someone shrewd enough to win a civil war outnumbered 5 to 1 decide \"let's kill all the birds\"?",
+      "slug": "sarah-paine-china",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-china",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/156094021/4c7a4c7c-4303-47f6-9adf-0d1b23555e1b/transcoded-00001.png"
+    },
+    {
+      "id": 155541767,
+      "postDate": "2025-01-23T16:43:16.833Z",
+      "title": "Sarah Paine — Why Japan lost WWII (lecture & interview)",
+      "subtitle": "Continuing our WWII series: the ideas and economics behind Japanese imperialism and the fatal flaw in their military culture that cost them the war",
+      "slug": "sarah-paine-japan",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-japan",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/155541767/32fc9c3c-7814-4963-9d1d-f04ccedbe5a6/transcoded-00001.png"
+    },
+    {
+      "id": 154955657,
+      "postDate": "2025-01-16T20:12:01.901Z",
+      "title": "Sarah Paine — The war for India (lecture & interview)",
+      "subtitle": "First of three new lectures from Professor Paine, followed by my questions. This time: Mao v Khrushchev v Nehru v LBJ",
+      "slug": "sarah-paine-india",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-india",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/154955657/88cbe6c2-cb48-44e9-8afc-0e787788ac42/transcoded-1737044514.png"
+    },
+    {
+      "id": 154483840,
+      "postDate": "2025-01-09T16:25:21.690Z",
+      "title": "Tyler Cowen — The #1 bottleneck to AI progress is humans",
+      "subtitle": "Why he thinks AI won't drive explosive economic growth",
+      "slug": "tyler-cowen-4",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/tyler-cowen-4",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/154483840/9304ff6d-d92a-4cf2-8475-1ded10d65935/transcoded-1736434102.png"
+    },
+    {
+      "id": 153683634,
+      "postDate": "2024-12-27T19:09:51.400Z",
+      "title": "Notes on China",
+      "subtitle": "",
+      "slug": "notes-on-china",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/notes-on-china",
+      "coverImage": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbad23033-78a3-44ef-8484-a2314dc7121b_4032x3024.heic"
+    },
+    {
+      "id": 153641659,
+      "postDate": "2024-12-26T16:29:59.621Z",
+      "title": "Adam Brown — Bubble universes, space elevators, & AdS/CFT",
+      "subtitle": "",
+      "slug": "adam-brown",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/adam-brown",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/71c644f6-77d9-444c-8798-6b114a46174f_1920x1080.jpeg"
+    },
+    {
+      "id": 152150087,
+      "postDate": "2024-11-26T18:17:16.320Z",
+      "title": "Review of 2 books: China’s Economy by Arthur Kroeber & China Chapter in Trade Wars are Class Wars by Pettis & Klein ",
+      "subtitle": "",
+      "slug": "chinas-economy",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/chinas-economy",
+      "coverImage": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fad553126-18dc-40bc-a864-c1622faa3b06_1512x972.png"
+    },
+    {
+      "id": 151435243,
+      "postDate": "2024-11-13T18:42:28.773Z",
+      "title": "Gwern — Anonymous writer who predicted AI trajectory on $12K/year salary",
+      "subtitle": "Legacy & Anonymity in the Age of AGI",
+      "slug": "gwern-branwen",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/gwern-branwen",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/151435243/cf820621-0a07-44eb-9258-b1b63ee686f4/transcoded-00001.png"
+    },
+    {
+      "id": 150637473,
+      "postDate": "2024-10-23T21:04:56.610Z",
+      "title": "Livestream Sarah Paine tonight at 7 PM Pacific on Japan at War",
+      "subtitle": "Just download the app and subscribe to me. At 7 PM Pacific you'll see the live video front & center in the app.",
+      "slug": "japan-at-war-announcement",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/japan-at-war-announcement",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!5u1l!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd3e33418-4770-4398-8e33-884399df4295_1358x938.png"
+    },
+    {
+      "id": 150270221,
+      "postDate": "2024-10-15T18:32:53.241Z",
+      "title": "Come watch Sarah Paine lecture live next week!",
+      "subtitle": "RSVP below!",
+      "slug": "sarah-paine-lecture-series-public",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-lecture-series-public",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/83ffceb2-d2ed-428d-8491-312ae7700bb3_4320x2174.png"
+    },
+    {
+      "id": 150105260,
+      "postDate": "2024-10-11T17:22:34.769Z",
+      "title": "Sarah Paine & Dwarkesh Patel Lecture Series",
+      "subtitle": "Introducing a 3-part live lecture series feat. Sarah Paine. Reserve your tickets today.",
+      "slug": "sarah-paine-lecture-series",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/sarah-paine-lecture-series",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/116b7b01-56ea-4d15-8445-e68437b59ddf_4320x2174.png"
+    },
+    {
+      "id": 149705443,
+      "postDate": "2024-10-02T14:19:08.659Z",
+      "title": "@Asianometry & Dylan Patel — How the semiconductor industry actually works",
+      "subtitle": "A bonanza on the semiconductor industry and hardware scaling to AGI by the end of the decade.",
+      "slug": "dylan-jon",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/dylan-jon",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/149705443/16d96267-465e-4604-8f23-5274340529b1/transcoded-1727892314.png"
+    },
+    {
+      "id": 149019792,
+      "postDate": "2024-09-18T14:02:31.288Z",
+      "title": "Daniel Yergin — Oil destroyed Hitler, fracking destroyed Putin",
+      "subtitle": "the rise of America, WW1, WW2, secular stagnation, the Middle East, Ukraine, how Xi and Putin think, and basically anything else that's happened since 1860.",
+      "slug": "daniel-yergin",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/daniel-yergin",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/149019792/294f4ac3-ec14-4cbb-801f-ff35d1a98f09/transcoded-1726695444.png"
+    },
+    {
+      "id": 148775708,
+      "postDate": "2024-09-11T17:37:48.852Z",
+      "title": "Help me build a media empire - become my COO",
+      "subtitle": "",
+      "slug": "coo",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/coo",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/96dd1f12-0384-4037-b07c-058b2b722c1e_640x272.gif"
+    },
+    {
+      "id": 148313176,
+      "postDate": "2024-08-30T18:19:21.749Z",
+      "title": "$2,000 thumbnail competition",
+      "subtitle": "I’d be super excited to work with someone who can show amazing taste and skill.",
+      "slug": "thumbnail-competition",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/thumbnail-competition",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/20321645-0a61-468a-82e8-c539bd92b07c_2176x1288.png"
+    },
+    {
+      "id": 148257189,
+      "postDate": "2024-08-29T15:38:44.749Z",
+      "title": "David Reich — How one small tribe conquered the world 70,000 years ago",
+      "subtitle": "Neanderthal Extinction, Evolution of Intelligence, & Yamnaya Genocide",
+      "slug": "david-reich",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/david-reich",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/148257189/b564f3ad-5bd4-458e-945f-641ac4aa66a2/transcoded-00001.png"
+    },
+    {
+      "id": 148002360,
+      "postDate": "2024-08-22T15:09:45.382Z",
+      "title": "Joe Carlsmith — Preventing an AI takeover",
+      "subtitle": "Also AI motivations, Stalin, techno-capital, and much, much more",
+      "slug": "joe-carlsmith",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/joe-carlsmith",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/148002360/f9e1b104-2c82-4278-aa5a-2c9dfd7c6663/transcoded-1724335853.png"
+    },
+    {
+      "id": 147932950,
+      "postDate": "2024-08-20T18:12:19.241Z",
+      "title": "Dwarkesh Podcast Progress Update",
+      "subtitle": "\"I was 2 months away from quitting the podcast for 2 years.\"",
+      "slug": "progress-update",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/progress-update",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/cb5d843e-d92b-42b5-bd79-c8e8c8fcf1d8_3840x2160.png"
+    },
+    {
+      "id": 145985190,
+      "postDate": "2024-08-05T15:44:59.008Z",
+      "title": "Notes: Energy and Civilization by Vaclav Smil",
+      "subtitle": "",
+      "slug": "energy-and-civilization",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/energy-and-civilization",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/aff51ef1-b449-4d5b-90df-9de03a0678b9_737x1000.jpeg"
+    },
+    {
+      "id": 146935176,
+      "postDate": "2024-07-24T13:57:59.911Z",
+      "title": "Patrick McKenzie — Money laundering, big tech censorship, SBF & Japan",
+      "subtitle": "Plus unconstitutional censorship, money laundering, Factorio, and a friendly debate about crypto",
+      "slug": "patrick-mckenzie",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/patrick-mckenzie",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/146935176/11c8cb35-f256-4014-8e5b-221cb4223556/transcoded-1721803006.png"
+    },
+    {
+      "id": 145984348,
+      "postDate": "2024-06-27T16:02:32.428Z",
+      "title": "Notes: Symbolic Species by Terrence Deacon",
+      "subtitle": "",
+      "slug": "symbolic-species",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/symbolic-species",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/8e9dab18-d8f4-40f1-a980-b593cc39428f_691x1000.jpeg"
+    },
+    {
+      "id": 146005940,
+      "postDate": "2024-06-26T13:41:20.097Z",
+      "title": "Tony Blair — Why political leaders keep failing at major change",
+      "subtitle": "What makes a good leader?",
+      "slug": "tony-blair",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/tony-blair",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/146005940/71b061bf-88d8-4dc6-8817-dfb5f5c790bc/transcoded-1719406695.png"
+    },
+    {
+      "id": 145953971,
+      "postDate": "2024-06-24T16:58:34.905Z",
+      "title": "Notes: The Language Instinct by Steven Pinker",
+      "subtitle": "What exactly is mentalese",
+      "slug": "the-language-instinct",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/the-language-instinct",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/437d5c6e-e6e6-4b8b-b8a9-339c1b1e026f_657x1000.jpeg"
+    },
+    {
+      "id": 145543832,
+      "postDate": "2024-06-11T17:03:59.712Z",
+      "title": "Francois Chollet — Why the biggest AI models can't solve simple puzzles",
+      "subtitle": "“They're confusing skill and intelligence.”",
+      "slug": "francois-chollet",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/francois-chollet",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/7a4027e0-6db3-4731-8244-1c3acac646f3_3840x2160.png"
+    },
+    {
+      "id": 145136502,
+      "postDate": "2024-06-04T15:39:37.715Z",
+      "title": "Leopold Aschenbrenner — 2027 AGI, China/US super-intelligence race, & the return of history",
+      "subtitle": "The trillion dollar cluster...",
+      "slug": "leopold-aschenbrenner",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/leopold-aschenbrenner",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/145136502/7f960bf1-958e-4ddf-a6e9-253ae7a53320/transcoded-00001.png"
+    },
+    {
+      "id": 144657191,
+      "postDate": "2024-05-15T13:57:36.097Z",
+      "title": "John Schulman (OpenAI Cofounder) — Reasoning, RLHF, & plan for 2027 AGI",
+      "subtitle": "how posttraining tames the shoggoth, and the nature of the progress to come...",
+      "slug": "john-schulman",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/john-schulman",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/fec6defe-959c-4f32-b560-aa7eaba91db1_1280x720.png"
+    },
+    {
+      "id": 143705335,
+      "postDate": "2024-04-18T15:49:17.220Z",
+      "title": "Mark Zuckerberg — Llama 3, $10B models, Caesar Augustus, & 1 GW datacenters",
+      "subtitle": "Caeser Augustus, intelligence explosion, bioweapons, $10b models, & much more",
+      "slug": "mark-zuckerberg",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/mark-zuckerberg",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/a8ba55fc-2a3e-49b1-9f03-fc611ab86aa0_1280x720.png"
+    },
+    {
+      "id": 143040987,
+      "postDate": "2024-03-28T15:10:09.561Z",
+      "title": "Sholto Douglas & Trenton Bricken — How LLMs actually think",
+      "subtitle": "",
+      "slug": "sholto-douglas-trenton-bricken",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sholto-douglas-trenton-bricken",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/9791fc2c-a22f-48d5-baa3-91ff04473656_2048x946.jpeg"
+    },
+    {
+      "id": 142160697,
+      "postDate": "2024-03-04T16:42:59.075Z",
+      "title": "Notes: The Prize by Daniel Yergin (Part 1)",
+      "subtitle": "\"the best histories on any one topic are often histories of basically everything\"",
+      "slug": "the-prize-1",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/the-prize-1",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/b2365535-05ea-4b6a-aa66-b5537f2ae611_800x800.jpeg"
+    },
+    {
+      "id": 142112869,
+      "postDate": "2024-02-28T15:49:28.076Z",
+      "title": "Demis Hassabis — Scaling, superhuman AIs, AlphaZero atop LLMs, AlphaFold",
+      "subtitle": "\"scaling is an artform\"",
+      "slug": "demis-hassabis",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/demis-hassabis",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/4fbd50aa-4e52-499b-96ac-9e8c65fa8711_1280x720.png"
+    },
+    {
+      "id": 141895788,
+      "postDate": "2024-02-21T15:25:58.879Z",
+      "title": "Patrick Collison — Why Silicon Valley's most talented should leave",
+      "subtitle": "what it takes to process $1 trillion/year, how to build multi-decade APIs, companies, and relationships, and what's next for Stripe",
+      "slug": "patrick-collison",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/patrick-collison",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/e2076345-1011-4d12-a21a-3820e372af2d_3840x2160.png"
+    },
+    {
+      "id": 141221777,
+      "postDate": "2024-01-31T15:00:36.745Z",
+      "title": "Tyler Cowen — Hayek, Keynes, & Smith on AI, animal spirits, anarchy, & growth",
+      "subtitle": "",
+      "slug": "tyler-cowen-3",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/tyler-cowen-3",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/78a0f0f5-d611-4556-b51f-56ed2e54f70e_2560x1440.png"
+    },
+    {
+      "id": 140840711,
+      "postDate": "2024-01-23T15:01:00.891Z",
+      "title": "Lessons from The Years of Lyndon Johnson by Robert Caro [Narration]",
+      "subtitle": "\"Explore a single individual deeply enough and truths about all individuals emerge.\" - Robert Caro",
+      "slug": "lyndon-johnson-narration",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/lyndon-johnson-narration",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/140840711/a36268a9-4adf-4af5-a704-52fe3679ac5e/transcoded-1705678221.png"
+    },
+    {
+      "id": 140840266,
+      "postDate": "2024-01-19T15:25:56.646Z",
+      "title": "Will scaling work? [Narration]",
+      "subtitle": "Data bottlenecks, generalization benchmarks, primate evolution, intelligence as compression, world modelers, and other considerations",
+      "slug": "will-scaling-work-narration",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/will-scaling-work-narration",
+      "coverImage": "https://substack-video.s3.amazonaws.com/video_upload/post/140840266/6657c303-3ddd-45a9-9d05-0910c3b103ed/transcoded-1705677837.png"
+    },
+    {
+      "id": 139936826,
+      "postDate": "2023-12-26T13:47:46.161Z",
+      "title": "Will scaling work?",
+      "subtitle": "Data bottlenecks, generalization benchmarks, primate evolution, intelligence as compression, world modelers, and other considerations",
+      "slug": "will-scaling-work",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/will-scaling-work",
+      "coverImage": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff6e64582-6aa4-4dad-8850-7d2392433b0e_1328x830.png"
+    },
+    {
+      "id": 139315929,
+      "postDate": "2023-12-01T16:29:24.702Z",
+      "title": "$2000 Clips Competition",
+      "subtitle": "Wanna hire someone to make clips for my future episodes",
+      "slug": "clips-competition",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/clips-competition",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/453aff43-86b5-420b-92de-6ccc6ba2ad54_1792x1024.png"
+    },
+    {
+      "id": 139258732,
+      "postDate": "2023-11-29T15:01:22.419Z",
+      "title": "Jung Chang (Wild Swans author) — Living through history's largest man-made famine",
+      "subtitle": "40-80 million killed",
+      "slug": "jung-chang",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/jung-chang",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/a59bac1f-eaaa-42c4-b40b-dcd25eae69c4_3840x2160.png"
+    },
+    {
+      "id": 139067801,
+      "postDate": "2023-11-22T15:06:19.078Z",
+      "title": "Andrew Roberts — Why Hitler lost WWII, Churchill as applied historian, & Napoleon as startup founder",
+      "subtitle": "Churchill, Napoleon, Zelensky, Hitler",
+      "slug": "andrew-roberts",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/andrew-roberts",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/e2c19266-2a6e-4170-ad51-c8fd6c11a24f_1421x2000.jpeg"
+    },
+    {
+      "id": 138879824,
+      "postDate": "2023-11-15T15:14:34.159Z",
+      "title": "Dominic Cummings - COVID, Brexit, & Fixing Western Governance",
+      "subtitle": "why Western governments are so dangerously broken, and how to fix them before an even more catastrophic crisis",
+      "slug": "dominic-cummings",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/dominic-cummings",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/e434b6f3-bec1-430e-a2d5-8157815eb0ec_3840x2160.png"
+    },
+    {
+      "id": 138448008,
+      "postDate": "2023-10-31T13:56:24.329Z",
+      "title": "Paul Christiano — Preventing an AI takeover",
+      "subtitle": "",
+      "slug": "paul-christiano",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/paul-christiano",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/68302fd1-d7a0-4ddf-a30d-abe22e6b5e95_3840x2160.png"
+    },
+    {
+      "id": 138292315,
+      "postDate": "2023-10-26T15:12:11.954Z",
+      "title": "Shane Legg (DeepMind Founder) — 2028 AGI, superhuman alignment, new architectures",
+      "subtitle": "",
+      "slug": "shane-legg",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/shane-legg",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/956c80c5-bf64-481d-837f-68613e216c58_3840x2160.png"
+    },
+    {
+      "id": 137883930,
+      "postDate": "2023-10-12T12:49:12.242Z",
+      "title": "Grant Sanderson (@3blue1brown) — Past, present, & future of mathematics",
+      "subtitle": "",
+      "slug": "grant-sanderson",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/grant-sanderson",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/aa4a0260-f5e5-4090-afd6-60d1a7905abb_1920x1080.png"
+    },
+    {
+      "id": 137641992,
+      "postDate": "2023-10-04T13:43:27.109Z",
+      "title": "Sarah C. M. Paine — Why dictators keep making the same fatal mistake",
+      "subtitle": "How Xi and Putin think...",
+      "slug": "sarah-paine",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-paine",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/3c216d22-7752-4d05-9c24-4212b6c05c01_1920x1080.png"
+    },
+    {
+      "id": 135814349,
+      "postDate": "2023-08-08T13:40:07.841Z",
+      "title": "Dario Amodei (Anthropic CEO) — The hidden pattern behind every AI breakthrough",
+      "subtitle": "plus: bioterrorism, China, cyberattacks, scaling",
+      "slug": "dario-amodei",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/dario-amodei",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/fffe605c-58b9-408d-8ba2-7d1b64c789f3_1920x1080.png"
+    },
+    {
+      "id": 134213434,
+      "postDate": "2023-07-12T13:12:00.990Z",
+      "title": "Andy Matuschak — The reason most learning tools fail",
+      "subtitle": "\"I was shocked with how intense, painstaking, and effective his learning process was\"",
+      "slug": "andy-matuschak",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/andy-matuschak",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/c8110f3c-1406-4e39-bef9-f60588dee2b6_1850x1900.png"
+    },
+    {
+      "id": 130214147,
+      "postDate": "2023-06-26T15:07:38.301Z",
+      "title": "Carl Shulman (Pt 2) — AI Takeover, bio & cyber attacks, detecting deception, & humanity's far future",
+      "subtitle": "the episode that had the biggest impact on my worldview",
+      "slug": "carl-shulman-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/carl-shulman-2",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/598af537-d9c8-4fca-b908-5babae9014e7_1920x1080.png"
+    },
+    {
+      "id": 128144047,
+      "postDate": "2023-06-14T07:50:32.204Z",
+      "title": "Carl Shulman (Pt 1) — Intelligence explosion, primate evolution, robot doublings, & alignment",
+      "subtitle": "\"Maybe 3 people in the world have thought as rigorously as Carl about so many interesting topics.\"",
+      "slug": "carl-shulman",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/carl-shulman",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/00e6bb13-e3c3-4aad-a137-d13adb303c30_854x480.png"
+    },
+    {
+      "id": 127236353,
+      "postDate": "2023-06-13T18:27:13.153Z",
+      "title": "Contra Marc Andreessen on AI",
+      "subtitle": "\"The claim that you will completely control any system you build is obviously false, and a hacker like Marc should know that\"",
+      "slug": "contra-marc-andreessen-on-ai",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/contra-marc-andreessen-on-ai",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/3038f3c8-db09-4941-83c2-eaeea660627c_640x398.webp"
+    },
+    {
+      "id": 122974454,
+      "postDate": "2023-05-23T09:19:29.773Z",
+      "title": "Richard Rhodes — The making of the atomic bomb",
+      "subtitle": "developing a powerful, unprecedented, & potentially apocalyptic technology within an uncertain arms-race situation",
+      "slug": "richard-rhodes",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/richard-rhodes",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/8a90df57-02d7-4228-ae6d-2fc26455bdcb_1800x1013.png"
+    },
+    {
+      "id": 118917060,
+      "postDate": "2023-05-03T17:48:39.710Z",
+      "title": "Lessons from The Years of Lyndon Johnson by Robert Caro",
+      "subtitle": "\"Explore a single individual deeply enough and truths about all individuals emerge.\" - Robert Caro",
+      "slug": "lyndon-johnson",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/lyndon-johnson",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!4pZm!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58956db4-169b-487f-8bb5-f2b420c5417b_1400x1400.jpeg"
+    },
+    {
+      "id": 112763732,
+      "postDate": "2023-04-06T13:57:41.080Z",
+      "title": "Eliezer Yudkowsky — Why AI will kill us, aligning LLMs, nature of intelligence, SciFi, & rationality",
+      "subtitle": "4 hours of me coming up with reasons why AI might not kill us all, & Eliezer explaining why I'm wrong.",
+      "slug": "eliezer-yudkowsky",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/eliezer-yudkowsky",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/19eda665-9c14-409b-991e-ad105b8b9ea8_3840x2160.png"
+    },
+    {
+      "id": 106731655,
+      "postDate": "2023-03-27T13:57:39.998Z",
+      "title": "Ilya Sutskever (OpenAI Chief Scientist) — Why next-token prediction could surpass human intelligence",
+      "subtitle": "time to AGIs, leaks and spies, what's after generative models, post AGI futures, working with MSFT and competing with Google, difficulty of aligning superhuman AI",
+      "slug": "ilya-sutskever",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ilya-sutskever",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/6fd88093-127e-4b1f-aa92-90c2beff5a63_3840x2160.png"
+    },
+    {
+      "id": 109629822,
+      "postDate": "2023-03-22T11:16:09.818Z",
+      "title": "Nat Friedman (Github CEO) — Reading ancient scrolls, open source, & AI",
+      "subtitle": "lost gospels, forgotten epics, & missing works of Aristotle.",
+      "slug": "nat-friedman",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/nat-friedman",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/854ca42a-2a0d-40af-859f-9e5fdf88cfeb_1724x1460.png"
+    },
+    {
+      "id": 108062468,
+      "postDate": "2023-03-13T15:15:11.212Z",
+      "title": "Brett Harrison — FTX US former president speaks out",
+      "subtitle": "In his first longform interview since the fall of FTX",
+      "slug": "brett-harrison",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/brett-harrison",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/bf5d4e57-6b69-4949-9081-6f71d3251e4d_3840x2160.png"
+    },
+    {
+      "id": 99489876,
+      "postDate": "2023-02-01T16:01:45.108Z",
+      "title": "Marc Andreessen — AI, crypto, 1000 Elon Musks, regrets, vulnerabilities, & managerial revolution",
+      "subtitle": "future of NFTS, fusion, education, Twitter, venture, managerialism, & big tech",
+      "slug": "marc-andreessen",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/marc-andreessen",
+      "coverImage": "https://substack-post-media.s3.amazonaws.com/public/images/b98b6b4f-c115-49b8-81e1-4e24e5dc8a7d_1024x711.jpeg"
+    },
+    {
+      "id": 92618940,
+      "postDate": "2023-01-24T13:01:36.866Z",
+      "title": "Garett Jones — Immigration, national IQ, & less democracy",
+      "subtitle": "How migrants bring their values to their new countries, Why national IQ matters, How the Chinese people are an unstoppable global force for free markets, Why we should have less democracy",
+      "slug": "garett-jones",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/garett-jones",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/530ddb66-bec2-47c7-a436-3fa2cc9fd12f_400x400.jpeg"
+    },
+    {
+      "id": 90244342,
+      "postDate": "2023-01-09T13:01:21.882Z",
+      "title": "Lars Doucet — Progress, poverty, Georgism, & why rent is too damn high",
+      "subtitle": "\"completely changed how I think about who creates value in the world and who leeches off it.\"",
+      "slug": "lars-doucet",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/lars-doucet",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/58d55031-1678-4123-829e-eb0e9e285ed8_640x562.webp"
+    },
+    {
+      "id": 88869530,
+      "postDate": "2023-01-03T13:00:55.557Z",
+      "title": "Holden Karnofsky — History's most important century",
+      "subtitle": "AI, Progress, Digital People, Ethics, & a $30m grant to OpenAI",
+      "slug": "holden-karnofsky",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/holden-karnofsky",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/58ed3613-2ee9-43ca-a386-14f199fc6b4c_640x507.jpeg"
+    },
+    {
+      "id": 92018753,
+      "postDate": "2022-12-21T12:30:53.257Z",
+      "title": "Bethany McLean — Enron, FTX, 2008, Musk, frauds, & visionaries",
+      "subtitle": "The astounding similarities between Enron & FTX, How visionaries are just frauds who succeed, What caused 2008, And why history keeps repeating itself.",
+      "slug": "bethany-mclean",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/bethany-mclean",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e653fe3e-6cfa-4bc7-8762-de2d75bb5ab7_600x400.jpeg"
+    },
+    {
+      "id": 90766393,
+      "postDate": "2022-12-15T12:01:16.899Z",
+      "title": "Nadia Asparouhova — Tech elites, democracy, open source, & philanthropy",
+      "subtitle": "On the culture of the new tech elite, the priorities of their philanthropy, and the limitations of democracy in open source",
+      "slug": "nadia-asparouhova",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/nadia-asparouhova",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2b27a00a-243d-4ebd-8567-a1644fba03ae_2560x1708.webp"
+    },
+    {
+      "id": 87816399,
+      "postDate": "2022-12-01T11:01:10.064Z",
+      "title": "Byrne Hobart - FTX, Drugs, Twitter, Taiwan, & Monasticism",
+      "subtitle": "what happened at FTX, how drugs explain past financial bubbles, whether Musk Twitter will succeed, and much much more!",
+      "slug": "byrne-hobart-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/byrne-hobart-2",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ff77a270-ee2e-4d67-87a3-058b7d73dbcf_2160x1216.webp"
+    },
+    {
+      "id": 87260678,
+      "postDate": "2022-11-28T13:03:56.685Z",
+      "title": "Edward Glaeser - Cities, Terrorism, Housing, & Remote Work",
+      "subtitle": "why Cities are resilient to terrorism, remote work, & pandemics, Silicon Valley may collapse, Opioids show UBI is not a solution to AI, & much more!",
+      "slug": "edward-glaeser",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/edward-glaeser",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/92ae483e-74f4-456a-aaca-8fb52d457e8f_429x600.jpeg"
+    },
+    {
+      "id": 82375941,
+      "postDate": "2022-11-08T13:00:51.663Z",
+      "title": "Kenneth T. Jackson - Robert Moses, Hero of New York?",
+      "subtitle": "Rise of NIMBY, Changing attitudes towards progress, & Need for master builders",
+      "slug": "kenneth-jackson",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/kenneth-jackson",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6e93f6db-dad7-4437-be69-5769bf702e25_590x500.jpeg"
+    },
+    {
+      "id": 80970088,
+      "postDate": "2022-10-27T12:09:43.852Z",
+      "title": "Brian Potter - Future of Construction, Ugly Modernism, & Environmental Review ",
+      "subtitle": "Why construction isn’t getting cheaper and faster, Environmental review makes new construction expensive and delayed, “Ugly” modern buildings are the result of better architecture, And much more!",
+      "slug": "brian-potter",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/brian-potter",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/92328616-d9cb-47b9-b485-8d5f9b36ba61_1600x1067.jpeg"
+    },
+    {
+      "id": 76694048,
+      "postDate": "2022-10-20T11:10:25.504Z",
+      "title": "Bryan Caplan - Feminists, Billionaires, and Demagogues",
+      "subtitle": "Why feminists are wrong, billionaires are great, anarcho-capitalism is the ultimate form of government, and much more!",
+      "slug": "bryan-caplan-3",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/bryan-caplan-3",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8db80bc7-7b71-43a5-a7bd-16eb05346ccd_1280x720.jpeg"
+    },
+    {
+      "id": 75408365,
+      "postDate": "2022-09-28T13:21:06.493Z",
+      "title": "Tyler Cowen - Talent, Collapse, & Pessimism of Sex",
+      "subtitle": "Identifying deceit & ambition, why society will collapse, whether humility, stimulants, & intelligence are overrated, & much more!",
+      "slug": "tyler-cowen-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/tyler-cowen-2",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d572f743-aa8f-4e49-b252-081f7e87a3f5_400x400.jpeg"
+    },
+    {
+      "id": 73016865,
+      "postDate": "2022-09-14T09:38:32.261Z",
+      "title": "Charles C. Mann - Americas Before Columbus & Scientific Wizardry",
+      "subtitle": "How Bitcoin is like China’s Silver Trade, Geoengineering, Collapse of Native American Societies, The Unlikely Ending of Slavery, & Much More!",
+      "slug": "charles-mann",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/charles-mann",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ce85bd20-1392-48f9-9f83-5deae60a56aa_380x380.png"
+    },
+    {
+      "id": 71396938,
+      "postDate": "2022-09-08T11:00:55.588Z",
+      "title": "Austin Vernon - Energy Superabundance, Starship Missiles, & Finding Alpha",
+      "subtitle": "How energy superabundance will change the world, how Starship can be turned into a kinetic weapon, why nuclear is overrated, blockchains, batteries, flying cars, finding alpha, & much more!",
+      "slug": "austin-vernon",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/austin-vernon",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/daae4b8e-5a12-4154-b307-8038bb9fc1ab_920x921.jpeg"
+    },
+    {
+      "id": 69097775,
+      "postDate": "2022-08-23T05:56:07.642Z",
+      "title": "Steve Hsu - Intelligence, Embryo Selection, & The Future of Humanity",
+      "subtitle": "How embryo selection can make babies healthier and smarter, the advice Feynman gave him to pick up girls, & the genetics of aging and intelligence",
+      "slug": "steve-hsu",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/steve-hsu",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/10f06e0c-2ae6-4e25-9309-786b07821ef7_1200x800.png"
+    },
+    {
+      "id": 67808980,
+      "postDate": "2022-08-09T04:02:08.423Z",
+      "title": "Will MacAskill - Longtermism, Altruism, History, & Technology",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Improving the future, risk of extinction & collapse, technological & moral change, problems of academia, who changes history.",
+      "slug": "will-macaskill",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/will-macaskill",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b630afdc-fb83-4a1a-b344-90bfeef63fe1_1000x1498.jpeg"
+    },
+    {
+      "id": 66734020,
+      "postDate": "2022-08-03T05:00:26.370Z",
+      "title": "Joseph Carlsmith - Utopia, AI, & Infinite Ethics",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Utopia, computational capacity of the brain, infinite ethics, perils of futurism, and learning from the fact that you exist",
+      "slug": "joseph-carlsmith",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/joseph-carlsmith",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/35b6b6da-8d02-4fe8-9ce9-f0a483353897_640x715.jpeg"
+    },
+    {
+      "id": 65843276,
+      "postDate": "2022-07-27T05:00:17.509Z",
+      "title": "Fin Moorhouse - Longtermism, Space, & Entrepreneurship",
+      "subtitle": "Altruistic entrepreneurship, space governance, morality in the multiverse, podcasting, the long reflection, and the Effective Ideas & EA criticism blog prize",
+      "slug": "fin-moorhouse",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/fin-moorhouse",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/bc9499e9-ff4d-416f-b469-aaef93d57fe8_1600x1794.jpeg"
+    },
+    {
+      "id": 63827201,
+      "postDate": "2022-07-13T06:43:01.892Z",
+      "title": "Alexander Mikaberidze - Napoleon, War, Progress, and Global Order",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "alexander-mikaberidze",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/alexander-mikaberidze",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4151aad9-cbd6-4ee1-94a9-0d2be8735baf_200x200.jpeg"
+    },
+    {
+      "id": 61927464,
+      "postDate": "2022-07-05T06:55:22.089Z",
+      "title": "Sam Bankman-Fried - Crypto, Altruism, and Leadership",
+      "subtitle": "Infiltrating tradfi, giving away $100m this year, hiring A-players",
+      "slug": "sbf",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sbf",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e57feee2-a2f3-4551-a43a-60639ca68fd6_840x600.png"
+    },
+    {
+      "id": 58484687,
+      "postDate": "2022-06-23T05:00:12.145Z",
+      "title": "Agustin Lebron - Trading, Crypto, and Adverse Selection",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "agustin-lebron",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/agustin-lebron",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2a07be98-4872-490d-b093-04b0442ae615_400x400.png"
+    },
+    {
+      "id": 54281341,
+      "postDate": "2022-05-11T05:00:40.155Z",
+      "title": "Ananyo Bhattacharya - John von Neumann, Jewish Genius, and Nuclear War",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "ananyo-bhattacharya",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/ananyo-bhattacharya",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1afd214d-dc8d-4eae-a2c8-afd1292942fb_400x400.jpeg"
+    },
+    {
+      "id": 53416271,
+      "postDate": "2022-05-05T05:04:41.876Z",
+      "title": "Stephen Grugett (Manifold Markets Founder) - Predictions Markets & Revolutionizing Governance",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "stephen-grugett",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/stephen-grugett",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d04a0546-7b67-4fa7-b84e-b970f5452e5d_200x200.jpeg"
+    },
+    {
+      "id": 53132223,
+      "postDate": "2022-04-27T14:13:00.000Z",
+      "title": "Pradyu Prasad - Imperial Japan, the God Emperor, and Militarization in the Modern World",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "pradyu-prasad",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/pradyu-prasad",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4275cd59-da55-4012-9abf-15173b609d49_400x400.jpeg"
+    },
+    {
+      "id": 53132062,
+      "postDate": "2022-04-20T10:05:00.000Z",
+      "title": "Razib Khan - Genomics, Intelligence, and The Church of Science",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | History, genetics, culture, and evolutionary psychology",
+      "slug": "razib-khan",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/razib-khan",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/615e33bc-6e06-4197-8d22-6d3ac6af8e25_256x256.jpeg"
+    },
+    {
+      "id": 52511221,
+      "postDate": "2022-04-16T10:00:00.000Z",
+      "title": "Jimmy Soni - Peter Thiel, Elon Musk, and the Paypal Mafia",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "jimmy-soni",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/jimmy-soni",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b4cdf8bb-1977-4c48-8a5a-a30e9fb696ab_2379x1862.jpeg"
+    },
+    {
+      "id": 52306281,
+      "postDate": "2022-04-14T02:03:00.000Z",
+      "title": "The mystery of the miracle year",
+      "subtitle": "\"For in those days I was in the prime of my age for invention & minded Mathematicks and Philosophy more than at any time since.\"",
+      "slug": "annus-mirabilis",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/annus-mirabilis",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/082c042e-eb1b-4aef-abbb-9f005319a4e8_1024x352.jpeg"
+    },
+    {
+      "id": 52511222,
+      "postDate": "2022-04-12T06:00:00.000Z",
+      "title": "Bryan Caplan - Discrimination, Poverty, & Mental Illness",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "bryan-caplan-2",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/bryan-caplan-2",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b6d90c9e-7c6c-419f-8698-776534d44704_600x600.jpeg"
+    },
+    {
+      "id": 52511223,
+      "postDate": "2022-02-24T06:00:00.000Z",
+      "title": "Richard Hanania - Foreign Policy, Fertility, and Wokeness",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "richard-hanania",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/richard-hanania",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6b3f8e63-aeee-418f-8c7a-e9e1b33e4520_824x976.png"
+    },
+    {
+      "id": 52511224,
+      "postDate": "2022-01-31T15:55:20.000Z",
+      "title": "David Deutsch - AI, America, Fun, & Bayes",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "david-deutsch",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/david-deutsch",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/853f718f-725f-472a-a018-57b4e1c1b8f9_590x605.jpeg"
+    },
+    {
+      "id": 52308621,
+      "postDate": "2022-01-17T04:20:00.000Z",
+      "title": "Contra David Deutsch on AI",
+      "subtitle": "\"The universal explainers hypothesis is incorrect because it cannot explain why some animals are smart and some humans are stupid.\"",
+      "slug": "universal-explainers",
+      "type": "newsletter",
+      "url": "https://www.dwarkesh.com/p/universal-explainers",
+      "coverImage": "https://substackcdn.com/image/fetch/$s_!63AB!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fdeeb8554-afc6-4ee9-ae3a-e00d35bec50c_886x499.jpeg"
+    },
+    {
+      "id": 52511227,
+      "postDate": "2021-10-05T05:00:00.000Z",
+      "title": "Byrne Hobart - Optionality, Stagnation, and Secret Societies",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "byrne-hobart",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/byrne-hobart",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/825d5ccd-16aa-49be-bd54-1bbc3dd0a3b4_835x995.jpeg"
+    },
+    {
+      "id": 52511229,
+      "postDate": "2021-08-09T15:08:06.000Z",
+      "title": "David Friedman - Dating Markets, Legal Systems, Bitcoin, and Automation",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "david-friedman",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/david-friedman",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/99e11117-7fbb-4e04-8453-d89b727f7b7e_2640x3592.jpeg"
+    },
+    {
+      "id": 52511230,
+      "postDate": "2021-06-04T16:26:22.000Z",
+      "title": "Sarah Fitz-Claridge - Taking Children Seriously",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Educational philosophy",
+      "slug": "sarah-fitz",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/sarah-fitz",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ce397af1-fe93-4901-a946-7c50f1f43bdd_1024x750.jpeg"
+    },
+    {
+      "id": 52511231,
+      "postDate": "2021-05-28T22:02:41.000Z",
+      "title": "Michael Huemer - Anarchy, Capitalism, and Progress",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | The Problem of Political Authority, Knowledge, Reality, and Value",
+      "slug": "michael-huemer",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/michael-huemer",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/482fa280-98b1-4fc5-9dc2-5064c2fa964d_491x600.jpeg"
+    },
+    {
+      "id": 52511232,
+      "postDate": "2020-11-28T01:12:45.000Z",
+      "title": "Uncle Bob - The Long Reach of Code",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Automating programming, spotting and developing coding talent, occupational licensing, quotas, and the elusive sense of style. ",
+      "slug": "uncle-bob",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/uncle-bob",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b82c35f5-a7cd-46c8-aff1-52b8d7a67cdc_400x400.png"
+    },
+    {
+      "id": 52511233,
+      "postDate": "2020-11-20T23:31:16.000Z",
+      "title": "Scott Aaronson - Quantum Computing, Complexity, and Creativity",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "scott-aaronson",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/scott-aaronson",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2c26e82e-5e0f-4a5b-90c8-8be2ab453037_948x632.jpeg"
+    },
+    {
+      "id": 52511234,
+      "postDate": "2020-11-16T20:25:33.000Z",
+      "title": "Scott Young - Ultralearning",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Aggressive self-directed learning",
+      "slug": "scott-young",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/scott-young",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/994d2435-1e22-49c6-bc3a-b03782cfff93_741x837.jpeg"
+    },
+    {
+      "id": 52511235,
+      "postDate": "2020-10-28T13:50:45.000Z",
+      "title": "Charles Murray - Human Accomplishment and the Future of Liberty",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "charles-murray",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/charles-murray",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/294f9f8f-e3e4-4577-9932-8d6b2318a602_1280x720.jpeg"
+    },
+    {
+      "id": 52511236,
+      "postDate": "2020-10-19T19:23:34.000Z",
+      "title": "Alex Tabarrok - Prizes, Prices, and Public Goods",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Grand Innovation Prize, the Baumol effect, and Dominant Assurance Contracts",
+      "slug": "alex-tabarrok",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/alex-tabarrok",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4ed5bd37-0831-4e34-8526-a307d0f44e65_930x860.png"
+    },
+    {
+      "id": 52511237,
+      "postDate": "2020-09-04T13:53:32.000Z",
+      "title": "Caleb Watney - America's Innovation Engine",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify ",
+      "slug": "caleb-watney",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/caleb-watney",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2a571215-8487-4d5f-a7f7-75c3fb32fb46_500x500.jpeg"
+    },
+    {
+      "id": 52511238,
+      "postDate": "2020-08-31T14:41:39.000Z",
+      "title": "Robin Hanson - The Long View",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify ",
+      "slug": "robin-hanson",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/robin-hanson",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a26b5c0e-ccf8-45d8-9fea-1b6d11b6f5b3_534x800.webp"
+    },
+    {
+      "id": 52511239,
+      "postDate": "2020-08-25T18:32:55.000Z",
+      "title": "Jason Crawford - The Roots of Progress",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | The history of technology and industry and the philosophy of progress. ",
+      "slug": "jason-crawford",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/jason-crawford",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/51eec79e-0243-4e82-aafe-05dc7693e5f4_640x640.jpeg"
+    },
+    {
+      "id": 52511240,
+      "postDate": "2020-08-22T00:36:27.000Z",
+      "title": "Matjaž Leonardis - Science, Identity, and Probability",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Scientific identity, the nature of scientific progress, and advice for young people who want to be polymaths. ",
+      "slug": "matjaz-leonardis",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/matjaz-leonardis",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5e8d3a32-f6a2-45cb-b722-86e1016055e1_400x400.jpeg"
+    },
+    {
+      "id": 52511241,
+      "postDate": "2020-07-10T16:55:22.000Z",
+      "title": "Tyler Cowen - The Great Reset",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify",
+      "slug": "tyler-cowen",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/tyler-cowen",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/441d4579-3c23-4374-9252-8f5ef894da07_183x275.jpeg"
+    },
+    {
+      "id": 52511244,
+      "postDate": "2020-05-22T18:31:47.000Z",
+      "title": "Bryan Caplan - Nurturing Orphaned Ideas",
+      "subtitle": "Transcript + YouTube, Apple Podcasts, Spotify | Open borders, the idea trap, UBI, appeasement, China, the education system, and Bryan Caplan's next two books on poverty and housing regulation. ",
+      "slug": "bryan-caplan",
+      "type": "podcast",
+      "url": "https://www.dwarkesh.com/p/bryan-caplan",
+      "coverImage": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/cd5633c0-9be0-489c-b49c-d09c4e183aa3_1462x1050.jpeg"
+    }
+  ]
+}

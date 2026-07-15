@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic and Multimodal AI Systems | Junxian Wu</title>
+  <meta name="description" content="Public evidence of Junxian Wu's work in agentic and multimodal AI: workflow design, local RAG, provider routing, structured outputs, failure handling, traces, and evaluation.">
+  <meta property="og:title" content="Agentic and Multimodal AI Systems | Junxian Wu">
+  <meta property="og:description" content="Reliable agent systems with explicit state, structured outputs, failure handling, traces, and evaluation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vemodalen-x.github.io/agentic-systems.html">
+  <meta property="og:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-agentic-ai.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agentic and Multimodal AI Systems | Junxian Wu">
+  <meta name="twitter:description" content="Reliable agent systems with explicit state, structured outputs, failure handling, traces, and evaluation.">
+  <meta name="twitter:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-agentic-ai.png">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <nav class="topnav" aria-label="Primary navigation">
+      <a class="site-title" href="index.html">Junxian Wu</a>
+      <div class="topnav-links">
+        <a href="index.html">About</a>
+        <a href="work.html">Work</a>
+        <a class="active" href="agentic-systems.html">Agents</a>
+        <a href="writing.html">Notes</a>
+        <a href="resume.html">CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar" aria-label="Profile">
+      <div class="avatar" aria-hidden="true">JW</div>
+      <h1>Junxian Wu</h1>
+      <p class="role">Agentic &amp; Multimodal AI</p>
+      <p class="bio">Applied AI systems built with explicit workflow state, evaluation, and production constraints.</p>
+      <ul class="profile-links">
+        <li><span>Foundation</span> Production CV &amp; Edge AI</li>
+        <li><span>Agent focus</span> Orchestration &amp; Evaluation</li>
+        <li><span>Location</span> Singapore</li>
+        <li><a href="work.html#agentic-multimodal">Multimodal case study</a></li>
+        <li><a href="technical-lines.html#reasoning">Technical map</a></li>
+      </ul>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="intro">
+        <p class="eyebrow">Agentic Systems</p>
+        <h2>Reliable agent workflows, not prompt-only demos.</h2>
+        <p>I bring production discipline from computer vision and edge deployment into applied LLM and multimodal systems. The focus is workflow decomposition, explicit state, constrained outputs, failure handling, evaluation, and maintainable handoff.</p>
+        <div class="signal-grid" aria-label="Agentic AI positioning summary">
+          <article>
+            <h3>Workflow</h3>
+            <p>Perception, context retrieval, candidate generation, selection, validation, and human review.</p>
+          </article>
+          <article>
+            <h3>Reliability</h3>
+            <p>JSON Schema, provider routing, retries, fallbacks, reproducible traces, and cost-quality checks.</p>
+          </article>
+          <article>
+            <h3>Evaluation</h3>
+            <p>Hard cases, A/B comparison, explicit acceptance criteria, regression sets, and review reports.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="composition-agent" class="case">
+        <h2>Multimodal composition agent</h2>
+        <p class="summary">A staged visual-reasoning workflow designed for inspectability and repeatable evaluation.</p>
+        <h3>System shape</h3>
+        <p>Separate perception, candidate generation, selection, and output stages. Route between model providers, require structured outputs, record intermediate state, and preserve hooks for retries, comparison, and human review.</p>
+        <h3>Engineering signal</h3>
+        <p>Python, OpenAI and Gemini APIs, JSON Schema, workflow state objects, provider comparison, experiment reports, A/B evaluation, and reproducible debug bundles.</p>
+        <p><a class="more-link" href="work.html#agentic-multimodal">Read the case study</a></p>
+      </section>
+
+      <section id="photography-mentor" class="case">
+        <h2>Photography Mentor with local RAG</h2>
+        <p class="summary">A browser-based learning agent that joins local image analysis, retrieval, and actionable practice guidance.</p>
+        <h3>System shape</h3>
+        <p>Use local photography knowledge retrieval together with histogram, brightness, color, sharpness, composition, and EXIF analysis. Keep the evidence path visible and translate observations into specific shooting or editing actions.</p>
+        <h3>Engineering signal</h3>
+        <p>Multimodal input handling, local retrieval, deterministic image analysis, constrained coaching output, and privacy-aware browser execution.</p>
+        <p><a class="more-link" href="photography-mentor-agent.html">Open the Photography Mentor</a></p>
+      </section>
+
+      <section id="business-tutor" class="case">
+        <h2>Business Tutor with hypothesis-driven RAG</h2>
+        <p class="summary">A structured coaching workflow that separates user facts, agent inference, hypotheses, counter-evidence, and next actions.</p>
+        <h3>System shape</h3>
+        <p>Retrieve from a local business knowledge base, decompose an ambiguous problem, surface assumptions, lower confidence when evidence is weak, and produce validation tasks rather than generic advice.</p>
+        <h3>Engineering signal</h3>
+        <p>Local RAG, explicit reasoning boundaries, reusable system prompts, validation cards, structured reports, and offline-first operation.</p>
+        <p><a class="more-link" href="business-tutor-agent.html">Open the Business Tutor</a></p>
+      </section>
+
+      <section id="knowledge-assistant" class="case">
+        <h2>Local knowledge assistant</h2>
+        <p class="summary">A practical retrieval and planning interface for turning a private knowledge base into traceable learning actions.</p>
+        <h3>System shape</h3>
+        <p>Search locally, select supporting material, separate evidence from generated plans, persist useful state, and keep a clear privacy boundary around personal information.</p>
+        <h3>Engineering signal</h3>
+        <p>Retrieval-oriented UX, local persistence, deterministic fallback behavior, evidence-aware output, and maintainable workflow boundaries.</p>
+        <p><a class="more-link" href="local-knowledge-assistant.html">Open the Knowledge Assistant</a></p>
+      </section>
+
+      <section class="case">
+        <h2>Positioning boundary</h2>
+        <p class="summary">The strongest fit is applied and forward-deployed AI, not foundation-model research.</p>
+        <p>My production background is deepest in computer vision, edge deployment, native integration, and evaluation. The agentic work extends that systems discipline into LLM and multimodal workflows. The public evidence emphasizes orchestration, retrieval, structured outputs, reliability, and evaluation rather than model pretraining or hyperscale LLM infrastructure.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>Agentic &amp; Multimodal AI Systems</span>
+    <a href="index.html">Back to About</a>
+  </footer>
+</body>
+</html>

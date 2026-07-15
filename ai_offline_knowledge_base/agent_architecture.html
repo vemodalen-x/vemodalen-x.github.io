@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI、CV、AIGC、LLM 推理与 Agent 的离线学习知识库">
+<title>AI Agent 架构趋势及演进 | 离线 AI 学习知识库</title>
+<style>
+:root { --ink:#16302c; --muted:#56706a; --paper:#f7faf7; --surface:#ffffff; --line:#d3dfda; --green:#087c69; --teal:#006f82; --coral:#c94e2e; --gold:#996200; --soft-green:#e7f4ee; --soft-coral:#fff0eb; --soft-blue:#eaf4f6; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif; line-height:1.65; }
+a { color:#006d73; text-decoration-thickness:1px; text-underline-offset:3px; }
+a:hover { color:#b84428; }
+.shell { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+.topbar { background:#113d36; color:#fff; border-bottom:4px solid #d26a35; }
+.topbar .shell { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:13px 0; }
+.brand { color:#fff; font-weight:700; text-decoration:none; letter-spacing:0; }
+.topnav { display:flex; flex-wrap:wrap; gap:14px; }
+.topnav a { color:#d7ebe5; text-decoration:none; font-size:14px; }
+.hero { background:#e6f2ed; border-bottom:1px solid var(--line); padding:48px 0 42px; }
+.eyebrow { margin:0 0 10px; color:#087c69; font-weight:700; font-size:13px; letter-spacing:0; text-transform:uppercase; }
+h1,h2,h3,h4 { line-height:1.28; margin:0; color:#123d37; letter-spacing:0; }
+h1 { max-width:900px; font-size:40px; }
+h2 { font-size:26px; margin-bottom:14px; }
+h3 { font-size:18px; margin-bottom:8px; }
+h4 { font-size:16px; margin-bottom:6px; }
+p { margin:0 0 12px; }
+.lead { max-width:900px; color:#38544e; font-size:18px; }
+main { padding:30px 0 52px; }
+section { margin:0 0 34px; }
+.section-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; }
+.section-head p { color:var(--muted); margin:0; font-size:14px; }
+.notice { border-left:4px solid var(--coral); background:var(--soft-coral); padding:14px 16px; }
+.notice.info { border-color:var(--teal); background:var(--soft-blue); }
+.grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
+.grid.two { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.item { border:1px solid var(--line); border-top:4px solid var(--green); background:var(--surface); padding:17px; border-radius:6px; }
+.item.teal { border-top-color:var(--teal); }
+.item.coral { border-top-color:var(--coral); }
+.item.gold { border-top-color:var(--gold); }
+.kicker { color:var(--muted); font-size:13px; font-weight:700; margin-bottom:7px; }
+.pill { display:inline-block; margin:0 5px 5px 0; padding:2px 7px; border:1px solid #b7d4c9; border-radius:999px; background:#f3fbf7; color:#285d52; font-size:12px; }
+.flow { display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:7px; align-items:stretch; }
+.flow.five { grid-template-columns:repeat(5, minmax(0,1fr)); }
+.flow.six { grid-template-columns:repeat(6, minmax(0,1fr)); }
+.flow.eight { grid-template-columns:repeat(8, minmax(0,1fr)); }
+.flow div { position:relative; padding:12px 9px; background:#fff; border:1px solid var(--line); text-align:center; font-size:13px; }
+.flow div:not(:last-child)::after { content:"→"; position:absolute; right:-8px; top:50%; z-index:2; transform:translateY(-50%); color:var(--coral); font-size:18px; }
+.path-toc { position:sticky; top:0; z-index:20; box-shadow:0 8px 18px rgba(18,61,55,.08); }
+.metric-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); border-left:4px solid var(--teal); background:#fff; margin:0 0 30px; }
+.metric { min-height:94px; padding:16px 18px; border-right:1px solid var(--line); }
+.metric:last-child { border-right:0; }
+.metric strong { display:block; color:#123d37; font-size:28px; line-height:1.1; }
+.metric span { display:block; margin-top:7px; color:var(--muted); font-size:13px; }
+.stage-map { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:7px; align-items:stretch; }
+.stage-node { position:relative; min-width:0; min-height:112px; padding:13px 8px 11px; border:1px solid var(--line); border-top:5px solid var(--stage-color); border-radius:4px; background:#fff; color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+.stage-node:hover,.stage-node:focus-visible { border-color:var(--stage-color); outline:0; box-shadow:0 5px 14px rgba(18,61,55,.13); transform:translateY(-2px); }
+.stage-node[aria-pressed="true"] { border-color:var(--stage-color); background:var(--stage-soft); box-shadow:inset 0 0 0 1px var(--stage-color); }
+.stage-node:not(:last-child)::after { content:"→"; position:absolute; right:-10px; top:46px; z-index:3; width:12px; color:#a1442d; font-weight:700; text-align:center; pointer-events:none; }
+.stage-index { display:block; color:var(--stage-color); font-size:12px; font-weight:700; }
+.stage-label { display:block; min-height:40px; margin:5px 0 4px; color:#173e37; font-size:14px; font-weight:700; line-height:1.4; }
+.stage-count { display:block; color:var(--muted); font-size:12px; }
+.stage-inspector { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:0; margin-top:12px; border:1px solid var(--line); border-left:5px solid var(--stage-color,#256f5b); background:#fff; }
+.inspector-main,.inspector-side { padding:19px 21px; }
+.inspector-side { border-left:1px solid var(--line); background:#f1f6f3; }
+.inspector-kicker { margin:0 0 6px; color:var(--stage-color,#256f5b); font-size:12px; font-weight:700; }
+.inspector-question { margin:9px 0; color:#294c45; font-size:16px; font-weight:700; }
+.inspector-summary { color:var(--muted); }
+.inspector-meta { margin:0 0 10px; color:var(--muted); font-size:13px; }
+.inspector-link { display:inline-block; margin-top:3px; font-weight:700; }
+.concept-list { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.concept-chip { padding:3px 8px; border:1px solid color-mix(in srgb,var(--stage-color,#256f5b) 45%,#fff); border-radius:999px; background:#fff; color:#294c45; font-size:12px; }
+.viz-grid { display:grid; grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr); gap:28px; align-items:start; }
+.viz-panel { min-width:0; border-top:3px solid #2d7061; padding-top:14px; }
+.viz-panel h3 { margin-bottom:4px; }
+.viz-caption { color:var(--muted); font-size:13px; }
+.bar-chart { display:grid; gap:8px; margin-top:15px; }
+.bar-row { display:grid; grid-template-columns:92px minmax(0,1fr) 32px; gap:9px; align-items:center; width:100%; padding:2px 0; border:0; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.bar-row:hover .bar-fill,.bar-row:focus-visible .bar-fill { filter:saturate(1.2); }
+.bar-row:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.bar-row[aria-current="true"] .bar-name { color:var(--stage-color); }
+.bar-row[aria-current="true"] .bar-track { box-shadow:0 0 0 2px color-mix(in srgb,var(--stage-color) 45%,#fff); }
+.bar-name { overflow:hidden; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.bar-track { position:relative; height:14px; overflow:hidden; background:#e5ece8; }
+.bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--stage-color); }
+.bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.heatmap-wrap { overflow-x:auto; margin-top:15px; }
+.heatmap { display:grid; grid-template-columns:minmax(148px,1.45fr) repeat(8,minmax(54px,.6fr)); min-width:720px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.heat-label,.heat-head,.heat-cell { min-height:43px; padding:7px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.heat-head { display:flex; align-items:center; justify-content:center; background:#eef4f1; color:#31554e; font-size:11px; font-weight:700; line-height:1.2; text-align:center; }
+.heat-label { display:flex; flex-direction:column; justify-content:center; background:#fff; font-size:12px; font-weight:700; line-height:1.25; }
+.heat-label small { margin-top:2px; color:var(--muted); font-weight:400; }
+.heat-cell { display:flex; align-items:center; justify-content:center; background:#fff; color:#fff; font-size:12px; font-weight:700; }
+.heat-cell.level-0 { color:#9baba6; background:#f5f7f6; }
+.heat-cell.level-1 { color:#355d53; background:#dcece5; }
+.heat-cell.level-2 { background:#5a9b88; }
+.heat-cell.level-3 { background:#185f52; }
+.heat-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:9px; color:var(--muted); font-size:12px; }
+.heat-legend span::before { content:""; display:inline-block; width:10px; height:10px; margin-right:5px; border:1px solid #c9d6d1; vertical-align:-1px; background:var(--legend-color); }
+.timeline { position:relative; margin:8px 0 0 10px; padding-left:30px; }
+.timeline::before { content:""; position:absolute; top:6px; bottom:7px; left:7px; width:2px; background:#b9cbc5; }
+.timeline-item { position:relative; display:grid; grid-template-columns:112px minmax(190px,.72fr) minmax(0,1.28fr); gap:18px; padding:0 0 24px; }
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-marker { position:absolute; top:4px; left:-30px; width:16px; height:16px; border:4px solid #fff; border-radius:50%; background:var(--timeline-color); box-shadow:0 0 0 1px var(--timeline-color); }
+.timeline-period { color:var(--timeline-color); font-size:14px; font-weight:700; }
+.timeline-question { color:#193f38; font-weight:700; }
+.timeline-detail { color:#3f5d56; }
+.timeline-target { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
+.detail-table-toggle { margin-top:18px; }
+.stage-section { scroll-margin-top:86px; padding-top:7px; border-top:1px solid var(--line); }
+.repo-status { display:inline-block; padding:2px 7px; border:1px solid #bfd1ca; border-radius:999px; background:#f4f8f6; color:#3f5d56; font-size:11px; white-space:nowrap; }
+.repo-status.current { border-color:#84b7a7; background:#e7f4ee; color:#1c5f50; }
+.repo-status.caution { border-color:#e0b6a8; background:#fff0eb; color:#8f3f2c; }
+.repo-table td:first-child { min-width:190px; }
+.repo-table td:nth-child(2) { min-width:150px; }
+.repo-table td:nth-child(4) { min-width:290px; }
+.static-bars { display:grid; gap:9px; margin-top:13px; }
+.static-bar-row { display:grid; grid-template-columns:150px minmax(0,1fr) 34px; gap:10px; align-items:center; }
+.static-bar-name { overflow:hidden; color:#294c45; font-size:13px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.static-bar-track { height:14px; overflow:hidden; background:#e5ece8; }
+.static-bar-fill { display:block; height:100%; width:var(--bar-width); background:var(--bar-color,#2d7061); }
+.static-bar-value { color:var(--muted); font-size:13px; text-align:right; }
+.repo-callout { border-top:3px solid var(--teal); padding-top:13px; }
+.media-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:15px; }
+.media-figure { min-width:0; margin:0; border:1px solid var(--line); background:#fff; }
+.media-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#101817; }
+.media-figure figcaption { padding:10px 12px; color:#3f5d56; font-size:13px; }
+.transcript-block { display:grid; grid-template-columns:72px minmax(0,1fr); gap:13px; padding:11px 0; border-bottom:1px solid var(--line); }
+.transcript-block[hidden] { display:none; }
+.transcript-time { font-weight:700; white-space:nowrap; }
+.transcript-text { margin:0; color:#294c45; }
+table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); }
+th,td { padding:10px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+th { background:#e9f3ef; color:#214c43; font-size:14px; }
+td { font-size:14px; }
+.table-wrap { overflow-x:auto; border-radius:6px; }
+ul,ol { margin:8px 0 0; padding-left:21px; }
+li { margin:4px 0; }
+code { background:#e8f1ee; border-radius:3px; padding:1px 4px; color:#164d43; }
+.small { color:var(--muted); font-size:13px; }
+.source-list { columns:2; column-gap:32px; }
+.source-list li { break-inside:avoid; }
+.chapter-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; list-style:none; padding:0; }
+.chapter-list a { display:block; height:100%; padding:13px; border:1px solid var(--line); background:#fff; text-decoration:none; border-radius:6px; }
+.chapter-list a:hover { border-color:var(--teal); }
+.chapter-list strong { display:block; color:#123d37; }
+.chapter-list span { color:var(--muted); font-size:13px; }
+.filter { width:100%; margin:0 0 12px; padding:11px 12px; border:1px solid #a9c4ba; border-radius:4px; font:inherit; color:var(--ink); }
+.filter-grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(220px,1fr); gap:10px; margin-bottom:8px; }
+.filter-grid .filter { margin:0; background:#fff; }
+.toc { border:1px solid var(--line); background:#fff; padding:13px 16px; border-radius:6px; margin:0 0 24px; }
+.toc a { margin-right:13px; font-size:14px; }
+details { border:1px solid var(--line); border-radius:6px; background:#fff; margin:10px 0; }
+summary { cursor:pointer; padding:12px 14px; color:#174b42; font-weight:700; }
+details > div { padding:0 14px 14px; }
+.lecture { border-left:4px solid var(--teal); background:#fff; padding:15px 17px; margin:12px 0; }
+.lecture h3 { font-size:18px; }
+.lecture-meta { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.reading-list { margin-top:10px; }
+.reading-list li { margin:7px 0; }
+.reading-note { color:var(--muted); font-size:13px; }
+.catalog-table td:first-child { min-width:220px; }
+.catalog-table td:nth-child(2) { min-width:180px; }
+footer { border-top:1px solid var(--line); color:var(--muted); padding:20px 0 34px; font-size:13px; }
+@media (max-width:1000px) { .stage-map { grid-template-columns:repeat(4,minmax(0,1fr)); } .stage-node:nth-child(4)::after { display:none; } .stage-node:nth-child(n+5)::after { content:"→"; } .stage-node:last-child::after { display:none; } .viz-grid { grid-template-columns:1fr; } }
+@media (max-width:850px) { h1 { font-size:32px; } .grid,.grid.two,.filter-grid,.media-grid { grid-template-columns:1fr; } .flow,.flow.five,.flow.six,.flow.eight { grid-template-columns:1fr; } .flow div:not(:last-child)::after { content:"↓"; right:50%; top:auto; bottom:-15px; transform:translateX(50%); } .source-list { columns:1; } .stage-inspector { grid-template-columns:1fr; } .inspector-side { border-top:1px solid var(--line); border-left:0; } .timeline-item { grid-template-columns:95px minmax(0,1fr); gap:12px; } .timeline-detail { grid-column:1 / -1; } }
+@media (max-width:600px) { .shell { width:min(calc(100% - 26px), 1160px); } .topbar .shell { align-items:flex-start; flex-direction:column; gap:7px; } .topnav { gap:9px 12px; } .hero { padding:31px 0; } h1 { font-size:26px; } th,td { padding:8px; } .chapter-list { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; gap:2px; } .path-toc { position:static; box-shadow:none; } .metric-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .metric:nth-child(2) { border-right:0; } .metric:nth-child(-n+2) { border-bottom:1px solid var(--line); } .metric strong { font-size:24px; } .stage-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .stage-node::after { display:none !important; } .timeline-item { grid-template-columns:1fr; gap:4px; } .timeline-detail { grid-column:auto; } .bar-row { grid-template-columns:78px minmax(0,1fr) 29px; } .static-bar-row { grid-template-columns:112px minmax(0,1fr) 28px; } .transcript-block { grid-template-columns:1fr; gap:3px; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell"><a class="brand" href="index.html">AI OFFLINE KB</a><nav class="topnav" aria-label="主导航"><a href="index.html">首页</a><a href="knowledge_path.html">知识主线</a><a href="sources.html">来源综述</a><a href="how2ai.html">How2AI 课程</a><a href="stanford_cs25.html">Stanford CS25</a><a href="stanford_cs336.html">Stanford CS336</a><a href="karpathy.html">Karpathy</a><a href="ai_toolkit.html">AI Toolkit</a><a href="kaggle_genai.html">Kaggle GenAI</a><a href="agent_architecture.html" aria-current="page">Agent 架构</a><a href="papers.html">论文矩阵</a><a href="catalog.html">全部链接</a></nav></div></header>
+<div class="hero"><div class="shell"><p class="eyebrow">OFFLINE LEARNING LIBRARY · 2026-07-15</p><h1>AI Agent 架构趋势及演进</h1><p class="lead">从 workflow/agentic、context engineering 和 MCP 治理，推进到状态恢复、可观测性与持续评测。</p></div></div>
+<main class="shell">
+<div class="toc path-toc"><strong>本页：</strong><a href="#spine">技术主线</a><a href="#chapters">章节</a><a href="#architecture">架构分层</a><a href="#slides">关键幻灯片</a><a href="#judgments">技术判断</a><a href="#experiments">实验</a><a href="agent_architecture_transcript.html">完整文字稿</a></div>
+<section class="notice info"><strong>资料状态：</strong>原页面未提供字幕。本页基于本地下载的 720p 视频、<code>openai/whisper-large-v3</code> 长音频转写和 12 张幻灯片交叉整理。机器稿做了产品名术语校正，但人名、数字与断句仍应回到时间戳核验。</section>
+<div class="metric-strip" aria-label="视频离线资料概览"><div class="metric"><strong>29:49</strong><span>视频时长</span></div><div class="metric"><strong>12</strong><span>技术章节</span></div><div class="metric"><strong>9,660</strong><span>清洗字符</span></div><div class="metric"><strong>12</strong><span>教学关键帧</span></div></div>
+<section id="spine"><div class="section-head"><h2>从概率模型到可运营的 Agent 系统</h2><p>位于本知识库“推理与 Agent”到“运行时、评测、安全与反馈闭环”之间，补足 Kaggle Day 3/5 的企业 Java 与云原生架构实现视角。</p></div><p class="lead">这场分享把企业级 AI Agent 视为一套 AI 原生分布式系统：模型与工具只是数据面的一部分，真正决定生产可用性的还有工作流控制、上下文编排、MCP/模型网关、状态恢复、全链路观测和持续评测。</p><div class="flow six"><div>控制策略<br><small>workflow / agentic</small></div><div>上下文<br><small>Prompt、RAG、state</small></div><div>Agent Runtime<br><small>单/多 Agent</small></div><div>治理入口<br><small>MCP / AI Gateway</small></div><div>状态恢复<br><small>event / checkpoint</small></div><div>观测评测<br><small>OTel / eval loop</small></div></div><p class="small"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/" target="_blank" rel="noreferrer">Bilibili 原视频</a> · <a href="../tools/data/bilibili_agent_architecture_source/BV1ADWCzrEXL_720p.mp4">本地 720p 视频</a> · <a href="agent_architecture_transcript.html">可搜索中文稿</a> · <a href="transcripts/bilibili_agent_architecture.md">Markdown 稿</a> · <a href="data/bilibili_agent/BV1ADWCzrEXL.whisper-large-v3.vtt">Whisper VTT</a> · <a href="data/bilibili_agent_whisper_raw.json">原始转写 JSON</a></p></section>
+<section id="chapters"><div class="section-head"><h2>章节与技术作用</h2><p>时间轴链接回原视频</p></div><div class="table-wrap"><table><thead><tr><th>时间</th><th>章节</th><th>内容结论</th><th>在主线中的作用</th></tr></thead><tbody><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=0" target="_blank" rel="noreferrer">00:00</a></td><td>Software 1.0 → 2.0 → 3.0</td><td>编程对象从显式代码、神经网络权重推进到以 Prompt 驱动的大语言模型；AI 原生应用的本质是把概率模型纳入软件控制流。</td><td>建立为什么 Agent 架构不能只沿用传统微服务接口与监控的背景。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=130" target="_blank" rel="noreferrer">02:10</a></td><td>AI Agent 核心要素与开发全景</td><td>Agent 由感知、模型决策、工具和长短期记忆组成；外围还需要开发框架、运行时、模型与 MCP 服务、配置/注册、消息系统和可观测性。</td><td>把模型能力扩展为可运行、可治理、可诊断的系统全景。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=330" target="_blank" rel="noreferrer">05:30</a></td><td>Workflow 与 Agentic 的混合选择</td><td>固定流程提供确定性，Agentic loop 用模型动态规划下一步；真实系统通常按任务风险、准确性与 GPU 成本组合两者。</td><td>给出控制权应留在代码还是交给模型的第一层架构决策。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=450" target="_blank" rel="noreferrer">07:30</a></td><td>单 Agent 与多 Agent</td><td>默认使用更易开发维护的单 Agent；当上下文膨胀、任务很长或需要角色协作时再拆成多 Agent，并以 Deep Research 的 leader-worker 模式举例。</td><td>将多 Agent 视为复杂度和上下文隔离手段，而不是默认能力升级。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=580" target="_blank" rel="noreferrer">09:40</a></td><td>Prompt Engineering → Context Engineering</td><td>复杂 Agent 的输入不仅是 Prompt，还包含 RAG 文档、工具结果、状态与记忆；上下文工程负责在有限窗口内选择、排序和复用信息。稳定前缀与变化内容后置有利于 KV Cache。</td><td>把提示词优化提升为运行时上下文编译与缓存问题。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=720" target="_blank" rel="noreferrer">12:00</a></td><td>AI 原生应用参考架构</td><td>用户流量经 API Gateway 进入 Agent Runtime，再由 AI Gateway 连接多模型与工具；数据库/向量库、Nacos、消息系统和 OpenTelemetry 分别承担知识、治理、状态与观测职责。</td><td>给出数据面、控制面、状态面和观测面的组件边界。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=900" target="_blank" rel="noreferrer">15:00</a></td><td>Nacos 与 Higress：MCP 注册和 AI Gateway</td><td>Nacos 被用于企业内部 MCP 注册发现、健康检查和 Prompt 管理；Higress 统一代理模型与 MCP 流量，承接认证、限流、缓存和协议适配。</td><td>将工具治理和模型接入从 Agent 业务代码中分离。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1020" target="_blank" rel="noreferrer">17:00</a></td><td>RocketMQ 与长任务状态恢复</td><td>把长周期 Agent session 的中间输出写入消息流，使消费节点失败后能切换并继续传递结果，避免从头重复昂贵的模型推理。</td><td>把 Agent 可靠性从一次性调用提升到可恢复的事件驱动执行。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1150" target="_blank" rel="noreferrer">19:10</a></td><td>OpenTelemetry 全链路可观测性</td><td>围绕“用起来、用得省、用得好”采集客户端、网关、Agent、工具、模型和 GPU 的 traces、metrics、logs、输入输出与 token 消耗。</td><td>建立性能、成本和质量分析所需的证据链。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1310" target="_blank" rel="noreferrer">21:50</a></td><td>TED、TTFT、TPOT 与 Trace</td><td>视频提出用 Token/Error/Duration 补充传统 RED，并用 TTFT、TPOT、KV Cache 命中率区分 prefill 与 decode；单次 trace 关联工作流节点、耗时、token 和模型内部阶段。</td><td>把“Agent 很慢/很贵”拆成可定位、可对照的运行指标。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1450" target="_blank" rel="noreferrer">24:10</a></td><td>评测作为持续回归测试</td><td>开发早期使用人工和已知答案样例，稳定后引入 LLM-as-a-Judge；上线后持续抽取 traces，并分别评价 planning、工具选择/参数和 RAG 召回质量。</td><td>把一次性 Demo 评估改成开发—部署—反馈—迭代闭环。</td></tr><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1680" target="_blank" rel="noreferrer">28:00</a></td><td>LoongSuite 与开源项目路线</td><td>LoongSuite 基于 OpenTelemetry 为 Java、Go、Python 和 AI 框架提供探针；结尾串联 Spring AI Alibaba、Higress、Nacos、RocketMQ 与 A2A/评测能力规划。</td><td>将参考架构映射到可验证的开源实现，但版本能力需以当前仓库为准。</td></tr></tbody></table></div></section>
+<section id="architecture"><div class="section-head"><h2>企业 Agent 六层架构</h2><p>按职责分层，而不是按产品名记忆</p></div><div class="table-wrap"><table><thead><tr><th>层</th><th>组件/机制</th><th>责任边界</th></tr></thead><tbody><tr><td>交互与流量入口</td><td>Client、API Gateway</td><td>鉴权、路由、流式连接和请求边界。</td></tr><tr><td>Agent 控制面</td><td>Workflow/Agentic loop、单/多 Agent、Context Engineering</td><td>计划、状态、上下文选择和执行策略。</td></tr><tr><td>模型与工具数据面</td><td>AI Gateway、LLM、MCP Server、数据库/向量库</td><td>统一模型访问、工具调用、知识检索和协议适配。</td></tr><tr><td>配置与服务治理</td><td>Nacos、Prompt/MCP Registry</td><td>动态配置、私有工具注册发现、健康与版本治理。</td></tr><tr><td>状态与事件</td><td>RocketMQ、session、checkpoint</td><td>长任务中间结果、异步解耦、失败恢复和消费切换。</td></tr><tr><td>观测与评测</td><td>OpenTelemetry、LoongSuite、metrics/traces/logs/evaluation</td><td>关联性能、成本、质量、工具轨迹和回归反馈。</td></tr></tbody></table></div><p class="notice">视频最有价值的不是指定一套阿里技术栈，而是把 Agent 业务逻辑与流量、模型/工具接入、配置治理、状态恢复、观测评测拆成独立边界。替换云厂商或框架时，这些责任仍然存在。</p></section>
+<section id="slides"><div class="section-head"><h2>关键幻灯片</h2><p>点击画面回到对应视频时间</p></div><div class="media-grid"><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=45" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0045.jpg" alt="编程范式演进：Software 1.0、2.0 与以 LLM/Prompt 为接口的 3.0。" loading="lazy"></a><figcaption><strong>00:45</strong> · 编程范式演进：Software 1.0、2.0 与以 LLM/Prompt 为接口的 3.0。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=150" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0150.jpg" alt="AI 原生应用开发全景：Agent、Runtime、模型、MCP、网关、消息与可观测性。" loading="lazy"></a><figcaption><strong>02:30</strong> · AI 原生应用开发全景：Agent、Runtime、模型、MCP、网关、消息与可观测性。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=360" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0360.jpg" alt="Agentic or Workflow：动态规划能力与确定性控制的权衡。" loading="lazy"></a><figcaption><strong>06:00</strong> · Agentic or Workflow：动态规划能力与确定性控制的权衡。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=480" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0480.jpg" alt="单 Agent 或多 Agent：以任务长度、上下文和协作复杂度决定拆分。" loading="lazy"></a><figcaption><strong>08:00</strong> · 单 Agent 或多 Agent：以任务长度、上下文和协作复杂度决定拆分。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=600" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0600.jpg" alt="Prompt Engineering 与 Context Engineering 的信息范围差异。" loading="lazy"></a><figcaption><strong>10:00</strong> · Prompt Engineering 与 Context Engineering 的信息范围差异。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=750" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0750.jpg" alt="AI 原生应用参考架构：流量、模型、工具、状态与观测路径。" loading="lazy"></a><figcaption><strong>12:30</strong> · AI 原生应用参考架构：流量、模型、工具、状态与观测路径。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=930" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t0930.jpg" alt="Nacos：企业 MCP Registry 与 Prompt 管理。" loading="lazy"></a><figcaption><strong>15:30</strong> · Nacos：企业 MCP Registry 与 Prompt 管理。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1050" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t1050.jpg" alt="RocketMQ：多轮、长耗时 AI 会话的状态管理与恢复。" loading="lazy"></a><figcaption><strong>17:30</strong> · RocketMQ：多轮、长耗时 AI 会话的状态管理与恢复。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1200" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t1200.jpg" alt="基于 OpenTelemetry 的 AI 应用可观测性数据链路。" loading="lazy"></a><figcaption><strong>20:00</strong> · 基于 OpenTelemetry 的 AI 应用可观测性数据链路。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1320" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t1320.jpg" alt="AI 应用关键指标：token、错误、时延及模型推理分解。" loading="lazy"></a><figcaption><strong>22:00</strong> · AI 应用关键指标：token、错误、时延及模型推理分解。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1500" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t1500.jpg" alt="基于可观测数据的评估闭环：开发、评测、上线和反馈。" loading="lazy"></a><figcaption><strong>25:00</strong> · 基于可观测数据的评估闭环：开发、评测、上线和反馈。</figcaption></figure><figure class="media-figure"><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/?t=1650" target="_blank" rel="noreferrer"><img src="assets/bilibili_agent/t1650.jpg" alt="LoongSuite：基于 OpenTelemetry 的多语言可观测采集套件。" loading="lazy"></a><figcaption><strong>27:30</strong> · LoongSuite：基于 OpenTelemetry 的多语言可观测采集套件。</figcaption></figure></div></section>
+<section id="judgments"><div class="section-head"><h2>工程化技术判断</h2><p>区分讲者经验、可验证机制和实现缺口</p></div><div class="grid two"><article class="item"><p class="kicker">判断 01</p><p>Workflow 与 Agentic 不是产品级二选一，而是每个步骤应交给确定性代码还是概率模型的局部决策。高风险写操作应优先保留显式规则、验证和人工确认。</p></article><article class="item"><p class="kicker">判断 02</p><p>单 Agent 是默认基线；只有当上下文污染、责任边界、并行性或失败隔离的收益超过协调成本时才拆成多 Agent。视频中“多 Agent 提升准确率”属于讲者经验判断，仍需在自己的任务上做等预算对照。</p></article><article class="item"><p class="kicker">判断 03</p><p>Context Engineering 是运行时信息系统：选择哪些 Prompt、RAG 文档、工具结果、状态和记忆进入窗口，并决定顺序、压缩、缓存与淘汰。</p></article><article class="item"><p class="kicker">判断 04</p><p>MCP Registry 与 AI/MCP Gateway 解决的是治理，而不是 Agent 推理本身。生产验收还必须覆盖身份、权限、工具版本、schema 兼容、审计和限流。</p></article><article class="item"><p class="kicker">判断 05</p><p>消息队列可以承载长任务中间事件和恢复，但完整可靠性仍依赖幂等工具调用、顺序语义、checkpoint 一致性、超时与补偿；视频没有展开这些实现边界。</p></article><article class="item"><p class="kicker">判断 06</p><p>Agent 可观测性需要把请求级 RED 与 token/模型级 TTFT、TPOT、KV Cache，以及任务级成功率和轨迹质量分层，不能用单一平均延迟代表系统状态。</p></article><article class="item"><p class="kicker">判断 07</p><p>评测应拆到 planning、工具选择与参数、RAG 召回、最终产物和副作用，并把离线黄金集、线上抽样、人工复核和 LLM judge 组织成持续回归。</p></article></div></section>
+<section id="experiments"><div class="section-head"><h2>可执行实验</h2><p>每个实验都要求质量、成本、延迟和失败归因</p></div><ol class="reading-list"><li><strong>实验 1：</strong>实现一个混合 Agent：查询和分类走固定 workflow，开放式研究走 agentic loop；比较任务成功率、错误类型、token、P95 延迟和人工接管率。</li><li><strong>实验 2：</strong>固定模型与任务，对比单 Agent 和 leader-worker 多 Agent；保持总 token/工具预算相近，记录上下文长度、并行收益、协调错误和最终质量。</li><li><strong>实验 3：</strong>做 Context Engineering 缓存实验：固定系统/工具前缀，把动态状态后置，对比 KV Cache 命中、TTFT、成本和回答一致性。</li><li><strong>实验 4：</strong>搭建私有 MCP Registry + Gateway 最小系统，验证服务发现、schema 变更、身份认证、按工具授权、限流和审计日志。</li><li><strong>实验 5：</strong>用消息队列保存 Agent 事件流，在模型输出、工具调用和客户端消费三个位置注入故障，验证恢复点、重复副作用和补偿策略。</li><li><strong>实验 6：</strong>用 OpenTelemetry 给一个 RAG Agent 加 spans：retrieval、rerank、LLM、tool、token、TTFT、TPOT；再从 trace 自动生成性能—成本—质量报告。</li><li><strong>实验 7：</strong>建立分层 eval harness，分别评 planning、tool choice/arguments、retrieval relevance/duplication 和 final answer；比较人工评分与 LLM judge 的一致性。</li></ol></section>
+<section><div class="section-head"><h2>原始来源与官方延伸</h2><p>延伸仓库用于核对当前能力，不代表视频当时已实现全部规划</p></div><div class="table-wrap"><table><thead><tr><th>资料</th><th>性质</th><th>优先级</th></tr></thead><tbody><tr><td><a href="https://www.bilibili.com/video/BV1ADWCzrEXL/" target="_blank" rel="noreferrer">原始 Bilibili 视频</a></td><td>视频原文</td><td>必读</td></tr><tr><td><a href="https://github.com/alibaba/spring-ai-alibaba" target="_blank" rel="noreferrer">Spring AI Alibaba</a></td><td>官方延伸仓库</td><td>推荐</td></tr><tr><td><a href="https://github.com/alibaba/higress" target="_blank" rel="noreferrer">Higress AI Gateway</a></td><td>官方延伸仓库</td><td>推荐</td></tr><tr><td><a href="https://github.com/alibaba/nacos" target="_blank" rel="noreferrer">Nacos</a></td><td>官方延伸仓库</td><td>推荐</td></tr><tr><td><a href="https://github.com/apache/rocketmq" target="_blank" rel="noreferrer">Apache RocketMQ</a></td><td>官方延伸仓库</td><td>选读</td></tr><tr><td><a href="https://github.com/alibaba/loongsuite-python-agent" target="_blank" rel="noreferrer">LoongSuite Python Agent</a></td><td>官方延伸仓库</td><td>推荐</td></tr><tr><td><a href="https://github.com/open-telemetry/semantic-conventions-genai" target="_blank" rel="noreferrer">OpenTelemetry GenAI Semantic Conventions</a></td><td>开放标准</td><td>推荐</td></tr></tbody></table></div></section>
+<section class="notice warning"><strong>边界：</strong><ul><li>视频是约 30 分钟的架构分享，不包含完整代码、部署参数、容量规划或对照实验。</li><li>视频中的成本倍数、多 Agent 收益和架构效果属于讲者在特定实践下的描述，不能直接外推。</li><li>结尾的未来规划对应视频发布时点；本地延伸链接用于核对当前开源状态，不能反向视为视频当时已经具备的能力。</li><li>Whisper 转写可能把 Nacos、Higress、RocketMQ、LoongSuite、vLLM/SGLang 等专名识别错误；学习页采用画面与上下文校正，原始 VTT 保留审计。</li></ul></section>
+</main>
+<footer class="shell">本地可读内容基于十三个公开课程、博客、代码与视频来源及已有课程报告整理。外链用于回到原始出处；CS336 官方讲义、作业仓库与自动字幕另保留本地快照。</footer>
+</body></html>

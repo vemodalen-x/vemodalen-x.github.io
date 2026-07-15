@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="本地优先的 AI 面试自适应学习工作台：基于能力证据推荐下一题，支持分层提示、迁移挑战、信心校准和复习调度。">
+  <title>Interview Learning OS</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="learning-os.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="learning-os.html" aria-label="Interview Learning OS 首页">
+        <span class="brand-mark" aria-hidden="true">LO</span>
+        <span><strong>Interview Learning OS</strong><small>Evidence before progress</small></span>
+      </a>
+      <nav aria-label="页面导航">
+        <a class="active" href="#today">今日</a>
+        <a href="#competencies">能力图</a>
+        <a href="#evidence">证据</a>
+        <a href="practice-roadmap.md">总路线</a>
+        <a href="learning-experience-v2.md">设计说明</a>
+      </nav>
+      <div class="header-actions">
+        <button class="quiet-button" id="import-state" type="button">导入</button>
+        <button class="quiet-button" id="export-state" type="button">导出</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="today">
+      <div class="hero-copy">
+        <p class="eyebrow">LOCAL-FIRST · ADAPTIVE PRACTICE</p>
+        <h1>下一题，<br><span>由证据决定。</span></h1>
+        <p class="hero-lead">周计划负责方向，学习者模型负责下一步。先独立作答，再获得分层提示；最后必须完成无辅助迁移。</p>
+        <div class="hero-actions">
+          <button class="primary-button" id="hero-start" type="button">开始推荐练习</button>
+          <button class="secondary-button" id="jump-queue" type="button">查看今日队列</button>
+        </div>
+        <p class="privacy-note"><span aria-hidden="true">●</span> 进度只保存在当前浏览器；不要输入雇主机密、PII 或密钥。</p>
+      </div>
+
+      <aside class="profile-panel" aria-label="学习配置">
+        <div class="panel-heading">
+          <div><span>LEARNER CONTROL</span><h2>今天的约束</h2></div>
+          <span class="local-badge">本地状态</span>
+        </div>
+        <label>
+          <span>目标角色</span>
+          <select id="profile-role">
+            <option value="balanced">Senior AI Engineer</option>
+            <option value="cv">Computer Vision</option>
+            <option value="edge">Edge ML</option>
+            <option value="agent">Multimodal / Agentic AI</option>
+          </select>
+        </label>
+        <label>
+          <span>本阶段偏重</span>
+          <select id="profile-mode">
+            <option value="balanced">均衡准备</option>
+            <option value="coding">编码轮</option>
+            <option value="system">系统设计轮</option>
+            <option value="depth">技术深挖轮</option>
+          </select>
+        </label>
+        <label>
+          <span>今天可用时间</span>
+          <select id="profile-minutes">
+            <option value="30">30 分钟</option>
+            <option value="45">45 分钟</option>
+            <option value="60">60 分钟</option>
+            <option value="90" selected>90 分钟</option>
+          </select>
+        </label>
+        <div class="profile-rule">
+          <strong>你拥有最终决定权</strong>
+          <p>推荐会显示原因；可以改选、降难度或清空数据。</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="signal-strip" aria-label="学习信号">
+      <article>
+        <span>平均掌握</span>
+        <strong id="metric-mastery">0.0</strong>
+        <small>/ 4.0 · 五维证据</small>
+      </article>
+      <article>
+        <span>今日到期</span>
+        <strong id="metric-due">0</strong>
+        <small>优先检索，不先重读</small>
+      </article>
+      <article>
+        <span>无辅助迁移</span>
+        <strong id="metric-transfer">--</strong>
+        <small>真正的北极星指标</small>
+      </article>
+      <article>
+        <span>提示依赖</span>
+        <strong id="metric-hints">--</strong>
+        <small>越低不一定越好，要看迁移</small>
+      </article>
+    </section>
+
+    <section class="workspace-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">NEXT BEST ACTION</p><h2>今日最值得练的一个节点</h2></div>
+        <button class="text-button" id="refresh-recommendation" type="button">重新计算</button>
+      </div>
+
+      <div class="recommendation-layout">
+        <article class="next-card" id="next-card" aria-live="polite">
+          <div class="next-card-top">
+            <span class="cluster-pill" id="next-cluster">正在计算</span>
+            <span class="task-meta" id="next-meta">-- 分钟</span>
+          </div>
+          <p class="task-kind" id="next-kind">RETRIEVE → TRANSFER</p>
+          <h3 id="next-title">正在建立你的学习队列</h3>
+          <p id="next-summary">系统会综合掌握缺口、岗位相关性、遗忘风险、前置解锁和交互形式。</p>
+          <div class="reason-list" id="next-reasons"></div>
+          <div class="next-actions">
+            <button class="primary-button light" id="start-next" type="button">开始这个 Session</button>
+            <button class="secondary-button light" id="choose-alternative" type="button">我想改选</button>
+          </div>
+        </article>
+
+        <aside class="alternatives-card">
+          <div class="panel-heading">
+            <div><span>HUMAN OVERRIDE</span><h3>其他合理选择</h3></div>
+            <button class="mini-button" id="clear-cluster-filter" type="button" hidden>清除筛选</button>
+          </div>
+          <div id="alternative-list" class="alternative-list"></div>
+          <details>
+            <summary>推荐如何计算？</summary>
+            <p>35% 掌握缺口 + 25% 岗位相关性 + 20% 遗忘风险 + 15% 前置解锁 + 5% 形式多样性。它是透明 baseline，不是精确预测。</p>
+          </details>
+        </aside>
+      </div>
+    </section>
+
+    <section class="workspace-section" id="competencies">
+      <div class="section-heading">
+        <div><p class="eyebrow">COMPETENCY GRAPH</p><h2>八个能力簇，不是八门课</h2><p>点击能力簇可约束推荐；每个节点必须跨原理、实现、诊断、迁移和表达留下证据。</p></div>
+        <span class="section-note" id="cluster-filter-note">当前：全部能力簇</span>
+      </div>
+      <div class="cluster-grid" id="cluster-grid"></div>
+    </section>
+
+    <section class="workspace-section queue-section" id="queue">
+      <div class="section-heading">
+        <div><p class="eyebrow">ADAPTIVE QUEUE</p><h2>接下来 6 个节点</h2><p>不是按章节顺序；优先级会随作答、提示、时间和目标改变。</p></div>
+      </div>
+      <div class="queue-list" id="queue-list"></div>
+    </section>
+
+    <section class="workspace-section" id="evidence">
+      <div class="section-heading">
+        <div><p class="eyebrow">EVIDENCE LEDGER</p><h2>完成量不是能力，证据才是</h2><p>保留最近的口述、代码、图、迁移和 mock 记录；默认只存在本机。</p></div>
+        <div class="section-actions">
+          <button class="quiet-button" id="copy-coach-contract" type="button">复制 AI 教练契约</button>
+          <button class="quiet-button" id="evidence-import" type="button">导入状态</button>
+          <button class="quiet-button" id="evidence-export" type="button">导出状态</button>
+          <button class="quiet-button danger" id="reset-state" type="button">清空状态</button>
+        </div>
+      </div>
+      <div class="evidence-layout">
+        <div class="evidence-list" id="evidence-list"></div>
+        <aside class="north-star-card">
+          <span>NORTH STAR</span>
+          <h3>Unaided Transfer Success</h3>
+          <p>延迟、换问法、换约束，并关闭 AI 和资料后，仍达到 rubric 的比例。</p>
+          <div class="north-star-scale">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <small>题数、打卡天数和页面停留时间只用于诊断习惯，不作为掌握证明。</small>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Interview Learning OS · transparent scheduler · local evidence</p>
+    <p><a href="practice-roadmap.md">统一练习脉络</a> · <a href="study-plan.md">六周计划</a> · <a href="README.md">准备包入口</a></p>
+  </footer>
+
+  <dialog id="session-dialog" aria-labelledby="session-title">
+    <form method="dialog" class="session-shell">
+      <header class="session-header">
+        <div>
+          <span id="session-cluster">K1</span>
+          <h2 id="session-title">练习节点</h2>
+          <p id="session-subtitle">先独立作答，再获得支架。</p>
+        </div>
+        <div class="session-header-actions">
+          <div class="session-timer" id="session-timer" aria-live="polite">00:00</div>
+          <button class="icon-button" id="close-session" type="button" aria-label="关闭 Session">×</button>
+        </div>
+      </header>
+
+      <div class="phase-nav" id="phase-nav" aria-label="Session 阶段">
+        <button type="button" data-phase="0"><span>1</span>Orient</button>
+        <button type="button" data-phase="1"><span>2</span>Retrieve</button>
+        <button type="button" data-phase="2"><span>3</span>Construct</button>
+        <button type="button" data-phase="3"><span>4</span>Challenge</button>
+        <button type="button" data-phase="4"><span>5</span>Feedback</button>
+        <button type="button" data-phase="5"><span>6</span>Consolidate</button>
+      </div>
+
+      <div class="session-body">
+        <section class="phase-panel" data-phase-panel="0">
+          <p class="phase-kicker">ORIENT</p>
+          <h3>先确认本次要留下什么证据</h3>
+          <div class="orient-grid">
+            <article><span>目标</span><p id="orient-goal"></p></article>
+            <article><span>产物</span><p id="orient-output"></p></article>
+            <article><span>预计</span><p id="orient-time"></p></article>
+            <article><span>前置</span><p id="orient-prereqs"></p></article>
+          </div>
+          <div class="guardrail-callout"><strong>Session 规则</strong><p>先预测，后验证。前 15–25 分钟不给完整答案；最后关闭帮助完成 exit ticket。</p></div>
+        </section>
+
+        <section class="phase-panel" data-phase-panel="1" hidden>
+          <p class="phase-kicker">RETRIEVE</p>
+          <h3>闭卷回答。不要先搜索。</h3>
+          <div class="prompt-card"><p id="retrieve-prompt"></p></div>
+          <label class="range-label">
+            <span>作答前信心 <strong id="confidence-value">50</strong>/100</span>
+            <input id="confidence-input" type="range" min="0" max="100" step="5" value="50">
+          </label>
+          <label class="textarea-label">
+            <span>你的首次判断</span>
+            <textarea id="retrieve-response" rows="8" placeholder="先写一句结论，再写机制、假设或不变量。"></textarea>
+          </label>
+        </section>
+
+        <section class="phase-panel" data-phase-panel="2" hidden>
+          <p class="phase-kicker">CONSTRUCT</p>
+          <h3>把理解变成可检查的产物</h3>
+          <p class="construct-brief" id="construct-brief"></p>
+          <label class="textarea-label">
+            <span>代码、伪代码、图解文本或决策记录</span>
+            <textarea id="construct-response" rows="10" placeholder="记录关键步骤、边界、测试或取舍。可以粘贴非机密代码片段。"></textarea>
+          </label>
+          <div class="hint-area">
+            <div><strong>分层支架</strong><span id="hint-status">尚未使用提示</span></div>
+            <button class="secondary-button compact" id="request-hint" type="button">请求 L1 提示</button>
+            <div class="hint-message" id="hint-message" hidden></div>
+          </div>
+          <button class="text-button coach-copy" id="copy-session-coach" type="button">复制本题 Socratic 教练提示</button>
+        </section>
+
+        <section class="phase-panel" data-phase-panel="3" hidden>
+          <p class="phase-kicker">CHALLENGE</p>
+          <h3>换约束，检查是否只是记住表面答案</h3>
+          <div class="prompt-card transfer"><p id="transfer-prompt"></p></div>
+          <label class="textarea-label">
+            <span>迁移回答</span>
+            <textarea id="transfer-response" rows="9" placeholder="指出哪些结论仍成立，哪些必须改变，以及如何验证。"></textarea>
+          </label>
+        </section>
+
+        <section class="phase-panel" data-phase-panel="4" hidden>
+          <p class="phase-kicker">FEEDBACK</p>
+          <h3>按证据评分，不按流畅度评分</h3>
+          <div class="rubric-card">
+            <strong>本题 rubric</strong>
+            <ul id="rubric-list"></ul>
+          </div>
+          <div class="score-grid">
+            <label>Correctness <select data-score="correctness"><option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+            <label>Reasoning <select data-score="reasoning"><option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+            <label>Transfer <select data-score="transfer"><option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+            <label>Communication <select data-score="communication"><option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+            <label>Independence <select data-score="independence"><option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+          </div>
+          <label class="textarea-label">
+            <span>最大误差与修复动作</span>
+            <textarea id="feedback-notes" rows="5" placeholder="只记录最大的 1–2 个误差，以及一个最小修复动作。"></textarea>
+          </label>
+        </section>
+
+        <section class="phase-panel" data-phase-panel="5" hidden>
+          <p class="phase-kicker">CONSOLIDATE</p>
+          <h3>关闭帮助，完成无辅助 exit ticket</h3>
+          <div class="prompt-card exit"><p id="exit-prompt"></p></div>
+          <label class="textarea-label">
+            <span>最终无辅助回答</span>
+            <textarea id="exit-response" rows="7" placeholder="不用复制前文；用更短、更准确的版本重新回答。"></textarea>
+          </label>
+          <div class="session-preview" id="session-preview">
+            完成评分后将显示 mastery、校准误差和建议复习间隔。
+          </div>
+        </section>
+      </div>
+
+      <footer class="session-footer">
+        <button class="secondary-button compact" id="previous-phase" type="button">上一步</button>
+        <span id="session-status" role="status" aria-live="polite">阶段 1 / 6</span>
+        <button class="primary-button compact" id="next-phase" type="button">开始闭卷检索</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <input id="state-file" type="file" accept="application/json,.json" hidden>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="learning-os.js"></script>
+</body>
+</html>
