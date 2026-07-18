@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "photo-mentor-";
-const CACHE_NAME = `${CACHE_PREFIX}v12`;
+const CACHE_NAME = `${CACHE_PREFIX}v15`;
 const APP_SHELL = [
   "photography-mentor-agent.html",
   "assets/photo-mentor-foundation.css",
@@ -9,6 +9,11 @@ const APP_SHELL = [
   "knowledge/photography-mentor-taxonomy.js",
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
+  "docs/photography-mentor/README.md",
+  "docs/photography-mentor/PRIVACY.md",
+  "docs/photography-mentor/TERMS.md",
+  "docs/photography-mentor/LICENSE.md",
+  "docs/photography-mentor/THIRD_PARTY_NOTICES.md",
   "manifest.webmanifest"
 ];
 const APP_URL = new URL("photography-mentor-agent.html", self.registration.scope);

@@ -62,3 +62,14 @@ python scripts/check_public_release.py --staged
 - Public agent evidence distinguishes tested orchestration code from deterministic browser applications.
 - The portfolio does not claim a live commercial-provider integration, foundation-model training, or hyperscale LLM infrastructure.
 - Role fit is stated separately from current job title.
+
+## Photography Mentor v1.2
+
+The commercial, browser-local Photography Mentor release includes 62 public-source knowledge cards, 7 stages, 22 learning nodes, image diagnostics, spaced review, user-controlled SYBJ note import, offline support, and complete local-data portability.
+
+- [Product documentation](docs/photography-mentor/README.md)
+- [Privacy](docs/photography-mentor/PRIVACY.md)
+- [Terms](docs/photography-mentor/TERMS.md)
+- [Release notes](docs/photography-mentor/RELEASE_NOTES.md)
+
+Run `npm test` to validate the product boundary and deterministic release manifest.

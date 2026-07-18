@@ -1,5 +1,5 @@
 # Markdown uses two trailing spaces as an intentional hard line break.
-*.md whitespace=-trailing-space
+*.md text eol=lf whitespace=-trailing-space
 
 # Imported WebVTT captions preserve source spacing and cue separation.
 *.vtt -whitespace
@@ -12,3 +12,12 @@
 *.png binary
 *.webp binary
 *.xlsx binary
+
+# Keep public web sources and deterministic manifests stable across platforms.
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.webmanifest text eol=lf
+*.svg text eol=lf
