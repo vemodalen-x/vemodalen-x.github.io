@@ -42,6 +42,18 @@ const releaseFiles = [
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
   "scripts/validate-photography-mentor.mjs",
+  "scripts/audit-photography-mentor-release.mjs",
+  "scripts/build-photography-mentor-release-manifest.mjs",
+  "docs/photography-mentor/README.md",
+  "docs/photography-mentor/CHANGELOG.md",
+  "docs/photography-mentor/LICENSE.md",
+  "docs/photography-mentor/PRIVACY.md",
+  "docs/photography-mentor/TERMS.md",
+  "docs/photography-mentor/SECURITY.md",
+  "docs/photography-mentor/THIRD_PARTY_NOTICES.md",
+  "docs/photography-mentor/RELEASE_NOTES.md",
+  "package.json",
+  "docs/photography-mentor/release-manifest.json",
   "PHOTOGRAPHY_MENTOR_RELEASE.md"
 ];
 
@@ -53,7 +65,12 @@ assert(
 );
 
 const html = read("photography-mentor-agent.html");
-assert(/<meta name="version" content="1\.0\.0">/.test(html), "release-version", "HTML declares v1.0.0");
+assert(/<meta name="version" content="1\.2\.0">/.test(html), "release-version", "HTML declares v1.2.0");
+assert(/href="docs\/photography-mentor\/PRIVACY\.md"/.test(html) && /href="docs\/photography-mentor\/TERMS\.md"/.test(html), "commercial-policy-links", "namespaced privacy and terms are linked in-app");
+assert(/href="index\.html">Portfolio</.test(html), "portfolio-navigation", "main-site return link present");
+assert(/<section id="sybj-ingest"[^>]*data-workspace-view="library"(?![^>]*data-workspace-disabled)/.test(html), "sybj-user-import", "user-controlled SYBJ import is enabled");
+assert(/Content-Security-Policy/.test(html) && /name="referrer" content="no-referrer"/.test(html), "browser-security-policy", "CSP and referrer policy declared");
+assert(/id="export-all-learning-data"/.test(html) && /id="import-learning-data"/.test(html) && /id="clear-all-learning-data"/.test(html), "data-portability-controls", "export, restore and delete controls present");
 const localReferences = [...html.matchAll(/<(?:a|link|script)\b[^>]*?\b(?:href|src)="([^"]+)"/gi)]
   .map((match) => match[1])
   .filter((reference) => !/^(?:https?:|mailto:|#|data:|javascript:)/i.test(reference))
@@ -182,11 +199,17 @@ const uncachedRuntimeAssets = runtimeAssets.filter((file) => !appShell.includes(
 assert(uncachedRuntimeAssets.length === 0, "offline-shell-coverage", uncachedRuntimeAssets.join(", ") || `${runtimeAssets.length} runtime assets cached`);
 
 const essentialUiIds = [
+  "workspace-mode-switch",
   "mentor-session",
   "curriculum-map",
+  "taxonomy-map-search",
+  "taxonomy-map-filters",
+  "taxonomy-inspector",
   "mentor-workbench",
   "photo-lab",
   "knowledge-library",
+  "sybj-ingest",
+  "data-control-center",
   "learning-track",
   "agent-prompt",
   "source-boundary"
@@ -199,7 +222,7 @@ const summary = {
   checks: checks.length,
   failures,
   release: {
-    version: "1.0.0",
+    version: "1.2.0",
     files: releaseFiles.length,
     canonicalCards: canonical?.cards.length || 0,
     stages: taxonomy?.stages.length || 0,

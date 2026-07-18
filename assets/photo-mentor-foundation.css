@@ -2253,12 +2253,28 @@ button:hover {
   border-color: var(--app-line);
   color: var(--app-muted);
   font-size: 12px;
+  gap: 18px;
+  justify-content: space-between;
 }
 
 .tutor-app .app-footer span {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+}
+
+.tutor-app .app-footer-links {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tutor-app .app-footer-links a {
+  color: inherit;
+  font-weight: 650;
+}
+
+.tutor-app .app-footer-links a:hover {
+  color: var(--app-ink);
 }
 
 @media (max-width: 1180px) {

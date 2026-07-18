@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "product": "Photography Mentor",
+  "version": "1.2.0",
+  "releaseDate": "2026-07-18",
+  "files": [
+    {
+      "path": "PHOTOGRAPHY_MENTOR_RELEASE.md",
+      "bytes": 2454,
+      "sha256": "6240960576fdd09822735f4a863302d42c2355bc4edce67e7aad71df1bb72194"
+    },
+    {
+      "path": "assets/photo-mentor-foundation.css",
+      "bytes": 90735,
+      "sha256": "528726c7b351756127996d5506aa09cdaae7100ce488a938741989b7be3a459c"
+    },
+    {
+      "path": "assets/photo-mentor-icon.svg",
+      "bytes": 597,
+      "sha256": "1341a24ccbd8c92fd2deac2c75864ab2262e0b1765bee38af2128c9c6ecae2a0"
+    },
+    {
+      "path": "assets/vendor/lucide-1.23.0.min.js",
+      "bytes": 410952,
+      "sha256": "55f43fd2b5553fdb2c1cb5a5940444f55c94a2fec8a72d678bd4a69350f72cd1"
+    },
+    {
+      "path": "docs/photography-mentor/CHANGELOG.md",
+      "bytes": 1139,
+      "sha256": "927c1f70cc9aa8327012901be10a601cbe13e7278e92a0fedc4c9000e6b208b7"
+    },
+    {
+      "path": "docs/photography-mentor/LICENSE.md",
+      "bytes": 802,
+      "sha256": "4f6ed47bbe7ae09ab57a34d51ee451dfaf95138b893b31381e64018d711d4560"
+    },
+    {
+      "path": "docs/photography-mentor/PRIVACY.md",
+      "bytes": 1432,
+      "sha256": "7dae4ebc08d1f5567679591f0ef06791debc03d79758295c8a8b2de191da6b32"
+    },
+    {
+      "path": "docs/photography-mentor/README.md",
+      "bytes": 2189,
+      "sha256": "6bf55d03d55146857cd961520495dfed499f23c3fc4992a60551ecd5848f5170"
+    },
+    {
+      "path": "docs/photography-mentor/RELEASE_NOTES.md",
+      "bytes": 1268,
+      "sha256": "3606cba6c8d3c4d9a82af2134b1c5438490ff14aebb9c85c749bc0bc752017c9"
+    },
+    {
+      "path": "docs/photography-mentor/SECURITY.md",
+      "bytes": 896,
+      "sha256": "a33ca2e5fb344615c9da35716514349b0df801fea4e85bc7181850e21bf3f73f"
+    },
+    {
+      "path": "docs/photography-mentor/TERMS.md",
+      "bytes": 1304,
+      "sha256": "26f495d89e87625d7956c8fa0e86743bf5f42263acf761a3b8aff9cec7f09998"
+    },
+    {
+      "path": "docs/photography-mentor/THIRD_PARTY_NOTICES.md",
+      "bytes": 1146,
+      "sha256": "0393191cd95fedc4d06b2111b5b7c97529fdcc93114d137069ef05ff66545010"
+    },
+    {
+      "path": "knowledge/photography-mentor-kb.js",
+      "bytes": 78038,
+      "sha256": "63267f2e8e6d002f02c1cb62ddae59c0032556df001a25260923b5d8b9ea1198"
+    },
+    {
+      "path": "knowledge/photography-mentor-taxonomy.js",
+      "bytes": 21794,
+      "sha256": "24e5a66e49ca8121df60a6722218e3594e5ae44e4537b79216900138c5f670a5"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 1167,
+      "sha256": "83117a31ffd3a5ede26dda144757ff099a6e4c38f86303f8fb62dda89b9afcec"
+    },
+    {
+      "path": "notes/photography-knowledge-review-2026-07-14.md",
+      "bytes": 6832,
+      "sha256": "66c9332ef601a50ebc96a4ba4ea06be10586a4e0207d393508a0afb50444a7be"
+    },
+    {
+      "path": "notes/photography-mentor-product-review-2026-07-15.md",
+      "bytes": 8281,
+      "sha256": "6c5084550ea9c37ca6b2b1a8d52428f65cd0d19247813843e4ab140ede0fb922"
+    },
+    {
+      "path": "notes/photography-mentor-research-2026-07-11.md",
+      "bytes": 4923,
+      "sha256": "f812708e3529d7a0ef9afc5c60fde8cb56a7ceeffa30153735c50d8434a05a1d"
+    },
+    {
+      "path": "package.json",
+      "bytes": 536,
+      "sha256": "b973145f18dab39bb8566d5bb759f777e52a2efd520f4b1de6f8832144918242"
+    },
+    {
+      "path": "photography-mentor-agent.html",
+      "bytes": 249843,
+      "sha256": "e11c4171977ce2d5964c2d7d1d13d2ca353c926f5ac1273abf14cff1c791eaa2"
+    },
+    {
+      "path": "scripts/audit-photography-mentor-release.mjs",
+      "bytes": 5362,
+      "sha256": "371cc0be385606a115209c6720184f4ee0e86a979fc6ac5cd0824681630484b9"
+    },
+    {
+      "path": "scripts/build-photography-mentor-release-manifest.mjs",
+      "bytes": 2453,
+      "sha256": "3fc84ffc2783c4df11106f68ea07126b0a26f83a35b934ecf1e672199c11a4e8"
+    },
+    {
+      "path": "scripts/validate-photography-mentor.mjs",
+      "bytes": 10379,
+      "sha256": "4c9c8f766616187244c3e6bf383a604253a3788ae19f7251918a3a1ba331d28e"
+    },
+    {
+      "path": "sw.js",
+      "bytes": 2422,
+      "sha256": "65ace24cc48179b79452ef4c1870b9a12e87483eabb9353a3721a7b552ccd4e7"
+    }
+  ]
+}

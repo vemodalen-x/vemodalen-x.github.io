@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photography Mentor | Browser-local Retrieval</title>
-  <meta name="description" content="本地摄影 Mentor：基于摘要级检索知识库，学习计算摄影、摄影美学、前期拍摄、后期流程与评片复盘。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; font-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
+  <title>Photography Mentor | Local Photography Learning OS</title>
+  <meta name="description" content="本地优先的摄影学习应用：用可追溯知识卡、刻意练习、照片诊断和复习计划学习计算摄影、摄影美学与前后期流程。">
   <meta name="application-name" content="Photography Mentor Agent">
-  <meta name="version" content="1.0.0">
+  <meta name="version" content="1.2.0">
   <meta name="theme-color" content="#0f766e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Photo Mentor">
@@ -37,12 +39,12 @@
     }
 
     .photography-mentor-app .app-header {
-      background: rgba(251, 250, 247, 0.94);
-      backdrop-filter: blur(12px);
+      background: #fbfaf7;
+      backdrop-filter: none;
     }
 
     .photography-mentor-app section[id] {
-      scroll-margin-top: 82px;
+      scroll-margin-top: 146px;
     }
 
     .photography-mentor-app [data-tooltip]::after {
@@ -431,6 +433,90 @@
       font-weight: 700;
     }
 
+    .taxonomy-map-toolbar {
+      display: grid;
+      grid-template-columns: minmax(190px, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      border-top: 1px solid var(--photo-line);
+      border-bottom: 1px solid var(--photo-line);
+      background: var(--photo-panel);
+      padding: 10px 0;
+    }
+
+    .taxonomy-map-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      border: 1px solid var(--photo-line);
+      border-radius: 6px;
+      background: var(--photo-panel);
+      padding: 0 11px;
+    }
+
+    .taxonomy-map-search:focus-within {
+      border-color: var(--photo-teal);
+      box-shadow: 0 0 0 3px rgba(15,118,110,0.1);
+    }
+
+    .taxonomy-map-search svg {
+      width: 16px;
+      height: 16px;
+      color: var(--photo-muted);
+    }
+
+    .taxonomy-map-search input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--photo-ink);
+      font: inherit;
+      font-size: 12px;
+      outline: 0;
+    }
+
+    .taxonomy-map-filters {
+      display: inline-flex;
+      border: 1px solid var(--photo-line);
+      border-radius: 6px;
+      background: var(--photo-soft);
+      padding: 2px;
+    }
+
+    .taxonomy-map-filters button {
+      min-height: 32px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--photo-muted);
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .taxonomy-map-filters button[aria-selected="true"] {
+      background: var(--photo-panel);
+      color: var(--photo-ink);
+      box-shadow: 0 1px 3px rgba(22,24,29,0.08);
+    }
+
+    .taxonomy-map-count {
+      color: var(--photo-muted);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .taxonomy-map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 14px;
+      align-items: start;
+    }
+
     .taxonomy-atlas-wrap {
       overflow-x: auto;
       border-top: 1px solid var(--photo-line);
@@ -455,6 +541,19 @@
       border-left: 3px solid var(--stage-color);
       background: rgba(255,255,255,0.54);
       padding: 0 10px 10px;
+    }
+
+    .taxonomy-atlas-stage:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 45px;
+      right: -8px;
+      width: 8px;
+      border-top: 1px solid var(--photo-line);
+    }
+
+    .taxonomy-atlas-stage[data-empty="true"] {
+      opacity: 0.48;
     }
 
     .taxonomy-atlas-stage[data-active="true"] {
@@ -530,6 +629,20 @@
       transform: translateY(-1px);
     }
 
+    .taxonomy-atlas-node[aria-selected="true"] {
+      border-color: var(--stage-color);
+      background: color-mix(in srgb, var(--stage-color) 8%, white);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--stage-color) 18%, transparent);
+    }
+
+    .taxonomy-atlas-node[data-status="due"] {
+      border-style: dashed;
+    }
+
+    .taxonomy-atlas-node[data-status="mastered"] .taxonomy-node-state {
+      background: var(--photo-teal);
+    }
+
     .taxonomy-atlas-node strong {
       font-size: 11px;
       line-height: 1.45;
@@ -547,6 +660,46 @@
       font-weight: 900;
     }
 
+    .taxonomy-node-title {
+      display: grid;
+      grid-template-columns: 7px minmax(0, 1fr);
+      gap: 7px;
+      align-items: start;
+    }
+
+    .taxonomy-node-state {
+      width: 7px;
+      height: 7px;
+      margin-top: 5px;
+      border-radius: 50%;
+      background: var(--photo-line);
+    }
+
+    .taxonomy-atlas-node[data-status="due"] .taxonomy-node-state {
+      background: var(--photo-red);
+    }
+
+    .taxonomy-atlas-node[data-status="learning"] .taxonomy-node-state {
+      background: var(--photo-amber);
+    }
+
+    .taxonomy-node-score {
+      --node-score: 0%;
+      background: conic-gradient(var(--stage-color) var(--node-score), var(--photo-soft) 0) !important;
+      box-shadow: inset 0 0 0 5px var(--photo-panel);
+      color: var(--photo-ink) !important;
+      font-size: 8px !important;
+    }
+
+    .taxonomy-atlas-empty {
+      min-height: 72px;
+      display: grid;
+      place-items: center;
+      color: var(--photo-muted);
+      font-size: 10px;
+      text-align: center;
+    }
+
     .taxonomy-atlas-local {
       display: flex;
       align-items: center;
@@ -557,6 +710,164 @@
       color: var(--photo-muted);
       font-size: 10px;
       font-weight: 700;
+    }
+
+    .taxonomy-inspector {
+      position: sticky;
+      top: 132px;
+      min-height: 430px;
+      border-top: 3px solid var(--inspector-color, var(--photo-teal));
+      border-right: 1px solid var(--photo-line);
+      border-bottom: 1px solid var(--photo-line);
+      border-left: 1px solid var(--photo-line);
+      background: var(--photo-panel);
+      padding: 18px;
+    }
+
+    .taxonomy-inspector-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 58px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .taxonomy-inspector-stage {
+      display: block;
+      color: var(--inspector-color, var(--photo-teal));
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .taxonomy-inspector h3 {
+      margin: 5px 0 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .taxonomy-inspector-score {
+      --inspector-score: 0%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: conic-gradient(var(--inspector-color, var(--photo-teal)) var(--inspector-score), var(--photo-soft) 0);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .taxonomy-inspector-score::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      background: var(--photo-panel);
+    }
+
+    .taxonomy-inspector-score span {
+      position: relative;
+    }
+
+    .taxonomy-inspector-summary {
+      margin: 14px 0 0;
+      color: var(--photo-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .taxonomy-inspector-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 14px;
+      border-top: 1px solid var(--photo-line);
+      border-bottom: 1px solid var(--photo-line);
+      padding: 9px 0;
+      color: var(--photo-muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .taxonomy-inspector-status strong {
+      color: var(--photo-ink);
+    }
+
+    .taxonomy-inspector-list {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .taxonomy-inspector-list li {
+      display: grid;
+      grid-template-columns: 16px minmax(0, 1fr);
+      gap: 7px;
+      color: var(--photo-muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .taxonomy-inspector-list svg {
+      width: 14px;
+      height: 14px;
+      color: var(--inspector-color, var(--photo-teal));
+    }
+
+    .taxonomy-inspector-practice {
+      margin-top: 15px;
+      border-left: 3px solid var(--inspector-color, var(--photo-teal));
+      background: var(--photo-soft);
+      padding: 11px 12px;
+    }
+
+    .taxonomy-inspector-practice strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+
+    .taxonomy-inspector-practice p {
+      margin: 0;
+      color: var(--photo-muted);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .taxonomy-inspector-sources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 13px;
+    }
+
+    .taxonomy-inspector-sources a {
+      max-width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid var(--photo-line);
+      color: var(--photo-muted);
+      font-size: 9px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .taxonomy-inspector-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .taxonomy-inspector-empty {
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      color: var(--photo-muted);
+      text-align: center;
     }
 
     .taxonomy-cluster.is-highlighted {
@@ -1295,6 +1606,54 @@
       margin-top: 10px;
     }
 
+    .data-control-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      border-top: 1px solid var(--photo-line);
+      border-bottom: 1px solid var(--photo-line);
+      padding: 18px 0;
+    }
+
+    .data-control-copy {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .data-control-copy strong {
+      font-size: 15px;
+    }
+
+    .data-control-copy span,
+    .data-control-status {
+      color: var(--photo-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .data-control-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .data-import-action input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .data-control-status {
+      margin: 10px 0 0;
+    }
+
     .sybj-dialog {
       width: min(560px, calc(100vw - 32px));
       border: 0;
@@ -1392,6 +1751,101 @@
       font-size: 12px;
       color: var(--photo-muted);
       background: rgba(255,255,255,0.72);
+    }
+
+    .workspace-modebar {
+      position: sticky;
+      top: 64px;
+      z-index: 24;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 24px;
+      border-bottom: 1px solid var(--photo-line);
+      background: #fbfaf7;
+      padding: 10px 0;
+      backdrop-filter: none;
+    }
+
+    .workspace-mode-switch {
+      display: inline-grid;
+      grid-template-columns: repeat(4, minmax(86px, 1fr));
+      border: 1px solid var(--photo-line);
+      border-radius: 7px;
+      background: var(--photo-panel);
+      padding: 3px;
+    }
+
+    .workspace-mode-switch button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 36px;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--photo-muted);
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .workspace-mode-switch button:hover,
+    .workspace-mode-switch button:focus-visible {
+      background: var(--photo-soft);
+      color: var(--photo-ink);
+      outline: 0;
+    }
+
+    .workspace-mode-switch button[aria-selected="true"] {
+      background: var(--photo-ink);
+      color: #fff;
+    }
+
+    .workspace-mode-switch svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .workspace-mode-context {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      min-width: 0;
+      color: var(--photo-muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .workspace-mode-context strong {
+      color: var(--photo-ink);
+    }
+
+    .workspace-mode-context svg {
+      color: var(--photo-teal);
+    }
+
+    .workspace-view-section[hidden] {
+      display: none !important;
+    }
+
+    body[data-workspace-view="focus"] .workspace-view-section:not([data-workspace-view="focus"]),
+    body[data-workspace-view="map"] .workspace-view-section:not([data-workspace-view="map"]),
+    body[data-workspace-view="studio"] .workspace-view-section:not([data-workspace-view="studio"]),
+    body[data-workspace-view="library"] .workspace-view-section:not([data-workspace-view="library"]) {
+      display: none !important;
+    }
+
+    .workspace-view-section.workspace-view-enter {
+      animation: workspace-view-enter 180ms ease-out both;
+    }
+
+    @keyframes workspace-view-enter {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .learning-command-header {
@@ -2394,6 +2848,7 @@
       .photography-mentor-app .app-intro,
       .system-prompt-grid,
       .sybj-ingest-grid,
+      .data-control-strip,
       .local-books-grid,
       .photo-lab-grid,
       .growth-dashboard-grid,
@@ -2420,6 +2875,15 @@
         grid-template-columns: 1fr;
       }
 
+      .taxonomy-map-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .taxonomy-inspector {
+        position: static;
+        min-height: 0;
+      }
+
       .session-context {
         border-right: 0;
         border-bottom: 1px solid var(--photo-line);
@@ -2431,6 +2895,10 @@
     }
 
     @media (max-width: 760px) {
+      .photography-mentor-app section[id] {
+        scroll-margin-top: 78px;
+      }
+
       .photography-mentor-app .kb-panel,
       .source-list-grid,
       .metric-grid,
@@ -2455,6 +2923,35 @@
       .taxonomy-viewbar {
         align-items: stretch;
         flex-direction: column;
+      }
+
+      .workspace-modebar {
+        position: static;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .workspace-mode-switch {
+        width: 100%;
+      }
+
+      .workspace-mode-context {
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      .taxonomy-map-toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .taxonomy-map-filters {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .taxonomy-map-count {
+        justify-self: end;
       }
 
       .taxonomy-view-switch {
@@ -2547,6 +3044,30 @@
         font-size: 28px;
       }
 
+      .taxonomy-heading-actions .secondary-action {
+        width: 40px;
+        min-width: 40px;
+        padding: 0;
+      }
+
+      .taxonomy-heading-actions .secondary-action span {
+        display: none;
+      }
+
+      .workspace-mode-switch {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .workspace-mode-switch button {
+        min-width: 0;
+        padding: 0 5px;
+        font-size: 10px;
+      }
+
+      .taxonomy-inspector-actions {
+        grid-template-columns: 1fr;
+      }
+
       .session-main,
       .session-context {
         padding: 16px;
@@ -2583,10 +3104,23 @@
       .curriculum-module-footer .secondary-action {
         width: 100%;
       }
+
+      .data-control-actions {
+        justify-content: flex-start;
+      }
+
+      #data-control-center .section-heading {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      #data-control-center .section-heading .secondary-action {
+        width: 100%;
+      }
     }
   </style>
 </head>
-<body class="tutor-app photography-mentor-app">
+<body class="tutor-app photography-mentor-app" data-workspace-view="focus">
   <a class="skip-link" href="#main">跳到正文</a>
 
   <header class="app-header">
@@ -2595,18 +3129,19 @@
         <span class="app-brand-mark" aria-hidden="true"><i data-lucide="aperture"></i></span>
         <span>
           <strong>Photography Mentor</strong>
-        <small>Browser-local retrieval and practice</small>
+        <small>Local learning, practice and review</small>
         </span>
       </a>
       <div class="app-health" role="status">
         <span class="health-dot" aria-hidden="true"></span>
-        Local KB · <span id="header-kb-count">0 cards</span>
+        Offline-ready · <span id="header-kb-count">0 cards</span>
       </div>
       <div class="app-header-links">
         <button type="button" class="icon-button install-app-button" id="install-app" aria-label="安装摄影 Mentor 应用" data-tooltip="安装应用" hidden><i data-lucide="download"></i></button>
-        <a href="index.html">About</a>
-        <a href="work.html">Work</a>
-        <a href="writing.html">Notes</a>
+        <a href="index.html">Portfolio</a>
+        <a href="docs/photography-mentor/README.md" target="_blank" rel="noreferrer">Docs</a>
+        <a href="docs/photography-mentor/PRIVACY.md" target="_blank" rel="noreferrer">Privacy</a>
+        <a href="docs/photography-mentor/TERMS.md" target="_blank" rel="noreferrer">Terms</a>
         <a class="active" href="photography-mentor-agent.html">Photo Mentor</a>
       </div>
     </nav>
@@ -2627,6 +3162,8 @@
         <a href="#mentor-workbench"><i data-lucide="panel-top"></i><span>工作台</span></a>
         <a href="#photo-lab"><i data-lucide="image-up"></i><span>照片诊断</span></a>
         <a href="#knowledge-library"><i data-lucide="database"></i><span>知识库</span></a>
+        <a href="#sybj-ingest"><i data-lucide="file-input"></i><span>导入笔记</span></a>
+        <a href="#data-control-center"><i data-lucide="shield-check"></i><span>数据与隐私</span></a>
         <a href="#learning-track"><i data-lucide="graduation-cap"></i><span>学习路径</span></a>
         <a href="#agent-prompt"><i data-lucide="braces"></i><span>Agent Prompt</span></a>
         <a href="#source-boundary"><i data-lucide="book-open-check"></i><span>资料来源</span></a>
@@ -2654,7 +3191,20 @@
         </div>
       </section>
 
-      <section id="mentor-session" class="workspace-section mentor-session-section">
+      <div class="workspace-modebar" aria-label="摄影学习工作区">
+        <div class="workspace-mode-switch" id="workspace-mode-switch" role="tablist" aria-label="切换工作区">
+          <button type="button" role="tab" data-workspace-view="focus" aria-selected="true"><i data-lucide="crosshair"></i><span>专注</span></button>
+          <button type="button" role="tab" data-workspace-view="map" aria-selected="false"><i data-lucide="waypoints"></i><span>图谱</span></button>
+          <button type="button" role="tab" data-workspace-view="studio" aria-selected="false"><i data-lucide="sliders-horizontal"></i><span>工作室</span></button>
+          <button type="button" role="tab" data-workspace-view="library" aria-selected="false"><i data-lucide="library"></i><span>资料库</span></button>
+        </div>
+        <div class="workspace-mode-context" id="workspace-mode-context" role="status">
+          <i data-lucide="target"></i>
+          <span><strong>专注模式</strong> · 完成下一次学习判断</span>
+        </div>
+      </div>
+
+      <section id="mentor-session" class="workspace-section mentor-session-section workspace-view-section" data-workspace-view="focus">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Next Best Learning Action</p>
@@ -2663,13 +3213,13 @@
           </div>
           <div class="taxonomy-heading-actions">
             <span class="workspace-badge" id="session-status-badge"><i data-lucide="activity"></i>主动学习</span>
-            <a class="secondary-action" href="notes/photography-mentor-product-review-2026-07-15.md" target="_blank" rel="noreferrer"><i data-lucide="file-search"></i>产品评审</a>
+            <a class="secondary-action" href="notes/photography-mentor-product-review-2026-07-15.md" target="_blank" rel="noreferrer" aria-label="打开产品评审" data-tooltip="产品评审"><i data-lucide="file-search"></i><span>产品评审</span></a>
           </div>
         </div>
         <div class="mentor-session-shell" id="mentor-session-shell" aria-live="polite"></div>
       </section>
 
-      <section id="growth-dashboard" class="workspace-section">
+      <section id="growth-dashboard" class="workspace-section workspace-view-section" data-workspace-view="focus">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Learning OS</p>
@@ -2728,16 +3278,16 @@
         </div>
       </section>
 
-      <section id="curriculum-map" class="workspace-section">
+      <section id="curriculum-map" class="workspace-section workspace-view-section" data-workspace-view="map">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Canonical Knowledge Map</p>
             <h2>摄影知识脉络</h2>
-            <p>74 张原子卡保留来源与细节；同类内容归并为 22 个主知识节点，沿完整摄影流程组织。</p>
+            <p><span id="curriculum-card-total">0</span> 张已加载原子卡保留来源与细节；同类内容归并为 22 个主知识节点，沿完整摄影流程组织。</p>
           </div>
           <div class="taxonomy-heading-actions">
             <span class="workspace-badge" id="curriculum-count"><i data-lucide="library-big"></i>7 stages · 22 nodes</span>
-            <a class="secondary-action" href="notes/photography-knowledge-review-2026-07-14.md" target="_blank" rel="noreferrer"><i data-lucide="file-search"></i>知识审计记录</a>
+            <a class="secondary-action" href="notes/photography-knowledge-review-2026-07-14.md" target="_blank" rel="noreferrer" aria-label="打开知识审计记录" data-tooltip="知识审计记录"><i data-lucide="file-search"></i><span>知识审计记录</span></a>
           </div>
         </div>
         <div class="taxonomy-visual-summary" id="taxonomy-visual-summary" aria-label="摄影知识资产统计"></div>
@@ -2755,13 +3305,26 @@
           <div class="taxonomy-detail" id="taxonomy-detail" role="tabpanel"></div>
         </div>
         <div id="taxonomy-atlas-view" role="tabpanel" hidden>
-          <div class="taxonomy-atlas-wrap" aria-label="摄影知识全景图谱">
-            <div class="taxonomy-atlas" id="taxonomy-atlas"></div>
+          <div class="taxonomy-map-toolbar">
+            <label class="taxonomy-map-search" for="taxonomy-map-search"><i data-lucide="search"></i><input id="taxonomy-map-search" type="search" placeholder="搜索知识节点" autocomplete="off"></label>
+            <div class="taxonomy-map-filters" id="taxonomy-map-filters" role="tablist" aria-label="按掌握状态筛选">
+              <button type="button" role="tab" data-map-filter="all" aria-selected="true">全部</button>
+              <button type="button" role="tab" data-map-filter="due" aria-selected="false">待复习</button>
+              <button type="button" role="tab" data-map-filter="learning" aria-selected="false">进行中</button>
+              <button type="button" role="tab" data-map-filter="mastered" aria-selected="false">已掌握</button>
+            </div>
+            <span class="taxonomy-map-count" id="taxonomy-map-count">22 个节点</span>
+          </div>
+          <div class="taxonomy-map-layout">
+            <div class="taxonomy-atlas-wrap" aria-label="摄影知识全景图谱">
+              <div class="taxonomy-atlas" id="taxonomy-atlas"></div>
+            </div>
+            <aside class="taxonomy-inspector" id="taxonomy-inspector" aria-live="polite"></aside>
           </div>
         </div>
       </section>
 
-      <section id="mentor-workbench" class="workspace-section">
+      <section id="mentor-workbench" class="workspace-section workspace-view-section" data-workspace-view="studio">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Workspace</p>
@@ -2855,7 +3418,7 @@
         </div>
       </section>
 
-      <section id="photo-lab" class="workspace-section">
+      <section id="photo-lab" class="workspace-section workspace-view-section" data-workspace-view="studio">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Photo Lab</p>
@@ -2923,7 +3486,7 @@
         </div>
       </section>
 
-      <section id="knowledge-library" class="workspace-section">
+      <section id="knowledge-library" class="workspace-section workspace-view-section" data-workspace-view="library">
         <div class="section-heading">
           <div>
             <p class="eyebrow">RAG Library</p>
@@ -2951,7 +3514,7 @@
         <div class="kb-panel" id="kb-panel" aria-live="polite"></div>
       </section>
 
-      <section id="local-books" class="workspace-section" hidden>
+      <section id="local-books" class="workspace-section workspace-view-section" data-workspace-view="library" data-workspace-disabled hidden>
         <div class="section-heading">
           <div>
             <p class="eyebrow">Local books</p>
@@ -2977,12 +3540,12 @@
         <div class="kb-panel" id="local-books-panel" aria-live="polite"></div>
       </section>
 
-      <section id="sybj-ingest" class="workspace-section" hidden>
+      <section id="sybj-ingest" class="workspace-section workspace-view-section" data-workspace-view="library">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">SYBJ Restricted Source</p>
+            <p class="eyebrow">User-controlled source</p>
             <h2>摄影笔记 SYBJ 教程接入</h2>
-            <p>SYBJ 需要登录，且站点禁止爬取。这里提供微信登录入口和本地导入区，用你自己整理的课程摘要生成可检索知识卡。</p>
+            <p>SYBJ 教程可能需要登录并限制自动访问。这里仅提供官方微信登录入口和本地导入区，用你自己整理的课程摘要生成可检索知识卡。</p>
           </div>
           <span class="workspace-badge"><i data-lucide="lock-keyhole"></i>Manual import</span>
         </div>
@@ -2998,7 +3561,7 @@
             <ul class="sybj-checklist">
               <li><i data-lucide="check-circle-2"></i><span>登录后进入你有权限的教程或课程。</span></li>
               <li><i data-lucide="check-circle-2"></i><span>不要整篇复制课程原文，先整理成自己的摘要和练习笔记。</span></li>
-              <li><i data-lucide="check-circle-2"></i><span>把摘要粘贴到右侧，本地生成 RAG 知识卡。</span></li>
+              <li><i data-lucide="check-circle-2"></i><span>把摘要粘贴到右侧，本地生成 RAG 知识卡；登录凭据不会进入本应用。</span></li>
             </ul>
           </div>
 
@@ -3020,7 +3583,30 @@
         </div>
       </section>
 
-      <section id="learning-track" class="workspace-section">
+      <section id="data-control-center" class="workspace-section workspace-view-section" data-workspace-view="library">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Data portability</p>
+            <h2>数据与隐私</h2>
+            <p>学习记录属于用户。导出、恢复和删除都在当前浏览器完成，不经过应用服务器。</p>
+          </div>
+          <a class="secondary-action" href="docs/photography-mentor/PRIVACY.md" target="_blank" rel="noreferrer"><i data-lucide="external-link"></i>隐私说明</a>
+        </div>
+        <div class="data-control-strip">
+          <div class="data-control-copy">
+            <strong>完整学习备份</strong>
+            <span>包含档案、7 天计划、掌握度、练习日志、工作台草稿和手动导入摘要；不包含照片像素或第三方登录信息。</span>
+          </div>
+          <div class="data-control-actions">
+            <button type="button" class="primary-action" id="export-all-learning-data"><i data-lucide="download"></i>导出备份</button>
+            <label class="secondary-action data-import-action"><i data-lucide="upload"></i>恢复备份<input id="import-learning-data" type="file" accept="application/json,.json"></label>
+            <button type="button" class="secondary-action" id="clear-all-learning-data"><i data-lucide="trash-2"></i>删除本地数据</button>
+          </div>
+        </div>
+        <p class="data-control-status" id="data-control-status" role="status">尚未执行数据操作。</p>
+      </section>
+
+      <section id="learning-track" class="workspace-section workspace-view-section" data-workspace-view="studio">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Learning Track</p>
@@ -3052,7 +3638,7 @@
         </div>
       </section>
 
-      <section id="agent-prompt" class="workspace-section">
+      <section id="agent-prompt" class="workspace-section workspace-view-section" data-workspace-view="library">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Agent Prompt</p>
@@ -3087,7 +3673,7 @@
         </div>
       </section>
 
-      <section id="source-boundary" class="sources-section">
+      <section id="source-boundary" class="sources-section workspace-view-section" data-workspace-view="library">
         <details open>
           <summary><span><i data-lucide="book-open" aria-hidden="true"></i><strong>资料来源与使用边界</strong></span><span id="source-count">0 项</span></summary>
           <div class="source-list">
@@ -3178,7 +3764,7 @@
         </div>
         <button type="button" class="icon-button" id="close-sybj-dialog" aria-label="关闭 SYBJ 登录提示"><i data-lucide="x"></i></button>
       </div>
-      <p>我检测到 `www.sybj.com` 会跳转到登录页，且站点禁止爬取。请在 SYBJ 官方页面用微信扫码登录，阅读你有权限的教程后，把自己整理的摘要粘贴进本地导入区。</p>
+      <p>SYBJ 教程可能跳转到微信登录页并限制自动访问。请在 SYBJ 官方页面完成登录，阅读你有权限的教程后，把自己整理的摘要粘贴进本地导入区。</p>
       <p>这个本地页面不会读取你的微信、手机号、Cookie 或课程账号，也不会自动抓取登录后的内容。</p>
       <div class="sybj-dialog-actions">
         <button type="button" class="primary-action" id="dialog-open-sybj-login"><i data-lucide="qr-code"></i>打开微信登录页</button>
@@ -3189,7 +3775,8 @@
 
   <footer class="app-footer">
     <span><i data-lucide="hard-drive" aria-hidden="true"></i>本地运行 · 草稿保存在当前浏览器</span>
-    <span>Photography Mentor Agent · 2026-07-14</span>
+    <span class="app-footer-links"><a href="docs/photography-mentor/PRIVACY.md" target="_blank" rel="noreferrer">隐私</a><a href="docs/photography-mentor/TERMS.md" target="_blank" rel="noreferrer">条款</a><a href="docs/photography-mentor/THIRD_PARTY_NOTICES.md" target="_blank" rel="noreferrer">第三方声明</a></span>
+    <span>Photography Mentor v1.2.0 · 2026-07-18</span>
   </footer>
 
   <script src="knowledge/photography-mentor-kb.js"></script>
@@ -3208,7 +3795,9 @@
       const profileStorageKey = "photography-mentor-learner-profile";
       const learningPlanStorageKey = "photography-mentor-learning-plan";
       const masteryStorageKey = "photography-mentor-cluster-mastery";
+      const workspaceViewStorageKey = "photography-mentor-workspace-view";
       const sybjLoginUrl = "https://www.sybj.com/may.php?c=w&a=loginWeixinPC&t=1";
+      const sybjFeatureEnabled = !document.getElementById("sybj-ingest")?.hasAttribute("data-workspace-disabled");
       KB.sources = KB.sources || [];
       KB.cards = KB.cards || [];
       function mergeById(target, incoming) {
@@ -3221,7 +3810,7 @@
       }
       mergeById(KB.sources, LocalBooksKB.sources || []);
       mergeById(KB.cards, LocalBooksKB.cards || []);
-      if (!(KB.sources || []).some((source) => source.id === "sybj-imported")) {
+      if (sybjFeatureEnabled && !(KB.sources || []).some((source) => source.id === "sybj-imported")) {
         KB.sources.push({
           id: "sybj-imported",
           title: "SYBJ 手动导入课程摘要",
@@ -3232,7 +3821,7 @@
       }
       try {
         const importedCards = JSON.parse(localStorage.getItem(sybjStorageKey) || "[]");
-        if (Array.isArray(importedCards) && importedCards.length) {
+        if (sybjFeatureEnabled && Array.isArray(importedCards) && importedCards.length) {
           KB.cards = [...(KB.cards || []), ...importedCards];
         }
       } catch (error) {
@@ -3289,6 +3878,12 @@
         post: "后期 调色 RAW 影调 色彩 蒙版",
         portfolio: "专题 作品集 叙事 风格 选片"
       };
+      const workspaceViews = {
+        focus: { title: "专注模式", description: "完成下一次学习判断", icon: "target", target: "mentor-session" },
+        map: { title: "知识图谱", description: "定位短板与下一学习节点", icon: "waypoints", target: "curriculum-map" },
+        studio: { title: "创作工作室", description: "检索、诊断并完成实拍复盘", icon: "sliders-horizontal", target: "mentor-workbench" },
+        library: { title: "资料库", description: "检索网络、本机与授权课程摘要", icon: "library", target: "knowledge-library" }
+      };
       const els = {
         headerCount: document.getElementById("header-kb-count"),
         libraryCount: document.getElementById("library-count"),
@@ -3307,6 +3902,8 @@
         sybjImportText: document.getElementById("sybj-import-text"),
         sybjImportStatus: document.getElementById("sybj-import-status"),
         sybjDialog: document.getElementById("sybj-login-dialog"),
+        importLearningData: document.getElementById("import-learning-data"),
+        dataControlStatus: document.getElementById("data-control-status"),
         localBookCount: document.getElementById("local-book-count"),
         localBookSize: document.getElementById("local-book-size"),
         localBooksPanel: document.getElementById("local-books-panel"),
@@ -3335,6 +3932,8 @@
         commandSessionCount: document.getElementById("command-session-count"),
         learningCommandTitle: document.getElementById("learning-command-title"),
         learningCommandSubtitle: document.getElementById("learning-command-subtitle"),
+        workspaceModeSwitch: document.getElementById("workspace-mode-switch"),
+        workspaceModeContext: document.getElementById("workspace-mode-context"),
         mentorSessionShell: document.getElementById("mentor-session-shell"),
         sessionStatusBadge: document.getElementById("session-status-badge"),
         planSubtitle: document.getElementById("plan-subtitle"),
@@ -3360,8 +3959,13 @@
         taxonomyFlowView: document.getElementById("taxonomy-flow-view"),
         taxonomyAtlasView: document.getElementById("taxonomy-atlas-view"),
         taxonomyAtlas: document.getElementById("taxonomy-atlas"),
+        taxonomyMapSearch: document.getElementById("taxonomy-map-search"),
+        taxonomyMapFilters: document.getElementById("taxonomy-map-filters"),
+        taxonomyMapCount: document.getElementById("taxonomy-map-count"),
+        taxonomyInspector: document.getElementById("taxonomy-inspector"),
         taxonomySpine: document.getElementById("taxonomy-spine"),
         taxonomyDetail: document.getElementById("taxonomy-detail"),
+        curriculumCardTotal: document.getElementById("curriculum-card-total"),
         curriculumCount: document.getElementById("curriculum-count")
       };
       const state = {
@@ -3376,10 +3980,70 @@
         learningPlan: null,
         mastery: {},
         session: null,
+        workspaceView: "focus",
+        workspaceTarget: "mentor-session",
         taxonomyStage: (Taxonomy.stages || [])[0]?.id || "intent",
         taxonomyView: "flow",
+        taxonomyMapFilter: "all",
+        taxonomyMapQuery: "",
+        taxonomyMapCluster: null,
         installPrompt: null
       };
+
+      function workspaceViewForTarget(targetId) {
+        const section = document.getElementById(targetId)?.closest(".workspace-view-section");
+        return section?.dataset.workspaceView || null;
+      }
+
+      function initialWorkspaceLocation() {
+        const hashTarget = decodeURIComponent(location.hash.replace(/^#/, ""));
+        const hashView = workspaceViewForTarget(hashTarget);
+        let storedView = "focus";
+        try {
+          storedView = localStorage.getItem(workspaceViewStorageKey) || "focus";
+        } catch (error) {
+          storedView = "focus";
+        }
+        const view = hashView || (workspaceViews[storedView] ? storedView : "focus");
+        return { view, target: hashView ? hashTarget : workspaceViews[view].target };
+      }
+
+      function setWorkspaceView(view, options = {}) {
+        const nextView = workspaceViews[view] ? view : "focus";
+        const config = workspaceViews[nextView];
+        const requestedTarget = options.target || config.target;
+        const targetView = workspaceViewForTarget(requestedTarget);
+        const targetId = targetView === nextView ? requestedTarget : config.target;
+        state.workspaceView = nextView;
+        state.workspaceTarget = targetId;
+        document.body.dataset.workspaceView = nextView;
+        document.querySelectorAll(".workspace-view-section").forEach((section) => {
+          const visible = section.dataset.workspaceView === nextView && !section.hasAttribute("data-workspace-disabled");
+          section.hidden = !visible;
+          section.classList.toggle("workspace-view-enter", visible);
+        });
+        els.workspaceModeSwitch?.querySelectorAll("[data-workspace-view]").forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.workspaceView === nextView));
+        });
+        if (els.workspaceModeContext) {
+          els.workspaceModeContext.innerHTML = `<i data-lucide="${config.icon}"></i><span><strong>${escapeHtml(config.title)}</strong> · ${escapeHtml(config.description)}</span>`;
+        }
+        document.querySelectorAll(".sidebar-nav a[href^='#']").forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === `#${targetId}`);
+        });
+        try {
+          localStorage.setItem(workspaceViewStorageKey, nextView);
+        } catch (error) {
+          // The workspace still works when storage is unavailable.
+        }
+        if (options.updateHistory && location.hash !== `#${targetId}`) {
+          history.pushState({ workspaceView: nextView, targetId }, "", `#${targetId}`);
+        }
+        if (options.scroll) {
+          window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ behavior: options.instant ? "auto" : "smooth", block: "start" }));
+        }
+        refreshIcons();
+      }
 
       function escapeHtml(value) {
         return String(value || "").replace(/[&<>"']/g, (char) => ({
@@ -3964,7 +4628,7 @@
           return;
         }
         if (target.closest("[data-session-photo-lab]")) {
-          document.getElementById("photo-lab").scrollIntoView({ behavior: "smooth", block: "start" });
+          setWorkspaceView("studio", { target: "photo-lab", updateHistory: true, scroll: true });
           setStatus("Session 已保留；完成照片诊断后回到今日导师继续复盘。 ");
           return;
         }
@@ -4007,18 +4671,22 @@
         if (target.closest("[data-session-next]")) {
           const next = chooseNextSessionCluster(state.session?.clusterId || "");
           if (next) beginMentorSession(next.id);
-          document.getElementById("mentor-session").scrollIntoView({ behavior: "smooth", block: "start" });
+          setWorkspaceView("focus", { target: "mentor-session", updateHistory: true, scroll: true });
           return;
         }
         if (target.closest("[data-session-map]")) {
           const cluster = currentSessionCluster();
-          if (cluster) renderCurriculum(cluster.stageId);
+          if (cluster) {
+            state.taxonomyMapCluster = cluster.id;
+            renderCurriculum(cluster.stageId);
+          }
           setTaxonomyView("atlas");
-          document.getElementById("curriculum-map").scrollIntoView({ behavior: "smooth", block: "start" });
+          setWorkspaceView("map", { target: "curriculum-map", updateHistory: true, scroll: true });
         }
       }
 
       function taxonomyStageStats() {
+        const loadedCardIds = new Set((KB.cards || []).map((card) => card.id));
         return (Taxonomy.stages || []).map((stage, index) => ({
           id: stage.id,
           order: stage.order,
@@ -4026,7 +4694,7 @@
           color: taxonomyStageColors[index % taxonomyStageColors.length],
           clusters: (stage.clusters || []).length,
           cards: (stage.clusters || []).reduce((total, cluster) => total + (cluster.cardIds || []).length, 0),
-          localCards: (stage.localCardIds || []).length
+          localCards: (stage.localCardIds || []).filter((id) => loadedCardIds.has(id)).length
         }));
       }
 
@@ -4034,7 +4702,7 @@
         if (!els.taxonomyVisualSummary) return;
         const stageStats = taxonomyStageStats();
         const canonicalCards = stageStats.reduce((total, stage) => total + stage.cards, 0);
-        const localCards = Number(Taxonomy.stats?.localReferenceCards || 0);
+        const localCards = (LocalBooksKB.cards || []).filter((card) => card?.id).length;
         const reviewedCards = canonicalCards + localCards;
         const segments = stageStats.map((stage) => `
           <span class="taxonomy-distribution-segment" style="width:${canonicalCards ? (stage.cards / canonicalCards * 100).toFixed(2) : 0}%;background:${stage.color}" title="${escapeHtml(stage.title)}：${stage.cards} 张原子卡"></span>
@@ -4061,32 +4729,112 @@
         `;
       }
 
+      function taxonomyClusterDetail(clusterId) {
+        for (const stage of Taxonomy.stages || []) {
+          const cluster = (stage.clusters || []).find((item) => item.id === clusterId);
+          if (cluster) return { stage, cluster };
+        }
+        return null;
+      }
+
+      function taxonomyClusterStatus(cluster) {
+        const record = masteryRecord(cluster.id);
+        const score = masteryScore(cluster.id);
+        const due = record.nextReview && new Date(record.nextReview).getTime() <= Date.now();
+        if (due) return "due";
+        if (score >= 70) return "mastered";
+        if (Number(record.attempts || 0) > 0) return "learning";
+        return "new";
+      }
+
+      function taxonomyStatusLabel(status) {
+        return ({ due: "待复习", mastered: "已掌握", learning: "进行中", new: "未开始" })[status] || "未开始";
+      }
+
+      function taxonomyClusterMatches(cluster) {
+        const status = taxonomyClusterStatus(cluster);
+        const matchesFilter = state.taxonomyMapFilter === "all" || status === state.taxonomyMapFilter;
+        const query = normalize(state.taxonomyMapQuery);
+        const cardById = taxonomyCardMap();
+        const atomicKnowledge = (cluster.cardIds || []).map((id) => cardById[id]).filter(Boolean).map(cardText).join(" ");
+        const matchesQuery = !query || normalize(`${cluster.title} ${cluster.summary} ${cluster.query || ""} ${(cluster.principles || []).join(" ")} ${atomicKnowledge}`).includes(query);
+        return matchesFilter && matchesQuery;
+      }
+
+      function renderTaxonomyInspector(clusterId = state.taxonomyMapCluster) {
+        if (!els.taxonomyInspector) return;
+        const detail = taxonomyClusterDetail(clusterId);
+        if (!detail) {
+          els.taxonomyInspector.innerHTML = '<div class="taxonomy-inspector-empty"><div><i data-lucide="search-x"></i><p>没有符合当前条件的知识节点。</p></div></div>';
+          refreshIcons();
+          return;
+        }
+        const { stage, cluster } = detail;
+        state.taxonomyMapCluster = cluster.id;
+        const score = masteryScore(cluster.id);
+        const record = masteryRecord(cluster.id);
+        const status = taxonomyClusterStatus(cluster);
+        const stageIndex = Math.max(0, (Taxonomy.stages || []).findIndex((item) => item.id === stage.id));
+        const color = taxonomyStageColors[stageIndex % taxonomyStageColors.length];
+        const cards = (cluster.cardIds || []).map((id) => taxonomyCardMap()[id]).filter(Boolean);
+        const sources = [...new Map(cards.flatMap((card) => card.sourceIds || []).map((id) => sourceById[id]).filter(Boolean).map((source) => [source.id, source])).values()].slice(0, 5);
+        els.taxonomyInspector.style.setProperty("--inspector-color", color);
+        els.taxonomyInspector.innerHTML = `
+          <div class="taxonomy-inspector-head">
+            <div><span class="taxonomy-inspector-stage">Stage ${stage.order} · ${escapeHtml(stage.title)}</span><h3>${escapeHtml(cluster.title)}</h3></div>
+            <div class="taxonomy-inspector-score" style="--inspector-score:${score}%"><span>${score}%</span></div>
+          </div>
+          <p class="taxonomy-inspector-summary">${escapeHtml(cluster.summary)}</p>
+          <div class="taxonomy-inspector-status"><span>${escapeHtml(taxonomyStatusLabel(status))} · ${Number(record.attempts || 0)} 次 Session</span><strong>${escapeHtml(formatReviewDate(record.nextReview))}</strong></div>
+          <ul class="taxonomy-inspector-list">${(cluster.principles || []).map((principle) => `<li><i data-lucide="check"></i><span>${escapeHtml(principle)}</span></li>`).join("")}</ul>
+          <div class="taxonomy-inspector-practice"><strong>迁移练习</strong><p>${escapeHtml(cluster.practice)}</p></div>
+          <div class="taxonomy-inspector-sources">${sources.map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(source.title)}</a>`).join("")}</div>
+          <div class="taxonomy-inspector-actions">
+            <button type="button" class="primary-action" data-map-start="${escapeHtml(cluster.id)}"><i data-lucide="play"></i>开始 Session</button>
+            <button type="button" class="icon-button" data-map-detail="${escapeHtml(cluster.id)}" aria-label="查看节点完整脉络" data-tooltip="查看完整脉络"><i data-lucide="list-tree"></i></button>
+          </div>
+        `;
+        refreshIcons();
+      }
+
       function renderTaxonomyAtlas() {
         if (!els.taxonomyAtlas) return;
         const statsById = Object.fromEntries(taxonomyStageStats().map((item) => [item.id, item]));
+        const visibleClusters = allTaxonomyClusters().filter(taxonomyClusterMatches);
+        if (!visibleClusters.some((cluster) => cluster.id === state.taxonomyMapCluster)) {
+          state.taxonomyMapCluster = visibleClusters[0]?.id || null;
+        }
         els.taxonomyAtlas.innerHTML = (Taxonomy.stages || []).map((stage) => {
           const stats = statsById[stage.id];
-          const nodes = (stage.clusters || []).map((cluster) => {
+          const stageClusters = (stage.clusters || []).filter(taxonomyClusterMatches);
+          const nodes = stageClusters.map((cluster) => {
             const score = masteryScore(cluster.id);
+            const status = taxonomyClusterStatus(cluster);
             return `
-              <button type="button" class="taxonomy-atlas-node" style="--mastery:${score}%" data-atlas-stage="${escapeHtml(stage.id)}" data-atlas-cluster="${escapeHtml(cluster.id)}" title="定位到 ${escapeHtml(cluster.title)}，当前掌握 ${score}%">
-                <div><strong>${escapeHtml(cluster.title)}</strong><small>掌握 ${score}%</small></div>
-                <span>${(cluster.cardIds || []).length}</span>
+              <button type="button" class="taxonomy-atlas-node" style="--mastery:${score}%" data-status="${status}" data-atlas-stage="${escapeHtml(stage.id)}" data-atlas-cluster="${escapeHtml(cluster.id)}" aria-selected="${cluster.id === state.taxonomyMapCluster}" title="${escapeHtml(cluster.title)}，${taxonomyStatusLabel(status)}，掌握 ${score}%">
+                <div class="taxonomy-node-title"><i class="taxonomy-node-state"></i><div><strong>${escapeHtml(cluster.title)}</strong><small>${taxonomyStatusLabel(status)} · ${(cluster.cardIds || []).length} 卡</small></div></div>
+                <span class="taxonomy-node-score" style="--node-score:${score}%">${score}</span>
               </button>
             `;
-          }).join("");
+          }).join("") || '<div class="taxonomy-atlas-empty">当前条件下无节点</div>';
+          const activeStage = stage.id === state.taxonomyStage || stageClusters.some((cluster) => cluster.id === state.taxonomyMapCluster);
           return `
-            <section class="taxonomy-atlas-stage" style="--stage-color:${stats.color}" data-active="${stage.id === state.taxonomyStage}">
+            <section class="taxonomy-atlas-stage" style="--stage-color:${stats.color}" data-active="${activeStage}" data-empty="${stageClusters.length === 0}">
               <button type="button" class="taxonomy-atlas-stage-head" data-atlas-stage="${escapeHtml(stage.id)}">
                 <small>Stage ${stage.order}</small>
                 <strong>${escapeHtml(stage.title)}</strong>
-                <span>${stats.clusters} 个节点 · ${stats.cards} 张原子卡</span>
+                <span>${stageClusters.length} / ${stats.clusters} 节点 · ${stats.cards} 张原子卡</span>
               </button>
               <div class="taxonomy-atlas-nodes">${nodes}</div>
               <div class="taxonomy-atlas-local"><i data-lucide="book-open"></i>${stats.localCards} 个本机深读索引</div>
             </section>
           `;
         }).join("");
+        if (els.taxonomyMapCount) els.taxonomyMapCount.textContent = `${visibleClusters.length} / ${allTaxonomyClusters().length} 个节点`;
+        els.taxonomyMapFilters?.querySelectorAll("[data-map-filter]").forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.mapFilter === state.taxonomyMapFilter));
+        });
+        renderTaxonomyInspector(state.taxonomyMapCluster);
       }
 
       function setTaxonomyView(view) {
@@ -4198,9 +4946,10 @@
           ${localReferences}
         `;
         if (els.curriculumCount) {
-          const reviewedCards = Number(Taxonomy.stats?.canonicalCards || 0) + Number(Taxonomy.stats?.localReferenceCards || 0);
+          const reviewedCards = (KB.cards || []).length;
           els.curriculumCount.innerHTML = `<i data-lucide="library-big"></i>${stages.length} stages · ${Taxonomy.stats?.mergedClusters || 0} nodes · ${reviewedCards} cards`;
         }
+        if (els.curriculumCardTotal) els.curriculumCardTotal.textContent = String((KB.cards || []).length);
         renderTaxonomyVisualSummary();
         renderTaxonomyAtlas();
         refreshIcons();
@@ -4216,7 +4965,7 @@
         saveDraft();
         beginMentorSession(clusterId);
         setStatus(`已创建“${cluster.title}”主动学习 Session：先回答，再查看知识依据。`);
-        document.getElementById("mentor-session").scrollIntoView({ behavior: "smooth", block: "start" });
+        setWorkspaceView("focus", { target: "mentor-session", updateHistory: true, scroll: true });
       }
 
       function renderSources() {
@@ -4547,7 +5296,7 @@
         els.input.value = `${task.title}\n${task.detail}\n请结合我的学习档案，给出开始前准备、执行步骤和复盘标准。`;
         setMode("learn");
         saveDraft();
-        document.getElementById("mentor-workbench").scrollIntoView({ behavior: "smooth", block: "start" });
+        setWorkspaceView("studio", { target: "mentor-workbench", updateHistory: true, scroll: true });
         window.setTimeout(buildAdvice, 250);
       }
 
@@ -4576,6 +5325,43 @@
         link.click();
         URL.revokeObjectURL(url);
         setStatus("学习档案、计划、掌握度、复盘和本地导入摘要已备份。 ");
+        if (els.dataControlStatus) els.dataControlStatus.textContent = "完整学习备份已导出。";
+      }
+
+      async function importLearningData(file) {
+        if (!file) return;
+        try {
+          const payload = JSON.parse(await file.text());
+          if (!payload || payload.version !== 3 || typeof payload !== "object") throw new Error("备份格式或版本不受支持");
+          if (!window.confirm("恢复这份备份？当前浏览器中的同类学习数据将被覆盖。")) return;
+          const entries = [
+            [profileStorageKey, payload.learnerProfile],
+            [learningPlanStorageKey, payload.learningPlan],
+            [masteryStorageKey, payload.clusterMastery],
+            [practiceStorageKey, payload.practiceLog],
+            [sybjStorageKey, payload.sybjSummaryCards],
+            [storageKey, payload.workbenchDraft]
+          ];
+          entries.forEach(([key, value]) => {
+            if (value == null) localStorage.removeItem(key);
+            else localStorage.setItem(key, JSON.stringify(value));
+          });
+          if (els.dataControlStatus) els.dataControlStatus.textContent = "备份已恢复，正在重新载入应用。";
+          window.setTimeout(() => location.reload(), 120);
+        } catch (error) {
+          if (els.dataControlStatus) els.dataControlStatus.textContent = `无法恢复：${error.message}`;
+          setStatus("无法恢复备份，请确认文件来自 Photography Mentor。", "error");
+        } finally {
+          els.importLearningData.value = "";
+        }
+      }
+
+      function clearAllLearningData() {
+        if (!window.confirm("删除当前浏览器中的全部 Photography Mentor 学习数据？此操作无法撤销，建议先导出备份。")) return;
+        [storageKey, sybjStorageKey, sybjNoticeKey, practiceStorageKey, profileStorageKey, learningPlanStorageKey, masteryStorageKey, workspaceViewStorageKey]
+          .forEach((key) => localStorage.removeItem(key));
+        if (els.dataControlStatus) els.dataControlStatus.textContent = "本地学习数据已删除，正在重新载入应用。";
+        window.setTimeout(() => location.reload(), 120);
       }
 
       function resetMastery() {
@@ -5416,6 +6202,41 @@ ${questionLines.join("\n")}
         els.mentorSessionShell.addEventListener("click", handleMentorSessionAction);
         els.mentorSessionShell.addEventListener("change", handleMentorSessionChange);
         els.mentorSessionShell.addEventListener("input", handleMentorSessionInput);
+        els.workspaceModeSwitch?.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-workspace-view]");
+          if (!button) return;
+          const view = button.dataset.workspaceView;
+          if (view === "map") setTaxonomyView("atlas");
+          setWorkspaceView(view, { target: workspaceViews[view]?.target, updateHistory: true, scroll: true });
+        });
+        document.querySelector(".sidebar-nav")?.addEventListener("click", (event) => {
+          const link = event.target.closest("a[href^='#']");
+          if (!link) return;
+          const targetId = decodeURIComponent(link.getAttribute("href").slice(1));
+          const view = workspaceViewForTarget(targetId);
+          if (!view) return;
+          event.preventDefault();
+          if (targetId === "curriculum-map") setTaxonomyView("atlas");
+          setWorkspaceView(view, { target: targetId, updateHistory: true, scroll: true });
+        });
+        window.addEventListener("popstate", () => {
+          const locationState = initialWorkspaceLocation();
+          setWorkspaceView(locationState.view, { target: locationState.target, scroll: true, instant: true });
+        });
+        document.addEventListener("keydown", (event) => {
+          const editing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "");
+          if (event.key === "/" && !editing) {
+            event.preventDefault();
+            setTaxonomyView("atlas");
+            setWorkspaceView("map", { target: "curriculum-map", updateHistory: true, scroll: true });
+            window.setTimeout(() => els.taxonomyMapSearch?.focus(), 220);
+          }
+          if (event.key === "Escape" && document.activeElement === els.taxonomyMapSearch && state.taxonomyMapQuery) {
+            state.taxonomyMapQuery = "";
+            els.taxonomyMapSearch.value = "";
+            renderTaxonomyAtlas();
+          }
+        });
         document.querySelectorAll(".mode-segment").forEach((button) => {
           button.addEventListener("click", () => {
             setMode(button.dataset.mode);
@@ -5440,13 +6261,38 @@ ${questionLines.join("\n")}
         els.taxonomyAtlas.addEventListener("click", (event) => {
           const clusterButton = event.target.closest("[data-atlas-cluster]");
           if (clusterButton) {
-            focusTaxonomyCluster(clusterButton.dataset.atlasStage, clusterButton.dataset.atlasCluster);
+            state.taxonomyStage = clusterButton.dataset.atlasStage;
+            state.taxonomyMapCluster = clusterButton.dataset.atlasCluster;
+            renderTaxonomyAtlas();
             return;
           }
           const stageButton = event.target.closest("[data-atlas-stage]");
           if (stageButton) {
             renderCurriculum(stageButton.dataset.atlasStage);
             setTaxonomyView("flow");
+          }
+        });
+        els.taxonomyMapSearch?.addEventListener("input", () => {
+          state.taxonomyMapQuery = els.taxonomyMapSearch.value;
+          window.clearTimeout(els.taxonomyMapSearch._timer);
+          els.taxonomyMapSearch._timer = window.setTimeout(renderTaxonomyAtlas, 120);
+        });
+        els.taxonomyMapFilters?.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-map-filter]");
+          if (!button) return;
+          state.taxonomyMapFilter = button.dataset.mapFilter;
+          renderTaxonomyAtlas();
+        });
+        els.taxonomyInspector?.addEventListener("click", (event) => {
+          const start = event.target.closest("[data-map-start]");
+          if (start) {
+            startCurriculumCluster(start.dataset.mapStart);
+            return;
+          }
+          const detailButton = event.target.closest("[data-map-detail]");
+          if (detailButton) {
+            const detail = taxonomyClusterDetail(detailButton.dataset.mapDetail);
+            if (detail) focusTaxonomyCluster(detail.stage.id, detail.cluster.id);
           }
         });
         els.taxonomyDetail.addEventListener("click", (event) => {
@@ -5480,6 +6326,9 @@ ${questionLines.join("\n")}
         document.getElementById("start-today-task").addEventListener("click", startTodayTask);
         document.getElementById("reset-learning-plan").addEventListener("click", resetLearningPlan);
         document.getElementById("export-learning-data").addEventListener("click", exportLearningData);
+        document.getElementById("export-all-learning-data").addEventListener("click", exportLearningData);
+        els.importLearningData.addEventListener("change", (event) => importLearningData(event.target.files?.[0]));
+        document.getElementById("clear-all-learning-data").addEventListener("click", clearAllLearningData);
         document.getElementById("reset-mastery").addEventListener("click", resetMastery);
         els.learningTaskList.addEventListener("change", (event) => {
           const checkbox = event.target.closest("[data-plan-task]");
@@ -5556,7 +6405,7 @@ ${questionLines.join("\n")}
         document.getElementById("dialog-open-sybj-login").addEventListener("click", openSybjLogin);
         document.getElementById("dialog-focus-sybj-import").addEventListener("click", () => {
           if (els.sybjDialog && els.sybjDialog.open) els.sybjDialog.close();
-          document.getElementById("sybj-ingest").scrollIntoView({ behavior: "smooth", block: "start" });
+          setWorkspaceView("library", { target: "sybj-ingest", updateHistory: true, scroll: true });
           window.setTimeout(() => els.sybjImportText.focus(), 250);
         });
         document.getElementById("close-sybj-dialog").addEventListener("click", () => {
@@ -5575,6 +6424,8 @@ ${questionLines.join("\n")}
         state.learningPlan = loadLearningPlan();
         state.mastery = loadMastery();
         state.session = createMentorSession(chooseNextSessionCluster()?.id);
+        state.taxonomyMapCluster = state.session?.clusterId || null;
+        const workspaceLocation = initialWorkspaceLocation();
         els.headerCount.textContent = `${(KB.cards || []).length} cards`;
         els.libraryCount.textContent = `${(KB.cards || []).length} cards`;
         renderSources();
@@ -5582,12 +6433,13 @@ ${questionLines.join("\n")}
         initEvents();
         syncSybjImportStatus();
         renderCurriculum();
-        setTaxonomyView(state.taxonomyView);
+        setTaxonomyView(workspaceLocation.view === "map" ? "atlas" : state.taxonomyView);
         renderLibrary();
         renderLocalBooks();
         renderPracticeLoop();
         renderGrowthDashboard();
         renderMentorSession();
+        setWorkspaceView(workspaceLocation.view, { target: workspaceLocation.target, scroll: Boolean(location.hash), instant: true });
         refreshIcons();
         registerServiceWorker();
       }
