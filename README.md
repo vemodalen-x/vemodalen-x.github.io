@@ -12,6 +12,7 @@ The narrative is **from perception to production**:
 - `work.html` - public-safe system case studies.
 - `agentic-systems.html` - evidence and boundaries for reliable agent and multimodal workflows.
 - `photography-mentor-agent.html` - browser-local image diagnostics, retrieval, practice planning, and review state.
+- `business-learning-studio/` - privacy-first commercial learning workspace with 32 original knowledge cards, four practice modes, a five-gate local coach, and offline support.
 - `resume.html` - ATS-readable web CV.
 - `assets/junxian-wu-cv.pdf` - downloadable one-page CV.
 - `agentic_workflow/` - provider-neutral orchestration reference with validated output contracts, retry, fallback, human-review gates, and deterministic traces.
@@ -30,6 +31,13 @@ Run the public reference example and tests:
 ```powershell
 python -m examples.run_agentic_workflow
 python -m unittest discover -s tests -v
+```
+
+Run the Business Learning Studio release checks:
+
+```powershell
+Set-Location business-learning-studio
+npm run verify
 ```
 
 ## Release Safety

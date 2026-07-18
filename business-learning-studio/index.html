@@ -1,0 +1,1484 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#18211f">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'">
+  <meta name="description" content="面向互联网与 AI 创业者的诊断式商业学习计划：主动回忆、自我解释、真实迁移、反馈和间隔复习。">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>商业学习工作室 · Commercial Edition</title>
+  <style>
+    :root {
+      --ink: #18211f;
+      --muted: #66716f;
+      --line: #d8dfdc;
+      --paper: #ffffff;
+      --canvas: #f4f6f5;
+      --teal: #087f72;
+      --teal-soft: #e3f3f0;
+      --blue: #2463a5;
+      --blue-soft: #e8f0f9;
+      --amber: #9b6000;
+      --amber-soft: #fff2d9;
+      --red: #a13d3d;
+      --red-soft: #fae9e6;
+      --green: #2f7b51;
+      --shadow: 0 10px 30px rgba(24, 43, 39, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font: 14px/1.6 Inter, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+    button, input, textarea, select { font: inherit; letter-spacing: 0; }
+    button, select { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .5; }
+    a { color: inherit; }
+    [hidden] { display: none !important; }
+    svg { width: 18px; height: 18px; stroke-width: 1.9; }
+    .appbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 64px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(12px);
+    }
+    .appbar-inner {
+      height: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 7px;
+    }
+    .brand-copy strong { display: block; line-height: 1.2; font-size: 15px; }
+    .brand-copy span { color: var(--muted); font-size: 11px; }
+    .appbar-actions { display: flex; align-items: center; gap: 8px; }
+    .button, .icon-button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--ink);
+      background: var(--paper);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .button { padding: 0 14px; }
+    .icon-button { width: 38px; padding: 0; }
+    .button:hover, .icon-button:hover { border-color: #a9b6b2; }
+    .button.primary { color: #fff; border-color: var(--teal); background: var(--teal); }
+    .button.dark { color: #fff; border-color: var(--ink); background: var(--ink); }
+    .button.ghost { background: transparent; }
+    .shell { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: calc(100vh - 64px); }
+    .sidebar {
+      position: sticky;
+      top: 64px;
+      height: calc(100vh - 64px);
+      padding: 20px 16px;
+      border-right: 1px solid var(--line);
+      background: #fbfcfb;
+      overflow-y: auto;
+    }
+    .side-label { margin: 0 8px 8px; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .side-nav { display: grid; gap: 4px; }
+    .side-nav button {
+      width: 100%;
+      min-height: 42px;
+      padding: 0 10px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: 22px 1fr auto;
+      align-items: center;
+      gap: 8px;
+      color: #40504c;
+      background: transparent;
+      text-align: left;
+      font-weight: 700;
+    }
+    .side-nav button.active { color: var(--teal); border-color: #b9d8d2; background: var(--teal-soft); }
+    .nav-count { min-width: 22px; color: var(--muted); font-size: 11px; text-align: right; }
+    .side-divider { height: 1px; margin: 18px 8px; background: var(--line); }
+    .stage-list { display: grid; gap: 9px; }
+    .stage-mini { display: grid; grid-template-columns: 24px 1fr 34px; align-items: center; gap: 7px; }
+    .stage-mini .index {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: #7d8986;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .stage-mini strong { display: block; font-size: 12px; line-height: 1.2; }
+    .stage-mini span { color: var(--muted); font-size: 10px; }
+    .mini-progress { height: 4px; margin-top: 4px; border-radius: 2px; background: #e3e8e6; overflow: hidden; }
+    .mini-progress i { display: block; height: 100%; background: var(--teal); }
+    .stage-score { color: var(--muted); font-size: 11px; text-align: right; }
+    .side-data { margin-top: 20px; padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); }
+    .side-data strong { display: block; margin-bottom: 4px; }
+    .side-data p { margin: 0 0 10px; color: var(--muted); font-size: 11px; }
+    .side-actions { display: flex; gap: 6px; }
+    .side-actions button { flex: 1; min-height: 32px; padding: 0; }
+    main { min-width: 0; padding: 28px; }
+    .workspace { max-width: 1180px; margin: 0 auto; }
+    .workspace-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+    .workspace-head h1 { margin: 0; font-size: 28px; line-height: 1.25; }
+    .workspace-head p { max-width: 720px; margin: 6px 0 0; color: var(--muted); }
+    .head-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+    .metric-strip {
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .metric { min-height: 86px; padding: 14px 16px; border-right: 1px solid var(--line); }
+    .metric:last-child { border-right: 0; }
+    .metric span { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .metric strong { display: block; margin-top: 5px; font-size: 22px; line-height: 1.2; }
+    .metric small { color: var(--muted); }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .setup { overflow: hidden; }
+    .setup-head { padding: 20px 22px; border-bottom: 1px solid var(--line); background: #f9fbfa; }
+    .setup-head .step { color: var(--teal); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .setup-head h2 { margin: 4px 0 3px; font-size: 21px; }
+    .setup-head p { margin: 0; color: var(--muted); }
+    .setup-body { padding: 22px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    label.field { display: grid; gap: 6px; color: #394642; font-weight: 700; }
+    label.field.full { grid-column: 1 / -1; }
+    label.field span small { color: var(--muted); font-weight: 400; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid #cdd6d3;
+      border-radius: 6px;
+      color: var(--ink);
+      background: var(--paper);
+      outline: none;
+    }
+    input, select { min-height: 42px; padding: 0 11px; }
+    textarea { min-height: 112px; padding: 10px 11px; resize: vertical; }
+    input:focus, textarea:focus, select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(8, 127, 114, .11); }
+    .diagnostic { margin-top: 24px; }
+    .section-title { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    .section-title h2, .section-title h3 { margin: 0; }
+    .section-title p, .section-title span { margin: 0; color: var(--muted); font-size: 12px; }
+    .diagnostic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+    .diagnostic-row { min-height: 86px; padding: 12px 14px; display: grid; grid-template-columns: 38px 1fr 132px; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); background: #fff; }
+    .diagnostic-row:nth-child(odd) { border-right: 1px solid var(--line); }
+    .diagnostic-row:nth-last-child(-n+2) { border-bottom: 0; }
+    .stage-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 6px; color: #fff; }
+    .diagnostic-copy strong { display: block; }
+    .diagnostic-copy span { display: block; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .setup-footer { margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .setup-footer p { margin: 0; color: var(--muted); font-size: 11px; }
+    .learning-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, .7fr); gap: 18px; align-items: start; }
+    .session { overflow: hidden; }
+    .session-top { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); background: #f9fbfa; }
+    .session-progress { display: flex; align-items: center; gap: 9px; }
+    .session-progress strong { font-size: 12px; }
+    .session-progress-track { width: 120px; height: 6px; border-radius: 3px; background: #e1e7e5; overflow: hidden; }
+    .session-progress-track i { display: block; height: 100%; background: var(--teal); }
+    .session-type { display: flex; align-items: center; gap: 7px; color: var(--blue); font-size: 12px; font-weight: 800; }
+    .session-body { padding: 24px; }
+    .challenge-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 13px; }
+    .chip { min-height: 25px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px; border-radius: 13px; color: #40504c; background: #edf2f0; font-size: 11px; font-weight: 700; }
+    .chip.amber { color: var(--amber); background: var(--amber-soft); }
+    .chip.red { color: var(--red); background: var(--red-soft); }
+    .chip.blue { color: var(--blue); background: var(--blue-soft); }
+    .challenge h2 { margin: 0; font-size: 22px; line-height: 1.4; }
+    .challenge-objective { margin: 7px 0 18px; color: var(--muted); }
+    .prompt-block { padding: 15px 16px; border-left: 3px solid var(--blue); background: #f3f6f9; }
+    .prompt-block span { display: block; color: var(--blue); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .prompt-block p { margin: 4px 0 0; color: #2b3734; font-size: 16px; font-weight: 700; }
+    .project-context { margin-top: 12px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 8px; color: #4d5a57; border: 1px solid var(--line); background: #fbfcfb; font-size: 12px; }
+    .answer-area { margin-top: 18px; }
+    .answer-area > label { display: block; margin-bottom: 6px; font-weight: 800; }
+    .answer-area textarea { min-height: 176px; border-radius: 6px 6px 0 0; }
+    .answer-readiness { min-height: 38px; padding: 8px 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 6px 6px; background: #f8faf9; }
+    .answer-readiness > strong { margin-right: 2px; color: var(--muted); font-size: 10px; }
+    .readiness-item { min-height: 22px; padding: 2px 7px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid #d9e0de; border-radius: 11px; color: var(--muted); background: #fff; font-size: 10px; font-weight: 700; }
+    .readiness-item::before { width: 6px; height: 6px; content: ""; border-radius: 50%; background: #aeb9b6; }
+    .readiness-item.ready { color: var(--teal); border-color: #9fcfc7; background: var(--teal-soft); }
+    .readiness-item.ready::before { background: var(--teal); }
+    .answer-tools { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .confidence { display: flex; align-items: center; gap: 9px; }
+    .confidence > span { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .segments { display: inline-grid; grid-template-columns: repeat(3, 1fr); padding: 3px; border: 1px solid var(--line); border-radius: 7px; background: #edf1ef; }
+    .segments button { min-width: 52px; min-height: 30px; border: 0; border-radius: 5px; color: var(--muted); background: transparent; font-size: 11px; font-weight: 700; }
+    .segments button.active { color: var(--ink); background: #fff; box-shadow: 0 1px 4px rgba(20, 42, 38, .09); }
+    .hint { margin-top: 12px; padding: 11px 12px; color: var(--amber); border: 1px solid #edd5a3; border-radius: 6px; background: var(--amber-soft); font-size: 12px; }
+    .feedback { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .feedback-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .feedback-head h3 { margin: 0; font-size: 17px; }
+    .feedback-source { color: var(--muted); font-size: 11px; }
+    .source-summary { margin: 12px 0; padding: 13px 14px; border: 1px solid var(--line); border-radius: 6px; background: #fbfcfb; }
+    .source-summary strong { display: block; margin-bottom: 4px; font-size: 12px; color: var(--teal); }
+    .source-summary p { margin: 0; color: #40504c; }
+    .rubric { margin-top: 14px; display: grid; gap: 7px; }
+    .rubric label { padding: 10px 11px; display: grid; grid-template-columns: 20px 1fr; align-items: start; gap: 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; font-weight: 600; }
+    .rubric input { width: 17px; min-height: 17px; margin: 3px 0 0; accent-color: var(--teal); }
+    .auto-analysis { margin-top: 14px; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+    .auto-analysis-head { padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #f6f8f7; }
+    .auto-analysis-head strong { font-size: 12px; }
+    .auto-analysis-head span { color: var(--muted); font-size: 10px; }
+    .analysis-row { padding: 10px 12px; display: grid; grid-template-columns: 24px 104px minmax(0, 1fr); align-items: start; gap: 8px; border-top: 1px solid var(--line); }
+    .analysis-row > strong { font-size: 11px; }
+    .analysis-row > span:last-child { color: var(--muted); font-size: 11px; }
+    .analysis-row.pass .analysis-status { color: var(--green); }
+    .analysis-row.miss .analysis-status { color: var(--amber); }
+    .misconception-block { margin-top: 14px; }
+    .misconception-block h4 { margin: 0 0 8px; font-size: 12px; }
+    .misconception-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .misconception-option { padding: 8px 10px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: #46534f; font-size: 11px; font-weight: 700; }
+    .misconception-option:has(input:checked) { border-color: #d7a646; background: var(--amber-soft); color: var(--amber); }
+    .misconception-option input { width: 15px; min-height: 15px; margin: 0; accent-color: var(--amber); }
+    .score-line { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .score-value { display: flex; align-items: baseline; gap: 6px; }
+    .score-value strong { font-size: 25px; }
+    .score-value span { color: var(--muted); font-size: 12px; }
+    .queue { padding: 16px; }
+    .queue h3 { margin: 0 0 10px; font-size: 14px; }
+    .queue-list { display: grid; gap: 7px; }
+    .queue-item { width: 100%; min-height: 62px; padding: 9px 10px; display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 9px; border: 1px solid var(--line); border-radius: 6px; background: #fff; text-align: left; }
+    .queue-item.active { border-color: #8fc4bb; background: var(--teal-soft); }
+    .queue-item.done { color: var(--muted); background: #f6f8f7; }
+    .queue-item .task-icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 6px; color: var(--blue); background: var(--blue-soft); }
+    .queue-item strong { display: block; font-size: 12px; line-height: 1.3; }
+    .queue-item span { color: var(--muted); font-size: 10px; }
+    .queue-item > i { color: var(--green); }
+    .principle { margin-top: 12px; padding: 12px; border-left: 3px solid var(--amber); background: var(--amber-soft); color: #5b4a2c; font-size: 11px; }
+    .empty-state { padding: 48px 24px; text-align: center; }
+    .empty-state .empty-icon { width: 48px; height: 48px; margin: 0 auto 12px; display: grid; place-items: center; border-radius: 7px; color: var(--green); background: #e6f2eb; }
+    .empty-state h2 { margin: 0; }
+    .empty-state p { margin: 6px auto 18px; max-width: 520px; color: var(--muted); }
+    .plan-days { display: grid; gap: 12px; }
+    .day { overflow: hidden; }
+    .day-head { padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); background: #f9fbfa; }
+    .day-head strong { font-size: 13px; }
+    .day-head span { color: var(--muted); font-size: 11px; }
+    .day-task { padding: 11px 15px; display: grid; grid-template-columns: 28px 120px minmax(0, 1fr) auto; align-items: center; gap: 10px; border-bottom: 1px solid #edf1ef; }
+    .day-task:last-child { border-bottom: 0; }
+    .day-task > i { color: var(--teal); }
+    .day-task .task-mode { color: var(--blue); font-size: 11px; font-weight: 800; }
+    .day-task strong { font-size: 12px; }
+    .day-task span { color: var(--muted); font-size: 11px; }
+    .mastery-list { display: grid; gap: 10px; }
+    .insight-strip { margin-bottom: 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--line); border-radius: 7px; background: #fff; }
+    .insight { min-height: 74px; padding: 12px 14px; border-right: 1px solid var(--line); }
+    .insight:last-child { border-right: 0; }
+    .insight span { display: block; color: var(--muted); font-size: 10px; font-weight: 800; }
+    .insight strong { display: block; margin-top: 4px; font-size: 13px; }
+    .capability-workbench { margin-bottom: 16px; overflow: hidden; }
+    .capability-map { display: flex; overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
+    .stage-node { --stage: var(--teal); min-width: 112px; min-height: 116px; padding: 12px 8px 10px; flex: 1 0 112px; display: grid; justify-items: center; align-content: center; gap: 7px; border: 0; border-right: 1px solid var(--line); border-bottom: 3px solid transparent; color: var(--muted); background: #fbfcfb; text-align: center; }
+    .stage-node:last-child { border-right: 0; }
+    .stage-node:hover { color: var(--ink); background: #f4f7f6; }
+    .stage-node[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--stage); background: #fff; }
+    .stage-ring { --p: 0; width: 48px; height: 48px; position: relative; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(var(--stage) calc(var(--p) * 1%), #dfe6e3 0); }
+    .stage-ring::after { width: 38px; height: 38px; position: absolute; content: ""; border-radius: 50%; background: #fff; }
+    .stage-ring strong { position: relative; z-index: 1; color: var(--ink); font-size: 11px; }
+    .stage-node > strong { font-size: 12px; }
+    .stage-node > small { font-size: 9px; }
+    .stage-detail { padding: 20px; animation: detail-in .18s ease-out; }
+    .stage-detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+    .stage-detail-title { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 11px; }
+    .stage-detail-title h3 { margin: 0; font-size: 18px; }
+    .stage-detail-title p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+    .stage-detail-actions { display: flex; gap: 8px; }
+    .stage-next { margin-top: 16px; padding: 12px 14px; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 9px; border-left: 3px solid var(--amber); background: var(--amber-soft); }
+    .stage-next > i { color: var(--amber); }
+    .stage-next strong { display: block; color: #4f4128; font-size: 12px; }
+    .stage-next span { display: block; margin-top: 2px; color: #6a5a3c; font-size: 11px; }
+    .stage-analytics { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); border: 1px solid var(--line); }
+    .analytics-pane { min-height: 250px; padding: 14px 16px; background: #fff; }
+    .analytics-pane + .analytics-pane { border-left: 1px solid var(--line); }
+    .analytics-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .analytics-head strong { font-size: 12px; }
+    .analytics-head span { color: var(--muted); font-size: 10px; }
+    .trend-chart { width: 100%; height: 174px; margin-top: 8px; display: block; }
+    .chart-grid { stroke: #e5eae8; stroke-width: 1; }
+    .chart-axis-label { fill: #7a8783; font-size: 9px; }
+    .chart-self { fill: none; stroke: var(--blue); stroke-width: 3; }
+    .chart-auto { fill: none; stroke: var(--amber); stroke-width: 3; stroke-dasharray: 6 4; }
+    .chart-point-self { fill: #fff; stroke: var(--blue); stroke-width: 2; }
+    .chart-point-auto { fill: #fff; stroke: var(--amber); stroke-width: 2; }
+    .chart-legend { display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 10px; }
+    .legend-line { width: 18px; height: 3px; display: inline-block; margin-right: 5px; vertical-align: middle; background: var(--blue); }
+    .legend-line.auto { background: repeating-linear-gradient(90deg, var(--amber) 0 5px, transparent 5px 8px); }
+    .analytics-empty { height: 174px; display: grid; place-items: center; color: var(--muted); font-size: 11px; text-align: center; }
+    .error-bars { margin-top: 16px; display: grid; gap: 14px; }
+    .error-bar-head { margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 10px; }
+    .error-bar-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .error-bar-head span { color: var(--muted); }
+    .error-track { height: 7px; overflow: hidden; border-radius: 4px; background: #e7ecea; }
+    .error-track i { height: 100%; display: block; border-radius: inherit; background: var(--amber); transition: width .2s ease; }
+    @keyframes detail-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .mastery-row { width: 100%; padding: 15px; display: grid; grid-template-columns: 48px minmax(170px, .7fr) minmax(250px, 1.5fr) 220px; align-items: center; gap: 14px; color: var(--ink); text-align: left; }
+    .mastery-row:hover, .mastery-row.selected { border-color: #92c8bf; background: #fbfdfc; }
+    .mastery-index { width: 42px; height: 42px; display: grid; place-items: center; color: #fff; border-radius: 7px; font-weight: 800; }
+    .mastery-copy strong { display: block; }
+    .mastery-copy span { color: var(--muted); font-size: 11px; }
+    .mastery-outcome { color: #43504d; font-size: 12px; }
+    .mastery-score { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; }
+    .mastery-score progress { width: 100%; height: 7px; accent-color: var(--teal); }
+    .mastery-score strong { min-width: 34px; font-size: 12px; text-align: right; }
+    .mastery-evidence { grid-column: 4; color: var(--muted); font-size: 10px; }
+    .transfer-layout { display: grid; grid-template-columns: minmax(320px, .8fr) minmax(0, 1.2fr); gap: 18px; align-items: start; }
+    .transfer-form { padding: 18px; }
+    .transfer-form h2 { margin: 0 0 4px; font-size: 18px; }
+    .transfer-form > p { margin: 0 0 15px; color: var(--muted); font-size: 12px; }
+    .transfer-form .field { margin-bottom: 11px; }
+    .transfer-form textarea { min-height: 82px; }
+    .transfer-list { display: grid; gap: 10px; }
+    .transfer-item { padding: 16px; }
+    .transfer-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .transfer-head h3 { margin: 4px 0 0; font-size: 16px; }
+    .transfer-body { margin-top: 11px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--line); background: var(--line); }
+    .transfer-cell { min-height: 74px; padding: 10px 11px; background: #fff; }
+    .transfer-cell span { display: block; color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .transfer-cell p { margin: 3px 0 0; color: #3f4c49; }
+    .result-editor { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .result-editor .form-grid { gap: 10px; }
+    .result-editor textarea { min-height: 84px; }
+    .result-actions { margin-top: 10px; display: flex; justify-content: flex-end; }
+    .closed-learning { margin-top: 11px; padding: 10px 12px; border-left: 3px solid var(--green); background: #edf6f1; }
+    .closed-learning strong { display: block; font-size: 11px; color: var(--green); }
+    .closed-learning p { margin: 3px 0 0; }
+    .toast { position: fixed; right: 20px; bottom: 20px; z-index: 50; padding: 10px 14px; color: #fff; background: var(--ink); border-radius: 6px; box-shadow: var(--shadow); opacity: 0; transform: translateY(8px); pointer-events: none; transition: .2s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1080px) {
+      .learning-grid, .transfer-layout { grid-template-columns: 1fr; }
+      .stage-analytics { grid-template-columns: 1fr; }
+      .analytics-pane + .analytics-pane { border-left: 0; border-top: 1px solid var(--line); }
+      .mastery-row { grid-template-columns: 48px minmax(170px, .7fr) minmax(220px, 1.3fr); }
+      .mastery-score { grid-column: 3; }
+      .mastery-evidence { grid-column: 2 / -1; }
+    }
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: sticky; top: 64px; z-index: 20; height: auto; padding: 9px 14px; border-right: 0; border-bottom: 1px solid var(--line); overflow: visible; }
+      .side-label, .sidebar .side-divider, .stage-list, .side-data { display: none; }
+      .side-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+      .side-nav button { min-height: 38px; grid-template-columns: 18px 1fr; text-align: center; }
+      .side-nav button svg { width: 16px; }
+      .nav-count { display: none; }
+      main { padding: 20px 16px; }
+      .diagnostic-grid { grid-template-columns: 1fr; }
+      .diagnostic-row:nth-child(odd) { border-right: 0; }
+      .diagnostic-row:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+      .day-task { grid-template-columns: 28px 90px minmax(0, 1fr) auto; }
+      .insight-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .insight:nth-child(2) { border-right: 0; }
+      .insight:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    }
+    @media (max-width: 640px) {
+      .appbar-inner { padding: 0 14px; }
+      .appbar-actions .button span, .brand-copy span { display: none; }
+      .appbar-actions .button { width: 38px; padding: 0; }
+      main { padding: 16px 10px; }
+      .workspace-head { align-items: flex-start; flex-direction: column; }
+      .workspace-head h1 { font-size: 23px; }
+      .head-actions { width: 100%; }
+      .head-actions .button { flex: 1; }
+      .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric { min-height: 76px; border-bottom: 1px solid var(--line); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-last-child(-n+2) { border-bottom: 0; }
+      .metric strong { font-size: 19px; }
+      .form-grid { grid-template-columns: 1fr; }
+      label.field.full { grid-column: auto; }
+      .setup-body, .session-body { padding: 17px; }
+      .diagnostic-row { grid-template-columns: 36px 1fr; }
+      .diagnostic-row select { grid-column: 1 / -1; }
+      .setup-footer, .answer-tools, .score-line { align-items: stretch; flex-direction: column; }
+      .setup-footer .button, .answer-tools > .button, .score-line .button { width: 100%; }
+      .confidence { justify-content: space-between; }
+      .segments { flex: 1; }
+      .segments button { min-width: 0; }
+      .session-top { align-items: flex-start; flex-direction: column; }
+      .session-progress-track { width: 100px; }
+      .challenge h2 { font-size: 19px; }
+      .prompt-block p { font-size: 15px; }
+      .answer-readiness { align-items: flex-start; }
+      .analysis-row { grid-template-columns: 24px 92px minmax(0, 1fr); }
+      .queue-item { grid-template-columns: 28px 1fr auto; }
+      .day-task { grid-template-columns: 28px 1fr auto; }
+      .day-task .task-mode { grid-column: 2; }
+      .day-task strong { grid-column: 2; }
+      .day-task span:last-child { grid-column: 3; grid-row: 1 / span 3; }
+      .mastery-row { grid-template-columns: 42px 1fr; }
+      .mastery-outcome, .mastery-score, .mastery-evidence { grid-column: 1 / -1; }
+      .stage-detail { padding: 16px; }
+      .stage-detail-head { flex-direction: column; }
+      .stage-detail-actions { width: 100%; }
+      .stage-detail-actions .button { flex: 1; }
+      .transfer-body { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .stage-detail { animation: none; }
+      .error-track i { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="appbar">
+    <div class="appbar-inner">
+      <a class="brand" href="business-learning-studio.html">
+        <span class="brand-mark"><i data-lucide="graduation-cap" aria-hidden="true"></i></span>
+        <span class="brand-copy"><strong>商业学习工作室</strong><span>Commercial Edition · v1.0</span></span>
+      </a>
+      <div class="appbar-actions">
+        <a class="button" href="knowledge.html" title="打开原创商业知识库"><i data-lucide="library-big"></i><span>知识 OS</span></a>
+        <a class="button" href="coach.html" title="打开本地商业教练"><i data-lucide="messages-square"></i><span>AI 教练</span></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <p class="side-label">学习工作区</p>
+      <nav class="side-nav" aria-label="学习视图">
+        <button type="button" class="active" data-view="today"><i data-lucide="play-circle"></i><span>今日学习</span><span class="nav-count" id="today-nav-count">0</span></button>
+        <button type="button" data-view="plan"><i data-lucide="calendar-range"></i><span>学习计划</span><span class="nav-count" id="plan-nav-count">0</span></button>
+        <button type="button" data-view="mastery"><i data-lucide="chart-no-axes-column-increasing"></i><span>掌握证据</span><span class="nav-count" id="mastery-nav-count">0%</span></button>
+        <button type="button" data-view="transfer"><i data-lucide="briefcase-business"></i><span>真实迁移</span><span class="nav-count" id="transfer-nav-count">0</span></button>
+      </nav>
+      <div class="side-divider"></div>
+      <p class="side-label">八项能力</p>
+      <div class="stage-list" id="stage-mini-list"></div>
+      <div class="side-data">
+        <strong>学习数据只在本机</strong>
+        <p>练习、答案和项目结果仅保存在此浏览器，不会发送到服务器。</p>
+        <div class="side-actions">
+          <button class="icon-button" id="export-state" type="button" title="导出学习数据" aria-label="导出学习数据"><i data-lucide="download"></i></button>
+          <button class="icon-button" id="import-state" type="button" title="导入学习数据" aria-label="导入学习数据"><i data-lucide="upload"></i></button>
+          <button class="icon-button" id="reset-state" type="button" title="重置学习数据" aria-label="重置学习数据"><i data-lucide="rotate-ccw"></i></button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="workspace">
+        <div class="workspace-head">
+          <div>
+            <h1 id="view-title">今天只完成一个可验证进步</h1>
+            <p id="view-description">先独立作答，再看依据；阅读不计掌握，只有回忆、解释、迁移和真实结果会形成学习证据。</p>
+          </div>
+          <div class="head-actions">
+            <button class="button ghost" id="edit-profile" type="button"><i data-lucide="sliders-horizontal"></i>调整计划</button>
+            <a class="button dark" href="coach.html"><i data-lucide="message-square-more"></i>带问题问教练</a>
+          </div>
+        </div>
+
+        <div class="metric-strip" id="metric-strip">
+          <div class="metric"><span><i data-lucide="circle-check-big"></i>今日完成</span><strong id="metric-today">0 / 0</strong><small>练习任务</small></div>
+          <div class="metric"><span><i data-lucide="alarm-clock"></i>到期复习</span><strong id="metric-due">0</strong><small>优先于新内容</small></div>
+          <div class="metric"><span><i data-lucide="gauge"></i>综合掌握</span><strong id="metric-mastery">0%</strong><small>按作答与迁移计算</small></div>
+          <div class="metric"><span><i data-lucide="briefcase-business"></i>真实闭环</span><strong id="metric-transfer">0</strong><small>已回传结果</small></div>
+        </div>
+
+        <section class="panel setup" id="setup-panel" hidden>
+          <div class="setup-head">
+            <span class="step">诊断 · 约 3 分钟</span>
+            <h2>先定义你要获得的业务能力</h2>
+            <p>计划会按真实项目、可用时间、当前水平和前置依赖生成，不按课程目录平均推进。</p>
+          </div>
+          <div class="setup-body">
+            <div class="form-grid">
+              <label class="field full"><span>学习目标 <small>你希望在真实工作中做成什么</small></span><input id="profile-goal" type="text" placeholder="例如：14 天内独立设计并结算一次 AI SaaS 需求验证"></label>
+              <label class="field full"><span>当前真实项目 <small>所有迁移练习都围绕它</small></span><textarea id="profile-project" placeholder="描述用户、场景、产品、阶段，以及你目前最难的决策"></textarea></label>
+              <label class="field"><span>你的角色</span><select id="profile-role"><option value="founder">创业者 / 负责人</option><option value="product">产品 / 增长</option><option value="investor">投资 / 战略</option><option value="operator">业务运营</option><option value="learner">转型学习者</option></select></label>
+              <label class="field"><span>每天可用时间</span><select id="profile-minutes"><option value="15">15 分钟 · 2 个任务</option><option value="25" selected>25 分钟 · 3 个任务</option><option value="40">40 分钟 · 4 个任务</option></select></label>
+              <label class="field"><span>计划周期</span><select id="profile-horizon"><option value="7">7 天冲刺</option><option value="14" selected>14 天闭环</option><option value="30">30 天巩固</option></select></label>
+            </div>
+            <div class="diagnostic">
+              <div class="section-title"><div><h3>能力基线</h3><p>按“现在能否独立完成”选择，不按“是否听过”。</p></div><span>0 未接触 · 3 能迁移</span></div>
+              <div class="diagnostic-grid" id="diagnostic-grid"></div>
+            </div>
+            <div class="setup-footer">
+              <p>诊断值只决定起点，不直接计入掌握度。掌握度必须由后续作答和真实结果获得。</p>
+              <button class="button primary" id="generate-plan" type="button"><i data-lucide="wand-sparkles"></i>生成个性化计划</button>
+            </div>
+          </div>
+        </section>
+
+        <section data-panel="today" id="today-panel">
+          <div class="learning-grid" id="learning-grid">
+            <article class="panel session" id="session-panel"></article>
+            <aside class="panel queue" id="queue-panel"></aside>
+          </div>
+        </section>
+
+        <section data-panel="plan" id="plan-panel" hidden>
+          <div class="section-title"><div><h2>自适应学习计划</h2><p>先补前置能力，再轮换回忆、讲透和迁移；到期复习会自动插队。</p></div><button class="button" id="regenerate-plan" type="button"><i data-lucide="refresh-cw"></i>按当前掌握度重排</button></div>
+          <div class="plan-days" id="plan-days"></div>
+        </section>
+
+        <section data-panel="mastery" id="mastery-panel" hidden>
+          <div class="section-title"><div><h2>掌握度不是阅读进度</h2><p>每项能力至少需要 3 次练习；达到 80% 且有一次真实结果，才标记为已掌握。</p></div><span id="mastery-summary"></span></div>
+          <div class="insight-strip" id="mastery-insights"></div>
+          <div class="panel capability-workbench">
+            <div class="capability-map" id="capability-map" aria-label="八阶段能力地图"></div>
+            <div class="stage-detail" id="stage-detail"></div>
+          </div>
+          <div class="section-title"><div><h3>全部能力证据</h3><p>地图用于聚焦，清单保留完整审计口径。</p></div></div>
+          <div class="mastery-list" id="mastery-list"></div>
+        </section>
+
+        <section data-panel="transfer" id="transfer-panel" hidden>
+          <div class="transfer-layout">
+            <form class="panel transfer-form" id="transfer-form">
+              <h2>创建真实业务实验</h2>
+              <p>先写预期，再执行；结果回来后结算，避免事后改故事。</p>
+              <label class="field"><span>对应能力</span><select id="transfer-stage"></select></label>
+              <label class="field"><span>关键假设</span><textarea id="transfer-hypothesis" placeholder="哪条判断一旦错了，会改变当前决策？"></textarea></label>
+              <label class="field"><span>最小行动</span><textarea id="transfer-action" placeholder="谁在什么时候对哪些样本做什么？"></textarea></label>
+              <label class="field"><span>指标与预期</span><textarea id="transfer-expected" placeholder="预期结果、成功/失败判据和数据来源"></textarea></label>
+              <label class="field"><span>结果回看日</span><input id="transfer-due" type="date"></label>
+              <button class="button primary" type="submit"><i data-lucide="plus"></i>加入迁移账本</button>
+            </form>
+            <div>
+              <div class="section-title"><div><h2>迁移账本</h2><p>只有真实结果回传，才构成迁移证据。</p></div><a class="button" href="knowledge.html"><i data-lucide="notebook-tabs"></i>打开知识库</a></div>
+              <div class="transfer-list" id="transfer-list"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <input id="state-file" type="file" accept="application/json" hidden>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/vendor/lucide-1.23.0.min.js"></script>
+  <script src="knowledge/business-public-kb.js"></script>
+  <script src="knowledge/business-operating-system.js"></script>
+  <script src="knowledge/business-learning-model.js"></script>
+  <script src="knowledge/business-learning-item-bank.js"></script>
+  <script>
+    const model = window.BUSINESS_LEARNING_MODEL;
+    const os = window.BUSINESS_KNOWLEDGE_OS;
+    const itemBank = window.BUSINESS_LEARNING_ITEM_BANK;
+    const storageKey = "business-learning-studio-v1";
+    const typeMap = new Map(model.sessionTypes.map((item) => [item.id, item]));
+    const competencyMap = new Map(model.competencies.map((item) => [item.id, item]));
+    const kbMap = new Map((window.BUSINESS_PUBLIC_KB || []).map((card) => [card.id, card]));
+    const itemMap = new Map((itemBank?.items || []).map((item) => [item.id, item]));
+    const misconceptionMap = new Map((itemBank?.items || []).flatMap((item) => (item.misconceptions || []).map((misconception) => [misconception.id, misconception])));
+    const cards = os.cards.map((meta) => ({ ...meta, ...(kbMap.get(meta.id) || {}) }));
+    const cardsByStage = Object.fromEntries(model.competencies.map((stage) => [stage.id, cards.filter((card) => card.stage === stage.id)]));
+    const defaultState = {
+      version: 2,
+      setupComplete: false,
+      view: "today",
+      masteryStage: "orient",
+      profile: { goal: "", project: "", role: "founder", minutes: 25, horizon: 14 },
+      diagnostic: Object.fromEntries(model.competencies.map((stage) => [stage.id, 0])),
+      plan: [],
+      attempts: [],
+      transfers: [],
+      activeTaskId: null,
+      session: null
+    };
+    let state = structuredClone(defaultState);
+    const toast = document.getElementById("toast");
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+    }
+
+    function refreshIcons() {
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function notify(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(notify.timer);
+      notify.timer = setTimeout(() => toast.classList.remove("show"), 2100);
+    }
+
+    function localDateKey(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function addDays(dateKey, amount) {
+      const date = new Date(`${dateKey}T12:00:00`);
+      date.setDate(date.getDate() + amount);
+      return localDateKey(date);
+    }
+
+    function dayLabel(dateKey, index = null) {
+      const date = new Date(`${dateKey}T12:00:00`);
+      const today = localDateKey();
+      if (dateKey === today) return "今天";
+      if (dateKey === addDays(today, 1)) return "明天";
+      const weekday = new Intl.DateTimeFormat("zh-CN", { weekday: "short" }).format(date);
+      const label = `${date.getMonth() + 1} 月 ${date.getDate()} 日 · ${weekday}`;
+      return index === null ? label : `第 ${index + 1} 天 · ${label}`;
+    }
+
+    function save() {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function restore() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+        if (!saved) return;
+        state = {
+          ...structuredClone(defaultState),
+          ...saved,
+          profile: { ...defaultState.profile, ...(saved.profile || {}) },
+          diagnostic: { ...defaultState.diagnostic, ...(saved.diagnostic || {}) },
+          plan: Array.isArray(saved.plan) ? saved.plan : [],
+          attempts: Array.isArray(saved.attempts) ? saved.attempts : [],
+          transfers: Array.isArray(saved.transfers) ? saved.transfers : []
+        };
+      } catch (error) {
+        console.warn("Unable to restore learning state", error);
+      }
+    }
+
+    function scoreStage(stageId) {
+      const completed = state.attempts.filter((attempt) => attempt.stageId === stageId && Number.isInteger(attempt.score));
+      const recent = completed.slice(-model.scoring.minimumAttempts);
+      const practicePoints = recent.reduce((sum, attempt) => sum + attempt.score, 0);
+      const practice = Math.round((practicePoints / (model.scoring.minimumAttempts * 3)) * 80);
+      const closedTransfers = state.transfers.filter((item) => item.stageId === stageId && item.status === "closed").length;
+      const transfer = closedTransfers > 0 ? 20 : 0;
+      const due = dueReviews().filter((item) => item.stageId === stageId).length;
+      const percent = Math.min(100, practice + transfer);
+      return {
+        percent,
+        attempts: completed.length,
+        transfer: closedTransfers,
+        due,
+        mastered: percent >= model.scoring.masteryThreshold && closedTransfers > 0 && due === 0
+      };
+    }
+
+    function overallMastery() {
+      return Math.round(model.competencies.reduce((sum, stage) => sum + scoreStage(stage.id).percent, 0) / model.competencies.length);
+    }
+
+    function dueReviews() {
+      const today = localDateKey();
+      return state.attempts
+        .filter((attempt) => attempt.nextReview && attempt.nextReview <= today && !attempt.reviewedAt)
+        .map((attempt) => ({
+          id: `review-${attempt.id}`,
+          date: today,
+          type: "review",
+          stageId: attempt.stageId,
+          cardId: attempt.cardId,
+          prompt: `不看上次答案，重新完成：${attempt.prompt}`,
+          status: "pending",
+          originAttemptId: attempt.id
+        }));
+    }
+
+    function tasksPerDay(minutes) {
+      if (minutes >= 40) return 4;
+      if (minutes >= 25) return 3;
+      return 2;
+    }
+
+    function weightedStages() {
+      const expanded = [];
+      model.competencies.forEach((stage) => {
+        const baseline = Number(state.diagnostic[stage.id] || 0);
+        const current = scoreStage(stage.id).percent;
+        const recentErrors = state.attempts.slice(-24).filter((attempt) => attempt.stageId === stage.id && (attempt.misconceptions || []).length).length;
+        const baseWeight = current >= 80 ? 1 : baseline === 0 ? 3 : baseline === 1 ? 2 : 1;
+        const weight = baseWeight + Math.min(2, recentErrors);
+        for (let index = 0; index < weight; index += 1) expanded.push(stage.id);
+      });
+      return expanded.length ? expanded : model.competencies.map((stage) => stage.id);
+    }
+
+    function generatePlan() {
+      const goal = document.getElementById("profile-goal").value.trim();
+      const project = document.getElementById("profile-project").value.trim();
+      if (goal.length < 10 || project.length < 20) {
+        notify("请先写清学习目标和当前真实项目。");
+        return false;
+      }
+      state.profile = {
+        goal,
+        project,
+        role: document.getElementById("profile-role").value,
+        minutes: Number(document.getElementById("profile-minutes").value),
+        horizon: Number(document.getElementById("profile-horizon").value)
+      };
+      document.querySelectorAll("[data-diagnostic-stage]").forEach((select) => {
+        state.diagnostic[select.dataset.diagnosticStage] = Number(select.value);
+      });
+      const start = localDateKey();
+      const count = tasksPerDay(state.profile.minutes);
+      const stages = weightedStages();
+      const types = ["retrieve", "explain", "diagnose", "apply"];
+      const plan = [];
+      let sequence = 0;
+      for (let day = 0; day < state.profile.horizon; day += 1) {
+        for (let taskIndex = 0; taskIndex < count; taskIndex += 1) {
+          const stageId = stages[sequence % stages.length];
+          const stage = competencyMap.get(stageId);
+          const stageCards = cardsByStage[stageId];
+          const card = stageCards[sequence % Math.max(1, stageCards.length)] || null;
+          const type = types[sequence % types.length];
+          const prompt = taskPrompt(type, stage, card, sequence);
+          plan.push({
+            id: `plan-${Date.now()}-${sequence}`,
+            date: addDays(start, day),
+            type,
+            stageId,
+            cardId: card?.id || null,
+            prompt,
+            status: "pending"
+          });
+          sequence += 1;
+        }
+      }
+      state.plan = plan;
+      state.setupComplete = true;
+      state.activeTaskId = null;
+      state.session = null;
+      state.view = "today";
+      save();
+      render();
+      notify(`已生成 ${state.profile.horizon} 天学习计划。`);
+      return true;
+    }
+
+    function taskPrompt(type, stage, card, sequence) {
+      const itemPrompt = itemMap.get(card?.id)?.challenges?.[type];
+      if (itemPrompt) return itemPrompt;
+      if (type === "apply") return stage.transferPrompt;
+      if (type === "explain") return `向一位不了解该方法的同事解释“${card?.title || stage.name}”，必须说清机制、适用边界和一个反例。`;
+      const cardQuestion = card?.questions?.[sequence % card.questions.length];
+      return cardQuestion || stage.retrievalPrompts[sequence % stage.retrievalPrompts.length];
+    }
+
+    function todayTasks() {
+      if (!state.setupComplete) return [];
+      const today = localDateKey();
+      const due = dueReviews();
+      const completedReviews = state.attempts
+        .filter((attempt) => attempt.type === "review" && localDateKey(new Date(attempt.completedAt)) === today)
+        .map((attempt) => ({
+          id: `completed-${attempt.id}`,
+          date: today,
+          type: "review",
+          stageId: attempt.stageId,
+          cardId: attempt.cardId,
+          prompt: attempt.prompt,
+          status: "complete"
+        }));
+      const catchUp = state.plan.filter((task) => task.date < today && task.status !== "complete").slice(0, 1);
+      const planned = state.plan.filter((task) => task.date === today);
+      return [...due, ...completedReviews, ...catchUp, ...planned];
+    }
+
+    function getTask(taskId) {
+      return dueReviews().find((task) => task.id === taskId) || state.plan.find((task) => task.id === taskId) || null;
+    }
+
+    function activeTask() {
+      const tasks = todayTasks();
+      let task = tasks.find((item) => item.id === state.activeTaskId && item.status !== "complete");
+      if (!task) task = tasks.find((item) => item.status !== "complete") || null;
+      if (task && task.id !== state.activeTaskId) {
+        state.activeTaskId = task.id;
+        state.session = null;
+      }
+      return task;
+    }
+
+    function taskStatus(task) {
+      if (task.type === "review") return dueReviews().some((item) => item.id === task.id) ? "pending" : "complete";
+      return task.status;
+    }
+
+    function renderSetupForm() {
+      document.getElementById("profile-goal").value = state.profile.goal || "";
+      document.getElementById("profile-project").value = state.profile.project || "";
+      document.getElementById("profile-role").value = state.profile.role || "founder";
+      document.getElementById("profile-minutes").value = String(state.profile.minutes || 25);
+      document.getElementById("profile-horizon").value = String(state.profile.horizon || 14);
+      document.getElementById("diagnostic-grid").innerHTML = model.competencies.map((stage) => `
+        <label class="diagnostic-row">
+          <span class="stage-icon" style="background:${stage.color}"><i data-lucide="${stage.icon}"></i></span>
+          <span class="diagnostic-copy"><strong>${stage.order}. ${escapeHtml(stage.name)}</strong><span>${escapeHtml(stage.outcome)}</span></span>
+          <select data-diagnostic-stage="${stage.id}" aria-label="${escapeHtml(stage.name)}能力基线">
+            ${[0, 1, 2, 3].map((level) => `<option value="${level}" ${Number(state.diagnostic[stage.id]) === level ? "selected" : ""}>${level} · ${model.scoring.labels[level]}</option>`).join("")}
+          </select>
+        </label>`).join("");
+    }
+
+    function renderMetrics() {
+      const tasks = todayTasks();
+      const complete = tasks.filter((task) => taskStatus(task) === "complete").length;
+      const due = dueReviews().length;
+      const mastery = overallMastery();
+      const transfers = state.transfers.filter((item) => item.status === "closed").length;
+      document.getElementById("metric-today").textContent = `${complete} / ${tasks.length}`;
+      document.getElementById("metric-due").textContent = String(due);
+      document.getElementById("metric-mastery").textContent = `${mastery}%`;
+      document.getElementById("metric-transfer").textContent = String(transfers);
+      document.getElementById("today-nav-count").textContent = String(Math.max(0, tasks.length - complete));
+      document.getElementById("plan-nav-count").textContent = String(state.profile.horizon || 0);
+      document.getElementById("mastery-nav-count").textContent = `${mastery}%`;
+      document.getElementById("transfer-nav-count").textContent = String(state.transfers.filter((item) => item.status === "open").length);
+    }
+
+    function renderStageMini() {
+      document.getElementById("stage-mini-list").innerHTML = model.competencies.map((stage) => {
+        const score = scoreStage(stage.id);
+        return `<div class="stage-mini">
+          <span class="index" style="background:${stage.color}">${String(stage.order).padStart(2, "0")}</span>
+          <span><strong>${escapeHtml(stage.name)}</strong><span>${escapeHtml(stage.verb)}</span><span class="mini-progress"><i style="width:${score.percent}%"></i></span></span>
+          <span class="stage-score">${score.percent}%</span>
+        </div>`;
+      }).join("");
+    }
+
+    function rubricFor(item) {
+      if (item?.rubric?.length) return item.rubric;
+      return model.scoring.criteria.map((label, index) => ({
+        id: ["mechanism", "evidence", "action"][index],
+        label,
+        description: label,
+        signals: []
+      }));
+    }
+
+    function analyzeAnswer(answer, item) {
+      const text = String(answer || "").trim();
+      const normalized = text.toLowerCase();
+      const hasNumberOrSample = /\d|[一二三四五六七八九十百]+(?:人|天|周|次|%)/.test(text) || /用户|客户|样本|访谈|数据|记录|事实/.test(text);
+      const hasDecisionRule = /如果.{0,30}(?:则|停止|继续|调整)|至少|低于|高于|截止|回看|判据/.test(text);
+      const results = rubricFor(item).map((criterion) => {
+        const hits = (criterion.signals || []).filter((signal) => normalized.includes(String(signal).toLowerCase()));
+        let passed = false;
+        if (criterion.id === "mechanism") passed = text.length >= 40 && hits.length >= 2;
+        if (criterion.id === "evidence") passed = hits.length >= 1 && hasNumberOrSample;
+        if (criterion.id === "action") passed = hits.length >= 2 && hasDecisionRule;
+        return {
+          id: criterion.id,
+          label: criterion.label,
+          passed,
+          hits: hits.slice(0, 4),
+          note: passed ? `识别到：${hits.slice(0, 4).join("、")}` : criterion.description
+        };
+      });
+      return { score: results.filter((result) => result.passed).length, results };
+    }
+
+    function readinessMarkup(answer) {
+      const text = String(answer || "").trim();
+      const signals = [
+        { label: "形成草稿", ready: text.length >= 20 },
+        { label: "机制或边界", ready: /因为|导致|取决于|机制|边界|反例|假设/.test(text) },
+        { label: "对象或证据", ready: /\d|用户|客户|样本|访谈|数据|记录|事实/.test(text) },
+        { label: "动作或判据", ready: /下一步|如果|停止|继续|调整|至少|低于|高于|截止|回看|天|周/.test(text) }
+      ];
+      return `<strong>${text.length} 字 · 结构状态</strong>${signals.map((signal) => `<span class="readiness-item ${signal.ready ? "ready" : ""}">${escapeHtml(signal.label)}</span>`).join("")}`;
+    }
+
+    function renderToday() {
+      const sessionPanel = document.getElementById("session-panel");
+      const queuePanel = document.getElementById("queue-panel");
+      const tasks = todayTasks();
+      const task = activeTask();
+      const completed = tasks.filter((item) => taskStatus(item) === "complete").length;
+      if (!task) {
+        sessionPanel.innerHTML = `<div class="empty-state"><span class="empty-icon"><i data-lucide="badge-check"></i></span><h2>${tasks.length ? "今日学习已完成" : "今天没有排定任务"}</h2><p>${tasks.length ? "先去真实迁移账本执行一个行动；新的到期复习会自动进入明日队列。" : "调整计划可从今天重新生成学习任务。"}</p><button class="button primary" type="button" data-go-transfer><i data-lucide="briefcase-business"></i>进入真实迁移</button></div>`;
+      } else {
+        const stage = competencyMap.get(task.stageId);
+        const type = typeMap.get(task.type);
+        const card = cards.find((item) => item.id === task.cardId) || cardsByStage[task.stageId][0] || {};
+        const item = itemMap.get(task.cardId);
+        const session = state.session?.taskId === task.id ? state.session : { taskId: task.id, phase: "answer", answer: "", confidence: 2, hintLevel: 0, checks: [false, false, false], misconceptions: [], autoAnalysis: null };
+        session.hintLevel = Number(session.hintLevel || (session.hint ? 1 : 0));
+        session.misconceptions = Array.isArray(session.misconceptions) ? session.misconceptions : [];
+        const hints = item?.hints?.length ? item.hints : [{ level: 1, label: "产物", text: `最终产物应是“${stage.artifact}”。先检查对象、事实、判断依据和可推翻条件。` }];
+        const activeHint = hints[Math.max(0, session.hintLevel - 1)];
+        const analysis = session.autoAnalysis || analyzeAnswer(session.answer, item);
+        const rubric = rubricFor(item);
+        state.session = session;
+        sessionPanel.innerHTML = `
+          <div class="session-top">
+            <div class="session-progress"><strong>今日 ${Math.min(completed + 1, tasks.length)} / ${tasks.length}</strong><span class="session-progress-track"><i style="width:${tasks.length ? (completed / tasks.length) * 100 : 0}%"></i></span></div>
+            <span class="session-type"><i data-lucide="${type.icon}"></i>${escapeHtml(type.name)} · 约 ${type.minutes} 分钟</span>
+          </div>
+          <div class="session-body">
+            <div class="challenge">
+              <div class="challenge-meta"><span class="chip blue">阶段 ${stage.order} · ${escapeHtml(stage.name)}</span>${task.type === "review" ? '<span class="chip red">到期复习</span>' : task.date < localDateKey() ? '<span class="chip red">补做任务</span>' : '<span class="chip amber">先答后看</span>'}</div>
+              <h2>${escapeHtml(stage.artifact)}</h2>
+              <p class="challenge-objective">能力目标：${escapeHtml(stage.outcome)}</p>
+              <div class="prompt-block"><span>本轮挑战</span><p>${escapeHtml(task.prompt)}</p></div>
+              ${task.type === "apply" || task.type === "review" ? `<div class="project-context"><i data-lucide="briefcase-business"></i><span><strong>你的项目：</strong>${escapeHtml(state.profile.project)}</span></div>` : ""}
+              <div class="answer-area" ${session.phase === "feedback" ? "hidden" : ""}>
+                <label for="session-answer">独立作答</label>
+                <textarea id="session-answer" placeholder="不要先查资料。写出你的判断、依据、边界，以及下一步如何验证。">${escapeHtml(session.answer)}</textarea>
+                <div class="answer-readiness" id="answer-readiness" aria-live="polite">${readinessMarkup(session.answer)}</div>
+                <div class="answer-tools">
+                  <div class="confidence"><span>作答信心</span><div class="segments" aria-label="作答信心">${[1, 2, 3].map((level) => `<button type="button" data-confidence="${level}" class="${session.confidence === level ? "active" : ""}">${["低", "中", "高"][level - 1]}</button>`).join("")}</div></div>
+                  <div><button class="button ghost" id="show-hint" type="button"><i data-lucide="lightbulb"></i>线索 ${session.hintLevel}/${hints.length}</button> <button class="button primary" id="submit-answer" type="button"><i data-lucide="send"></i>提交后看反馈</button></div>
+                </div>
+                <div class="hint" id="hint-box" ${session.hintLevel ? "" : "hidden"}>${activeHint ? `${escapeHtml(activeHint.label)}：${escapeHtml(activeHint.text)}` : ""}</div>
+              </div>
+              <div class="feedback" ${session.phase === "feedback" ? "" : "hidden"}>
+                <div class="feedback-head"><h3>对照依据，再给自己评分</h3><span class="feedback-source">${escapeHtml(card.source || "商业知识 OS")}</span></div>
+                <div class="source-summary"><strong>${escapeHtml(card.title || stage.artifact)}</strong><p>${escapeHtml(card.summary || stage.outcome)}</p></div>
+                ${card.mentorUse ? `<div class="source-summary"><strong>教练用法</strong><p>${escapeHtml(card.mentorUse)}</p></div>` : ""}
+                <div class="auto-analysis">
+                  <div class="auto-analysis-head"><strong>答案证据检查 · 建议 ${analysis.score}/3</strong><span>透明关键词规则，仅供复盘，不自动替你评分</span></div>
+                  ${analysis.results.map((result) => `<div class="analysis-row ${result.passed ? "pass" : "miss"}"><span class="analysis-status"><i data-lucide="${result.passed ? "circle-check-big" : "circle-alert"}"></i></span><strong>${escapeHtml(result.label)}</strong><span>${escapeHtml(result.note)}</span></div>`).join("")}
+                </div>
+                <div class="rubric">${rubric.map((criterion, index) => `<label><input type="checkbox" data-rubric="${index}" ${session.checks[index] ? "checked" : ""}><span>${escapeHtml(criterion.label || criterion)}</span></label>`).join("")}</div>
+                ${item?.misconceptions?.length ? `<div class="misconception-block"><h4>这次暴露了哪些典型错因？</h4><div class="misconception-list">${item.misconceptions.map((misconception) => `<label class="misconception-option" title="${escapeHtml(misconception.coaching)}"><input type="checkbox" data-misconception="${escapeHtml(misconception.id)}" ${session.misconceptions.includes(misconception.id) ? "checked" : ""}><span>${escapeHtml(misconception.label)}</span></label>`).join("")}</div></div>` : ""}
+                <div class="score-line"><div class="score-value"><strong id="session-score">${session.checks.filter(Boolean).length}</strong><span>/ 3 · ${model.scoring.labels[session.checks.filter(Boolean).length]}</span></div><button class="button primary" id="finalize-session" type="button"><i data-lucide="calendar-check"></i>记录并安排复习</button></div>
+              </div>
+            </div>
+          </div>`;
+        bindSessionEvents(task, session);
+      }
+      queuePanel.innerHTML = `<h3>今日队列</h3><div class="queue-list">${tasks.map((item) => {
+        const stage = competencyMap.get(item.stageId);
+        const type = typeMap.get(item.type);
+        const status = taskStatus(item);
+        return `<button class="queue-item ${item.id === task?.id ? "active" : ""} ${status === "complete" ? "done" : ""}" type="button" data-task-id="${item.id}" ${status === "complete" ? "disabled" : ""}><span class="task-icon"><i data-lucide="${type.icon}"></i></span><span><strong>${escapeHtml(stage.name)} · ${escapeHtml(type.name)}</strong><span>${escapeHtml(stage.artifact)}</span></span>${status === "complete" ? '<i data-lucide="circle-check-big"></i>' : '<span>待完成</span>'}</button>`;
+      }).join("")}</div><div class="principle">AI 不先给答案。高质量教练应要求学习者先尝试、用引导问题推进，并把独立表现与有辅助表现分开。</div>`;
+      queuePanel.querySelectorAll("[data-task-id]").forEach((button) => button.addEventListener("click", () => {
+        state.activeTaskId = button.dataset.taskId;
+        state.session = null;
+        save();
+        renderToday();
+        refreshIcons();
+      }));
+      document.querySelector("[data-go-transfer]")?.addEventListener("click", () => setView("transfer"));
+    }
+
+    function bindSessionEvents(task, session) {
+      document.getElementById("session-answer")?.addEventListener("input", (event) => {
+        session.answer = event.currentTarget.value;
+        session.autoAnalysis = null;
+        document.getElementById("answer-readiness").innerHTML = readinessMarkup(session.answer);
+        save();
+      });
+      document.querySelectorAll("[data-confidence]").forEach((button) => button.addEventListener("click", () => {
+        session.answer = document.getElementById("session-answer")?.value || session.answer;
+        session.confidence = Number(button.dataset.confidence);
+        document.querySelectorAll("[data-confidence]").forEach((item) => item.classList.toggle("active", item === button));
+        save();
+      }));
+      document.getElementById("show-hint")?.addEventListener("click", () => {
+        const item = itemMap.get(task.cardId);
+        const stage = competencyMap.get(task.stageId);
+        const hints = item?.hints?.length ? item.hints : [{ level: 1, label: "产物", text: `最终产物应是“${stage.artifact}”。先检查对象、事实、判断依据和可推翻条件。` }];
+        session.hintLevel = Math.min(hints.length, Number(session.hintLevel || 0) + 1);
+        save();
+        const hint = hints[session.hintLevel - 1];
+        const hintBox = document.getElementById("hint-box");
+        hintBox.hidden = false;
+        hintBox.textContent = `${hint.label}：${hint.text}`;
+        document.getElementById("show-hint").innerHTML = `<i data-lucide="lightbulb"></i>线索 ${session.hintLevel}/${hints.length}`;
+        refreshIcons();
+      });
+      document.getElementById("submit-answer")?.addEventListener("click", () => {
+        const answer = document.getElementById("session-answer").value.trim();
+        if (answer.length < 20) {
+          notify("请先完成独立作答，至少写清一个判断和依据。");
+          return;
+        }
+        session.answer = answer;
+        session.autoAnalysis = analyzeAnswer(answer, itemMap.get(task.cardId));
+        session.phase = "feedback";
+        save();
+        renderToday();
+        refreshIcons();
+      });
+      document.querySelectorAll("[data-rubric]").forEach((checkbox) => checkbox.addEventListener("change", () => {
+        session.checks[Number(checkbox.dataset.rubric)] = checkbox.checked;
+        const score = session.checks.filter(Boolean).length;
+        document.getElementById("session-score").textContent = String(score);
+        document.querySelector(".score-value span").textContent = `/ 3 · ${model.scoring.labels[score]}`;
+        save();
+      }));
+      document.querySelectorAll("[data-misconception]").forEach((checkbox) => checkbox.addEventListener("change", () => {
+        const id = checkbox.dataset.misconception;
+        session.misconceptions = checkbox.checked
+          ? [...new Set([...session.misconceptions, id])]
+          : session.misconceptions.filter((item) => item !== id);
+        save();
+      }));
+      document.getElementById("finalize-session")?.addEventListener("click", () => finalizeSession(task, session));
+    }
+
+    function nextReviewDate(stageId, score, calibration, misconceptions) {
+      let days = model.scoring.intervalsByScore[String(score)] || 1;
+      if (score === 3) {
+        const previousHighScores = state.attempts.filter((attempt) => attempt.stageId === stageId && attempt.score === 3).length;
+        days = model.scoring.highScoreIntervals[Math.min(previousHighScores, model.scoring.highScoreIntervals.length - 1)];
+      }
+      if (calibration === "高信心误判风险") days = 1;
+      if (misconceptions.length) days = Math.min(days, misconceptions.length >= 2 ? 1 : 3);
+      return addDays(localDateKey(), days);
+    }
+
+    function calibrationLabel(confidence, score, autoScore) {
+      if (confidence === 3 && (score <= 1 || autoScore <= 1 || score - autoScore >= 2)) return "高信心误判风险";
+      if (confidence === 1 && score === 3 && autoScore >= 2) return "低估自己";
+      return "信心基本校准";
+    }
+
+    function finalizeSession(task, session) {
+      const score = session.checks.filter(Boolean).length;
+      const misconceptions = Array.isArray(session.misconceptions) ? session.misconceptions : [];
+      const autoAnalysis = session.autoAnalysis || analyzeAnswer(session.answer, itemMap.get(task.cardId));
+      const calibration = calibrationLabel(session.confidence, score, autoAnalysis.score);
+      const attempt = {
+        id: `attempt-${Date.now()}`,
+        taskId: task.id,
+        stageId: task.stageId,
+        cardId: task.cardId,
+        type: task.type,
+        prompt: task.prompt,
+        answer: session.answer,
+        confidence: session.confidence,
+        score,
+        autoScore: autoAnalysis.score,
+        scoreGap: score - autoAnalysis.score,
+        calibration,
+        misconceptions,
+        usedHint: Number(session.hintLevel || 0) > 0,
+        hintLevel: Number(session.hintLevel || 0),
+        completedAt: new Date().toISOString(),
+        nextReview: nextReviewDate(task.stageId, score, calibration, misconceptions)
+      };
+      state.attempts.push(attempt);
+      if (task.type === "review") {
+        const origin = state.attempts.find((item) => item.id === task.originAttemptId);
+        if (origin) origin.reviewedAt = new Date().toISOString();
+      } else {
+        const planned = state.plan.find((item) => item.id === task.id);
+        if (planned) planned.status = "complete";
+      }
+      state.activeTaskId = null;
+      state.session = null;
+      save();
+      render();
+      notify(`自评 ${score}/3，证据检查 ${attempt.autoScore}/3；${attempt.nextReview} 再复习。`);
+    }
+
+    function renderPlan() {
+      const planDays = document.getElementById("plan-days");
+      if (!state.plan.length) {
+        planDays.innerHTML = '<div class="panel empty-state"><span class="empty-icon"><i data-lucide="calendar-x"></i></span><h2>尚未生成计划</h2><p>先完成能力诊断，系统才会按前置关系和时间预算安排任务。</p></div>';
+        return;
+      }
+      const grouped = new Map();
+      state.plan.forEach((task) => {
+        if (!grouped.has(task.date)) grouped.set(task.date, []);
+        grouped.get(task.date).push(task);
+      });
+      planDays.innerHTML = [...grouped.entries()].map(([date, tasks], index) => {
+        const completed = tasks.filter((task) => task.status === "complete").length;
+        return `<article class="panel day"><div class="day-head"><strong>${dayLabel(date, index)}</strong><span>${completed} / ${tasks.length} 已完成</span></div>${tasks.map((task) => {
+          const stage = competencyMap.get(task.stageId);
+          const type = typeMap.get(task.type);
+          return `<div class="day-task"><i data-lucide="${task.status === "complete" ? "circle-check-big" : type.icon}"></i><span class="task-mode">${escapeHtml(type.name)} · ${type.minutes} 分钟</span><strong>${escapeHtml(stage.name)}：${escapeHtml(stage.artifact)}</strong><span>${task.status === "complete" ? "已完成" : "待学习"}</span></div>`;
+        }).join("")}</article>`;
+      }).join("");
+    }
+
+    function learningInsights() {
+      const scoredStages = model.competencies.map((stage) => ({ stage, score: scoreStage(stage.id) }));
+      const weakest = [...scoredStages].sort((a, b) => a.score.percent - b.score.percent || a.stage.order - b.stage.order)[0];
+      const highConfidenceErrors = state.attempts.filter((attempt) => attempt.calibration === "高信心误判风险").length;
+      const errorCounts = new Map();
+      state.attempts.forEach((attempt) => (attempt.misconceptions || []).forEach((id) => errorCounts.set(id, (errorCounts.get(id) || 0) + 1)));
+      const topError = [...errorCounts.entries()].sort((a, b) => b[1] - a[1])[0];
+      const due = dueReviews().length;
+      return {
+        weakest: state.attempts.length ? `${weakest.stage.name} · ${weakest.score.percent}%` : "待形成基线",
+        highConfidenceErrors,
+        topError: topError ? `${misconceptionMap.get(topError[0])?.label || topError[0]} · ${topError[1]} 次` : "尚未记录",
+        due
+      };
+    }
+
+    function stageErrorData(stageId) {
+      const counts = new Map();
+      state.attempts
+        .filter((attempt) => attempt.stageId === stageId)
+        .forEach((attempt) => (attempt.misconceptions || []).forEach((id) => counts.set(id, (counts.get(id) || 0) + 1)));
+      return [...counts.entries()]
+        .map(([id, count]) => ({ id, count, ...(misconceptionMap.get(id) || { label: id, coaching: "重新完成一次诊断题并明确修正依据。" }) }))
+        .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+    }
+
+    function stageRecommendation(stage, score, errors) {
+      if (score.due > 0) return { title: `先完成 ${score.due} 个到期复习`, detail: "到期提取优先于学习新内容，先检查是否仍能独立解释。" };
+      if (score.attempts === 0) return { title: "先建立一次无辅助基线", detail: `从记忆完成“${stage.artifact}”，不要先查知识库。` };
+      if (score.attempts < model.scoring.minimumAttempts) return { title: `再补 ${model.scoring.minimumAttempts - score.attempts} 次不同模式练习`, detail: "回忆、讲透和诊断需要交叉出现，避免只熟悉同一种问法。" };
+      if (errors.length) return { title: `优先修正：${errors[0].label}`, detail: errors[0].coaching };
+      if (score.transfer === 0) return { title: "把能力放进一次真实业务实验", detail: `围绕“${stage.artifact}”固定预测、行动和失败判据，再等待真实结果。` };
+      if (!score.mastered) return { title: "用新场景再做一次无辅助迁移", detail: "换对象、换约束或换业务阶段，验证方法是否真正可迁移。" };
+      return { title: "保持长间隔，挑战跨场景迁移", detail: "当前证据已越过掌握门槛，下一步不是重复阅读，而是提高任务差异度。" };
+    }
+
+    function trendChart(stageId) {
+      const attempts = state.attempts
+        .filter((attempt) => attempt.stageId === stageId && Number.isInteger(attempt.score))
+        .slice(-6);
+      if (!attempts.length) return '<div class="analytics-empty">完成第一次练习后，这里会比较自评与答案证据检查趋势。</div>';
+      const xAt = (index) => attempts.length === 1 ? 260 : 48 + (index * 424) / (attempts.length - 1);
+      const yAt = (value) => 150 - Math.max(0, Math.min(3, value)) * 40;
+      const selfPoints = attempts.map((attempt, index) => `${xAt(index)},${yAt(attempt.score)}`).join(" ");
+      const autoAttempts = attempts.map((attempt, index) => ({ attempt, index })).filter(({ attempt }) => Number.isInteger(attempt.autoScore));
+      const autoPoints = autoAttempts.map(({ attempt, index }) => `${xAt(index)},${yAt(attempt.autoScore)}`).join(" ");
+      return `<svg class="trend-chart" id="stage-trend-chart" viewBox="0 0 520 180" role="img" aria-label="最近六次练习的自评与答案证据检查趋势">
+        ${[0, 1, 2, 3].map((score) => `<line class="chart-grid" x1="42" y1="${yAt(score)}" x2="486" y2="${yAt(score)}"></line><text class="chart-axis-label" x="20" y="${yAt(score) + 3}">${score}</text>`).join("")}
+        <polyline class="chart-self" points="${selfPoints}"></polyline>
+        ${autoPoints ? `<polyline class="chart-auto" points="${autoPoints}"></polyline>` : ""}
+        ${attempts.map((attempt, index) => `<circle class="chart-point-self" cx="${xAt(index)}" cy="${yAt(attempt.score)}" r="4"><title>第 ${index + 1} 次：自评 ${attempt.score}/3</title></circle><text class="chart-axis-label" x="${xAt(index) - 3}" y="170">${index + 1}</text>`).join("")}
+        ${autoAttempts.map(({ attempt, index }) => `<circle class="chart-point-auto" cx="${xAt(index)}" cy="${yAt(attempt.autoScore)}" r="4"><title>第 ${index + 1} 次：证据检查 ${attempt.autoScore}/3</title></circle>`).join("")}
+      </svg><div class="chart-legend"><span><i class="legend-line"></i>学习者自评</span><span><i class="legend-line auto"></i>透明证据检查</span></div>`;
+    }
+
+    function errorBars(errors) {
+      if (!errors.length) return '<div class="analytics-empty">还没有记录典型错因。完成反馈后主动选择错因，系统才会据此加权。</div>';
+      const top = errors.slice(0, 4);
+      const max = Math.max(...top.map((error) => error.count));
+      return `<div class="error-bars">${top.map((error) => `<div class="error-bar" title="${escapeHtml(error.coaching)}"><div class="error-bar-head"><strong>${escapeHtml(error.label)}</strong><span>${error.count} 次</span></div><div class="error-track"><i style="width:${Math.round((error.count / max) * 100)}%"></i></div></div>`).join("")}</div>`;
+    }
+
+    function startStagePractice(stageId) {
+      const existing = todayTasks().find((task) => task.stageId === stageId && taskStatus(task) !== "complete");
+      if (existing) {
+        state.activeTaskId = existing.id;
+        state.session = null;
+        save();
+        setView("today");
+        notify("已定位到今天该阶段的练习。");
+        return;
+      }
+      const stage = competencyMap.get(stageId);
+      const stageCards = cardsByStage[stageId] || [];
+      const card = [...stageCards].sort((a, b) => state.attempts.filter((attempt) => attempt.cardId === a.id).length - state.attempts.filter((attempt) => attempt.cardId === b.id).length)[0] || null;
+      const priorAttempts = state.attempts.filter((attempt) => attempt.stageId === stageId).length;
+      const type = priorAttempts ? "diagnose" : "retrieve";
+      const task = {
+        id: `focus-${Date.now()}`,
+        date: localDateKey(),
+        type,
+        stageId,
+        cardId: card?.id || null,
+        prompt: taskPrompt(type, stage, card, priorAttempts),
+        status: "pending",
+        origin: "mastery-map"
+      };
+      state.plan.push(task);
+      state.activeTaskId = task.id;
+      state.session = null;
+      save();
+      setView("today");
+      notify(`已加入“${stage.name}”专项练习。`);
+    }
+
+    function openStageTransfer(stageId) {
+      setView("transfer");
+      document.getElementById("transfer-stage").value = stageId;
+      document.getElementById("transfer-hypothesis").focus();
+    }
+
+    function renderMastery() {
+      const mastered = model.competencies.filter((stage) => scoreStage(stage.id).mastered).length;
+      const insights = learningInsights();
+      const selectedStage = competencyMap.get(state.masteryStage) || model.competencies[0];
+      const selectedScore = scoreStage(selectedStage.id);
+      const selectedErrors = stageErrorData(selectedStage.id);
+      const recommendation = stageRecommendation(selectedStage, selectedScore, selectedErrors);
+      document.getElementById("mastery-summary").textContent = `${mastered} / 8 项达到掌握标准`;
+      document.getElementById("mastery-insights").innerHTML = `
+        <div class="insight"><span>当前薄弱能力</span><strong>${escapeHtml(insights.weakest)}</strong></div>
+        <div class="insight"><span>高信心误判</span><strong>${insights.highConfidenceErrors} 次</strong></div>
+        <div class="insight"><span>首要典型错因</span><strong>${escapeHtml(insights.topError)}</strong></div>
+        <div class="insight"><span>到期复习</span><strong>${insights.due} 项</strong></div>`;
+      document.getElementById("capability-map").innerHTML = model.competencies.map((stage) => {
+        const score = scoreStage(stage.id);
+        const status = score.due ? `${score.due} 待复习` : score.mastered ? "已掌握" : `${score.attempts} 次证据`;
+        return `<button class="stage-node" type="button" data-stage-select="${stage.id}" aria-pressed="${stage.id === selectedStage.id}" style="--stage:${stage.color}"><span class="stage-ring" style="--p:${score.percent};--stage:${stage.color}"><strong>${score.percent}%</strong></span><strong>${stage.order}. ${escapeHtml(stage.name)}</strong><small>${escapeHtml(status)}</small></button>`;
+      }).join("");
+      const selectedStatus = selectedScore.mastered ? "已掌握" : selectedScore.attempts ? "形成中" : "未验证";
+      document.getElementById("stage-detail").innerHTML = `
+        <div class="stage-detail-head">
+          <div class="stage-detail-title"><span class="stage-icon" style="background:${selectedStage.color}"><i data-lucide="${selectedStage.icon}"></i></span><div><h3>${selectedStage.order}. ${escapeHtml(selectedStage.name)} · ${escapeHtml(selectedStage.verb)}</h3><p>${escapeHtml(selectedStage.artifact)} · ${selectedStatus} · ${selectedScore.attempts} 次练习 · ${selectedScore.transfer} 次真实结果</p></div></div>
+          <div class="stage-detail-actions"><button class="button" type="button" data-stage-transfer="${selectedStage.id}"><i data-lucide="flask-conical"></i>创建实验</button><button class="button primary" type="button" data-stage-practice="${selectedStage.id}"><i data-lucide="play"></i>立即练习</button></div>
+        </div>
+        <div class="stage-next"><i data-lucide="route"></i><div><strong>${escapeHtml(recommendation.title)}</strong><span>${escapeHtml(recommendation.detail)}</span></div></div>
+        <div class="stage-analytics">
+          <div class="analytics-pane"><div class="analytics-head"><strong>学习表现趋势</strong><span>最近 6 次 · 0-3 分</span></div>${trendChart(selectedStage.id)}</div>
+          <div class="analytics-pane"><div class="analytics-head"><strong>典型错因分布</strong><span>点击条目可查看修正提示</span></div>${errorBars(selectedErrors)}</div>
+        </div>`;
+      document.getElementById("mastery-list").innerHTML = model.competencies.map((stage) => {
+        const score = scoreStage(stage.id);
+        const status = score.mastered ? "已掌握" : score.attempts ? "形成中" : "未验证";
+        return `<button class="panel mastery-row ${stage.id === selectedStage.id ? "selected" : ""}" type="button" data-stage-summary="${stage.id}">
+          <span class="mastery-index" style="background:${stage.color}">${String(stage.order).padStart(2, "0")}</span>
+          <span class="mastery-copy"><strong>${escapeHtml(stage.name)} · ${escapeHtml(stage.verb)}</strong><span>${escapeHtml(stage.artifact)}</span></span>
+          <span class="mastery-outcome">${escapeHtml(stage.outcome)}</span>
+          <span class="mastery-score"><progress max="100" value="${score.percent}"></progress><strong>${score.percent}%</strong></span>
+          <span class="mastery-evidence">${status} · ${score.attempts} 次练习 · ${score.transfer} 次真实结果 · ${score.due} 个到期复习</span>
+        </button>`;
+      }).join("");
+      document.querySelectorAll("[data-stage-select], [data-stage-summary]").forEach((button) => button.addEventListener("click", () => {
+        state.masteryStage = button.dataset.stageSelect || button.dataset.stageSummary;
+        save();
+        renderMastery();
+        refreshIcons();
+      }));
+      document.querySelector("[data-stage-practice]")?.addEventListener("click", (event) => startStagePractice(event.currentTarget.dataset.stagePractice));
+      document.querySelector("[data-stage-transfer]")?.addEventListener("click", (event) => openStageTransfer(event.currentTarget.dataset.stageTransfer));
+    }
+
+    function renderTransfer() {
+      const stageSelect = document.getElementById("transfer-stage");
+      if (!stageSelect.options.length) {
+        stageSelect.innerHTML = model.competencies.map((stage) => `<option value="${stage.id}">${stage.order}. ${escapeHtml(stage.name)} · ${escapeHtml(stage.artifact)}</option>`).join("");
+      }
+      if (!document.getElementById("transfer-due").value) document.getElementById("transfer-due").value = addDays(localDateKey(), 3);
+      const list = document.getElementById("transfer-list");
+      if (!state.transfers.length) {
+        list.innerHTML = '<div class="panel empty-state"><span class="empty-icon"><i data-lucide="flask-conical"></i></span><h2>还没有真实实验</h2><p>先写下预期再行动。仅完成练习不会获得迁移分。</p></div>';
+        return;
+      }
+      list.innerHTML = [...state.transfers].reverse().map((item) => {
+        const stage = competencyMap.get(item.stageId);
+        return `<article class="panel transfer-item">
+          <div class="transfer-head"><div><span class="chip ${item.status === "closed" ? "" : "amber"}">${item.status === "closed" ? "已结算" : `等待结果 · ${escapeHtml(item.due)}`}</span><h3>${escapeHtml(stage.name)} · ${escapeHtml(item.hypothesis)}</h3></div><span class="stage-icon" style="background:${stage.color}"><i data-lucide="${stage.icon}"></i></span></div>
+          <div class="transfer-body"><div class="transfer-cell"><span>最小行动</span><p>${escapeHtml(item.action)}</p></div><div class="transfer-cell"><span>指标与预期</span><p>${escapeHtml(item.expected)}</p></div></div>
+          ${item.status === "open" ? `<div class="result-editor"><div class="form-grid"><label class="field"><span>真实结果</span><textarea data-transfer-result="${item.id}" placeholder="只写观察到的事实、数字和异常"></textarea></label><label class="field"><span>规则更新</span><textarea data-transfer-learning="${item.id}" placeholder="原判断哪里对或错，下一轮改变什么"></textarea></label></div><div class="result-actions"><button class="button primary" type="button" data-close-transfer="${item.id}"><i data-lucide="badge-check"></i>结算真实结果</button></div></div>` : `<div class="closed-learning"><strong>真实结果</strong><p>${escapeHtml(item.result)}</p><strong>规则更新</strong><p>${escapeHtml(item.learning)}</p></div>`}
+        </article>`;
+      }).join("");
+      list.querySelectorAll("[data-close-transfer]").forEach((button) => button.addEventListener("click", () => closeTransfer(button.dataset.closeTransfer)));
+    }
+
+    function createTransfer(event) {
+      event.preventDefault();
+      const hypothesis = document.getElementById("transfer-hypothesis").value.trim();
+      const action = document.getElementById("transfer-action").value.trim();
+      const expected = document.getElementById("transfer-expected").value.trim();
+      const due = document.getElementById("transfer-due").value;
+      if (hypothesis.length < 10 || action.length < 10 || expected.length < 10 || !due) {
+        notify("请写清假设、最小行动、指标预期和回看日。");
+        return;
+      }
+      state.transfers.push({
+        id: `transfer-${Date.now()}`,
+        stageId: document.getElementById("transfer-stage").value,
+        hypothesis,
+        action,
+        expected,
+        due,
+        status: "open",
+        createdAt: new Date().toISOString()
+      });
+      event.currentTarget.reset();
+      document.getElementById("transfer-due").value = addDays(localDateKey(), 3);
+      save();
+      render();
+      setView("transfer");
+      notify("已加入迁移账本，结果回来后再结算。");
+    }
+
+    function closeTransfer(id) {
+      const item = state.transfers.find((transfer) => transfer.id === id);
+      const result = document.querySelector(`[data-transfer-result="${id}"]`).value.trim();
+      const learning = document.querySelector(`[data-transfer-learning="${id}"]`).value.trim();
+      if (result.length < 10 || learning.length < 10) {
+        notify("请分别记录真实结果和下一轮规则更新。");
+        return;
+      }
+      item.result = result;
+      item.learning = learning;
+      item.status = "closed";
+      item.closedAt = new Date().toISOString();
+      save();
+      render();
+      setView("transfer");
+      notify("真实结果已结算，迁移证据已计入掌握度。");
+    }
+
+    const viewCopy = {
+      today: ["今天只完成一个可验证进步", "先独立作答，再看依据；阅读不计掌握，只有回忆、解释、迁移和真实结果会形成学习证据。"],
+      plan: ["让计划跟着证据变化", "计划按能力前置关系和当前掌握度生成，到期复习优先于新内容。"],
+      mastery: ["用行为证据定义掌握", "系统区分听过、能复述、能解释与能迁移，不用浏览量和文本长度冒充能力。"],
+      transfer: ["把课程知识变成真实业务结果", "先固定预测与判据，执行后比较实际、归因和替代解释，形成下一轮规则。"]
+    };
+
+    function setView(view) {
+      if (!viewCopy[view]) return;
+      state.view = view;
+      save();
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        const active = button.dataset.view === view;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-current", active ? "page" : "false");
+      });
+      document.querySelectorAll("[data-panel]").forEach((panel) => { panel.hidden = panel.dataset.panel !== view; });
+      document.getElementById("view-title").textContent = viewCopy[view][0];
+      document.getElementById("view-description").textContent = viewCopy[view][1];
+      renderPanel(view);
+      refreshIcons();
+    }
+
+    function renderPanel(view) {
+      if (view === "today") renderToday();
+      if (view === "plan") renderPlan();
+      if (view === "mastery") renderMastery();
+      if (view === "transfer") renderTransfer();
+    }
+
+    function render() {
+      const setupPanel = document.getElementById("setup-panel");
+      const showSetup = !state.setupComplete;
+      setupPanel.hidden = !showSetup;
+      document.getElementById("metric-strip").hidden = showSetup;
+      document.querySelectorAll("[data-panel]").forEach((panel) => { panel.hidden = showSetup || panel.dataset.panel !== state.view; });
+      document.getElementById("edit-profile").hidden = showSetup;
+      renderSetupForm();
+      renderMetrics();
+      renderStageMini();
+      if (!showSetup) renderPanel(state.view);
+      setViewControls(showSetup ? null : state.view);
+      refreshIcons();
+    }
+
+    function setViewControls(view) {
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.view === view);
+        button.disabled = !state.setupComplete;
+      });
+      if (view) {
+        document.getElementById("view-title").textContent = viewCopy[view][0];
+        document.getElementById("view-description").textContent = viewCopy[view][1];
+      } else {
+        document.getElementById("view-title").textContent = "先诊断，再安排学习";
+        document.getElementById("view-description").textContent = "学习计划从真实项目与能力基线出发，不用看完多少课程代替是否真正会做。";
+      }
+    }
+
+    function exportState() {
+      const payload = { exportedAt: new Date().toISOString(), app: "Business Learning Studio", state };
+      const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: "application/json;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `business-learning-state-${localDateKey()}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      notify("学习数据已导出。");
+    }
+
+    function importState(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(reader.result);
+          const imported = payload.state || payload;
+          if (!imported.profile || !Array.isArray(imported.plan) || !Array.isArray(imported.attempts)) throw new Error("Invalid state");
+          state = { ...structuredClone(defaultState), ...imported };
+          save();
+          render();
+          notify("学习数据已导入。");
+        } catch (error) {
+          notify("导入失败：文件不是有效的学习数据。");
+        }
+      };
+      reader.readAsText(file, "utf-8");
+    }
+
+    document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => setView(button.dataset.view)));
+    document.getElementById("generate-plan").addEventListener("click", generatePlan);
+    document.getElementById("edit-profile").addEventListener("click", () => {
+      state.setupComplete = false;
+      save();
+      render();
+    });
+    document.getElementById("regenerate-plan").addEventListener("click", () => {
+      state.setupComplete = false;
+      save();
+      render();
+      notify("已保留历史证据，请确认设置后重新生成计划。");
+    });
+    document.getElementById("transfer-form").addEventListener("submit", createTransfer);
+    document.getElementById("export-state").addEventListener("click", exportState);
+    document.getElementById("import-state").addEventListener("click", () => document.getElementById("state-file").click());
+    document.getElementById("state-file").addEventListener("change", (event) => {
+      const [file] = event.target.files;
+      if (file) importState(file);
+      event.target.value = "";
+    });
+    document.getElementById("reset-state").addEventListener("click", () => {
+      if (!confirm("重置计划、练习、掌握度和迁移账本？此操作不可撤销。")) return;
+      localStorage.removeItem(storageKey);
+      state = structuredClone(defaultState);
+      render();
+      notify("学习数据已重置。");
+    });
+
+    restore();
+    const requestedStage = new URLSearchParams(location.search).get("stage");
+    if (requestedStage && competencyMap.has(requestedStage)) {
+      state.masteryStage = requestedStage;
+      if (state.setupComplete) state.view = "mastery";
+    }
+    render();
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Business Learning Studio</title>
+  <desc id="desc">A geometric B and L monogram.</desc>
+  <rect width="512" height="512" rx="96" fill="#111714"/>
+  <path fill="#f3b61f" d="M112 104h150c82 0 124 37 124 99 0 34-17 62-48 78 43 15 65 48 65 98 0 78-52 117-156 117H112V104Zm82 73v73h62c31 0 47-12 47-37 0-24-17-36-50-36h-59Zm0 142v104h63c41 0 62-17 62-52 0-35-21-52-64-52h-61Z"/>
+  <path fill="#ffffff" d="M344 104h56v266h-56z" opacity=".9"/>
+</svg>

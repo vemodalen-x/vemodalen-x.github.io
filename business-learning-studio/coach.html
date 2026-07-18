@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#18211f">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'">
+  <meta name="description" content="浏览器本地运行的商业教练，通过目标、关键假设、证据、实验与决策五步形成可执行闭环。">
+  <title>本地商业教练 · Business Learning Studio</title>
+  <link rel="stylesheet" href="assets/product.css">
+</head>
+<body>
+  <header class="appbar">
+    <div class="appbar-inner">
+      <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="graduation-cap"></i></span><span class="brand-copy"><strong>商业学习工作室</strong><span>Commercial Edition · v1.0</span></span></a>
+      <nav class="topnav" aria-label="产品导航">
+        <a href="index.html" title="学习工作室"><i data-lucide="layout-dashboard"></i><span>学习</span></a>
+        <a href="knowledge.html" title="知识 OS"><i data-lucide="library-big"></i><span>知识 OS</span></a>
+        <a class="active" href="coach.html" title="本地教练"><i data-lucide="messages-square"></i><span>教练</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div><span class="eyebrow">Local Decision Coach</span><h1>一次只推进一个决策关口</h1><p>所有输入仅保存在当前浏览器；系统按明确规则追问，不伪装成主观权威。</p></div>
+      <a class="button" href="knowledge.html"><i data-lucide="library-big"></i>查知识卡</a>
+    </div>
+    <div class="coach-layout">
+      <section class="panel coach-panel">
+        <div class="coach-top">
+          <div class="coach-status"><i></i><span><strong>本地商业教练</strong><span>规则透明 · 数据不出浏览器</span></span></div>
+          <button class="icon-button" id="reset" type="button" title="重新开始" aria-label="重新开始"><i data-lucide="rotate-ccw"></i></button>
+        </div>
+        <div class="stepper" id="stepper"></div>
+        <div class="conversation" id="conversation" aria-live="polite"></div>
+        <form class="composer" id="composer">
+          <textarea id="answer" placeholder="写出具体对象、事实、数字和会改变行动的条件" aria-label="回复教练"></textarea>
+          <div class="composer-actions"><span id="answer-status">0 字</span><button class="button primary" type="submit"><i data-lucide="send"></i>提交给教练</button></div>
+        </form>
+      </section>
+
+      <aside class="panel canvas-panel">
+        <div class="canvas-head"><h2>决策闭环画布</h2><p id="canvas-status">0 / 5 个关口已形成</p></div>
+        <div class="canvas-grid" id="canvas-grid"></div>
+        <div class="canvas-actions"><button class="button" id="export" type="button"><i data-lucide="download"></i>导出会话</button><a class="button primary" href="index.html"><i data-lucide="graduation-cap"></i>进入训练</a></div>
+      </aside>
+    </div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/vendor/lucide-1.23.0.min.js"></script>
+  <script>
+    const storageKey = "business-learning-local-coach-v1";
+    const steps = [
+      {
+        id: "goal", name: "目标", label: "问题定义与成功标准",
+        prompt: "先不谈方案。请写清：为谁、当前基线、目标值、期限，以及这轮明确不做什么。",
+        checks: [["对象", /用户|客户|团队|人群|公司/], ["基线", /基线|当前|目前|现在|现状/], ["目标值", /\d|目标|提升|降低/], ["期限", /天|周|月|季度|截止|之前/], ["约束", /约束|不做|不包括|预算|限制/]]
+      },
+      {
+        id: "assumption", name: "假设", label: "关键假设与反证",
+        prompt: "哪一条判断一旦错了，会让当前路线不成立？同时写出最强反证。",
+        checks: [["假设", /假设|认为|相信|判断/], ["因果", /因为|导致|取决于|所以/], ["反证", /反证|推翻|错误|不成立|停止/], ["影响", /影响|改变|风险|路线/]]
+      },
+      {
+        id: "evidence", name: "证据", label: "证据账本与更新条件",
+        prompt: "只写当前已有证据：事实、来源、日期或真实行为。然后说明什么新事实会改变判断。",
+        checks: [["事实", /事实|观察|记录|数据|行为/], ["来源", /来源|访谈|日志|订单|付款|日期/], ["对象", /用户|客户|样本|人|家|家公司/], ["更新条件", /如果|一旦|改变|降低|提高|推翻/]]
+      },
+      {
+        id: "experiment", name: "实验", label: "最小实验与双向判据",
+        prompt: "设计最低成本实验：样本、动作、期限、成本上限、成功判据和失败判据分别是什么？",
+        checks: [["样本", /样本|用户|客户|人|家|家公司/], ["动作", /发送|访谈|展示|预售|交付|测试|邀请/], ["期限", /天|周|月|截止/], ["双向判据", /至少|高于|低于|失败|停止|继续/], ["成本", /成本|预算|小时|元|美元/]]
+      },
+      {
+        id: "decision", name: "决策", label: "选择、阈值与承诺",
+        prompt: "结果回来后怎样决策？请写出继续、调整或停止的阈值，以及回看时间和负责人。",
+        checks: [["选项", /继续|调整|停止|加注|转向/], ["阈值", /如果|至少|高于|低于|阈值/], ["回看", /回看|复盘|截止|天|周|月/], ["负责人", /负责人|我|团队|姓名|负责/]]
+      }
+    ];
+
+    function initialState() {
+      return {
+        version: 1,
+        step: 0,
+        retries: 0,
+        answers: {},
+        messages: [{ role: "coach", text: steps[0].prompt }],
+        updatedAt: new Date().toISOString()
+      };
+    }
+
+    let state = initialState();
+    const toast = document.getElementById("toast");
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+    }
+
+    function refreshIcons() {
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function notify(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(notify.timer);
+      notify.timer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    function save() {
+      state.updatedAt = new Date().toISOString();
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function restore() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+        if (saved && Array.isArray(saved.messages) && saved.answers) state = { ...initialState(), ...saved };
+      } catch (_) {}
+    }
+
+    function analyze(text, step) {
+      const results = step.checks.map(([label, pattern]) => ({ label, passed: pattern.test(text) }));
+      return { results, score: results.filter((item) => item.passed).length, missing: results.filter((item) => !item.passed).map((item) => item.label) };
+    }
+
+    function coachResponse(text, step) {
+      const analysis = analyze(text, step);
+      const threshold = Math.min(3, step.checks.length);
+      if (text.trim().length < 20 || analysis.score < threshold) {
+        const missing = analysis.missing.slice(0, 3).join("、") || "更具体的事实";
+        return { advance: false, text: `这一步还不能改变行动。请补充：${missing}。尽量使用真实对象、数字和条件。` };
+      }
+      const next = steps[state.step + 1];
+      if (!next) return { advance: true, text: "五个关口已经闭合。不要继续润色文字，下一步是执行实验，并在结果出现后比较预期与实际。" };
+      return { advance: true, text: `已形成“${step.label}”。下一关：${next.prompt}` };
+    }
+
+    function renderStepper() {
+      document.getElementById("stepper").innerHTML = steps.map((step, index) => `<div class="coach-step ${index < state.step ? "done" : index === state.step ? "active" : ""}">${escapeHtml(step.name)}</div>`).join("");
+    }
+
+    function renderConversation() {
+      const conversation = document.getElementById("conversation");
+      conversation.innerHTML = state.messages.map((message) => `<div class="message ${message.role === "user" ? "user" : ""}"><strong>${message.role === "user" ? "你" : "教练"}</strong><p>${escapeHtml(message.text)}</p></div>`).join("");
+      conversation.scrollTop = conversation.scrollHeight;
+    }
+
+    function renderCanvas() {
+      const completed = steps.filter((step) => state.answers[step.id]).length;
+      document.getElementById("canvas-status").textContent = `${completed} / 5 个关口已形成`;
+      document.getElementById("canvas-grid").innerHTML = steps.map((step) => {
+        const answer = state.answers[step.id];
+        return `<div class="canvas-cell ${answer ? "" : "empty"}"><span>${escapeHtml(step.label)}</span><p>${escapeHtml(answer || "等待本轮判断")}</p></div>`;
+      }).join("");
+    }
+
+    function render() {
+      renderStepper();
+      renderConversation();
+      renderCanvas();
+      const finished = state.step >= steps.length;
+      document.getElementById("answer").disabled = finished;
+      document.querySelector("#composer button").disabled = finished;
+      document.getElementById("answer").placeholder = finished ? "会话已完成，请执行实验或重新开始" : "写出具体对象、事实、数字和会改变行动的条件";
+      refreshIcons();
+    }
+
+    function submitAnswer(event) {
+      event.preventDefault();
+      if (state.step >= steps.length) return;
+      const input = document.getElementById("answer");
+      const text = input.value.trim();
+      if (!text) return;
+      const step = steps[state.step];
+      state.messages.push({ role: "user", text });
+      const response = coachResponse(text, step);
+      state.messages.push({ role: "coach", text: response.text });
+      if (response.advance) {
+        state.answers[step.id] = text;
+        state.step += 1;
+        state.retries = 0;
+      } else {
+        state.retries += 1;
+      }
+      input.value = "";
+      document.getElementById("answer-status").textContent = "0 字";
+      save();
+      render();
+    }
+
+    function exportSession() {
+      const payload = { app: "Business Learning Studio Local Coach", version: 1, exportedAt: new Date().toISOString(), answers: state.answers, messages: state.messages };
+      const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: "application/json;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `business-coach-session-${new Date().toISOString().slice(0, 10)}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      notify("会话已导出。");
+    }
+
+    document.getElementById("composer").addEventListener("submit", submitAnswer);
+    document.getElementById("answer").addEventListener("input", (event) => { document.getElementById("answer-status").textContent = `${event.currentTarget.value.trim().length} 字`; });
+    document.getElementById("answer").addEventListener("keydown", (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") document.getElementById("composer").requestSubmit();
+    });
+    document.getElementById("export").addEventListener("click", exportSession);
+    document.getElementById("reset").addEventListener("click", () => {
+      if (!confirm("清空当前教练会话并重新开始？")) return;
+      state = initialState();
+      save();
+      render();
+      notify("已重新开始。");
+    });
+
+    restore();
+    render();
+  </script>
+</body>
+</html>
