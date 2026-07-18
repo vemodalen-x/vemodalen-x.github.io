@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#18211f">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'">
+  <meta name="description" content="32 张原创商业能力卡片，覆盖目标、业务全局、关键假设、证据、实验、决策、运营与复盘。">
+  <title>商业知识 OS · Business Learning Studio</title>
+  <link rel="stylesheet" href="assets/product.css">
+</head>
+<body>
+  <header class="appbar">
+    <div class="appbar-inner">
+      <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="graduation-cap"></i></span><span class="brand-copy"><strong>商业学习工作室</strong><span>Commercial Edition · v1.0</span></span></a>
+      <nav class="topnav" aria-label="产品导航">
+        <a href="index.html" title="学习工作室"><i data-lucide="layout-dashboard"></i><span>学习</span></a>
+        <a class="active" href="knowledge.html" title="知识 OS"><i data-lucide="library-big"></i><span>知识 OS</span></a>
+        <a href="coach.html" title="本地教练"><i data-lucide="messages-square"></i><span>教练</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div><span class="eyebrow">Original Knowledge OS</span><h1>用能力结构检索，而不是按课程翻页</h1><p>每张卡对应一个可观察产物，并提供提取问题、教练追问与专项练习入口。</p></div>
+      <a class="button primary" href="index.html"><i data-lucide="play"></i>开始今日学习</a>
+    </div>
+    <div class="metric-strip">
+      <div class="metric"><span>原创知识卡</span><strong id="metric-cards">32</strong></div>
+      <div class="metric"><span>能力阶段</span><strong>8</strong></div>
+      <div class="metric"><span>挑战模式</span><strong>4</strong></div>
+      <div class="metric"><span>外部依赖</span><strong>0</strong></div>
+    </div>
+
+    <div class="catalog-layout">
+      <aside class="panel filter-panel">
+        <div class="search-wrap"><i data-lucide="search"></i><input id="search" type="search" placeholder="搜索概念或产物" aria-label="搜索知识卡"></div>
+        <h2>能力阶段</h2>
+        <div class="stage-filters" id="stage-filters"></div>
+      </aside>
+      <section>
+        <div class="panel card-list" id="card-list"></div>
+      </section>
+      <article class="panel detail-panel" id="detail-panel"></article>
+    </div>
+  </main>
+
+  <script src="assets/vendor/lucide-1.23.0.min.js"></script>
+  <script src="knowledge/business-learning-model.js"></script>
+  <script src="knowledge/business-public-kb.js"></script>
+  <script>
+    const model = window.BUSINESS_LEARNING_MODEL;
+    const cards = window.BUSINESS_PUBLIC_KB || [];
+    const stageMap = new Map(model.competencies.map((stage) => [stage.id, stage]));
+    let selectedStage = "all";
+    let selectedCard = cards[0]?.id || null;
+    let query = "";
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+    }
+
+    function refreshIcons() {
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function filteredCards() {
+      const normalized = query.trim().toLowerCase();
+      return cards.filter((card) => {
+        if (selectedStage !== "all" && card.stage !== selectedStage) return false;
+        if (!normalized) return true;
+        return [card.title, card.summary, card.mentorUse, ...(card.questions || [])].join(" ").toLowerCase().includes(normalized);
+      });
+    }
+
+    function renderFilters() {
+      const options = [{ id: "all", order: "00", name: "全部能力", verb: "All", color: "#18211f" }, ...model.competencies];
+      document.getElementById("stage-filters").innerHTML = options.map((stage) => {
+        const count = stage.id === "all" ? cards.length : cards.filter((card) => card.stage === stage.id).length;
+        return `<button class="stage-filter ${selectedStage === stage.id ? "active" : ""}" type="button" data-stage="${stage.id}"><i style="background:${stage.color}">${String(stage.order).padStart(2, "0")}</i><span><strong>${escapeHtml(stage.name)}</strong><small>${escapeHtml(stage.verb)}</small></span><span>${count}</span></button>`;
+      }).join("");
+      document.querySelectorAll("[data-stage]").forEach((button) => button.addEventListener("click", () => {
+        selectedStage = button.dataset.stage;
+        selectedCard = filteredCards()[0]?.id || null;
+        render();
+      }));
+    }
+
+    function renderList() {
+      const matches = filteredCards();
+      if (!matches.some((card) => card.id === selectedCard)) selectedCard = matches[0]?.id || null;
+      document.getElementById("card-list").innerHTML = matches.length ? matches.map((card) => {
+        const stage = stageMap.get(card.stage);
+        return `<button class="knowledge-row ${card.id === selectedCard ? "active" : ""}" type="button" data-card="${card.id}"><span class="stage-dot" style="background:${stage.color}">${String(stage.order).padStart(2, "0")}</span><span><strong>${escapeHtml(card.title)}</strong><small>${escapeHtml(stage.name)} · ${escapeHtml(stage.artifact)}</small></span><span><i data-lucide="chevron-right"></i></span></button>`;
+      }).join("") : '<div class="empty">没有匹配的知识卡。</div>';
+      document.querySelectorAll("[data-card]").forEach((button) => button.addEventListener("click", () => {
+        selectedCard = button.dataset.card;
+        renderList();
+        renderDetail();
+        refreshIcons();
+      }));
+    }
+
+    function renderDetail() {
+      const card = cards.find((item) => item.id === selectedCard);
+      if (!card) {
+        document.getElementById("detail-panel").innerHTML = '<div class="empty">选择一张知识卡查看。</div>';
+        return;
+      }
+      const stage = stageMap.get(card.stage);
+      document.getElementById("detail-panel").innerHTML = `
+        <div class="detail-head"><span class="chip blue">阶段 ${stage.order} · ${escapeHtml(stage.name)}</span><h2>${escapeHtml(card.title)}</h2><p>${escapeHtml(stage.artifact)}</p></div>
+        <div class="detail-body">
+          <section class="detail-section"><h3>核心判断</h3><p>${escapeHtml(card.summary)}</p></section>
+          <section class="detail-section"><h3>主动提取</h3><ol class="question-list">${card.questions.map((question) => `<li>${escapeHtml(question)}</li>`).join("")}</ol></section>
+          <section class="detail-section"><h3>教练追问</h3><p>${escapeHtml(card.mentorUse)}</p></section>
+          <div class="detail-action"><a class="button primary" href="index.html?stage=${stage.id}"><i data-lucide="brain"></i>练习这个阶段</a><a class="button" href="coach.html?stage=${stage.id}"><i data-lucide="message-square-more"></i>带入教练</a></div>
+        </div>`;
+    }
+
+    function render() {
+      renderFilters();
+      renderList();
+      renderDetail();
+      document.getElementById("metric-cards").textContent = String(cards.length);
+      refreshIcons();
+    }
+
+    document.getElementById("search").addEventListener("input", (event) => {
+      query = event.currentTarget.value;
+      renderList();
+      renderDetail();
+      refreshIcons();
+    });
+    const requestedStage = new URLSearchParams(location.search).get("stage");
+    if (stageMap.has(requestedStage)) selectedStage = requestedStage;
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "business-learning-studio-commercial",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Privacy-first offline business learning studio.",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/build-public-knowledge.mjs",
+    "test": "node --test tests/product.test.mjs",
+    "audit": "node scripts/audit-release.mjs",
+    "build": "node scripts/build-release.mjs",
+    "verify": "npm run generate && npm test && npm run audit && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
