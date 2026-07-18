@@ -1,0 +1,21 @@
+{
+  "name": "photography-mentor",
+  "version": "1.2.0",
+  "private": true,
+  "description": "A browser-local photography learning, practice and review application.",
+  "type": "module",
+  "scripts": {
+    "manifest": "node scripts/build-release-manifest.mjs",
+    "validate": "node scripts/validate-photography-mentor.mjs",
+    "audit": "node scripts/audit-public-release.mjs",
+    "test": "npm run validate && npm run audit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vemodalen-x/vemodalen-x.github.io.git"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  }
+}

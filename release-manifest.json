@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "product": "Photography Mentor",
+  "version": "1.2.0",
+  "releaseDate": "2026-07-18",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 98,
+      "sha256": "8b21b5afab81935a3aeb2b02cd3cf55b563dac701a976370d48a09b5d91a61aa"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 97,
+      "sha256": "b7de9b03400a6eedfd3bc51bb3c75ed166be4421935348d264870e757969778b"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 1139,
+      "sha256": "927c1f70cc9aa8327012901be10a601cbe13e7278e92a0fedc4c9000e6b208b7"
+    },
+    {
+      "path": "LICENSE.md",
+      "bytes": 802,
+      "sha256": "4f6ed47bbe7ae09ab57a34d51ee451dfaf95138b893b31381e64018d711d4560"
+    },
+    {
+      "path": "PHOTOGRAPHY_MENTOR_RELEASE.md",
+      "bytes": 2454,
+      "sha256": "6240960576fdd09822735f4a863302d42c2355bc4edce67e7aad71df1bb72194"
+    },
+    {
+      "path": "PRIVACY.md",
+      "bytes": 1432,
+      "sha256": "7dae4ebc08d1f5567679591f0ef06791debc03d79758295c8a8b2de191da6b32"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2189,
+      "sha256": "6bf55d03d55146857cd961520495dfed499f23c3fc4992a60551ecd5848f5170"
+    },
+    {
+      "path": "RELEASE_NOTES.md",
+      "bytes": 1268,
+      "sha256": "3606cba6c8d3c4d9a82af2134b1c5438490ff14aebb9c85c749bc0bc752017c9"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 896,
+      "sha256": "a33ca2e5fb344615c9da35716514349b0df801fea4e85bc7181850e21bf3f73f"
+    },
+    {
+      "path": "TERMS.md",
+      "bytes": 1304,
+      "sha256": "26f495d89e87625d7956c8fa0e86743bf5f42263acf761a3b8aff9cec7f09998"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 1146,
+      "sha256": "0393191cd95fedc4d06b2111b5b7c97529fdcc93114d137069ef05ff66545010"
+    },
+    {
+      "path": "assets/photo-mentor-foundation.css",
+      "bytes": 90735,
+      "sha256": "528726c7b351756127996d5506aa09cdaae7100ce488a938741989b7be3a459c"
+    },
+    {
+      "path": "assets/photo-mentor-icon.svg",
+      "bytes": 597,
+      "sha256": "1341a24ccbd8c92fd2deac2c75864ab2262e0b1765bee38af2128c9c6ecae2a0"
+    },
+    {
+      "path": "assets/vendor/lucide-1.23.0.min.js",
+      "bytes": 410952,
+      "sha256": "55f43fd2b5553fdb2c1cb5a5940444f55c94a2fec8a72d678bd4a69350f72cd1"
+    },
+    {
+      "path": "index.html",
+      "bytes": 465,
+      "sha256": "ff6d210c354d2c6f7ddd295c12e9b127b386027d8dc15f24c2a1fbcdcb661378"
+    },
+    {
+      "path": "knowledge/photography-mentor-kb.js",
+      "bytes": 78038,
+      "sha256": "63267f2e8e6d002f02c1cb62ddae59c0032556df001a25260923b5d8b9ea1198"
+    },
+    {
+      "path": "knowledge/photography-mentor-taxonomy.js",
+      "bytes": 21794,
+      "sha256": "24e5a66e49ca8121df60a6722218e3594e5ae44e4537b79216900138c5f670a5"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 1167,
+      "sha256": "83117a31ffd3a5ede26dda144757ff099a6e4c38f86303f8fb62dda89b9afcec"
+    },
+    {
+      "path": "notes/photography-knowledge-review-2026-07-14.md",
+      "bytes": 6832,
+      "sha256": "66c9332ef601a50ebc96a4ba4ea06be10586a4e0207d393508a0afb50444a7be"
+    },
+    {
+      "path": "notes/photography-mentor-product-review-2026-07-15.md",
+      "bytes": 8281,
+      "sha256": "6c5084550ea9c37ca6b2b1a8d52428f65cd0d19247813843e4ab140ede0fb922"
+    },
+    {
+      "path": "notes/photography-mentor-research-2026-07-11.md",
+      "bytes": 4923,
+      "sha256": "f812708e3529d7a0ef9afc5c60fde8cb56a7ceeffa30153735c50d8434a05a1d"
+    },
+    {
+      "path": "package.json",
+      "bytes": 610,
+      "sha256": "184cb3ab23d61264e7501646a6f9003132f8ef093727aaf8dafd6d138516e35f"
+    },
+    {
+      "path": "photography-mentor-agent.html",
+      "bytes": 249632,
+      "sha256": "fc82f94f61c09e3b4b6b8c8e6cdae19d6ebc4b5d821002cb0898b7165937d05a"
+    },
+    {
+      "path": "scripts/audit-public-release.mjs",
+      "bytes": 5871,
+      "sha256": "1fef4be5c8ba254eeb5d6a5c5053f2ac35663063653ec8780bb1ebc78e1a31d4"
+    },
+    {
+      "path": "scripts/build-release-manifest.mjs",
+      "bytes": 1419,
+      "sha256": "11233ba8c6b90e7c2952eab269588c5e2ab195d2acb847fe57590ee3f123c2b9"
+    },
+    {
+      "path": "scripts/validate-photography-mentor.mjs",
+      "bytes": 10122,
+      "sha256": "348ad39274d89b2cc58c440a3b53fee71845467fa32cdaf2339d31beb293fc3f"
+    },
+    {
+      "path": "sw.js",
+      "bytes": 2318,
+      "sha256": "afd750eb8b57710e27f0730fde85f750a80395faad6ce28b78b98f8afc5ecd72"
+    }
+  ]
+}

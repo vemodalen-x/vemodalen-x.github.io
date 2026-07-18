@@ -1,0 +1,35 @@
+{
+  "name": "Photography Mentor Agent",
+  "short_name": "Photo Mentor",
+  "id": "photography-mentor-agent",
+  "description": "本地优先的摄影学习应用：主动回忆、分层提示、作品证据、掌握度复习、照片诊断和可追溯知识库。",
+  "start_url": "./photography-mentor-agent.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "categories": ["education", "photo"],
+  "background_color": "#fbfaf7",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "assets/photo-mentor-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "今日训练",
+      "short_name": "今日训练",
+      "url": "./photography-mentor-agent.html?view=focus#mentor-session",
+      "icons": [{ "src": "assets/photo-mentor-icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "照片诊断",
+      "short_name": "照片诊断",
+      "url": "./photography-mentor-agent.html?view=studio#photo-lab",
+      "icons": [{ "src": "assets/photo-mentor-icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}
