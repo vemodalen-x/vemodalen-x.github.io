@@ -20,9 +20,10 @@ const metadata = {
   'key-book-plan.md': { kind: '理论加深', description: 'PAC、复杂度、泛化、稳定性、一致性与收敛。', clusters: ['K2', 'K3', 'K4'], order: 17 },
   'vincent-sitzmann-cv-plan.md': { kind: '前沿 CV', description: '相机几何、神经场、SIREN、可微渲染、新视角与视觉世界模型。', clusters: ['K5', 'K8'], order: 18 },
   'smol-course-plan.md': { kind: 'LLM 后训练', description: 'Chat template、SFT、LoRA、评测、DPO 与 VLM 的版本化实践。', clusters: ['K3', 'K4', 'K5', 'K8'], order: 19 },
-  'ai-agents-in-depth-plan.md': { kind: 'Agent 主线', description: '运行时 Harness、上下文、工具、Coding Agent、评估与多 Agent。', clusters: ['K8'], order: 20 },
-  'harness-engineering-plan.md': { kind: 'Agent 仓库工程', description: 'Repo map、SPEC、机械回压、行为评测与熵管理。', clusters: ['K7', 'K8'], order: 21 },
-  'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 22 },
+  'sensenova-u1-plan.md': { kind: '统一多模态', description: 'NEO-unify、MoT、pixel flow、评测与理解—生成推理系统。', clusters: ['K3', 'K4', 'K5', 'K8'], order: 20 },
+  'ai-agents-in-depth-plan.md': { kind: 'Agent 主线', description: '运行时 Harness、上下文、工具、Coding Agent、评估与多 Agent。', clusters: ['K8'], order: 21 },
+  'harness-engineering-plan.md': { kind: 'Agent 仓库工程', description: 'Repo map、SPEC、机械回压、行为评测与熵管理。', clusters: ['K7', 'K8'], order: 22 },
+  'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 23 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
 };

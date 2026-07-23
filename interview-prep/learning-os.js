@@ -343,6 +343,26 @@
       exit: '给出三个能证明 VLM 使用图像而非只靠问题先验的对照实验。'
     },
     {
+      id: 'k8-sensenova-unified', cluster: 'K8', title: 'SenseNova-U1 SNU1-1/2/3：NEO-unify、MoT 与联合目标', kind: 'explain', duration: 50, week: 5, prereqs: ['k8-transformer', 'k8-smol-vlm'],
+      goal: '从视觉接口、token 路由、attention mask 和训练目标解释“原生统一”的精确边界。', output: '典型 VLM vs NEO-unify 对照图 + 三类 token mask + 双目标诊断卡。',
+      prompt: 'SenseNova-U1 去掉 VE/VAE 后，pixels/text 怎样进入同一序列？理解流与生成流共享什么、解耦什么？',
+      construct: '画 stride-32 patch interface、time/height/width RoPE、clean/noise token 的 MoT 路由与 attention block；写 L=λtext·CE+λvision·flow-MSE，并列出两条流各自的观测指标和干扰实验。',
+      transfer: '联合训练总 loss 下降，但 OCR/理解保持稳定、编辑 preservation 退化。怎样区分数据比例、loss scale、错误 mask、CFG、容量与评测问题？',
+      hints: ['Near-lossless 是待验证主张，不是数学无损。', '统一序列/attention 不代表 projection、norm、FFN 全共享。', 'clean token 不应读取 noise token；总 loss 要拆开看。'],
+      rubric: ['视觉接口与典型 VE/VAE 路线比较准确。', '三类 token mask 和因果边界正确。', '共享/解耦与参数名义说清。', 'CE/flow 指标和干扰实验可执行。'],
+      exit: '用 90 秒解释 SenseNova-U1 统一了什么、没有统一什么，并给一个可证伪实验。'
+    },
+    {
+      id: 'k8-sensenova-eval-runtime', cluster: 'K8', title: 'SenseNova-U1 SNU1-7/8/9/10：评测、显存与解耦推理', kind: 'design', duration: 50, week: 5, prereqs: ['k8-sensenova-unified', 'k3-metrics'],
+      goal: '把统一多模态 checkpoint 变成可复现、可扩缩、可回退的理解—生成服务。', output: '四层 eval matrix + resource card + LightLLM/LightX2V 部署决策。',
+      prompt: '为什么统一模型在生产上仍拆理解与生成引擎？怎样为理解、T2I、编辑和交错生成定义不同 SLO 与验收？',
+      construct: '给定流量比例和硬件，比较 separate/colocate、full/GGUF/offload；记录 GPU/host RAM、H2D、首 token/每步/E2E；设计 exact/OCR/VLM-judge/人工四类评测、cache hash、失败分母和 release gate。',
+      transfer: 'Q4+balanced 可在 16 GB GPU 启动，但 p95 变差、host RAM 紧张；榜单又因 judge/cache 配置变化而上升。你如何定位、重跑、降级或回滚？',
+      hints: ['8B-MoT 总权重约 17.552B；active、total 和 runtime memory 分开。', '理解和生成有不同并行、batch 与扩缩工作点。', 'judge、分辨率、seed、失败忽略和 cache 都属于评测版本。'],
+      rubric: ['四种任务的指标与 SLO 分开。', '资源核算包含 host/transfer/activation。', '部署选择由流量和故障域驱动。', 'judge 校准、失败分母、版本与回滚完整。'],
+      exit: '给出一个“模型更统一但运行时更解耦”的发布方案，并说明三项阻断发布的证据。'
+    },
+    {
       id: 'k8-rag-eval', cluster: 'K8', title: 'RAG：拆开检索与生成评估', kind: 'design', duration: 50, week: 5, prereqs: ['k3-metrics'],
       goal: '建立 component、end-to-end、citation 和 abstention 评估。', output: 'RAG eval matrix + release gate。',
       prompt: '设计企业 RAG 的评估：如何分别判断 retrieval 和 generation 的问题？',
