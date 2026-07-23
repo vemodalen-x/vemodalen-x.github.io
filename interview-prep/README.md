@@ -20,11 +20,12 @@
 - [Deep-ML 机器学习实现题路线](deep-ml-plan.md)：从 100+ 道 ML coding challenge 中筛出 14 道 P0，覆盖数值、经典 ML、CV 张量、优化器与 Transformer 算子，并加入边界测试和生产化追问。
 - [《深入理解 AI Agent》面试化学习路线](ai-agents-in-depth-plan.md)：把 307 页中文 PDF 压缩成 8 个核心 Session、3 个岗位选修和 1 个 capstone，覆盖 Harness、上下文/记忆、工具、Coding Agent、评估与多 Agent。
 - [Harness Engineering 面试化学习路线](harness-engineering-plan.md)：把 Coding Agent 的仓库环境拆成 8 个 Session，覆盖 repo-as-record、SPEC/WORKFLOW、Guides × Sensors、Agent 可读性、合并经济学、熵管理与行为正确性。
+- [《探秘 Claude Code，搞懂 Agent Harness》听辨与实践路线](agent-harness-podcast-plan.md)：把 48 分钟播客转成“会跑、跑久、跑稳”三层图、主张—证据矩阵和真实 Agent 故障实验，区分访谈观点、官方事实与自己的验证。
 
 ## 桌面应用与知识检索
 
 - Windows 首次使用：双击 [install-desktop-shortcut.cmd](install-desktop-shortcut.cmd)，桌面会创建应用快捷方式。也可直接双击 [launch-learning-os.cmd](launch-learning-os.cmd)。应用使用本机 Chrome/Edge 的独立窗口，不需要服务器。
-- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 16 份 Markdown、304 个标题章节，并与 35 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
+- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 17 份 Markdown、312 个标题章节，并与 36 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
 - 知识正文来自仓库内 Markdown，搜索索引是可再生文件。新增或修改资料后，运行 `node scripts/build-knowledge-index.cjs`；构建器会在有文件未被纳入元数据时直接失败，避免静默漏检。
 - 学习状态继续保存在浏览器本地。更新索引或应用文件不会清空进度；换浏览器或迁移电脑前先在应用中导出状态。
 
@@ -33,7 +34,7 @@
 1. 从桌面“AI 面试学习”快捷方式打开 [Interview Learning OS Desktop](learning-os.html)，选择角色、面试轮次和当天预算；第一次 Session 只形成候选证据，不把即时正确当作延迟掌握。
 2. 再用[统一练习脉络](practice-roadmap.md)完成第 0 天闭卷基线，并核对系统推荐是否覆盖真实薄弱项。
 3. 只激活脉络中本周的能力簇、15 道 DSA 主干和对应 Deep-ML 题；其他题目先留在覆盖池。
-4. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)，不按来源顺序通读。
+4. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)，用[播客听辨路线](agent-harness-podcast-plan.md)形成三层总图，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)。
 5. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
 6. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
 
@@ -46,6 +47,7 @@
 - [alirezadir/Agentic-AI-Systems](https://github.com/alirezadir/Agentic-AI-Systems)：补足 Agentic system design、评估、安全、成本和失败处理。
 - 李博杰《深入理解 AI Agent：设计原理与工程实践》中文 PDF v1.2（2026-07-23；[配套代码](https://github.com/bojieli/ai-agent-book)）：作为 Agent 工程主教材，覆盖 Agent/Harness、上下文与记忆、工具、Coding Agent、评估、后训练、自我进化、多模态和多 Agent。本准备包按[面试化路线](ai-agents-in-depth-plan.md)定向学习，不把通读 307 页当成完成。
 - [deusyu/harness-engineering](https://github.com/deusyu/harness-engineering)：中文优先的 Harness Engineering 学习档案，用概念、思考、实践和工具材料组织 repo-as-record、机械约束、Agent 可读性、吞吐与熵管理。它是持续更新的二次整理，不是规范；本准备包按[面试化路线](harness-engineering-plan.md)回查其引用的[一手案例](https://openai.com/zh-Hans-CN/index/harness-engineering/)，并保留个人/遗留/高风险场景下的适用性反证。
+- [十字路口《探秘 Claude Code，搞懂 Agent Harness》](https://podcasts.apple.com/cn/podcast/%E6%8E%A2%E7%A7%98-claude-code-%E6%90%9E%E6%87%82-agent-harness-%E5%AF%B9%E8%B0%88%E6%9D%A5%E6%96%B0%E7%92%90/id1729552193?i=1000766263837)：用执行、状态、治理三层建立口语化总图。节目中的 CLI、memory、模型能力与行业预测属于嘉宾观点；按[听辨路线](agent-harness-podcast-plan.md)用 Learn Claude Code、官方文档和实验交叉验证。
 
 ### Transformer 可视化辅助
 

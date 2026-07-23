@@ -323,6 +323,16 @@
       exit: '给出四类信息的保留、压缩、外置或删除决策，并说明一个反例。'
     },
     {
+      id: 'k8-harness-three-layers', cluster: 'K8', title: '播客 AHP-1/2：Harness 会跑、跑久、跑稳', kind: 'design', duration: 50, week: 5, prereqs: ['k8-agent-loop', 'k8-context-harness'],
+      goal: '用执行、状态、治理三层定位 Agent 失败，并校验节目中的强主张。', output: '三层架构图 + 主张—证据矩阵 + 故障路由。',
+      prompt: '闭卷解释“会跑、跑久、跑稳”：每层拥有什么状态、暴露什么接口、出现什么失败、由谁验证？',
+      construct: '为真实 Agent 填写三层的组件/状态/接口/失败信号/验证者；再校验 Model+Harness、Bash/CLI、more context less control、memory 自迭代四条主张。',
+      transfer: '把任务改成高风险付款：哪些自由度可交给强模型，哪些权限、幂等、行为验收和人工升级必须确定性执行？',
+      hints: ['节目框架用于定位，不是行业标准。', 'CLI 与 MCP 要在相同任务和权限约束下比较。', '指导性 context 不能替代 hook、sandbox 或 permission enforcement。'],
+      rubric: ['三层边界与状态所有权清楚。', '观点、事实和实验结论分开。', '至少有一个公平对照和一个反例。', '高风险控制面不随模型能力被误删。'],
+      exit: '用 90 秒给出一个从失败信号到层级归因、最小实验和 Harness 修复的完整例子。'
+    },
+    {
       id: 'k8-coding-agent', cluster: 'K8', title: 'Agent Book Ch5：Coding Agent 的搜索-编辑-验证闭环', kind: 'debug', duration: 50, week: 5, prereqs: ['k8-context-harness'],
       goal: '用可恢复轨迹解释 Coding Agent，而不是把它缩减成代码生成。', output: '仓库任务 trace + 故障恢复协议。',
       prompt: '为什么“生成正确代码”不足以构成可靠 Coding Agent？搜索、文件编辑、命令执行、测试和停止条件如何闭环？',

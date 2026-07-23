@@ -166,6 +166,8 @@ Agent 工程主线：使用[《深入理解 AI Agent》面试化路线](ai-agent
 
 Coding Agent / Agent Infra 定向：接着用 [Harness Engineering 路线](harness-engineering-plan.md)完成 HE-1、HE-3、HE-6，产出仓库地图、Guides × Sensors 矩阵和行为验证阶梯。这三项替换一次 Codemia 白板、重复 Agent 阅读和一次泛化系统设计，不增加本周总时间；通用 ML/CV 岗不默认激活。
 
+听觉总图：在 AID-1/2 后使用[《探秘 Claude Code，搞懂 Agent Harness》路线](agent-harness-podcast-plan.md)完成 AHP-1；只精听 01:52–38:52 的技术段并产出三层图。Agent/Coding 岗再做 AHP-2，它替换一次重复 Harness 阅读，不叠加时长。
+
 Agentic 白板：未激活 Harness Engineering 时，使用 [Codemia](https://codemia.io/) 的 Agentic AI 题做一次限时训练；已激活时，Codemia 只作为第 6 周随机 mock，不与 HE-1/3/6 同周叠加。平台反馈之后，再用本题库 G11–G14 检查 workflow/agent 选择、工具副作用、安全、trace-level eval 和成本是否遗漏。
 
 本周交付：

@@ -2,6 +2,8 @@
 
 资料：[deusyu/harness-engineering](https://github.com/deusyu/harness-engineering)；概念源头与案例对照：[OpenAI《工程技术：在智能体优先的世界中利用 Codex》](https://openai.com/zh-Hans-CN/index/harness-engineering/)。
 
+听觉桥接：[《探秘 Claude Code，搞懂 Agent Harness》听辨与实践路线](agent-harness-podcast-plan.md)先用“会跑、跑久、跑稳”建立运行时总图；本路线继续处理仓库真源、机械回压、行为正确性与熵。节目主张需要回查官方资料和实验，不替代 HE-1–HE-7。
+
 这条路线研究的不是“怎样再写一层 prompt”，而是怎样设计仓库、约束、工具、反馈和评估，使 Coding Agent 能发现正确上下文、执行可验证工作，并把失败沉淀成下一次可复用的系统能力。
 
 ## 先消除两个 Harness 的歧义

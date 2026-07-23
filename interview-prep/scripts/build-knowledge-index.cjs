@@ -20,6 +20,7 @@ const metadata = {
   'key-book-plan.md': { kind: '理论加深', description: 'PAC、复杂度、泛化、稳定性、一致性与收敛。', clusters: ['K2', 'K3', 'K4'], order: 17 },
   'ai-agents-in-depth-plan.md': { kind: 'Agent 主线', description: '运行时 Harness、上下文、工具、Coding Agent、评估与多 Agent。', clusters: ['K8'], order: 18 },
   'harness-engineering-plan.md': { kind: 'Agent 仓库工程', description: 'Repo map、SPEC、机械回压、行为评测与熵管理。', clusters: ['K7', 'K8'], order: 19 },
+  'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 20 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
 };

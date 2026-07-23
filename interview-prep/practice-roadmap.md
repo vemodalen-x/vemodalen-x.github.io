@@ -75,6 +75,7 @@ flowchart LR
 | 白板与模拟 | [Codemia](https://codemia.io/) | 承载系统设计、Agentic AI 与 mock 练习 | 平台反馈不能代替 ML 数据/评估/发布检查表 |
 | Agent 工程主线 | [《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md) | 用 Harness、上下文、工具、Coding Agent、评估和多 Agent 建立原理到系统的证据链 | 不顺序通读 307 页；后训练/多模态按 JD 选修 |
 | Agent 仓库工程 | [Harness Engineering 路线](harness-engineering-plan.md) | 把仓库变成 Agent 可导航、可执行、可验证、可持续清理的环境 | 案例结论不直接泛化；仅 Agent/Coding/DevProd 岗默认激活 |
+| Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
 
 仓库型题库只负责“发现问题”；答案仍要回到一手资料、自己的实验/trace/profiler 和项目证据验证。
 
@@ -145,8 +146,8 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia、Agentic 题库和自己的 traces/evals。
-- **练习链**：Transformer shape → Agent/ReAct/runtime Harness → context/memory → RAG/tool contract → Coding Agent → repo map/SPEC → Guides × Sensors → trace/behavior eval → entropy/single-multi-agent → safety/release。
+- **支持材料**：Transformer visual guide、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia、Agentic 题库和自己的 traces/evals。
+- **练习链**：Transformer shape → Agent/ReAct/runtime Harness → context/memory → 会跑/跑久/跑稳三层诊断 → RAG/tool contract → Coding Agent → repo map/SPEC → Guides × Sensors → trace/behavior eval → entropy/single-multi-agent → safety/release。
 - **产物**：Transformer inference 卡、Agent loop/Harness 图、context budget、工具 contract、仓库地图、sensor matrix、RAG/Agent eval matrix、移动 CV/多模态/Agent 三套系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 

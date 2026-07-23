@@ -113,6 +113,8 @@ Agent 工程主教材：李博杰《深入理解 AI Agent》中文 PDF v1.2（[�
 
 Coding Agent / Agent Infra 延伸：使用 [Harness Engineering 路线](harness-engineering-plan.md)的 HE-1/3/6 深化 G11、G13、G14，把 repo map、SPEC、机械约束、行为评测和反馈飞轮落到真实仓库；它同样不扩张 90 题主库。
 
+Harness 听辨：使用[播客实践路线](agent-harness-podcast-plan.md)把 G11–G14 重组为执行、状态、治理三层，并用主张—证据矩阵检查 CLI vs MCP、context vs control、memory 和权限分离；它提供新的回答结构，不新增主库题号。
+
 - **G1 · P0**：完整走一遍 Transformer block；为什么 attention score 要除以 √dₖ？
 - **G2 · P0**：KV cache 保存什么？prefill 与 decode 有何不同？上下文长度、batch 和层数如何影响显存？
 - **G3 · P1**：比较 MHA、MQA、GQA；它们怎样权衡质量、KV cache 和吞吐？
