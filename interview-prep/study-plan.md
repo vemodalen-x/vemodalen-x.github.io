@@ -166,6 +166,8 @@ Tuning Playbook 配套：把 trial variance、study variance、data sampling var
 
 经典追问补充：只使用 [Reflection_Summary 路线](reflection-summary-plan.md)的 attention 追问链检查公式、shape、缩放和位置编码；跳过其早期 BERT/NLP 实现细节，现代推理仍使用本题库与更新资料。
 
+LLM/VLM 后训练：使用 [Smol Course 路线](smol-course-plan.md)完成 SC-1、SC-2、SC-4，产出 chat-template/token/mask parity test、SFT 前后对照和三层评测矩阵。它替换一次泛读和一个重复的通用练习，不增加本周总时间。岗位明确要求 preference alignment 或 VLM 时，再从 SC-5/6 选择一个；课程复现环境与当前 TRL 环境分开，不混用依赖版本。
+
 Agent 工程主线：使用[《深入理解 AI Agent》面试化路线](ai-agents-in-depth-plan.md)完成 AID-1、AID-2、AID-4、AID-6，分别产出 Harness 边界图、context budget、工具 contract/异步状态机和 eval matrix。这四项替换泛读与重复练习，不增加本周总时间。Agent 岗再激活 AID-5、AID-7 和 AID-8；模型后训练、自我进化、多模态章节按 JD 选修。
 
 Coding Agent / Agent Infra 定向：接着用 [Harness Engineering 路线](harness-engineering-plan.md)完成 HE-1、HE-3、HE-6，产出仓库地图、Guides × Sensors 矩阵和行为验证阶梯。这三项替换一次 Codemia 白板、重复 Agent 阅读和一次泛化系统设计，不增加本周总时间；通用 ML/CV 岗不默认激活。
@@ -177,6 +179,7 @@ Agentic 白板：未激活 Harness Engineering 时，使用 [Codemia](https://co
 本周交付：
 
 - 一页 Transformer inference 速查：attention、KV cache、prefill/decode、GQA、quantization。
+- 一份 SFT evidence card：训练前 baseline、template/token/mask 单测、held-out 与 regression 指标、资源预算；DPO/VLM 岗再附 preference-pair audit 或 image ablation。
 - 一张 Agent loop/Harness 边界图和一份 context budget，能解释缓存、压缩、记忆与恢复。
 - 一套完整设计：Enterprise RAG 或多工具 Agentic workflow 二选一；另一题只做 15 分钟架构骨架并在 mock 失分时展开。
 - 一张 RAG/Agent eval matrix，覆盖 component、end-to-end、trace、safety、latency 和 cost。

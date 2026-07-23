@@ -313,6 +313,36 @@
       exit: '说明 causal mask、padding mask 和 attention score 三者的 shape 与组合方式。'
     },
     {
+      id: 'k8-smol-sft', cluster: 'K8', title: 'Smol Course SC-1/2/4：Chat Template、SFT 与评测', kind: 'debug', duration: 50, week: 5, prereqs: ['k8-transformer', 'k3-metrics'],
+      goal: '把后训练拆成可验证的数据、token、loss mask、更新和行为评测闭环。', output: 'template parity test + SFT smoke plan + 三层 eval matrix。',
+      prompt: '同一 conversation 怎样变成训练 token 与生成 prompt？add_generation_prompt、EOS、assistant/completion mask 错误分别会怎样失败？',
+      construct: '选择窄任务，冻结 base/instruct baseline 与 held-out slices；展开一条样本的 token 和 loss mask，审计 split/近重复；设计 16–64 条 overfit、LoRA smoke、目标/回归/资源评测和停止门槛。',
+      transfer: 'Train loss 持续下降，但任务成功率不升、拒答变差且输出更长。按数据、template/mask、表示容量、优化和评测泄漏设计可区分实验。',
+      hints: ['Chat model 仍在预测 token，role/content 必须落到控制 token。', '先 overfit 小样本证明 update path，再扩大训练。', '必须比较 prompt/RAG baseline，证明 SFT 确有必要。'],
+      rubric: ['训练/推理 template 与 token 契约明确。', 'loss mask 可逐 token 解释。', '有 frozen baseline、slice 和 regression。', '结论包含版本、资源和失败样本。'],
+      exit: '用 90 秒解释为什么 notebook 跑通和 loss 降低都不等于后训练成功。'
+    },
+    {
+      id: 'k8-smol-dpo', cluster: 'K8', title: 'Smol Course SC-5：DPO、Reference 与偏好陷阱', kind: 'explain', duration: 50, week: 5, prereqs: ['k8-smol-sft'],
+      goal: '从 log-probability margin 理解 DPO，并验证 preference data 是否代表目标。', output: 'DPO 公式推导 + pair audit + β 对照实验。',
+      prompt: '给定同一 prompt 的 chosen/rejected 和 reference policy，写出 DPO margin 与 loss；β、reference 分别控制什么？',
+      construct: '审计 preference pair 的 prompt/template 一致性、长度/风格 proxy、agreement、tie、事实/安全冲突；固定数据做 SFT-only 与三档 β 对照，记录 reward margin、chosen/rejected log-prob、目标胜率、长度与回归。',
+      transfer: 'DPO reward accuracy 上升，但 chosen 绝对概率下降、回答更短且事实性变差。为什么可能发生，怎样决定回滚、修数据或改目标？',
+      hints: ['比较的是 policy 相对 reference 的 chosen/rejected margin。', 'DPO 不保证 chosen 的绝对概率一定上升。', '当前 TRL 定义中更高 β 表示更少偏离 reference。'],
+      rubric: ['公式、符号和 reference 正确。', 'β 方向与版本来源明确。', '能识别偏好捷径和噪声。', '评测同时覆盖目标、事实、安全与通用回归。'],
+      exit: '不看资料写出 DPO loss，并给一个 reward margin 上升但产品质量下降的反例。'
+    },
+    {
+      id: 'k8-smol-vlm', cluster: 'K8', title: 'Smol Course SC-6：VLM Processor、LoRA 与视觉证据', kind: 'design', duration: 50, week: 5, prereqs: ['k8-smol-sft'],
+      goal: '把文本后训练协议扩展到图像/视频输入，并证明模型确实使用视觉证据。', output: 'VLM data/processor contract + LoRA 边界 + slice/ablation eval。',
+      prompt: 'VLM 的 processor、multimodal chat template、视觉 token、vision encoder/projector/LM 各负责什么？训练时哪些部分冻结或适配？',
+      construct: '设计小规模 VLM SFT：锁定 resize/crop/normalization、processor/template revision、image-text alignment、LoRA target 和 max-length；加入文字密集、细小目标、计数、遮挡、低照、无关图与不可回答 slices。',
+      transfer: 'VQA 分数提高，但图像置换后答案几乎不变；另有样本因截断丢掉 image token。如何定位语言先验、collator、processor、template 和训练目标问题？',
+      hints: ['多模态 template 通常在 processor，而不只在 tokenizer。', '图像占位符会扩展为视觉 token，截断前必须验证。', '做图像置换、遮挡、text-only 和反事实对照。'],
+      rubric: ['图像到 token 的数据流完整。', '冻结/LoRA/量化边界有资源依据。', '评测能区分视觉证据与语言先验。', '覆盖坏图、截断、部署 parity 与回退。'],
+      exit: '给出三个能证明 VLM 使用图像而非只靠问题先验的对照实验。'
+    },
+    {
       id: 'k8-rag-eval', cluster: 'K8', title: 'RAG：拆开检索与生成评估', kind: 'design', duration: 50, week: 5, prereqs: ['k3-metrics'],
       goal: '建立 component、end-to-end、citation 和 abstention 评估。', output: 'RAG eval matrix + release gate。',
       prompt: '设计企业 RAG 的评估：如何分别判断 retrieval 和 generation 的问题？',

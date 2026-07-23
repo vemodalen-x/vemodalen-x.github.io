@@ -71,6 +71,7 @@ flowchart LR
 | 理论加深 | [钥匙书路线](key-book-plan.md) | 为 PAC、复杂度、泛化、稳定性和收敛补假设与边界 | 不用 worst-case bound 预测产品效果 |
 | 训练实验 | [Tuning Playbook 路线](tuning-playbook-plan.md) | 把 M7/M8/M11/M12 变成 baseline、搜索、方差和故障诊断 | 不把经验建议当普适定律 |
 | 前沿 CV 表征 | [Vincent Sitzmann 路线](vincent-sitzmann-cv-plan.md) | 把几何、神经场、可微渲染、新视角与世界模型接成可实验的 CV 深挖链 | 不把项目演示、作者预测或论文列表当掌握 |
+| LLM/VLM 后训练 | [Smol Course 路线](smol-course-plan.md) | 把 template、SFT/LoRA、评测、DPO 和 VLM 接成版本化实验闭环 | 不把 notebook、train loss 或 leaderboard 当掌握 |
 | 面试执行 | [Tech Interview Handbook 路线](tech-interview-handbook-plan.md) | 统一编码、行为、自我介绍和 mock 的操作协议 | 不另开一套算法题单 |
 | 视觉辅助 | [Transformer Visual Guide](https://www.hendrik-erz.de/post/the-transformer-architecture-a-visual-guide-pdf-download) | 建立原始 encoder–decoder Transformer 的空间图景 | 不代替 decoder-only、KV cache、GQA、RoPE |
 | 白板与模拟 | [Codemia](https://codemia.io/) | 承载系统设计、Agentic AI 与 mock 练习 | 平台反馈不能代替 ML 数据/评估/发布检查表 |
@@ -147,9 +148,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia、Agentic 题库和自己的 traces/evals。
-- **练习链**：Transformer shape → Agent/ReAct/runtime Harness → context/memory → 会跑/跑久/跑稳三层诊断 → RAG/tool contract → Coding Agent → repo map/SPEC → Guides × Sensors → trace/behavior eval → entropy/single-multi-agent → safety/release。
-- **产物**：Transformer inference 卡、Agent loop/Harness 图、context budget、工具 contract、仓库地图、sensor matrix、RAG/Agent eval matrix、移动 CV/多模态/Agent 三套系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia、Agentic 题库和自己的 traces/evals。
+- **练习链**：Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → RAG/tool contract → Agent/ReAct/runtime Harness → context/memory → Coding Agent → repo map/SPEC → Guides × Sensors → trace/behavior eval → safety/release。
+- **产物**：Transformer inference 卡、template parity test、SFT eval matrix、DPO pair audit、VLM image ablation、Agent loop/Harness 图、context budget、工具 contract、仓库地图、sensor matrix 和系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -163,7 +164,7 @@ flowchart LR
 | 2 CV | V1、V2、V3、V10、V14；VSCV-4/5 替换同等时长泛读；hard-case taxonomy | DML 41、73、115 | LC 48 Rotate Image、LC 54 Spiral Matrix、LC 239 Sliding Window Max | 30 分钟 CV depth + 30 分钟神经场/代码复盘 |
 | 3 Training + Edge | M8；E2、E4、E5、E8；parity/latency 图 | DML 15、17、49、160 | LC 215 Kth Largest、LC 146 LRU、LC 912 Sort Array；至少一题 C++ | 45 分钟 coding + Edge follow-up |
 | 4 Data + System | M5、M6、M10、M12；S4、S6；两套系统设计 | DML 18、19 | LC 200 Number of Islands、LC 210 Course Schedule II、LC 322 Coin Change | 45 分钟 ML system design mock |
-| 5 LLM + Agent | G1、G7、G11、G12；AID-1/2/4/6 替换泛读；G2/G14 作追问 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟 RAG/Agent design mock |
+| 5 LLM + Agent | G1、G7、G11、G12；SC-1/2/4 与 AID-1/2/4/6 替换重复阅读；DPO/VLM 按 JD 选一 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟后训练或 RAG/Agent mock 二选一 |
 | 6 公司定向 | JD → 证据 → 题号 → 当前评分 → 缺口动作 | 从 14 道中随机 1 道离线实现 | 从 44 道覆盖池随机 1–2 道 | 行为、技术、系统、编码各 1 场全真 mock |
 
 这 15 道 DSA 是六周平衡主干，不代表其余 29 道无价值。若目标公司明显 coding-heavy，每周从 Blind 75 缺口或 hard 校准池追加 1–2 道；新增时等量减少阅读，不突破总时长。
@@ -217,6 +218,8 @@ flowchart LR
 | 代码能 AC 但沟通/测试弱 | Handbook 协议与四维评分卡 | 录一场 45 分钟 mock，不继续刷相似题 |
 | 系统设计框很多但没有 ML 闭环 | 90 题 S 模块 + Codemia | 强制补数据、指标、反馈、发布和回滚 |
 | Transformer 结构没有空间图景 | Visual Guide | 沿图口述一次，再回到 G1/G2 与 DML 53/107 |
+| SFT loss 下降但任务收益说不清 | Smol Course SC-0/1/2/4 | 冻结 baseline/eval，检查 template、token、mask 和 split；比较 prompt/RAG baseline |
+| DPO/VLM 只会复述 notebook | Smol Course SC-5/6 | 审计 preference pair/reference/β；做 image shuffle、occlusion 与 text-only 反事实 |
 | Agent 回答停留在框架名或 demo | 《深入理解 AI Agent》AID-1/2/4/6 | 补 Harness 边界、context budget、工具 contract 和可行动 eval；不通读全书 |
 | Coding Agent 只会“搜索、改代码、跑测试” | Harness Engineering HE-1/3 | 补仓库地图、唯一真源和 Guides × Sensors；实现 2 个带修复指令的机械检查 |
 | 测试全绿但用户意图仍可能错 | Harness Engineering HE-2/6 | 写行为契约与关键旅程，加入对抗样本、人工校准和错误完成阻断 |

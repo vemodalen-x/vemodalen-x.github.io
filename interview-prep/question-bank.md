@@ -111,6 +111,8 @@
 
 学习辅助：[The Transformer Architecture: A Visual Guide](https://www.hendrik-erz.de/post/the-transformer-architecture-a-visual-guide-pdf-download)（[单页 PDF](https://www.hendrik-erz.de/storage/app/media/pdf/Transformers_v1.1.pdf)）。先用它建立 encoder–decoder、attention、残差连接和 FFN 的空间图景，再单独补 decoder-only LLM 与推理机制。
 
+后训练与 VLM 实践：使用 [Smol Course 路线](smol-course-plan.md)的 SC-1/2/4 深化 G5/G7/G9，形成 template parity、SFT baseline 和分层评测；LLM/VLM 岗再用 SC-5/6 深化 preference alignment 与 G8。它只增加证据结构和变式，不新增主库题号，也不把 train loss 或 notebook 成功当作答案。
+
 Agent 工程主教材：李博杰《深入理解 AI Agent》中文 PDF v1.2（[配套代码](https://github.com/bojieli/ai-agent-book)）。使用[面试化学习路线](ai-agents-in-depth-plan.md)的 AID-1/2/4/6/7 分别深化 G11-G14；AID-3 对应 G5-G7/G13，AID-5 用真实仓库 trace 补 Coding Agent。它提供练习与证据，不扩张本页 90 题主库。
 
 Coding Agent / Agent Infra 延伸：使用 [Harness Engineering 路线](harness-engineering-plan.md)的 HE-1/3/6 深化 G11、G13、G14，把 repo map、SPEC、机械约束、行为评测和反馈飞轮落到真实仓库；它同样不扩张 90 题主库。
