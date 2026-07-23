@@ -18,9 +18,10 @@ const metadata = {
   'reflection-summary-plan.md': { kind: '经典追问', description: '数学、数据、经典 ML、归一化与 Attention 深挖链。', clusters: ['K2', 'K3', 'K4', 'K5', 'K8'], order: 15 },
   'tuning-playbook-plan.md': { kind: '训练实验', description: 'Baseline、搜索、方差、故障诊断、checkpoint 与追踪。', clusters: ['K3', 'K4'], order: 16 },
   'key-book-plan.md': { kind: '理论加深', description: 'PAC、复杂度、泛化、稳定性、一致性与收敛。', clusters: ['K2', 'K3', 'K4'], order: 17 },
-  'ai-agents-in-depth-plan.md': { kind: 'Agent 主线', description: '运行时 Harness、上下文、工具、Coding Agent、评估与多 Agent。', clusters: ['K8'], order: 18 },
-  'harness-engineering-plan.md': { kind: 'Agent 仓库工程', description: 'Repo map、SPEC、机械回压、行为评测与熵管理。', clusters: ['K7', 'K8'], order: 19 },
-  'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 20 },
+  'vincent-sitzmann-cv-plan.md': { kind: '前沿 CV', description: '相机几何、神经场、SIREN、可微渲染、新视角与视觉世界模型。', clusters: ['K5', 'K8'], order: 18 },
+  'ai-agents-in-depth-plan.md': { kind: 'Agent 主线', description: '运行时 Harness、上下文、工具、Coding Agent、评估与多 Agent。', clusters: ['K8'], order: 19 },
+  'harness-engineering-plan.md': { kind: 'Agent 仓库工程', description: 'Repo map、SPEC、机械回压、行为评测与熵管理。', clusters: ['K7', 'K8'], order: 20 },
+  'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 21 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
 };

@@ -82,7 +82,7 @@ Session 中的文本、信心、评分、提示层级、阶段和有效练习时
 
 - Windows 快捷方式以 Chrome/Edge App 模式打开本地页面，形成无地址栏的独立窗口；`launch-learning-os.cmd` 是可移植的回退入口。
 - 目录把全部资料映射到 K1–K8 与 META，并保留“资料 → 标题章节”的两级结构；同一资料可以服务多个能力簇，不强行复制内容。
-- 构建脚本把仓库内 17 份 Markdown 拆成 312 个章节索引；搜索同时覆盖章节全文与 36 个 TASKS 中的目标、问题、迁移、提示和 rubric。
+- 构建脚本把仓库内 18 份 Markdown 拆成 328 个章节索引；搜索同时覆盖章节全文与 38 个 TASKS 中的目标、问题、迁移、提示和 rubric。
 
 `knowledge-index.js` 是生成物，不是真源。真源仍是各 Markdown 和 `learning-os.js`；每次修改知识文件后必须重新运行 `node scripts/build-knowledge-index.cjs`。生成器要求每份 Markdown 都有显式元数据，新增文件没有进入目录时构建会失败，而不是静默遗漏。
 
@@ -119,7 +119,7 @@ V3 发布前至少验证：
 
 ## 仍然没有解决的差距
 
-- 36 个节点是核心训练集，其中包含 5 个《深入理解 AI Agent》节点、3 个 Harness Engineering 节点和 1 个 Harness 播客听辨节点；它仍不是完整公司题库，具体 JD 需要定向补题。
+- 38 个节点是核心训练集，其中包含 2 个 Vincent Sitzmann 前沿 CV 节点、5 个《深入理解 AI Agent》节点、3 个 Harness Engineering 节点和 1 个 Harness 播客听辨节点；它仍不是完整公司题库，具体 JD 需要定向补题。
 - 没有运行代码测试、解析口述或自动核验架构图；评分依然需要外部校准。
 - 复测变式是规则模板，没有经过难度等值实验。
 - 推荐权重和复习间隔没有个人真实数据验证。

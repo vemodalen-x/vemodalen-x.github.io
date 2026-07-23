@@ -213,6 +213,26 @@
       exit: '给出一个不依赖人工标签的 temporal proxy，并说明它可能误导的情况。'
     },
     {
+      id: 'k5-neural-fields', cluster: 'K5', title: 'VSCV-4：坐标网络、SIREN 与频率偏置', kind: 'code', duration: 50, week: 2, prereqs: ['k5-conv'],
+      goal: '把 neural field 从论文名还原为可测试的 coordinate-to-signal 函数。', output: '三种坐标 MLP 对照 + 频谱/导数误差解释。',
+      prompt: '用 fθ(x, y) → RGB 表示一张图。普通 ReLU、positional features 和 sine activation 会怎样影响高频拟合与优化？',
+      construct: '固定参数量、采样、训练步数和 seed，比较 ReLU MLP、ReLU + Fourier features、SIREN；检查平滑区、细纹理、锐边和噪声，记录 PSNR、时间、频谱与梯度误差。',
+      transfer: '模型训练 PSNR 很高，但未采样坐标插值出现振铃，图像梯度也不稳定。你如何区分表示、初始化、频率上限、采样和过拟合？',
+      hints: ['先写清输入坐标范围、输出范围和采样协议。', '高频表达能力不等于更好的泛化；观察频域与导数。', 'SIREN 的激活、频率参数和初始化必须一起讨论。'],
+      rubric: ['coordinate field 与 shape 明确。', '对照公平且有 slice。', '能解释 spectral bias、初始化和噪声。', '结论来自自己的实验或明确标记为待验证。'],
+      exit: '用表示、架构、forward map、generalization 四轴解释 neural field，并给一个 SIREN 可能不占优的场景。'
+    },
+    {
+      id: 'k5-view-synthesis', cluster: 'K5', title: 'VSCV-5：神经场新视角合成系统', kind: 'design', duration: 50, week: 2, prereqs: ['k5-neural-fields'],
+      goal: '连接相机几何、场景表示、可微渲染、评估和部署取舍。', output: 'camera-to-renderer 系统图 + 表示决策表 + failure tests。',
+      prompt: '设计一个从手机多视角视频生成可交互新视角的系统；先给最小 baseline，再选择 NeRF、Gaussian、mesh、light field 或 hybrid。',
+      construct: '标出内外参、ray、sample/query、volume/raster rendering、loss 和 gradient path；加入 held-out trajectory、pose noise、动态主体、反光/透明、PSNR/LPIPS/人工评审、训练与渲染预算。',
+      transfer: 'PSNR 提升但几何更差，且移动端首帧和显存超预算。如何证明问题来自表示、pose、renderer、采样还是评估泄漏，并选择降级？',
+      hints: ['体渲染先解释 T、alpha、color，再谈加速。', '相邻帧随机切分会夸大 novel-view 泛化。', '固定 renderer 换表示、固定表示扰动 pose/采样，做可区分消融。'],
+      rubric: ['坐标与可微路径完整。', '表示选择对应产品约束。', '评估能发现几何错误和泄漏。', '覆盖失败、部署、回退与回滚。'],
+      exit: '比较 radiance field、Gaussian 和 light field：每种给一个优势、一个硬代价和一个最小验证。'
+    },
+    {
       id: 'k6-parity', cluster: 'K6', title: '三层 Parity：训练、转换、设备', kind: 'debug', duration: 45, week: 3, prereqs: ['k5-conv'],
       goal: '定位导出和运行时差异，而不是只比较最终输出。', output: 'tensor contract + layer-wise parity checklist。',
       prompt: 'PyTorch 正常，ONNX 接近，真实设备明显变差。如何建立三层 parity test？',

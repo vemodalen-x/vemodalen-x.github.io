@@ -85,7 +85,7 @@ Chip Huyen 配套：完成 [ML Interviews Book 定向路线](ml-interviews-book-
 
 ## 第 2 周：CV + 计算摄影深挖
 
-覆盖池：V1–V14、R2、R5、R7。本周主动锚点为 V1、V2、V3、V10；V4–V9 作为 bokeh/CV mock 的追问，V11–V14 按实际失分或 JD 激活。
+覆盖池：V1–V14、R2、R5、R7。本周主动锚点为 V1、V2、V3、V10；V4–V9 作为 bokeh/CV mock 的追问，V14 在 3D、新视角或 computational photography 岗激活，V11–V13 按实际失分或 JD 激活。
 
 Chip Huyen 配套：完成补充题 15–20，重点补齐 1×1/depthwise convolution、upsampling、输入分辨率迁移和训练诊断。
 
@@ -95,11 +95,15 @@ Tuning Playbook 配套：选择一个真实 CV 项目填写实验设计卡，至
 
 钥匙书配套：把假设空间复杂度、样本量和泛化的直觉连接到模型容量、augmentation、pretraining 和 CV hard cases；明确经典 worst-case bound 不能完整解释现代过参数化网络。
 
+前沿 CV 配套：按 [Vincent Sitzmann 路线](vincent-sitzmann-cv-plan.md)先做 VSCV-0/1，再完成 VSCV-4 坐标网络对照与 VSCV-5 新视角系统设计。它们替换一次泛读和一次重复 CV coding，不叠加时长；Diffusion Forcing、world model 与“3D 会过时吗”留给第 5 周的目标岗位选修。
+
 本周交付：
 
 - 手算 5 组输出尺寸和 receptive field。
 - 画出 segmentation/matting、depth、optical flow/tracking、bokeh 四条链路。
 - 建立一张 hard-case taxonomy：现象、可能根因、检测方式、修复手段、发布门槛。
+- 完成 ReLU、positional features、SIREN 三种坐标网络的公平对照，或先交付可运行伪代码、shape 与实验表。
+- 画出 `camera → ray → field/Gaussian → renderer → image loss`，并给 held-out trajectory、pose noise 和动态主体测试。
 - 做一次 30 分钟 CV depth mock。
 - 算法主干：LC 48 Rotate Image、LC 54 Spiral Matrix、LC 239 Sliding Window Maximum。
 - 完成 Deep-ML 41 Conv2D、73 Dice、115 BatchNorm；分别计入 C1、C3 指标和 M8 的实现训练，不作为额外三题。

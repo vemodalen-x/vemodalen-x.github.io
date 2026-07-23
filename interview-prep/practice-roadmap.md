@@ -70,6 +70,7 @@ flowchart LR
 | 经典概念追问 | [Reflection_Summary 路线](reflection-summary-plan.md) | 为偏差方差、MLE/MAP、数据、经典 ML、归一化和 attention 加深追问 | 不直接背个人总结答案 |
 | 理论加深 | [钥匙书路线](key-book-plan.md) | 为 PAC、复杂度、泛化、稳定性和收敛补假设与边界 | 不用 worst-case bound 预测产品效果 |
 | 训练实验 | [Tuning Playbook 路线](tuning-playbook-plan.md) | 把 M7/M8/M11/M12 变成 baseline、搜索、方差和故障诊断 | 不把经验建议当普适定律 |
+| 前沿 CV 表征 | [Vincent Sitzmann 路线](vincent-sitzmann-cv-plan.md) | 把几何、神经场、可微渲染、新视角与世界模型接成可实验的 CV 深挖链 | 不把项目演示、作者预测或论文列表当掌握 |
 | 面试执行 | [Tech Interview Handbook 路线](tech-interview-handbook-plan.md) | 统一编码、行为、自我介绍和 mock 的操作协议 | 不另开一套算法题单 |
 | 视觉辅助 | [Transformer Visual Guide](https://www.hendrik-erz.de/post/the-transformer-architecture-a-visual-guide-pdf-download) | 建立原始 encoder–decoder Transformer 的空间图景 | 不代替 decoder-only、KV cache、GQA、RoPE |
 | 白板与模拟 | [Codemia](https://codemia.io/) | 承载系统设计、Agentic AI 与 mock 练习 | 平台反馈不能代替 ML 数据/评估/发布检查表 |
@@ -119,11 +120,11 @@ flowchart LR
 ### K5. Computer Vision 与计算摄影
 
 - **核心题**：V1–V14，优先 V1–V11。
-- **实现锚点**：C1–C4；Deep-ML 41 Conv2D、73 Dice、115 BatchNorm。
-- **支持材料**：ML Interviews 15–20；自己的相机、视频与 hard-case 记录。
-- **练习链**：算子/shape → loss/metric → 单帧模型 → 视频时序 → 产品链路 → hard cases 与发布门槛。
-- **产物**：segmentation/matting、depth、flow/tracking、bokeh 四条图；hard-case taxonomy；CV depth mock。
-- **过关**：所有答案回到坐标、色彩、边界、时序、设备和主观质量，不只报 benchmark。
+- **实现锚点**：C1–C4；Deep-ML 41 Conv2D、73 Dice、115 BatchNorm；VSCV-4 坐标网络对照。
+- **支持材料**：ML Interviews 15–20；[Vincent Sitzmann 路线](vincent-sitzmann-cv-plan.md)的 VSCV-0–5；自己的相机、视频与 hard-case 记录。
+- **练习链**：算子/shape → loss/metric → 单帧模型 → 相机/多视图 → neural field/renderer → 视频时序 → 产品链路 → hard cases 与发布门槛。
+- **产物**：segmentation/matting、depth、flow/tracking、bokeh 四条图；坐标网络对照；新视角系统图；hard-case taxonomy；CV depth mock。
+- **过关**：所有答案回到坐标、色彩、边界、时序、表示、渲染、设备和主观质量；能区分论文结果与自己的实验，不只报 benchmark。
 
 ### K6. Edge、C++ 与运行时
 
@@ -159,7 +160,7 @@ flowchart LR
 | --- | --- | --- | --- | --- |
 | 0 | 60 分钟基线；给缺口打知识/证据/结构/表达标签 | 不补题 | 不热身 | 建立评分和复习日期 |
 | 1 基础与叙事 | R/B 母故事；M1、M2、M4、M7 | DML 10、23 | LC 1 Two Sum、LC 704 Binary Search、LC 206 Reverse List | 60 分钟 breadth + story mock |
-| 2 CV | V1、V2、V3、V10；hard-case taxonomy | DML 41、73、115 | LC 48 Rotate Image、LC 54 Spiral Matrix、LC 239 Sliding Window Max | 30 分钟 CV depth + 30 分钟代码复盘 |
+| 2 CV | V1、V2、V3、V10、V14；VSCV-4/5 替换同等时长泛读；hard-case taxonomy | DML 41、73、115 | LC 48 Rotate Image、LC 54 Spiral Matrix、LC 239 Sliding Window Max | 30 分钟 CV depth + 30 分钟神经场/代码复盘 |
 | 3 Training + Edge | M8；E2、E4、E5、E8；parity/latency 图 | DML 15、17、49、160 | LC 215 Kth Largest、LC 146 LRU、LC 912 Sort Array；至少一题 C++ | 45 分钟 coding + Edge follow-up |
 | 4 Data + System | M5、M6、M10、M12；S4、S6；两套系统设计 | DML 18、19 | LC 200 Number of Islands、LC 210 Course Schedule II、LC 322 Coin Change | 45 分钟 ML system design mock |
 | 5 LLM + Agent | G1、G7、G11、G12；AID-1/2/4/6 替换泛读；G2/G14 作追问 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟 RAG/Agent design mock |

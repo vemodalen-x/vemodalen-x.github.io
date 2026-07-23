@@ -65,6 +65,8 @@
 - **V13 · P1**：PSNR/SSIM/LPIPS 与人工主观评测各能说明什么？怎样设计成对视觉质量评审？
 - **V14 · P1**：如果要从多视角图像和深度传感器重建物体，SfM、MVS、配准和融合分别处于哪一步？
 
+前沿 CV 深挖：使用 [Vincent Sitzmann 路线](vincent-sitzmann-cv-plan.md)的 VSCV-1–5 深化 V5、V6、V13、V14，把相机光线、神经场、SIREN、volume rendering、Gaussian/light field 取舍和 novel-view split 落到两个交互练习；world model 与“3D 会过时吗”仅在 JD 命中时选修，不新增主库题号。
+
 **本组优秀信号**：把模型输出放回相机/视频链路；讨论边界、时序与主观质量；说明坐标系、色彩空间和数值范围；给出 hard-case taxonomy。
 
 ---
