@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="本地优先的 AI 面试自适应学习工作台：用延迟无辅助复测、预算化任务包、分层提示、锚定评分和草稿恢复形成可信能力证据。">
-  <title>Interview Learning OS V3</title>
+  <title>Interview Learning OS V3 · Desktop</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="learning-os.css">
 </head>
@@ -15,14 +15,14 @@
     <div class="topbar-inner">
       <a class="brand" href="learning-os.html" aria-label="Interview Learning OS 首页">
         <span class="brand-mark" aria-hidden="true">LO</span>
-        <span><strong>Interview Learning OS <em class="version-badge">V3</em></strong><small>Evidence before progress</small></span>
+        <span><strong>Interview Learning OS <em class="version-badge">DESKTOP</em></strong><small>Practice · Review · Search</small></span>
       </a>
       <nav aria-label="页面导航">
         <a class="active" href="#today">今日</a>
         <a href="#competencies">能力图</a>
+        <a href="#library">知识库</a>
+        <a href="#queue">任务包</a>
         <a href="#evidence">证据</a>
-        <a href="practice-roadmap.md">总路线</a>
-        <a href="learning-experience-v3.md">V3 设计</a>
       </nav>
       <div class="header-actions">
         <button class="quiet-button" id="import-state" type="button">导入</button>
@@ -160,6 +160,45 @@
         <span class="section-note" id="cluster-filter-note">当前：全部能力簇</span>
       </div>
       <div class="cluster-grid" id="cluster-grid"></div>
+    </section>
+
+    <section class="workspace-section knowledge-section" id="library">
+      <div class="section-heading">
+        <div><p class="eyebrow">KNOWLEDGE DIRECTORY</p><h2>一张目录，检索全部准备材料</h2><p>按能力簇浏览 16 份路线与题库，或搜索任意概念、题目、失败模式和工程关键词；结果同时覆盖知识章节与练习节点。</p></div>
+        <span class="section-note">Ctrl / ⌘ + K 搜索</span>
+      </div>
+
+      <div class="knowledge-stats" aria-label="知识库统计">
+        <article><strong id="knowledge-source-count">--</strong><span>份学习资料</span></article>
+        <article><strong id="knowledge-section-count">--</strong><span>个可检索章节</span></article>
+        <article><strong id="knowledge-task-count">--</strong><span>个练习节点</span></article>
+        <article><strong>8</strong><span>个能力簇</span></article>
+      </div>
+
+      <div class="knowledge-search-shell">
+        <label for="knowledge-search"><span aria-hidden="true">⌕</span><input id="knowledge-search" type="search" autocomplete="off" placeholder="搜索：bias variance、量化、RAG、行为面试、Harness…"><kbd>Ctrl K</kbd></label>
+        <button class="quiet-button" id="knowledge-clear" type="button">清除</button>
+      </div>
+
+      <div class="knowledge-layout">
+        <aside class="catalog-tree" aria-label="知识能力目录">
+          <div class="catalog-tree-heading"><span>能力目录</span><small>选择一个簇缩小范围</small></div>
+          <div id="knowledge-cluster-list"></div>
+        </aside>
+
+        <div class="knowledge-browser">
+          <div class="knowledge-browser-head">
+            <div><span id="knowledge-context-label">全部知识</span><h3 id="knowledge-context-title">学习资料总目录</h3></div>
+            <button class="mini-button" id="knowledge-reset-document" type="button" hidden>返回全部资料</button>
+          </div>
+          <div class="resource-grid" id="knowledge-document-grid"></div>
+          <div class="section-index-head">
+            <strong id="knowledge-result-summary">章节索引</strong>
+            <span>点击章节在应用内阅读；点击练习直接开始 Session。</span>
+          </div>
+          <div class="knowledge-results" id="knowledge-results" aria-live="polite"></div>
+        </div>
+      </div>
     </section>
 
     <section class="workspace-section queue-section" id="queue">
@@ -319,8 +358,23 @@
     </form>
   </dialog>
 
+  <dialog id="knowledge-dialog" aria-labelledby="knowledge-reader-title">
+    <article class="knowledge-reader-shell">
+      <header class="knowledge-reader-header">
+        <div><span id="knowledge-reader-source">知识来源</span><h2 id="knowledge-reader-title">章节标题</h2><p id="knowledge-reader-breadcrumb"></p></div>
+        <button class="icon-button" id="close-knowledge-reader" type="button" aria-label="关闭知识阅读器">×</button>
+      </header>
+      <div class="knowledge-reader-content" id="knowledge-reader-content"></div>
+      <footer class="knowledge-reader-footer">
+        <span>离线索引 · 以仓库中的原始 Markdown 为准</span>
+        <a class="primary-button compact" id="knowledge-open-source" href="README.md" target="_blank" rel="noopener noreferrer">打开完整原文</a>
+      </footer>
+    </article>
+  </dialog>
+
   <input id="state-file" type="file" accept="application/json,.json" hidden>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="knowledge-index.js"></script>
   <script src="learning-os.js"></script>
 </body>
 </html>

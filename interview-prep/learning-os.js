@@ -17,6 +17,7 @@
     K7: { title: 'DSA 与软件编码', short: 'Coding', description: '模式、不变量、复杂度与边界测试', color: '#3d63a8' },
     K8: { title: '系统、LLM 与 Agent', short: 'Systems', description: '上下文、Harness、工具、评估、协作与发布', color: '#755197' }
   };
+  var KNOWLEDGE = window.INTERVIEW_KNOWLEDGE || { documents: [], sections: [], sourceCount: 0, sectionCount: 0 };
 
   var ROLE_WEIGHTS = {
     balanced: { K1: 0.9, K2: 0.75, K3: 0.9, K4: 0.9, K5: 0.9, K6: 0.85, K7: 0.75, K8: 0.85 },
@@ -406,6 +407,7 @@
   var activePlannedMinutes = 0;
   var selectedOverride = null;
   var clusterFilter = null;
+  var knowledgeState = { cluster: 'ALL', documentId: null, query: '' };
 
   var els = {};
 
@@ -492,7 +494,11 @@
       'request-hint', 'hint-message', 'transfer-prompt', 'transfer-response',
       'rubric-list', 'feedback-notes', 'exit-prompt', 'exit-response',
       'session-preview', 'previous-phase', 'next-phase', 'session-status', 'toast',
-      'state-file'
+      'state-file', 'knowledge-source-count', 'knowledge-section-count', 'knowledge-task-count',
+      'knowledge-search', 'knowledge-clear', 'knowledge-cluster-list', 'knowledge-document-grid',
+      'knowledge-results', 'knowledge-result-summary', 'knowledge-context-label', 'knowledge-context-title',
+      'knowledge-reset-document', 'knowledge-dialog', 'knowledge-reader-source', 'knowledge-reader-title',
+      'knowledge-reader-breadcrumb', 'knowledge-reader-content', 'knowledge-open-source'
     ].forEach(function (id) {
       els[id] = document.getElementById(id);
     });
@@ -605,6 +611,7 @@
     renderDraft();
     renderRecommendation();
     renderClusters();
+    renderKnowledge();
     renderQueue();
     renderEvidence();
   }
@@ -736,6 +743,226 @@
         '<p>' + escapeHtml(truncate(summary, 150)) + '</p>' +
         '</article>';
     }).join('');
+  }
+
+  function knowledgeClusterLabel(id) {
+    if (id === 'ALL') return { title: '全部知识', short: 'ALL', description: '全部路线、题库、计划与系统说明' };
+    if (id === 'META') return { title: '学习系统与方法', short: 'META', description: 'Learning OS 的设计、验证与使用说明' };
+    return CLUSTERS[id] || { title: id, short: id, description: '' };
+  }
+
+  function documentMatchesCluster(document, cluster) {
+    return cluster === 'ALL' || (document.clusters || []).indexOf(cluster) >= 0;
+  }
+
+  function sectionMatchesCluster(section, cluster) {
+    return cluster === 'ALL' || (section.clusters || []).indexOf(cluster) >= 0;
+  }
+
+  function normalizeKnowledgeText(value) {
+    var text = String(value || '').toLowerCase();
+    return text.normalize ? text.normalize('NFKC') : text;
+  }
+
+  function knowledgeMatchScore(query, title, body) {
+    var normalizedQuery = normalizeKnowledgeText(query).trim();
+    if (!normalizedQuery) return 1;
+    var tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+    var normalizedTitle = normalizeKnowledgeText(title);
+    var normalizedBody = normalizeKnowledgeText(body);
+    var haystack = normalizedTitle + ' ' + normalizedBody;
+    if (!tokens.every(function (token) { return haystack.indexOf(token) >= 0; })) return 0;
+    var score = normalizedTitle.indexOf(normalizedQuery) >= 0 ? 30 : 0;
+    tokens.forEach(function (token) {
+      if (normalizedTitle.indexOf(token) >= 0) score += 12;
+      var occurrences = normalizedBody.split(token).length - 1;
+      score += Math.min(6, occurrences);
+    });
+    return score + Math.max(0, 5 - normalizedTitle.length / 40);
+  }
+
+  function knowledgeDocumentById(id) {
+    return KNOWLEDGE.documents.find(function (document) { return document.id === id; });
+  }
+
+  function knowledgeSectionById(id) {
+    return KNOWLEDGE.sections.find(function (section) { return section.id === id; });
+  }
+
+  function knowledgeResults() {
+    var query = knowledgeState.query.trim();
+    var sections = KNOWLEDGE.sections.filter(function (section) {
+      if (!sectionMatchesCluster(section, knowledgeState.cluster)) return false;
+      return !knowledgeState.documentId || section.documentId === knowledgeState.documentId;
+    }).map(function (section) {
+      var document = knowledgeDocumentById(section.documentId);
+      var body = [document ? document.title : '', document ? document.kind : '', document ? document.description : '', section.breadcrumb.join(' '), section.content, section.clusters.join(' ')].join(' ');
+      return { type: 'section', item: section, score: knowledgeMatchScore(query, section.title, body) };
+    }).filter(function (result) {
+      if (query) return result.score > 0;
+      if (knowledgeState.documentId) return true;
+      return result.item.level <= 2;
+    });
+
+    var tasks = [];
+    if (query && !knowledgeState.documentId && knowledgeState.cluster !== 'META') {
+      tasks = TASKS.filter(function (task) {
+        return knowledgeState.cluster === 'ALL' || task.cluster === knowledgeState.cluster;
+      }).map(function (task) {
+        var body = [task.goal, task.output, task.prompt, task.construct, task.transfer, task.exit, task.hints.join(' '), task.rubric.join(' ')].join(' ');
+        return { type: 'task', item: task, score: knowledgeMatchScore(query, task.title, body) + 4 };
+      }).filter(function (result) { return result.score > 0; });
+    }
+
+    return sections.concat(tasks).sort(function (a, b) {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.item.title.localeCompare(b.item.title, 'zh-CN');
+    });
+  }
+
+  function renderKnowledge() {
+    if (!els['knowledge-cluster-list']) return;
+    els['knowledge-source-count'].textContent = String(KNOWLEDGE.sourceCount || KNOWLEDGE.documents.length);
+    els['knowledge-section-count'].textContent = String(KNOWLEDGE.sectionCount || KNOWLEDGE.sections.length);
+    els['knowledge-task-count'].textContent = String(TASKS.length);
+    if (els['knowledge-search'].value !== knowledgeState.query) els['knowledge-search'].value = knowledgeState.query;
+
+    var clusterIds = ['ALL'].concat(Object.keys(CLUSTERS)).concat(['META']);
+    els['knowledge-cluster-list'].innerHTML = clusterIds.map(function (id) {
+      var cluster = knowledgeClusterLabel(id);
+      var count = KNOWLEDGE.documents.filter(function (document) { return documentMatchesCluster(document, id); }).length;
+      return '<button class="catalog-tree-item' + (knowledgeState.cluster === id ? ' active' : '') + '" type="button" data-knowledge-cluster="' + id + '" aria-pressed="' + (knowledgeState.cluster === id) + '">' +
+        '<span>' + escapeHtml(cluster.short) + '</span><strong>' + escapeHtml(cluster.title) + '</strong><small>' + count + ' 份</small></button>';
+    }).join('');
+
+    var cluster = knowledgeClusterLabel(knowledgeState.cluster);
+    var activeDocument = knowledgeDocumentById(knowledgeState.documentId);
+    els['knowledge-context-label'].textContent = activeDocument ? activeDocument.kind : cluster.short + ' · DIRECTORY';
+    els['knowledge-context-title'].textContent = activeDocument ? activeDocument.title : cluster.title;
+    els['knowledge-reset-document'].hidden = !activeDocument;
+
+    var documents = KNOWLEDGE.documents.filter(function (document) {
+      return documentMatchesCluster(document, knowledgeState.cluster);
+    });
+    els['knowledge-document-grid'].innerHTML = documents.map(function (document) {
+      var tags = document.clusters.slice(0, 4).map(function (id) { return '<span>' + escapeHtml(id) + '</span>'; }).join('');
+      return '<button class="resource-card' + (knowledgeState.documentId === document.id ? ' active' : '') + '" type="button" data-document-id="' + escapeHtml(document.id) + '">' +
+        '<span class="resource-kind">' + escapeHtml(document.kind) + '</span>' +
+        '<strong>' + escapeHtml(document.title) + '</strong>' +
+        '<p>' + escapeHtml(document.description) + '</p>' +
+        '<span class="resource-meta"><span>' + document.sectionCount + ' 节</span><span>' + Math.round(document.characterCount / 1000) + 'k 字符</span></span>' +
+        '<span class="resource-tags">' + tags + '</span></button>';
+    }).join('');
+
+    var results = knowledgeResults();
+    var visibleResults = results.slice(0, 80);
+    var scope = activeDocument ? '当前资料' : (knowledgeState.cluster === 'ALL' ? '全库' : cluster.title);
+    els['knowledge-result-summary'].textContent = knowledgeState.query ? scope + '找到 ' + results.length + ' 项' : (activeDocument ? activeDocument.sectionCount + ' 个章节' : scope + '章节索引');
+    if (!visibleResults.length) {
+      els['knowledge-results'].innerHTML = '<div class="knowledge-empty"><strong>没有匹配结果</strong><p>减少关键词、切换能力簇，或返回全部资料再搜索。</p></div>';
+      return;
+    }
+    els['knowledge-results'].innerHTML = visibleResults.map(function (result) {
+      if (result.type === 'task') {
+        var task = result.item;
+        return '<button class="knowledge-result task-result" type="button" data-knowledge-task-id="' + escapeHtml(task.id) + '">' +
+          '<span class="knowledge-result-type">练习 · ' + escapeHtml(task.cluster) + ' · ' + task.duration + ' min</span>' +
+          '<strong>' + escapeHtml(task.title) + '</strong><p>' + escapeHtml(task.goal) + '</p><span class="knowledge-result-action">开始 Session →</span></button>';
+      }
+      var section = result.item;
+      var document = knowledgeDocumentById(section.documentId);
+      return '<button class="knowledge-result" type="button" data-section-id="' + escapeHtml(section.id) + '">' +
+        '<span class="knowledge-result-type">' + escapeHtml(document ? document.kind : section.path) + ' · ' + escapeHtml(section.clusters.join(' / ')) + '</span>' +
+        '<strong>' + escapeHtml(section.title) + '</strong><p>' + escapeHtml(section.snippet || '打开章节查看完整内容。') + '</p>' +
+        '<span class="knowledge-result-source">' + escapeHtml(document ? document.title : section.path) + '</span></button>';
+    }).join('');
+  }
+
+  function inlineKnowledgeMarkdown(value) {
+    var html = escapeHtml(value);
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (_, label, href) {
+      return '<a href="' + href.replace(/&amp;/g, '&') + '" target="_blank" rel="noopener noreferrer">' + label + '</a>';
+    });
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    return html;
+  }
+
+  function renderKnowledgeMarkdown(content) {
+    var lines = String(content || '').replace(/\r\n/g, '\n').split('\n');
+    var html = [];
+    var index = 0;
+    while (index < lines.length) {
+      var line = lines[index];
+      if (!line.trim()) { index += 1; continue; }
+      if (/^```/.test(line.trim())) {
+        var language = line.trim().slice(3);
+        var code = [];
+        index += 1;
+        while (index < lines.length && !/^```/.test(lines[index].trim())) { code.push(lines[index]); index += 1; }
+        if (index < lines.length) index += 1;
+        html.push('<pre><code data-language="' + escapeHtml(language) + '">' + escapeHtml(code.join('\n')) + '</code></pre>');
+        continue;
+      }
+      if (/^\|.*\|\s*$/.test(line) && index + 1 < lines.length && /^\|?\s*:?-+/.test(lines[index + 1])) {
+        var rows = [];
+        while (index < lines.length && /^\|.*\|\s*$/.test(lines[index])) {
+          rows.push(lines[index].replace(/^\||\|$/g, '').split('|').map(function (cell) { return cell.trim(); }));
+          index += 1;
+        }
+        if (rows.length > 1) rows.splice(1, 1);
+        html.push('<div class="knowledge-table-wrap"><table>' + rows.map(function (row, rowIndex) {
+          var cellTag = rowIndex === 0 ? 'th' : 'td';
+          return '<tr>' + row.map(function (cell) { return '<' + cellTag + '>' + inlineKnowledgeMarkdown(cell) + '</' + cellTag + '>'; }).join('') + '</tr>';
+        }).join('') + '</table></div>');
+        continue;
+      }
+      if (/^\s*[-*]\s+/.test(line)) {
+        var bullets = [];
+        while (index < lines.length && /^\s*[-*]\s+/.test(lines[index])) {
+          bullets.push(lines[index].replace(/^\s*[-*]\s+/, ''));
+          index += 1;
+        }
+        html.push('<ul>' + bullets.map(function (item) { return '<li>' + inlineKnowledgeMarkdown(item) + '</li>'; }).join('') + '</ul>');
+        continue;
+      }
+      if (/^\s*\d+\.\s+/.test(line)) {
+        var numbers = [];
+        while (index < lines.length && /^\s*\d+\.\s+/.test(lines[index])) {
+          numbers.push(lines[index].replace(/^\s*\d+\.\s+/, ''));
+          index += 1;
+        }
+        html.push('<ol>' + numbers.map(function (item) { return '<li>' + inlineKnowledgeMarkdown(item) + '</li>'; }).join('') + '</ol>');
+        continue;
+      }
+      if (/^>\s?/.test(line)) {
+        var quotes = [];
+        while (index < lines.length && /^>\s?/.test(lines[index])) { quotes.push(lines[index].replace(/^>\s?/, '')); index += 1; }
+        html.push('<blockquote>' + inlineKnowledgeMarkdown(quotes.join(' ')) + '</blockquote>');
+        continue;
+      }
+      if (/^---+$/.test(line.trim())) { html.push('<hr>'); index += 1; continue; }
+      var paragraph = [line.trim()];
+      index += 1;
+      while (index < lines.length && lines[index].trim() && !/^(\s*[-*]\s+|\s*\d+\.\s+|```|\||>\s?|---+$)/.test(lines[index])) {
+        paragraph.push(lines[index].trim());
+        index += 1;
+      }
+      html.push('<p>' + inlineKnowledgeMarkdown(paragraph.join(' ')) + '</p>');
+    }
+    return html.join('');
+  }
+
+  function openKnowledgeSection(sectionId) {
+    var section = knowledgeSectionById(sectionId);
+    if (!section) return;
+    var document = knowledgeDocumentById(section.documentId);
+    els['knowledge-reader-source'].textContent = document ? document.kind + ' · ' + document.title : section.path;
+    els['knowledge-reader-title'].textContent = section.title;
+    els['knowledge-reader-breadcrumb'].textContent = section.breadcrumb.join('  /  ');
+    els['knowledge-reader-content'].innerHTML = renderKnowledgeMarkdown(section.content || '本节没有正文，请打开完整原文。');
+    els['knowledge-open-source'].href = section.path;
+    els['knowledge-dialog'].showModal();
   }
 
   function openSession(taskId, resumeExisting) {
@@ -1225,6 +1452,55 @@
   }
 
   function bindEvents() {
+    els['knowledge-search'].addEventListener('input', function () {
+      knowledgeState.query = els['knowledge-search'].value;
+      renderKnowledge();
+    });
+    els['knowledge-clear'].addEventListener('click', function () {
+      knowledgeState.query = '';
+      els['knowledge-search'].value = '';
+      renderKnowledge();
+      els['knowledge-search'].focus();
+    });
+    els['knowledge-cluster-list'].addEventListener('click', function (event) {
+      var button = event.target.closest('[data-knowledge-cluster]');
+      if (!button) return;
+      knowledgeState.cluster = button.dataset.knowledgeCluster;
+      knowledgeState.documentId = null;
+      renderKnowledge();
+    });
+    els['knowledge-document-grid'].addEventListener('click', function (event) {
+      var button = event.target.closest('[data-document-id]');
+      if (!button) return;
+      knowledgeState.documentId = button.dataset.documentId;
+      renderKnowledge();
+      document.querySelector('.section-index-head').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    els['knowledge-reset-document'].addEventListener('click', function () {
+      knowledgeState.documentId = null;
+      renderKnowledge();
+    });
+    els['knowledge-results'].addEventListener('click', function (event) {
+      var taskButton = event.target.closest('[data-knowledge-task-id]');
+      if (taskButton) {
+        openSession(taskButton.dataset.knowledgeTaskId);
+        return;
+      }
+      var sectionButton = event.target.closest('[data-section-id]');
+      if (sectionButton) openKnowledgeSection(sectionButton.dataset.sectionId);
+    });
+    document.getElementById('close-knowledge-reader').addEventListener('click', function () {
+      els['knowledge-dialog'].close();
+    });
+    document.addEventListener('keydown', function (event) {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        els['knowledge-search'].focus();
+        els['knowledge-search'].select();
+      }
+    });
+
     ['profile-role', 'profile-mode', 'profile-minutes'].forEach(function (id) {
       els[id].addEventListener('change', function () {
         state.profile.role = els['profile-role'].value;

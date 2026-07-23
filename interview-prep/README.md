@@ -4,7 +4,7 @@
 
 ## 交付内容
 
-- [Interview Learning OS V3](learning-os.html)：本地交互式学习工作台，提供预算化任务包、延迟无辅助复测、约束变式、分层提示、锚定五维评分、信心校准、草稿恢复和本地证据日志。
+- [Interview Learning OS Desktop](learning-os.html)：可从桌面快捷方式直接启动的本地学习应用，提供预算化任务包、延迟无辅助复测、八簇知识目录、全库离线检索、分层提示、锚定评分、草稿恢复和证据日志。首次安装快捷方式运行 `install-desktop-shortcut.ps1`；也可双击 `launch-learning-os.cmd`。
 - [Learning OS V3 设计与验证契约](learning-experience-v3.md)：说明 V3 如何修复即时迁移冒充延迟能力、默认评分偏差、队列超预算和草稿丢失，并定义状态迁移、验证标准与下一轮实验。
 - [Learning OS V2 设计评审](learning-experience-v2.md)：保留为历史设计记录，涵盖自适应学习系统的初版差距分析、学习科学依据和 AI 教练契约。
 - [统一练习脉络](practice-roadmap.md)：按八个能力簇组织全部题库和资料，定义原理 → 实现 → 诊断 → 系统 → mock 的依赖关系、六周唯一激活路径和缺口路由。先从这里开始。
@@ -21,9 +21,16 @@
 - [《深入理解 AI Agent》面试化学习路线](ai-agents-in-depth-plan.md)：把 307 页中文 PDF 压缩成 8 个核心 Session、3 个岗位选修和 1 个 capstone，覆盖 Harness、上下文/记忆、工具、Coding Agent、评估与多 Agent。
 - [Harness Engineering 面试化学习路线](harness-engineering-plan.md)：把 Coding Agent 的仓库环境拆成 8 个 Session，覆盖 repo-as-record、SPEC/WORKFLOW、Guides × Sensors、Agent 可读性、合并经济学、熵管理与行为正确性。
 
+## 桌面应用与知识检索
+
+- Windows 首次使用：双击 [install-desktop-shortcut.cmd](install-desktop-shortcut.cmd)，桌面会创建应用快捷方式。也可直接双击 [launch-learning-os.cmd](launch-learning-os.cmd)。应用使用本机 Chrome/Edge 的独立窗口，不需要服务器。
+- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 16 份 Markdown、304 个标题章节，并与 35 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
+- 知识正文来自仓库内 Markdown，搜索索引是可再生文件。新增或修改资料后，运行 `node scripts/build-knowledge-index.cjs`；构建器会在有文件未被纳入元数据时直接失败，避免静默漏检。
+- 学习状态继续保存在浏览器本地。更新索引或应用文件不会清空进度；换浏览器或迁移电脑前先在应用中导出状态。
+
 ## 推荐使用顺序
 
-1. 先打开 [Interview Learning OS V3](learning-os.html)，选择角色、面试轮次和当天预算；第一次 Session 只形成候选证据，不把即时正确当作延迟掌握。
+1. 从桌面“AI 面试学习”快捷方式打开 [Interview Learning OS Desktop](learning-os.html)，选择角色、面试轮次和当天预算；第一次 Session 只形成候选证据，不把即时正确当作延迟掌握。
 2. 再用[统一练习脉络](practice-roadmap.md)完成第 0 天闭卷基线，并核对系统推荐是否覆盖真实薄弱项。
 3. 只激活脉络中本周的能力簇、15 道 DSA 主干和对应 Deep-ML 题；其他题目先留在覆盖池。
 4. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)，不按来源顺序通读。
