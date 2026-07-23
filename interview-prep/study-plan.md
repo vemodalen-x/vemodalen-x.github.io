@@ -164,7 +164,9 @@ Tuning Playbook 配套：把 trial variance、study variance、data sampling var
 
 Agent 工程主线：使用[《深入理解 AI Agent》面试化路线](ai-agents-in-depth-plan.md)完成 AID-1、AID-2、AID-4、AID-6，分别产出 Harness 边界图、context budget、工具 contract/异步状态机和 eval matrix。这四项替换泛读与重复练习，不增加本周总时间。Agent 岗再激活 AID-5、AID-7 和 AID-8；模型后训练、自我进化、多模态章节按 JD 选修。
 
-Agentic 白板：在上述产物完成后，使用 [Codemia](https://codemia.io/) 的 Agentic AI 题做一次限时训练；平台反馈之后，再用本题库 G11–G14 检查 workflow/agent 选择、工具副作用、安全、trace-level eval 和成本是否遗漏。
+Coding Agent / Agent Infra 定向：接着用 [Harness Engineering 路线](harness-engineering-plan.md)完成 HE-1、HE-3、HE-6，产出仓库地图、Guides × Sensors 矩阵和行为验证阶梯。这三项替换一次 Codemia 白板、重复 Agent 阅读和一次泛化系统设计，不增加本周总时间；通用 ML/CV 岗不默认激活。
+
+Agentic 白板：未激活 Harness Engineering 时，使用 [Codemia](https://codemia.io/) 的 Agentic AI 题做一次限时训练；已激活时，Codemia 只作为第 6 周随机 mock，不与 HE-1/3/6 同周叠加。平台反馈之后，再用本题库 G11–G14 检查 workflow/agent 选择、工具副作用、安全、trace-level eval 和成本是否遗漏。
 
 本周交付：
 
@@ -172,6 +174,7 @@ Agentic 白板：在上述产物完成后，使用 [Codemia](https://codemia.io/
 - 一张 Agent loop/Harness 边界图和一份 context budget，能解释缓存、压缩、记忆与恢复。
 - 一套完整设计：Enterprise RAG 或多工具 Agentic workflow 二选一；另一题只做 15 分钟架构骨架并在 mock 失分时展开。
 - 一张 RAG/Agent eval matrix，覆盖 component、end-to-end、trace、safety、latency 和 cost。
+- Coding Agent / Agent Infra 岗再交付一份仓库地图、2 个机械检查和一层经人工校准的关键旅程评测；它替换上述一次白板练习，不新增时长。
 - 回答清楚四个关键取舍：RAG vs fine-tune；workflow vs agent；single vs multi-agent；small vs large model routing。
 - 完成 Deep-ML 53 Self-Attention、107 Masked Self-Attention、109 LayerNorm；闭卷画出每一步 shape、softmax axis 与 mask broadcast。
 - 算法主干：LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie；其余 Blind 75 缺口题留作公司定向或随机 mock。

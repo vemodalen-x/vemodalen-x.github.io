@@ -19,13 +19,14 @@
 - [LeetCode Blind 75 覆盖与补充路线](blind-75-plan.md)：与 AlgoNote 32 题去重后的覆盖审计、12 道 P0 缺口题、P1 hard 校准题和模式迁移训练。
 - [Deep-ML 机器学习实现题路线](deep-ml-plan.md)：从 100+ 道 ML coding challenge 中筛出 14 道 P0，覆盖数值、经典 ML、CV 张量、优化器与 Transformer 算子，并加入边界测试和生产化追问。
 - [《深入理解 AI Agent》面试化学习路线](ai-agents-in-depth-plan.md)：把 307 页中文 PDF 压缩成 8 个核心 Session、3 个岗位选修和 1 个 capstone，覆盖 Harness、上下文/记忆、工具、Coding Agent、评估与多 Agent。
+- [Harness Engineering 面试化学习路线](harness-engineering-plan.md)：把 Coding Agent 的仓库环境拆成 8 个 Session，覆盖 repo-as-record、SPEC/WORKFLOW、Guides × Sensors、Agent 可读性、合并经济学、熵管理与行为正确性。
 
 ## 推荐使用顺序
 
 1. 先打开 [Interview Learning OS V3](learning-os.html)，选择角色、面试轮次和当天预算；第一次 Session 只形成候选证据，不把即时正确当作延迟掌握。
 2. 再用[统一练习脉络](practice-roadmap.md)完成第 0 天闭卷基线，并核对系统推荐是否覆盖真实薄弱项。
 3. 只激活脉络中本周的能力簇、15 道 DSA 主干和对应 Deep-ML 题；其他题目先留在覆盖池。
-4. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)，不按来源顺序通读。
+4. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)，不按来源顺序通读。
 5. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
 6. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
 
@@ -37,6 +38,7 @@
 - [khangich/machine-learning-interview](https://github.com/khangich/machine-learning-interview)：适合检查统计、编码、ML 基础和系统设计是否漏项；部分链接较旧。
 - [alirezadir/Agentic-AI-Systems](https://github.com/alirezadir/Agentic-AI-Systems)：补足 Agentic system design、评估、安全、成本和失败处理。
 - 李博杰《深入理解 AI Agent：设计原理与工程实践》中文 PDF v1.2（2026-07-23；[配套代码](https://github.com/bojieli/ai-agent-book)）：作为 Agent 工程主教材，覆盖 Agent/Harness、上下文与记忆、工具、Coding Agent、评估、后训练、自我进化、多模态和多 Agent。本准备包按[面试化路线](ai-agents-in-depth-plan.md)定向学习，不把通读 307 页当成完成。
+- [deusyu/harness-engineering](https://github.com/deusyu/harness-engineering)：中文优先的 Harness Engineering 学习档案，用概念、思考、实践和工具材料组织 repo-as-record、机械约束、Agent 可读性、吞吐与熵管理。它是持续更新的二次整理，不是规范；本准备包按[面试化路线](harness-engineering-plan.md)回查其引用的[一手案例](https://openai.com/zh-Hans-CN/index/harness-engineering/)，并保留个人/遗留/高风险场景下的适用性反证。
 
 ### Transformer 可视化辅助
 

@@ -111,6 +111,8 @@
 
 Agent 工程主教材：李博杰《深入理解 AI Agent》中文 PDF v1.2（[配套代码](https://github.com/bojieli/ai-agent-book)）。使用[面试化学习路线](ai-agents-in-depth-plan.md)的 AID-1/2/4/6/7 分别深化 G11-G14；AID-3 对应 G5-G7/G13，AID-5 用真实仓库 trace 补 Coding Agent。它提供练习与证据，不扩张本页 90 题主库。
 
+Coding Agent / Agent Infra 延伸：使用 [Harness Engineering 路线](harness-engineering-plan.md)的 HE-1/3/6 深化 G11、G13、G14，把 repo map、SPEC、机械约束、行为评测和反馈飞轮落到真实仓库；它同样不扩张 90 题主库。
+
 - **G1 · P0**：完整走一遍 Transformer block；为什么 attention score 要除以 √dₖ？
 - **G2 · P0**：KV cache 保存什么？prefill 与 decode 有何不同？上下文长度、batch 和层数如何影响显存？
 - **G3 · P1**：比较 MHA、MQA、GQA；它们怎样权衡质量、KV cache 和吞吐？

@@ -332,6 +332,26 @@
       exit: '列出一次安全代码修改从定位到提交前验证的六个证据点。'
     },
     {
+      id: 'k8-harness-repo-map', cluster: 'K8', title: 'Harness Eng HE-1：仓库地图与渐进式披露', kind: 'design', duration: 45, week: 5, prereqs: ['k8-agent-loop'],
+      goal: '让无对话历史的 Agent 从短入口找到任务所需的意图、结构和验证。', output: '仓库知识图 + 紧凑 AGENTS.md + dark-knowledge 清单。',
+      prompt: '为什么“给 Agent 一本完整手册”通常不如“给一张可验证的地图”？哪些信息必须版本化进入仓库？',
+      construct: '审计一个真实仓库：标出架构、SPEC、WORKFLOW、执行计划、验证命令与 owner；把至少 5 项外部或隐性知识路由到唯一真源，并检查链接。',
+      transfer: '把任务交给一个没有聊天历史的新 Agent。它第一次走错时，只修复导航或真源，不追加一次性提示。',
+      hints: ['入口负责路由，不承载全部细节。', 'Agent 无法发现的信息等同于不存在。', '为文档定义唯一真源、新鲜度和机械一致性检查。'],
+      rubric: ['运行时与仓库 Harness 边界清楚。', '入口短、稳定且链接可达。', '隐性知识有归宿和 owner。', '用陌生 Agent 的导航证据验证。'],
+      exit: '用 90 秒解释地图、真源和渐进式披露如何减少上下文浪费与知识腐烂。'
+    },
+    {
+      id: 'k8-harness-backpressure', cluster: 'K8', title: 'Harness Eng HE-3：Guides × Sensors 与机械回压', kind: 'debug', duration: 50, week: 5, prereqs: ['k8-coding-agent', 'k8-harness-repo-map'],
+      goal: '把高频、确定性的评审意见变成可执行、可修复的系统约束。', output: 'Guides × Sensors 矩阵 + 2 个机械检查。',
+      prompt: '一个架构约束应放进文档、脚手架、linter、结构测试还是 AI review？请按行动前后与确定性分配。',
+      construct: '选择两条重复 review comment，实现 linter/结构/一致性/行为检查；失败消息必须给规则、证据位置和修复方式，并用合法反例测试误报。',
+      transfer: '面对“测试通过但关键用户旅程错误”，补哪类 sensor？为什么不能继续增加同类单元测试或只信模型自评？',
+      hints: ['Guide 在行动前缩小搜索空间，sensor 在行动后验证。', '确定性检查广泛运行，推理型检查用于高风险 slice。', '回压必须阻止虚假完成并提供修复路径。'],
+      rubric: ['四象限分类有依据。', '检查可重复且错误信息可行动。', '覆盖误报和逃逸样本。', '结构正确性与行为正确性分开。'],
+      exit: '把一条主观 review 意见改写成可机械验证的不变量、失败证据和修复指令。'
+    },
+    {
       id: 'k8-agent-evaluation', cluster: 'K8', title: 'Agent Book Ch6：从总分到可行动的 Agent Eval', kind: 'design', duration: 55, week: 5, prereqs: ['k8-agent-loop', 'k3-metrics'],
       goal: '用可重复评估区分模型、上下文、工具和 Harness 缺陷。', output: 'eval matrix + model-swap/ablation 实验。',
       prompt: '如何为多工具 Agent 设计评估环境、任务数据集、verifier 和指标，使失败能路由到具体组件？',
@@ -340,6 +360,16 @@
       hints: ['先定义任务分布和可验证结果。', '最终成功可能掩盖危险或低效轨迹。', '模型替换定位模型问题，组件消融定位 Harness 贡献。'],
       rubric: ['环境、数据集、verifier 分开。', '端到端与过程指标完整。', '有 slice、不确定性和接受门槛。', '结果能映射到模型或 Harness 改动。'],
       exit: '用两组对照实验说明如何区分模型不足与 Harness 缺陷。'
+    },
+    {
+      id: 'k8-harness-feedback', cluster: 'K8', title: 'Harness Eng HE-5/6：反馈飞轮、熵与行为正确性', kind: 'design', duration: 50, week: 5, prereqs: ['k8-harness-backpressure', 'k8-agent-evaluation'],
+      goal: '让失败转化为下一次可复用的仓库能力，同时避免指标与测试制造虚假安全感。', output: '验证阶梯 + entropy register + 分级 merge gate。',
+      prompt: 'Agent 吞吐提高后，哪些反馈应转成文档、机械规则、行为测试或周期清理？什么时候快速合并反而不成立？',
+      construct: '建立静态不变量→单元/集成→关键旅程→对抗样本→人工校准的验证阶梯；记录漂移模式、检测、修复、owner、复发率和退役条件。',
+      transfer: '分别为高吞吐团队、个人项目和高风险系统设计 merge gate；注入“测试全绿但用户意图错误”与“自评完成但缺交付物”。',
+      hints: ['先计算等待、纠错和错误外溢成本。', 'Agent 会复制仓库中已有的好坏模式。', 'LLM judge 需要人工标注集、分歧 slice 和抽检。'],
+      rubric: ['反馈能路由到明确系统改动。', '门禁随风险与吞吐变化。', '熵清理有信号、owner 与退役。', '行为正确性有人类校准。'],
+      exit: '给出一个从用户 bug 到 SPEC、sensor、评估集与周期清理的完整反馈闭环。'
     },
     {
       id: 'k8-agent-safety', cluster: 'K8', title: 'Agent 工具调用：副作用、安全与 trace eval', kind: 'design', duration: 50, week: 5, prereqs: ['k8-rag-eval'],
