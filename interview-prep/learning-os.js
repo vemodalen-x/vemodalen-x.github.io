@@ -15,7 +15,7 @@
     K5: { title: 'CV 与计算摄影', short: 'Vision', description: '算子、边界、时序、链路与 hard cases', color: '#a34662' },
     K6: { title: 'Edge、C++ 与运行时', short: 'Edge', description: '转换、parity、profiling、并发与降级', color: '#39745a' },
     K7: { title: 'DSA 与软件编码', short: 'Coding', description: '模式、不变量、复杂度与边界测试', color: '#3d63a8' },
-    K8: { title: '系统、LLM 与 Agent', short: 'Systems', description: '推理、RAG、工具、安全、评估与发布', color: '#755197' }
+    K8: { title: '系统、LLM 与 Agent', short: 'Systems', description: '上下文、Harness、工具、评估、协作与发布', color: '#755197' }
   };
 
   var ROLE_WEIGHTS = {
@@ -302,6 +302,46 @@
       exit: '用一个 2×3 矩阵列出 retrieval、generation、end-to-end 的离线与线上信号。'
     },
     {
+      id: 'k8-agent-loop', cluster: 'K8', title: 'Agent Book Ch1：ReAct 循环与 Harness 边界', kind: 'explain', duration: 40, week: 5, prereqs: [],
+      goal: '把 Agent 从“会调工具的模型”拆成可控制、可验证的运行系统。', output: 'ReAct 轨迹图 + 模型面/控制面职责表。',
+      prompt: '闭卷解释 Agent = LLM + 上下文 + 工具。静态前缀、运行轨迹、循环控制和验证分别解决什么问题？',
+      construct: '画出 LLM → action → tool/environment → observation → LLM；再标出 Harness 的模型访问、上下文组装、工具执行、循环控制与验证职责。',
+      transfer: '把任务改成严格合规的付款操作。哪些决定可以留给模型，哪些必须进入确定性控制面？',
+      hints: ['先区分模型生成提议与系统授权执行。', '上下文不仅是用户 prompt，还包含工具定义、历史与结果。', '用失败模式说明每个 Harness 职责为什么存在。'],
+      rubric: ['三大组成与 ReAct 轨迹正确。', '模型面和控制面边界清楚。', '能说明 workflow/autonomy 的连续谱。', '每个架构组件对应可观察失败。'],
+      exit: '用 90 秒解释为什么更强模型仍不能替代 Harness。'
+    },
+    {
+      id: 'k8-context-harness', cluster: 'K8', title: 'Agent Book Ch2-3：上下文预算、缓存、记忆与压缩', kind: 'design', duration: 50, week: 5, prereqs: ['k8-agent-loop'],
+      goal: '在正确性、缓存、时效、隐私和恢复之间设计上下文。', output: 'context budget + memory/RAG 生命周期图。',
+      prompt: '系统/工具静态前缀、状态栏、用户输入、模型响应、工具结果和长期记忆应如何组织？哪些内容可以压缩或隔离？',
+      construct: '为每类信息列 token、变化频率、可信边界、缓存影响、淘汰/压缩策略和恢复来源；再画记忆写入、检索、更新、删除与审计链。',
+      transfer: '一个跨会话任务必须保留审计轨迹，但每轮写入当前时间会破坏缓存。怎样同时保持时间感知、可恢复性与稳定前缀？',
+      hints: ['静态前缀与动态轨迹分层。', '摘要不是原始事实的可靠替代；保留可追溯来源。', '区分会话状态、用户记忆、组织知识与可执行规则。'],
+      rubric: ['消息/轨迹组成完整。', '解释 KV/Prompt Cache 约束。', '压缩有信息损失与恢复策略。', '覆盖时效、隐私、注入和删除。'],
+      exit: '给出四类信息的保留、压缩、外置或删除决策，并说明一个反例。'
+    },
+    {
+      id: 'k8-coding-agent', cluster: 'K8', title: 'Agent Book Ch5：Coding Agent 的搜索-编辑-验证闭环', kind: 'debug', duration: 50, week: 5, prereqs: ['k8-context-harness'],
+      goal: '用可恢复轨迹解释 Coding Agent，而不是把它缩减成代码生成。', output: '仓库任务 trace + 故障恢复协议。',
+      prompt: '为什么“生成正确代码”不足以构成可靠 Coding Agent？搜索、文件编辑、命令执行、测试和停止条件如何闭环？',
+      construct: '选择一个小仓库任务，记录每次搜索依据、最小 patch、验证结果和错误恢复；标注权限、工作区所有权与回滚点。',
+      transfer: '两个 Agent 并行修改共享文件，其中一个测试失败、另一个已经基于旧文件继续工作。如何检测冲突并安全交接？',
+      hints: ['先把最终结果与过程可靠性分开。', '每次编辑都需要可验证假设和最小作用域。', '共享文件系统需要 ownership、版本或显式消息契约。'],
+      rubric: ['搜索-编辑-执行-验证闭环完整。', '失败后能恢复而非盲重试。', '权限与回滚边界明确。', '能处理并发冲突和过期上下文。'],
+      exit: '列出一次安全代码修改从定位到提交前验证的六个证据点。'
+    },
+    {
+      id: 'k8-agent-evaluation', cluster: 'K8', title: 'Agent Book Ch6：从总分到可行动的 Agent Eval', kind: 'design', duration: 55, week: 5, prereqs: ['k8-agent-loop', 'k3-metrics'],
+      goal: '用可重复评估区分模型、上下文、工具和 Harness 缺陷。', output: 'eval matrix + model-swap/ablation 实验。',
+      prompt: '如何为多工具 Agent 设计评估环境、任务数据集、verifier 和指标，使失败能路由到具体组件？',
+      construct: '覆盖端到端成功、step/trace、工具选择与参数、终止、人工升级、延迟、成本、安全和高风险 slice；定义固定 Harness 换模型与固定模型做消融。',
+      transfer: 'LLM judge 总分上升，但人工发现高风险 slice 的越权轨迹更多。如何校准 judge、抽检并设置上线阻断？',
+      hints: ['先定义任务分布和可验证结果。', '最终成功可能掩盖危险或低效轨迹。', '模型替换定位模型问题，组件消融定位 Harness 贡献。'],
+      rubric: ['环境、数据集、verifier 分开。', '端到端与过程指标完整。', '有 slice、不确定性和接受门槛。', '结果能映射到模型或 Harness 改动。'],
+      exit: '用两组对照实验说明如何区分模型不足与 Harness 缺陷。'
+    },
+    {
       id: 'k8-agent-safety', cluster: 'K8', title: 'Agent 工具调用：副作用、安全与 trace eval', kind: 'design', duration: 50, week: 5, prereqs: ['k8-rag-eval'],
       goal: '把 agent 从 demo 变成可审计、可降级的系统。', output: 'tool contract + permission model + trace rubric。',
       prompt: '一个 agent 可以发邮件、改日历和调用内部 API。如何设计权限、确认、幂等、重试和审计？',
@@ -310,6 +350,16 @@
       hints: ['把模型输出视为不可信提议，不是已授权操作。', '副作用操作需要最小权限、明确确认和幂等语义。', '评估不仅看最终成功，还看工具选择、参数、轨迹、终止和成本。'],
       rubric: ['模型与控制面边界清楚。', '副作用有授权/幂等/补偿。', '覆盖 injection 与数据外泄。', 'trace-level eval 可执行。'],
       exit: '列出任何有副作用工具都必须满足的六个 contract 字段。'
+    },
+    {
+      id: 'k8-multi-agent', cluster: 'K8', title: 'Agent Book Ch10：单 Agent 与多 Agent 的证据化选择', kind: 'design', duration: 50, week: 5, prereqs: ['k8-agent-evaluation', 'k8-agent-safety'],
+      goal: '只在隔离、并行或专业化收益可验证时引入多 Agent。', output: '拓扑决策表 + 通信/故障域设计。',
+      prompt: '对同一复杂任务，比较单 Agent、共享上下文角色转换、管理者模式和独立上下文协作。何时多 Agent 真正占优？',
+      construct: '标出任务可分解性、上下文是否共享、消息 contract、所有权、验证者、终止、成本和错误传播路径；先给单 Agent baseline。',
+      transfer: '并行子 Agent 共享文件系统且上游事实错误。如何检测并发冲突、阻止错误级联并保留独立验证？',
+      hints: ['多角色不一定等于多 Agent。', '隔离减少上下文污染，也会造成信息损失和重复成本。', '为每个子任务定义可独立验证的交付契约。'],
+      rubric: ['先证明多 Agent 的必要性。', '上下文与拓扑选择有依据。', '通信、所有权和终止清楚。', '覆盖并发冲突、错误级联和成本。'],
+      exit: '给出三个“不该用多 Agent”的判据和一个确实值得使用的场景。'
     }
   ];
 

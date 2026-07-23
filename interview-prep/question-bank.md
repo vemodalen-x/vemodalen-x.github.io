@@ -109,6 +109,8 @@
 
 学习辅助：[The Transformer Architecture: A Visual Guide](https://www.hendrik-erz.de/post/the-transformer-architecture-a-visual-guide-pdf-download)（[单页 PDF](https://www.hendrik-erz.de/storage/app/media/pdf/Transformers_v1.1.pdf)）。先用它建立 encoder–decoder、attention、残差连接和 FFN 的空间图景，再单独补 decoder-only LLM 与推理机制。
 
+Agent 工程主教材：李博杰《深入理解 AI Agent》中文 PDF v1.2（[配套代码](https://github.com/bojieli/ai-agent-book)）。使用[面试化学习路线](ai-agents-in-depth-plan.md)的 AID-1/2/4/6/7 分别深化 G11-G14；AID-3 对应 G5-G7/G13，AID-5 用真实仓库 trace 补 Coding Agent。它提供练习与证据，不扩张本页 90 题主库。
+
 - **G1 · P0**：完整走一遍 Transformer block；为什么 attention score 要除以 √dₖ？
 - **G2 · P0**：KV cache 保存什么？prefill 与 decode 有何不同？上下文长度、batch 和层数如何影响显存？
 - **G3 · P1**：比较 MHA、MQA、GQA；它们怎样权衡质量、KV cache 和吞吐？

@@ -162,11 +162,14 @@ Tuning Playbook 配套：把 trial variance、study variance、data sampling var
 
 经典追问补充：只使用 [Reflection_Summary 路线](reflection-summary-plan.md)的 attention 追问链检查公式、shape、缩放和位置编码；跳过其早期 BERT/NLP 实现细节，现代推理仍使用本题库与更新资料。
 
-Agentic 练习：使用 [Codemia](https://codemia.io/) 的 Agentic AI 题做白板训练；平台反馈之后，再用本题库 G11–G14 检查 workflow/agent 选择、工具副作用、安全、trace-level eval 和成本是否遗漏。
+Agent 工程主线：使用[《深入理解 AI Agent》面试化路线](ai-agents-in-depth-plan.md)完成 AID-1、AID-2、AID-4、AID-6，分别产出 Harness 边界图、context budget、工具 contract/异步状态机和 eval matrix。这四项替换泛读与重复练习，不增加本周总时间。Agent 岗再激活 AID-5、AID-7 和 AID-8；模型后训练、自我进化、多模态章节按 JD 选修。
+
+Agentic 白板：在上述产物完成后，使用 [Codemia](https://codemia.io/) 的 Agentic AI 题做一次限时训练；平台反馈之后，再用本题库 G11–G14 检查 workflow/agent 选择、工具副作用、安全、trace-level eval 和成本是否遗漏。
 
 本周交付：
 
 - 一页 Transformer inference 速查：attention、KV cache、prefill/decode、GQA、quantization。
+- 一张 Agent loop/Harness 边界图和一份 context budget，能解释缓存、压缩、记忆与恢复。
 - 一套完整设计：Enterprise RAG 或多工具 Agentic workflow 二选一；另一题只做 15 分钟架构骨架并在 mock 失分时展开。
 - 一张 RAG/Agent eval matrix，覆盖 component、end-to-end、trace、safety、latency 和 cost。
 - 回答清楚四个关键取舍：RAG vs fine-tune；workflow vs agent；single vs multi-agent；small vs large model routing。

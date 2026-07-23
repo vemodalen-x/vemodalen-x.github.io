@@ -73,6 +73,7 @@ flowchart LR
 | 面试执行 | [Tech Interview Handbook 路线](tech-interview-handbook-plan.md) | 统一编码、行为、自我介绍和 mock 的操作协议 | 不另开一套算法题单 |
 | 视觉辅助 | [Transformer Visual Guide](https://www.hendrik-erz.de/post/the-transformer-architecture-a-visual-guide-pdf-download) | 建立原始 encoder–decoder Transformer 的空间图景 | 不代替 decoder-only、KV cache、GQA、RoPE |
 | 白板与模拟 | [Codemia](https://codemia.io/) | 承载系统设计、Agentic AI 与 mock 练习 | 平台反馈不能代替 ML 数据/评估/发布检查表 |
+| Agent 工程主线 | [《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md) | 用 Harness、上下文、工具、Coding Agent、评估和多 Agent 建立原理到系统的证据链 | 不顺序通读 307 页；后训练/多模态按 JD 选修 |
 
 仓库型题库只负责“发现问题”；答案仍要回到一手资料、自己的实验/trace/profiler 和项目证据验证。
 
@@ -143,9 +144,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、Codemia、Agentic 题库和自己的 traces/evals。
-- **练习链**：Transformer shape → inference → RAG/VLM → workflow/agent → trace-level eval → system design → safety/release。
-- **产物**：Transformer inference 卡、RAG/Agent eval matrix、移动 CV/多模态/Agent 三套系统设计。
+- **支持材料**：Transformer visual guide、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、Codemia、Agentic 题库和自己的 traces/evals。
+- **练习链**：Transformer shape → Agent/ReAct/Harness → context/memory → RAG/tool contract → Coding Agent → trace-level eval → single/multi-agent → safety/release。
+- **产物**：Transformer inference 卡、Agent loop/Harness 图、context budget、工具 contract、RAG/Agent eval matrix、移动 CV/多模态/Agent 三套系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -159,7 +160,7 @@ flowchart LR
 | 2 CV | V1、V2、V3、V10；hard-case taxonomy | DML 41、73、115 | LC 48 Rotate Image、LC 54 Spiral Matrix、LC 239 Sliding Window Max | 30 分钟 CV depth + 30 分钟代码复盘 |
 | 3 Training + Edge | M8；E2、E4、E5、E8；parity/latency 图 | DML 15、17、49、160 | LC 215 Kth Largest、LC 146 LRU、LC 912 Sort Array；至少一题 C++ | 45 分钟 coding + Edge follow-up |
 | 4 Data + System | M5、M6、M10、M12；S4、S6；两套系统设计 | DML 18、19 | LC 200 Number of Islands、LC 210 Course Schedule II、LC 322 Coin Change | 45 分钟 ML system design mock |
-| 5 LLM + Agent | G1、G7、G11、G12；G2/G14 作追问 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟 RAG/Agent design mock |
+| 5 LLM + Agent | G1、G7、G11、G12；AID-1/2/4/6 替换泛读；G2/G14 作追问 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟 RAG/Agent design mock |
 | 6 公司定向 | JD → 证据 → 题号 → 当前评分 → 缺口动作 | 从 14 道中随机 1 道离线实现 | 从 44 道覆盖池随机 1–2 道 | 行为、技术、系统、编码各 1 场全真 mock |
 
 这 15 道 DSA 是六周平衡主干，不代表其余 29 道无价值。若目标公司明显 coding-heavy，每周从 Blind 75 缺口或 hard 校准池追加 1–2 道；新增时等量减少阅读，不突破总时长。
@@ -213,6 +214,8 @@ flowchart LR
 | 代码能 AC 但沟通/测试弱 | Handbook 协议与四维评分卡 | 录一场 45 分钟 mock，不继续刷相似题 |
 | 系统设计框很多但没有 ML 闭环 | 90 题 S 模块 + Codemia | 强制补数据、指标、反馈、发布和回滚 |
 | Transformer 结构没有空间图景 | Visual Guide | 沿图口述一次，再回到 G1/G2 与 DML 53/107 |
+| Agent 回答停留在框架名或 demo | 《深入理解 AI Agent》AID-1/2/4/6 | 补 Harness 边界、context budget、工具 contract 和可行动 eval；不通读全书 |
+| multi-agent 只会列角色 | 《深入理解 AI Agent》AID-7 | 先做单 Agent baseline，再证明隔离/并行/专业化收益与独立验证 |
 | 项目答案没有 Senior 信号 | R/B 模块 + Handbook 故事库 | 补个人决策、弃选、影响、失败和复盘 |
 
 同一缺口最多增加 1–2 个来源。连续两次仍失败，缩小问题或做最小实验；不要继续收藏链接。
