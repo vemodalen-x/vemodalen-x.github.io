@@ -383,6 +383,16 @@
       exit: '用 90 秒解释为什么更强模型仍不能替代 Harness。'
     },
     {
+      id: 'k8-hello-agent-patterns', cluster: 'K8', title: 'Hello-Agents HA-1/2：三范式与最小运行时故障实验', kind: 'debug', duration: 55, week: 5, prereqs: ['k8-agent-loop'],
+      goal: '用可重放实验比较 ReAct、Plan-and-Solve、Reflection 与固定 workflow，而不是按框架名称选型。', output: '四方案 trace 对照 + 最小 runtime contract + 故障矩阵。',
+      prompt: '同一窄任务中，三种 Agent 范式分别在哪里保存计划、选择行动、使用观察、纠错和停止？什么证据能证明它优于固定 workflow？',
+      construct: '用 fake model、两个无副作用工具和 12 条本地样本实现可重放状态机；记录 state/action/observation/error/stop_reason，并注入格式错误、未知工具、超时、空结果、重复观察、计划过期、反思无增益与最大步数。比较成功率、步骤、无效调用、循环和成本。',
+      transfer: 'Reflection 版本在简单题得分更高，但高风险任务中重复放大了第一步错误。怎样用 verifier、反思增益、次数上限和失败关闭重设计？何时应退回固定 workflow？',
+      hints: ['先冻结任务、样本、工具和停止门槛，再比较范式。', 'Message、Agent、Model adapter、ToolRegistry 和 trace store 是 contract；框架 API 只是实现。', '计划、观察和反思都可能错；每一步都需要可观察状态与确定性边界。'],
+      rubric: ['四方案在同一任务分布上公平比较。', 'runtime contract 可替换模型/工具且可重放。', '故障注入覆盖循环、格式、工具和终止。', '结论包含失败分母、成本与退回 workflow 的条件。'],
+      exit: '闭卷画出最小 Agent runtime，并用一条失败 trace 解释为什么选某种范式或不用 Agent。'
+    },
+    {
       id: 'k8-context-harness', cluster: 'K8', title: 'Agent Book Ch2-3：上下文预算、缓存、记忆与压缩', kind: 'design', duration: 50, week: 5, prereqs: ['k8-agent-loop'],
       goal: '在正确性、缓存、时效、隐私和恢复之间设计上下文。', output: 'context budget + memory/RAG 生命周期图。',
       prompt: '系统/工具静态前缀、状态栏、用户输入、模型响应、工具结果和长期记忆应如何组织？哪些内容可以压缩或隔离？',
@@ -441,6 +451,16 @@
       hints: ['先定义任务分布和可验证结果。', '最终成功可能掩盖危险或低效轨迹。', '模型替换定位模型问题，组件消融定位 Harness 贡献。'],
       rubric: ['环境、数据集、verifier 分开。', '端到端与过程指标完整。', '有 slice、不确定性和接受门槛。', '结果能映射到模型或 Harness 改动。'],
       exit: '用两组对照实验说明如何区分模型不足与 Harness 缺陷。'
+    },
+    {
+      id: 'k8-hello-agent-capstone', cluster: 'K8', title: 'Hello-Agents HA-6/7：评测驱动的 Agent Capstone', kind: 'design', duration: 60, week: 6, prereqs: ['k8-hello-agent-patterns', 'k8-agent-evaluation', 'k8-agent-safety'],
+      goal: '把教程项目压缩成单 Agent 优先、可复现、可故障注入和可面试答辩的系统证据。', output: '30 条 eval set + component/trace/E2E 矩阵 + 项目答辩包。',
+      prompt: '为一个带检索与工具调用的窄任务定义非 Agent、固定 workflow 和单 Agent baseline。如何证明增加自治或第二个 Agent 确实改善目标，而不是只让 demo 更复杂？',
+      construct: '建立 simple/multiple/parallel/irrelevance/unanswerable/注入/部分失败样本；分别验证工具 schema/参数、轨迹恢复/权限/终止、最终任务/延迟/成本。固定 Harness 换模型，再固定模型消融范式、工具描述、context policy 和 stop rule；交付锁定依赖、trace schema、三条失败 trace 与回滚条件。',
+      transfer: '公开 benchmark 与 LLM judge 上升，但人工发现恶意来源 slice 越权增多，p95 和成本也超门槛。怎样校准 judge、补确定性 verifier、设置发布阻断，并判断修 Harness、换模型还是退回 workflow？',
+      hints: ['公开 benchmark 只证明对应任务和版本，不替代产品验收。', '先交单 Agent baseline；只有隔离、并行或专业化收益可验证才增加 Agent。', '成功截图不是证据；保留版本、失败分母、trace、资源与残余风险。'],
+      rubric: ['component、trace、end-to-end 指标分层。', '基线、消融、slice 与接受门槛预先定义。', '工具副作用、注入、人工校准与回滚完整。', '能用 12 分钟讲清问题、决策、失败、证据和下一实验。'],
+      exit: '随机加入一个新故障，45 分钟内给出归因、最小复现、测试、修复和残余风险。'
     },
     {
       id: 'k8-harness-feedback', cluster: 'K8', title: 'Harness Eng HE-5/6：反馈飞轮、熵与行为正确性', kind: 'design', duration: 50, week: 5, prereqs: ['k8-harness-backpressure', 'k8-agent-evaluation'],

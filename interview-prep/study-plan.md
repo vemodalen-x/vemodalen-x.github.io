@@ -172,6 +172,8 @@ LLM/VLM 后训练：使用 [Smol Course 路线](smol-course-plan.md)完成 SC-1�
 
 Agent 工程主线：使用[《深入理解 AI Agent》面试化路线](ai-agents-in-depth-plan.md)完成 AID-1、AID-2、AID-4、AID-6，分别产出 Harness 边界图、context budget、工具 contract/异步状态机和 eval matrix。这四项替换泛读与重复练习，不增加本周总时间。Agent 岗再激活 AID-5、AID-7 和 AID-8；模型后训练、自我进化、多模态章节按 JD 选修。
 
+Agent 实现实验：在 AID-1 后用 [Hello-Agents 路线](hello-agents-plan.md)完成 HA-1/2，把 ReAct、Plan-and-Solve、Reflection 与固定 workflow 放进同一 fake-model/fake-tool 故障实验，并画最小 runtime contract；在 AID-6 后完成 HA-6。它们分别替换一次重复概念阅读和一次泛化评测白板，不增加本周总时间。只有 Agent 应用/平台岗位才在第 6 周激活 HA-7 capstone；低代码/框架横评、Agentic RL 和多 Agent 仿真按 JD 选修。
+
 Coding Agent / Agent Infra 定向：接着用 [Harness Engineering 路线](harness-engineering-plan.md)完成 HE-1、HE-3、HE-6，产出仓库地图、Guides × Sensors 矩阵和行为验证阶梯。这三项替换一次 Codemia 白板、重复 Agent 阅读和一次泛化系统设计，不增加本周总时间；通用 ML/CV 岗不默认激活。
 
 听觉总图：在 AID-1/2 后使用[《探秘 Claude Code，搞懂 Agent Harness》路线](agent-harness-podcast-plan.md)完成 AHP-1；只精听 01:52–38:52 的技术段并产出三层图。Agent/Coding 岗再做 AHP-2，它替换一次重复 Harness 阅读，不叠加时长。
@@ -184,6 +186,7 @@ Agentic 白板：未激活 Harness Engineering 时，使用 [Codemia](https://co
 - 一份 SFT evidence card：训练前 baseline、template/token/mask 单测、held-out 与 regression 指标、资源预算；DPO/VLM 岗再附 preference-pair audit 或 image ablation。
 - 多模态生成/infra 岗再交一张 SenseNova-U1 主张—机制—证据矩阵，以及统一模型/解耦运行时架构卡；它替换上述一套泛化系统设计，不新增时长。
 - 一张 Agent loop/Harness 边界图和一份 context budget，能解释缓存、压缩、记忆与恢复。
+- 一组三范式 vs 固定 workflow 的可重放 trace，以及一个含 30 条小集、分层指标、失败分母和回滚条件的 Agent eval 包。
 - 一套完整设计：Enterprise RAG 或多工具 Agentic workflow 二选一；另一题只做 15 分钟架构骨架并在 mock 失分时展开。
 - 一张 RAG/Agent eval matrix，覆盖 component、end-to-end、trace、safety、latency 和 cost。
 - Coding Agent / Agent Infra 岗再交付一份仓库地图、2 个机械检查和一层经人工校准的关键旅程评测；它替换上述一次白板练习，不新增时长。
@@ -227,6 +230,8 @@ JD 要求 → 简历证据 → 题库题号 → 当前评分 → 缺口动作
 - LLM/Agent：模型/框架官方文档、原论文、自己的 traces 与 evals。
 
 对于 SenseNova-U1，把 README/demo、arXiv 报告、仓库实现与自己的复现分成四层证据；尤其核对 checkpoint 身份、总/激活参数、分辨率、steps/CFG、judge/cache 和硬件，不能用“8B、near-lossless、统一、低显存”替代精确定义。
+
+对于 Hello-Agents，先固定仓库提交、Python 环境和每章依赖，不混用教程中的 `0.1.1`、`0.2.7`、`0.2.8` 示例；用 fake model/tool 先通过确定性测试，再接真实 API。教程、第三方 benchmark、框架官方文档和自己的实验结论分层记录；社区面试答案与项目 demo 都不直接进入答案卡。
 
 对于 Reflection_Summary 这类个人总结仓库，额外执行“重写诱导性问题 → 补全符号/shape → 找反例 → 查一手来源 → 做最小实验”的验证协议，不把仓库答案原样复制到答案卡。
 

@@ -77,6 +77,7 @@ flowchart LR
 | 视觉辅助 | [Transformer Visual Guide](https://www.hendrik-erz.de/post/the-transformer-architecture-a-visual-guide-pdf-download) | 建立原始 encoder–decoder Transformer 的空间图景 | 不代替 decoder-only、KV cache、GQA、RoPE |
 | 白板与模拟 | [Codemia](https://codemia.io/) | 承载系统设计、Agentic AI 与 mock 练习 | 平台反馈不能代替 ML 数据/评估/发布检查表 |
 | Agent 工程主线 | [《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md) | 用 Harness、上下文、工具、Coding Agent、评估和多 Agent 建立原理到系统的证据链 | 不顺序通读 307 页；后训练/多模态按 JD 选修 |
+| Agent 实现实验 | [Hello-Agents 路线](hello-agents-plan.md) | 用三范式对照、最小 runtime、故障注入、分层评测和 capstone 把原理变成代码/trace | 不顺序做完 16 章；框架 API、社区答案和 demo 不能替代版本锁与任务证据 |
 | Agent 仓库工程 | [Harness Engineering 路线](harness-engineering-plan.md) | 把仓库变成 Agent 可导航、可执行、可验证、可持续清理的环境 | 案例结论不直接泛化；仅 Agent/Coding/DevProd 岗默认激活 |
 | Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
 
@@ -149,9 +150,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia 和自己的 traces/evals。
-- **练习链**：Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多任务评测/推理解耦 → RAG/tool contract → Agent runtime Harness → context/memory → Coding Agent → repo/SPEC/sensors → safety/release。
-- **产物**：Transformer inference 卡、template parity test、SFT eval matrix、DPO/VLM audit、NEO-unify 架构/attention 图、理解—生成 eval/runtime card、Agent loop/Harness 图、context budget、工具 contract、仓库地图和系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia 和自己的 traces/evals。
+- **练习链**：Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多任务评测/推理解耦 → RAG/tool contract → Agent runtime Harness → ReAct/Plan/Reflection 对照 → 最小 runtime/故障注入 → context/memory → component/trace/E2E eval → Coding Agent → repo/SPEC/sensors → safety/release。
+- **产物**：Transformer inference 卡、template parity test、SFT eval matrix、DPO/VLM audit、NEO-unify 架构/attention 图、理解—生成 eval/runtime card、Agent loop/Harness 图、三范式 trace、最小 runtime contract、context budget、工具 contract、分层 eval、仓库地图和系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -224,6 +225,8 @@ flowchart LR
 | “统一多模态”只会复述宣传词 | SenseNova-U1 SNU1-0/1/2/3 | 画接口、token mask、共享/解耦边界和 CE/flow 双目标；为每条主张设计反例 |
 | 多模态榜单高但无法发布 | SenseNova-U1 SNU1-7/8/9/10 | 拆理解/生成/编辑/交错评测，审计 judge/cache/failure，并按 SLO 选择 separate/colocate |
 | Agent 回答停留在框架名或 demo | 《深入理解 AI Agent》AID-1/2/4/6 | 补 Harness 边界、context budget、工具 contract 和可行动 eval；不通读全书 |
+| Agent 原理会讲但不会实现/比较 | Hello-Agents HA-1/2 | 用 fake model/tool 实现三范式和最小 runtime；注入循环、格式、超时与停止故障，并与固定 workflow 公平比较 |
+| Agent 项目只有截图和主观“效果好” | Hello-Agents HA-6/7 | 建 30 条小集和 component/trace/E2E 矩阵；补 baseline、消融、高风险 slice、成本、发布门槛和回滚 |
 | Coding Agent 只会“搜索、改代码、跑测试” | Harness Engineering HE-1/3 | 补仓库地图、唯一真源和 Guides × Sensors；实现 2 个带修复指令的机械检查 |
 | 测试全绿但用户意图仍可能错 | Harness Engineering HE-2/6 | 写行为契约与关键旅程，加入对抗样本、人工校准和错误完成阻断 |
 | multi-agent 只会列角色 | 《深入理解 AI Agent》AID-7 | 先做单 Agent baseline，再证明隔离/并行/专业化收益与独立验证 |

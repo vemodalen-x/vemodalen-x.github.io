@@ -117,6 +117,8 @@
 
 Agent 工程主教材：李博杰《深入理解 AI Agent》中文 PDF v1.2（[配套代码](https://github.com/bojieli/ai-agent-book)）。使用[面试化学习路线](ai-agents-in-depth-plan.md)的 AID-1/2/4/6/7 分别深化 G11-G14；AID-3 对应 G5-G7/G13，AID-5 用真实仓库 trace 补 Coding Agent。它提供练习与证据，不扩张本页 90 题主库。
 
+Agent 实现与项目证据：使用 [Hello-Agents 实践路线](hello-agents-plan.md)的 HA-1/2 深化 G11-G13，把 ReAct、Plan-and-Solve、Reflection 和固定 workflow 放进同一可重放实验；用 HA-6/7 深化 G14，把项目截图替换为 component/trace/end-to-end 评测、失败注入与答辩包。附录社区面试题只检查漏项，不扩张主库题号，也不直接采用参考答案。
+
 Coding Agent / Agent Infra 延伸：使用 [Harness Engineering 路线](harness-engineering-plan.md)的 HE-1/3/6 深化 G11、G13、G14，把 repo map、SPEC、机械约束、行为评测和反馈飞轮落到真实仓库；它同样不扩张 90 题主库。
 
 Harness 听辨：使用[播客实践路线](agent-harness-podcast-plan.md)把 G11–G14 重组为执行、状态、治理三层，并用主张—证据矩阵检查 CLI vs MCP、context vs control、memory 和权限分离；它提供新的回答结构，不新增主库题号。
