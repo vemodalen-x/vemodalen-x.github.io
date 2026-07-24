@@ -212,6 +212,8 @@ JD 要求 → 简历证据 → 题库题号 → 当前评分 → 缺口动作
 - 1 次编码 mock。
 - 最后只复习错题、薄弱项目证据和公司特定内容，不再扩张资料源。
 
+Fullstack / Frontend / Backend / AI Product Engineer 定向：使用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成 FS-5、FS-6、FS-7，并闭卷完成两个交互节点。它接续第 1 周 FS-0/1 与第 3–4 周 FS-2/3/4，交付一个 Browser → API → Service → PostgreSQL 的 strict TypeScript 纵向切片，以及 test matrix、threat model、SLO/trace、CI、migration 和 rollback。它替换一场泛化系统设计与多个随机 demo；通用 ML/CV 岗只有在项目交付证据薄弱时才做 FS-0/3/6。
+
 算法 mock 从 AlgoNote 32 + Blind 75 新增 12 题中随机抽取；不按题单顺序，也不把“曾经 AC”视为掌握。
 
 另从 Deep-ML 14 道 P0 中随机抽 1 道做 35 分钟离线 implementation mock：只给函数签名，不打开题解；随后用 10 分钟补边界测试并口述生产扩展。
@@ -228,10 +230,13 @@ JD 要求 → 简历证据 → 题库题号 → 当前评分 → 缺口动作
 - 端侧：所用运行时官方文档、模型转换日志、真实设备 profiler/trace。
 - 系统设计：生产案例和设计复盘，不背唯一架构。
 - LLM/Agent：模型/框架官方文档、原论文、自己的 traces 与 evals。
+- 全栈 Web：Topcoder 路线图只负责主题发现；HTML/CSS/浏览器回到 MDN，TypeScript、Node/Express、React/Next、PostgreSQL、Playwright、OWASP、Docker 与 GitHub Actions 回到当前官方文档和自己的版本锁实验。
 
 对于 SenseNova-U1，把 README/demo、arXiv 报告、仓库实现与自己的复现分成四层证据；尤其核对 checkpoint 身份、总/激活参数、分辨率、steps/CFG、judge/cache 和硬件，不能用“8B、near-lossless、统一、低显存”替代精确定义。
 
 对于 Hello-Agents，先固定仓库提交、Python 环境和每章依赖，不混用教程中的 `0.1.1`、`0.2.7`、`0.2.8` 示例；用 fake model/tool 先通过确定性测试，再接真实 API。教程、第三方 benchmark、框架官方文档和自己的实验结论分层记录；社区面试答案与项目 demo 都不直接进入答案卡。
+
+对于 Topcoder Fullstack Roadmap，保留它的项目驱动与前后端贯通价值，但不把“约一年前更新”的 XMind、六个月训练营时间块或 40+ 示例当作版本事实和能力证明。默认补 TypeScript、PostgreSQL、测试、安全、可访问性、可观测性与发布/回滚；MongoDB/Firebase、状态库、Three.js/GSAP、WebAssembly 和 Socket.IO 必须由数据模型或 JD 需求触发。
 
 对于 Reflection_Summary 这类个人总结仓库，额外执行“重写诱导性问题 → 补全符号/shape → 找反例 → 查一手来源 → 做最小实验”的验证协议，不把仓库答案原样复制到答案卡。
 

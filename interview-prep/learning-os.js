@@ -293,6 +293,26 @@
       exit: '解释为什么 clone 中必须“先登记、后递归”。'
     },
     {
+      id: 'k7-fullstack-vertical-slice', cluster: 'K7', title: 'Topcoder FS-1/3/4/5：浏览器到数据库的垂直切片', kind: 'code', duration: 55, week: 6, prereqs: [],
+      goal: '把一次用户操作追踪为可验证的 Browser → API → Service → DB → Response 契约。', output: 'strict TypeScript 纵向切片 + schema/migration + 三层测试。',
+      prompt: '设计“保存面试证据”功能：用户提交表单后，数据怎样经过 React 状态、Fetch、API validation、业务规则、数据库事务并返回？每层的输入、输出与失败是什么？',
+      construct: '实现或写出最小切片：语义化表单、运行时 schema、统一错误体、PostgreSQL constraint/migration、幂等写入；加入 domain unit、API+DB integration 与一条 E2E，并测试重复提交和慢网。',
+      transfer: '客户端超时后自动重试，而第一次请求其实已经提交成功；同时部署了新增非空字段的 migration。怎样避免重复记录，并保持新旧实例兼容？',
+      hints: ['前端 disabled 不能代替服务端幂等与唯一约束。', 'TypeScript 只提供编译期保证；外部 JSON 必须运行时验证。', '先让 schema 兼容新旧代码，再回填数据，最后收紧约束。'],
+      rubric: ['跨层契约和 ownership 清楚。', '验证、事务与幂等语义正确。', '测试覆盖行为与失败。', '能解释兼容 migration 与回滚。'],
+      exit: '闭卷用 90 秒走完一次请求，并指出最可能出现 silent failure 的两个边界。'
+    },
+    {
+      id: 'k8-fullstack-release', cluster: 'K8', title: 'Topcoder FS-6/7：可发布全栈项目与生产证据', kind: 'design', duration: 60, week: 6, prereqs: ['k7-fullstack-vertical-slice', 'k3-metrics'],
+      goal: '用测试、安全、可观测性、CI、容器和回滚把“能跑”升级为“可发布”。', output: 'test matrix + threat model + SLO/trace + release/rollback runbook。',
+      prompt: '为 Interview Evidence Hub 定义上线门槛：哪些行为、风险、指标和运维证据必须在发布前成立？',
+      construct: '画信任边界；列 unit/integration/E2E 分工；定义 authz、注入、XSS/CSRF、secret 和日志泄露防线；设计 request ID、logs/metrics/traces、SLO、Docker/CI、migration、canary 与 rollback。',
+      transfer: '分别注入授权绕过、数据库迁移失败和 p95 延迟回归。哪些应阻断发布，哪些可降级，如何证明回滚完成且没有数据损坏？',
+      hints: ['测试通过不等于授权策略正确，先从资产和滥用路径出发。', '发布门槛必须绑定可观测信号与明确 owner。', '数据库回滚常常不是简单 down migration；优先 forward-compatible rollout。'],
+      rubric: ['测试层级与关键旅程匹配。', '威胁和默认拒绝策略具体。', 'SLO/trace 可行动。', '发布、迁移和回滚可重放。'],
+      exit: '用 8 分钟答辩结构概括目标、baseline、最难决策、失败证据、上线门槛和残余风险。'
+    },
+    {
       id: 'k8-transformer', cluster: 'K8', title: 'G1 / DML 53：Transformer block 与 Attention shape', kind: 'explain', duration: 45, week: 5, prereqs: ['k2-softmax'],
       goal: '用 shape、数值和 residual path 走完 Transformer block。', output: '数据流图 + Q/K/V shape + 复杂度。',
       prompt: '完整走一遍 pre-norm Transformer block。为什么 attention score 除以 sqrt(dk)？',

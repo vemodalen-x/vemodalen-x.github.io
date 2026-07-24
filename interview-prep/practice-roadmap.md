@@ -80,6 +80,7 @@ flowchart LR
 | Agent 实现实验 | [Hello-Agents 路线](hello-agents-plan.md) | 用三范式对照、最小 runtime、故障注入、分层评测和 capstone 把原理变成代码/trace | 不顺序做完 16 章；框架 API、社区答案和 demo 不能替代版本锁与任务证据 |
 | Agent 仓库工程 | [Harness Engineering 路线](harness-engineering-plan.md) | 把仓库变成 Agent 可导航、可执行、可验证、可持续清理的环境 | 案例结论不直接泛化；仅 Agent/Coding/DevProd 岗默认激活 |
 | Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
+| 全栈产品交付 | [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md) | 把浏览器、API、事务、React 和发布接成一个可重放纵向切片 | 不学完 40+ demo；3D/Wasm/实时按 JD 选修 |
 
 仓库型题库只负责“发现问题”；答案仍要回到一手资料、自己的实验/trace/profiler 和项目证据验证。
 
@@ -142,6 +143,7 @@ flowchart LR
 
 - **覆盖池**：AlgoNote 32 + Blind 75 新增 12，共 44 道去重题。
 - **执行协议**：Handbook 的澄清 → baseline/优化 → 边写边解释 → 测试/复盘。
+- **全栈补充**：仅在 Fullstack/AI Product JD 或项目交付证据薄弱时，使用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)的 FS-1/2/3/4/5；沿 Browser → API → Service → DB → Response 写一个 strict TypeScript 纵向切片，不新增算法题量。
 - **六周主干**：只激活下方 15 道；其余是公司定向、随机 mock 或六周后的覆盖池。
 - **练习链**：识别模式 → 写不变量 → 正确 baseline → 复杂度 → 边界测试 → Python/C++ 迁移。
 - **过关**：独立实现、四维评分均至少 3/4；看过题解后必须从空文件重写。
@@ -150,9 +152,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、Codemia 和自己的 traces/evals。
-- **练习链**：Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多任务评测/推理解耦 → RAG/tool contract → Agent runtime Harness → ReAct/Plan/Reflection 对照 → 最小 runtime/故障注入 → context/memory → component/trace/E2E eval → Coding Agent → repo/SPEC/sensors → safety/release。
-- **产物**：Transformer inference 卡、template parity test、SFT eval matrix、DPO/VLM audit、NEO-unify 架构/attention 图、理解—生成 eval/runtime card、Agent loop/Harness 图、三范式 trace、最小 runtime contract、context budget、工具 contract、分层 eval、仓库地图和系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、Codemia 和自己的 traces/evals。
+- **练习链**：Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多任务评测/推理解耦 → RAG/tool contract → Agent runtime Harness → ReAct/Plan/Reflection 对照 → 最小 runtime/故障注入 → context/memory → component/trace/E2E eval → Coding Agent → repo/SPEC/sensors → Browser/API/DB 纵向切片 → test/threat/SLO → safety/release。
+- **产物**：Transformer inference 卡、template parity test、SFT eval matrix、DPO/VLM audit、NEO-unify 架构/attention 图、理解—生成 eval/runtime card、Agent loop/Harness 图、三范式 trace、最小 runtime contract、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack 和系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -170,6 +172,8 @@ flowchart LR
 | 6 公司定向 | JD → 证据 → 题号 → 当前评分 → 缺口动作 | 从 14 道中随机 1 道离线实现 | 从 44 道覆盖池随机 1–2 道 | 行为、技术、系统、编码各 1 场全真 mock |
 
 这 15 道 DSA 是六周平衡主干，不代表其余 29 道无价值。若目标公司明显 coding-heavy，每周从 Blind 75 缺口或 hard 校准池追加 1–2 道；新增时等量减少阅读，不突破总时长。
+
+若 JD 命中 Fullstack、Frontend、Backend 或 AI Product Engineer，第 6 周用 Topcoder FS-5/6/7 和两个交互节点替换一场泛化系统设计与多个随机 demo；其他岗位不默认激活。
 
 ## 每周 8–10 小时预算
 
@@ -229,6 +233,8 @@ flowchart LR
 | Agent 项目只有截图和主观“效果好” | Hello-Agents HA-6/7 | 建 30 条小集和 component/trace/E2E 矩阵；补 baseline、消融、高风险 slice、成本、发布门槛和回滚 |
 | Coding Agent 只会“搜索、改代码、跑测试” | Harness Engineering HE-1/3 | 补仓库地图、唯一真源和 Guides × Sensors；实现 2 个带修复指令的机械检查 |
 | 测试全绿但用户意图仍可能错 | Harness Engineering HE-2/6 | 写行为契约与关键旅程，加入对抗样本、人工校准和错误完成阻断 |
+| 全栈回答只会列框架或展示多个 demo | Topcoder FS-1/3/4/5 | 沿 Browser → API → Service → DB 交付一个 strict TypeScript 纵向切片，测试重复提交与慢网 |
+| 项目能跑但不能安全发布 | Topcoder FS-6/7 | 补 test matrix、threat model、SLO/trace、CI、migration、canary、runbook 与 rollback |
 | multi-agent 只会列角色 | 《深入理解 AI Agent》AID-7 | 先做单 Agent baseline，再证明隔离/并行/专业化收益与独立验证 |
 | 项目答案没有 Senior 信号 | R/B 模块 + Handbook 故事库 | 补个人决策、弃选、影响、失败和复盘 |
 

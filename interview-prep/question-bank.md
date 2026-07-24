@@ -105,6 +105,8 @@
 
 **本组优秀信号**：先澄清目标和 SLO；给 baseline；区分 model metric 与 product metric；包含失败、隐私、成本、上线和 ownership。
 
+全栈产品交付延伸：使用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)的 FS-1/3/4/5 深化 S1、S4 与 C10，把 Browser → API → Service → DB 的契约、幂等、事务和测试落到纵向切片；用 FS-6/7 深化 S6 的安全、可观测性、CI、migration 与回滚。它提供项目证据和变式，不扩张本页 90 题主库。
+
 ---
 
 ## G. LLM、Multimodal 与 Agentic AI（14 题）

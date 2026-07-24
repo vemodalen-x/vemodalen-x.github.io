@@ -25,11 +25,12 @@
 - [Hello-Agents 实践路线](hello-agents-plan.md)：把 16 章教程压缩为三范式故障实验、最小 Agent runtime、工具/上下文/协议边界、三层评测和单 Agent 优先的项目答辩。
 - [Harness Engineering 面试化学习路线](harness-engineering-plan.md)：把 Coding Agent 的仓库环境拆成 8 个 Session，覆盖 repo-as-record、SPEC/WORKFLOW、Guides × Sensors、Agent 可读性、合并经济学、熵管理与行为正确性。
 - [《探秘 Claude Code，搞懂 Agent Harness》听辨与实践路线](agent-harness-podcast-plan.md)：把 48 分钟播客转成“会跑、跑久、跑稳”三层图、主张—证据矩阵和真实 Agent 故障实验，区分访谈观点、官方事实与自己的验证。
+- [Topcoder Fullstack 产品交付路线](topcoder-fullstack-roadmap-plan.md)：把 Web 路线图压缩为浏览器 → TypeScript → Node/Express → PostgreSQL → React/Next → 测试/安全/发布的 8 个 Session，并用一个纵向项目形成生产证据。
 
 ## 桌面应用与知识检索
 
 - Windows 首次使用：双击 [install-desktop-shortcut.cmd](install-desktop-shortcut.cmd)，桌面会创建应用快捷方式。也可直接双击 [launch-learning-os.cmd](launch-learning-os.cmd)。应用使用本机 Chrome/Edge 的独立窗口，不需要服务器。
-- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 21 份 Markdown、384 个标题章节，并与 45 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
+- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 22 份 Markdown、404 个标题章节，并与 47 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
 - 知识正文来自仓库内 Markdown，搜索索引是可再生文件。新增或修改资料后，运行 `node scripts/build-knowledge-index.cjs`；构建器会在有文件未被纳入元数据时直接失败，避免静默漏检。
 - 学习状态继续保存在浏览器本地。更新索引或应用文件不会清空进度；换浏览器或迁移电脑前先在应用中导出状态。
 
@@ -42,8 +43,9 @@
 5. LLM 后训练或多模态岗位命中时，在 Transformer 基础后使用 [Smol Course 路线](smol-course-plan.md)：SFT、评测为核心，DPO/VLM 按 JD 激活；不把 notebook 跑通或 train loss 下降当成掌握。
 6. 多模态生成、VLM Infra 或前沿架构岗位命中时，再用 [SenseNova-U1 路线](sensenova-u1-plan.md)比较典型 VLM 与原生统一模型；它替换一个通用 VLM 设计和一个重复系统白板，不叠加课时。
 7. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)建立原理，用 [Hello-Agents 实践路线](hello-agents-plan.md)完成三范式/最小运行时和评测项目，用[播客听辨路线](agent-harness-podcast-plan.md)形成三层总图，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)。
-8. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
-9. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
+8. Fullstack、Frontend、Backend 或 AI Product Engineer 岗命中，或项目只能讲模型不能讲交付时，用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成一个纵向切片；它替换一次泛化系统设计和多个随机 demo，不叠加课时。
+9. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
+10. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
 
 ## 题库来源与取舍
 
@@ -59,6 +61,7 @@
 - [Vincent Sitzmann](https://www.vincentsitzmann.com/) 与 [MIT Scene Representation Group](https://www.scenerepresentations.org/)：用于补足相机/多视图几何、神经场、SIREN、可微渲染、新视角合成、视频生成和具身视觉。主页展示的是动态研究选集，不是完整基础课；本准备包按[定向路线](vincent-sitzmann-cv-plan.md)使用 2026 课程与一手项目页交叉验证，并把“3D 会过时”保留为有范围和反例的研究观点。
 - [Hugging Face Smol Course](https://huggingface.co/smol-course)（[v2 仓库](https://github.com/huggingface/smol-course)）：用于小模型 instruction tuning、DPO 与 VLM 实践。当前 v2 实际发布的是 Unit 1–3，Unit 4 仍为 Coming Soon，评测分散在单元练习中；本准备包用[后训练路线](smol-course-plan.md)补齐先评测后训练的闭环，并明确区分课程 lock 与当前 TRL API。默认不创建付费 Job、不上传模型/数据、不公开结果。
 - [OpenSenseNova/SenseNova-U1 中文 README](https://github.com/OpenSenseNova/SenseNova-U1/blob/main/README_CN.md)（[技术报告](https://arxiv.org/abs/2605.12500)）：用于学习无预训练 VE/VAE 的视觉接口、理解—生成 MoT、文本 CE + pixel flow、联合训练与生产推理。README、论文和 demo 属于作者证据；本准备包按[定向路线](sensenova-u1-plan.md)回查代码、评测脚本与已知限制，并明确“near-lossless、unified、8B、低显存”各自的精确定义和反例。默认不下载大型权重、不调用付费 judge。
+- [Topcoder Fullstack Roadmap](https://topcoderfullstack.com/roadmap)（[40+ 项目页](https://topcoderfullstack.com/projects)）：嵌入式 XMind 适合发现原生 Web、浏览器、Git/Docker、Node/Express、数据库、React/Next 和视觉开发主题；页面显示约一年前更新，并以六个月训练营为背景，不是版本化规范或掌握证明。本准备包按[产品交付路线](topcoder-fullstack-roadmap-plan.md)补入 TypeScript、PostgreSQL、测试、OWASP、安全、可访问性、可观测性与发布/回滚；框架/API 事实以当前官方文档为准。
 
 ### Transformer 可视化辅助
 
