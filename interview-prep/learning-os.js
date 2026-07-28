@@ -313,6 +313,26 @@
       exit: '用 8 分钟答辩结构概括目标、baseline、最难决策、失败证据、上线门槛和残余风险。'
     },
     {
+      id: 'k8-distributed-replicated-log', cluster: 'K8', title: 'Distributed Systems PDS-1/2：WAL、多数派与复制日志', kind: 'debug', duration: 60, week: 4, prereqs: [],
+      goal: '用 term、WAL、majority、commitIndex 与 lastApplied 解释复制状态机如何守住 safety。', output: '三/五节点事件 trace + 不变量表 + 故障矩阵。',
+      prompt: '五节点集群中，leader 把 log[8] 写入本地并复制到两个 follower 后响应客户端。此时 leader 崩溃；哪些事实已成立，哪些尚未成立？新 leader 如何处理不同副本上的尾日志？',
+      construct: '画 term/generation、append、majority ack、commitIndex、lastApplied 与 client response 的时序；至少模拟 leader crash、少数派 partition、stale leader 恢复和 follower lag，并检查同一 index 不会 apply 不同 command。',
+      transfer: '为了降低读延迟，系统开始从 follower 读取。加入 read-your-writes、最大陈旧度和旧 leader 仍可服务三个约束；设计读路径、拒绝条件和观测指标。',
+      hints: ['五节点多数派是 3；任意两个多数派至少有一个交集。', 'replicated、committed、applied、responded 是不同边界。', 'term/generation 能识别旧世代；timing 不应决定日志 safety。'],
+      rubric: ['安全不变量与 liveness 条件分开。', 'WAL/commit/applied 边界正确。', '分区和旧 leader 处理明确。', 'follower read 语义可验证。'],
+      exit: '闭卷用 90 秒说明多数派交集守住了什么，以及它没有自动解决的三个问题。'
+    },
+    {
+      id: 'k8-distributed-idempotency', cluster: 'K8', title: 'Distributed Systems PDS-6/7：重试幂等与 2PC 边界', kind: 'design', duration: 60, week: 4, prereqs: [],
+      goal: '在请求结果不确定时实现至多一次业务效果，并区分原子提交、共识和补偿工作流。', output: '请求状态机 + dedupe schema + crash/partition 测试 + 选型 ADR。',
+      prompt: '客户端提交模型发布后超时重试；第一次请求可能已经修改数据库并调用外部部署服务。怎样定义 request identity、payload 一致性、保存响应和副作用边界？',
+      construct: '设计 `(client_id, request_id)` 唯一约束、payload hash、状态与响应缓存；覆盖并发重复、commit 后 crash、不同 payload 复用 key、TTL 后重放。再为数据库与外部服务比较单库事务、2PC、outbox/Saga，并标出每种方案的阻塞或补偿路径。',
+      transfer: '2PC coordinator 在所有 participant prepared 后持久化 commit 决定，但只通知了一半节点就永久失联。哪些参与者能自行决定，哪些会阻塞？若改成异步工作流，如何防重复消费和错误补偿？',
+      hints: ['超时是结果未知，不是执行失败。', 'dedupe 记录与本地业务副作用应在同一事务提交。', 'consensus 决定值/顺序；2PC 让多个资源作同一提交决定。'],
+      rubric: ['幂等 key 生命周期和 payload 冲突明确。', '崩溃窗口与副作用可重放。', '2PC blocking/recovery 正确。', '替代方案和残余风险具体。'],
+      exit: '用一句话分别定义 at-least-once delivery、idempotent effect、atomic commit 和 consensus。'
+    },
+    {
       id: 'k8-transformer', cluster: 'K8', title: 'G1 / DML 53：Transformer block 与 Attention shape', kind: 'explain', duration: 45, week: 5, prereqs: ['k2-softmax'],
       goal: '用 shape、数值和 residual path 走完 Transformer block。', output: '数据流图 + Q/K/V shape + 复杂度。',
       prompt: '完整走一遍 pre-norm Transformer block。为什么 attention score 除以 sqrt(dk)？',

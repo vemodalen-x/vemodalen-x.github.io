@@ -147,6 +147,8 @@ Tuning Playbook 配套：把 trial variance、study variance、data sampling var
 
 钥匙书配套：完成泛化界与稳定性学习，把验证集复用、uniform convergence、algorithmic stability 与 Tuning Playbook 的 retrain variance 区分开。
 
+分布式系统定向：Backend、Platform、Infra、Data、ML Platform 或 Agent Infra 岗使用 [Martin Fowler 分布式模式路线](distributed-systems-patterns-plan.md)完成 PDS-0/1/2/6 和两个交互节点。先用 WAL/majority/replicated log 守住复制状态机不变量，再处理 timeout/retry/idempotency；PDS-3/4/5/7 只在 lease、时钟、分区迁移或跨资源事务失分时补。它替换本周两场泛化系统白板，不顺序背 30 个模式。
+
 本周交付：
 
 - 2 套 35–45 分钟设计：移动端人像虚化，以及多模态评估平台或模型发布与监控二选一；其余进入覆盖池。
@@ -155,6 +157,7 @@ Tuning Playbook 配套：把 trial variance、study variance、data sampling var
 - 整理“决策记录”：选择、弃选方案、判断依据、残余风险。
 - 算法主干：LC 200 Number of Islands、LC 210 Course Schedule II、LC 322 Coin Change。
 - 完成 Deep-ML 18 K-Fold、19 PCA，并各补一个 leakage 或错误实验设计反例。
+- 目标岗命中时，交付一份三/五节点复制日志 trace 和一份幂等写状态机；至少注入 crash、partition、duplicate、reorder 中的四种故障。
 
 练习时先给简单可工作的 baseline，再逐步加组件。面试官更关心判断力，不是图中框的数量。
 
@@ -231,12 +234,15 @@ Fullstack / Frontend / Backend / AI Product Engineer 定向：使用 [Topcoder F
 - 系统设计：生产案例和设计复盘，不背唯一架构。
 - LLM/Agent：模型/框架官方文档、原论文、自己的 traces 与 evals。
 - 全栈 Web：Topcoder 路线图只负责主题发现；HTML/CSS/浏览器回到 MDN，TypeScript、Node/Express、React/Next、PostgreSQL、Playwright、OWASP、Docker 与 GitHub Actions 回到当前官方文档和自己的版本锁实验。
+- 分布式系统：Martin Fowler/Unmesh Joshi 目录只负责模式发现；共识、复制状态机、时钟和去中心化版本回到 Paxos、Raft、Spanner、Dynamo 等一手论文，并用自己的事件历史与故障注入验证不变量。
 
 对于 SenseNova-U1，把 README/demo、arXiv 报告、仓库实现与自己的复现分成四层证据；尤其核对 checkpoint 身份、总/激活参数、分辨率、steps/CFG、judge/cache 和硬件，不能用“8B、near-lossless、统一、低显存”替代精确定义。
 
 对于 Hello-Agents，先固定仓库提交、Python 环境和每章依赖，不混用教程中的 `0.1.1`、`0.2.7`、`0.2.8` 示例；用 fake model/tool 先通过确定性测试，再接真实 API。教程、第三方 benchmark、框架官方文档和自己的实验结论分层记录；社区面试答案与项目 demo 都不直接进入答案卡。
 
 对于 Topcoder Fullstack Roadmap，保留它的项目驱动与前后端贯通价值，但不把“约一年前更新”的 XMind、六个月训练营时间块或 40+ 示例当作版本事实和能力证明。默认补 TypeScript、PostgreSQL、测试、安全、可访问性、可观测性与发布/回滚；MongoDB/Firebase、状态库、Three.js/GSAP、WebAssembly 和 Socket.IO 必须由数据模型或 JD 需求触发。
+
+对于 Catalog of Patterns of Distributed Systems，先记录模式摘要对应的 problem/solution，再补 safety、liveness、故障模型、作用域、代价和“不保证什么”。目录未覆盖的 Raft、fencing、Saga/outbox、CRDT、背压和历史一致性验证不能假装已学会；Paxos 与 2PC、复制与持久化、消息 delivery 与业务效果必须分开回答。
 
 对于 Reflection_Summary 这类个人总结仓库，额外执行“重写诱导性问题 → 补全符号/shape → 找反例 → 查一手来源 → 做最小实验”的验证协议，不把仓库答案原样复制到答案卡。
 

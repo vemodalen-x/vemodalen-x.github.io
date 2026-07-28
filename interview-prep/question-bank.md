@@ -107,6 +107,8 @@
 
 全栈产品交付延伸：使用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)的 FS-1/3/4/5 深化 S1、S4 与 C10，把 Browser → API → Service → DB 的契约、幂等、事务和测试落到纵向切片；用 FS-6/7 深化 S6 的安全、可观测性、CI、migration 与回滚。它提供项目证据和变式，不扩张本页 90 题主库。
 
+分布式系统延伸：使用 [Martin Fowler 模式路线](distributed-systems-patterns-plan.md)的 PDS-0/1/2/6 深化 S3、S6、S8，把 WAL、majority quorum、replicated log、follower read、timeout/retry 和 Idempotent Receiver 放进确定性故障实验；用 PDS-3/4/5/7 处理 lease/fencing、clock/version、partition migration 与 2PC 边界。它不扩张 90 题主库，也不把模式目录摘要当算法证明。
+
 ---
 
 ## G. LLM、Multimodal 与 Agentic AI（14 题）

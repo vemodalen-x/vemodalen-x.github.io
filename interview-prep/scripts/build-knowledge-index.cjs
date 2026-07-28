@@ -26,6 +26,7 @@ const metadata = {
   'harness-engineering-plan.md': { kind: 'Agent 仓库工程', description: 'Repo map、SPEC、机械回压、行为评测与熵管理。', clusters: ['K7', 'K8'], order: 23 },
   'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 24 },
   'topcoder-fullstack-roadmap-plan.md': { kind: '全栈产品工程', description: '浏览器、TypeScript、React/Node、SQL、测试、安全、容器与发布。', clusters: ['K7', 'K8'], order: 25 },
+  'distributed-systems-patterns-plan.md': { kind: '分布式系统模式', description: '日志、复制、共识、时钟、分区、幂等、2PC 与故障推理。', clusters: ['K7', 'K8'], order: 26 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
 };

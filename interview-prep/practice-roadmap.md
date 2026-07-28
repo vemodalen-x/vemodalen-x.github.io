@@ -81,6 +81,7 @@ flowchart LR
 | Agent 仓库工程 | [Harness Engineering 路线](harness-engineering-plan.md) | 把仓库变成 Agent 可导航、可执行、可验证、可持续清理的环境 | 案例结论不直接泛化；仅 Agent/Coding/DevProd 岗默认激活 |
 | Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
 | 全栈产品交付 | [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md) | 把浏览器、API、事务、React 和发布接成一个可重放纵向切片 | 不学完 40+ demo；3D/Wasm/实时按 JD 选修 |
+| 分布式系统模式 | [Martin Fowler 模式路线](distributed-systems-patterns-plan.md) | 用日志、复制、时钟、分区、幂等和 2PC 建立故障推理链 | 不背 30 个名词；目录摘要不能替代论文、实现与故障实验 |
 
 仓库型题库只负责“发现问题”；答案仍要回到一手资料、自己的实验/trace/profiler 和项目证据验证。
 
@@ -152,9 +153,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、Codemia 和自己的 traces/evals。
-- **练习链**：Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多任务评测/推理解耦 → RAG/tool contract → Agent runtime Harness → ReAct/Plan/Reflection 对照 → 最小 runtime/故障注入 → context/memory → component/trace/E2E eval → Coding Agent → repo/SPEC/sensors → Browser/API/DB 纵向切片 → test/threat/SLO → safety/release。
-- **产物**：Transformer inference 卡、template parity test、SFT eval matrix、DPO/VLM audit、NEO-unify 架构/attention 图、理解—生成 eval/runtime card、Agent loop/Harness 图、三范式 trace、最小 runtime contract、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack 和系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、Codemia 和自己的 traces/evals。
+- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → chat/data/eval contract → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → RAG/tool contract → Agent Harness/eval → Browser/API/DB 纵向切片 → safety/release。
+- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack 和系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -174,6 +175,8 @@ flowchart LR
 这 15 道 DSA 是六周平衡主干，不代表其余 29 道无价值。若目标公司明显 coding-heavy，每周从 Blind 75 缺口或 hard 校准池追加 1–2 道；新增时等量减少阅读，不突破总时长。
 
 若 JD 命中 Fullstack、Frontend、Backend 或 AI Product Engineer，第 6 周用 Topcoder FS-5/6/7 和两个交互节点替换一场泛化系统设计与多个随机 demo；其他岗位不默认激活。
+
+若 JD 命中 Backend、Platform、Infra、Data、ML Platform 或 Agent Infra，第 4 周用分布式模式 PDS-0/1/2/6 和两个交互节点替换两场泛化白板；Paxos 证明、完整 Raft、CRDT 与拜占庭容错留在长期池。
 
 ## 每周 8–10 小时预算
 
@@ -235,6 +238,8 @@ flowchart LR
 | 测试全绿但用户意图仍可能错 | Harness Engineering HE-2/6 | 写行为契约与关键旅程，加入对抗样本、人工校准和错误完成阻断 |
 | 全栈回答只会列框架或展示多个 demo | Topcoder FS-1/3/4/5 | 沿 Browser → API → Service → DB 交付一个 strict TypeScript 纵向切片，测试重复提交与慢网 |
 | 项目能跑但不能安全发布 | Topcoder FS-6/7 | 补 test matrix、threat model、SLO/trace、CI、migration、canary、runbook 与 rollback |
+| 分布式系统回答只会列 CAP、Paxos、Kafka 等名词 | Distributed PDS-0/1/2 | 写 safety/liveness、故障模型和作用域；用 WAL/majority/commit/applied trace 注入 partition 与 stale leader |
+| 把 timeout 当失败或承诺笼统 exactly-once | Distributed PDS-6/7 | 实现 dedupe 状态机与 crash 测试；区分 delivery、业务幂等、atomic commit、consensus 与补偿 |
 | multi-agent 只会列角色 | 《深入理解 AI Agent》AID-7 | 先做单 Agent baseline，再证明隔离/并行/专业化收益与独立验证 |
 | 项目答案没有 Senior 信号 | R/B 模块 + Handbook 故事库 | 补个人决策、弃选、影响、失败和复盘 |
 
