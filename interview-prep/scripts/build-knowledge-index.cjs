@@ -27,6 +27,7 @@ const metadata = {
   'agent-harness-podcast-plan.md': { kind: '播客听辨', description: '用会跑、跑久、跑稳三层框架学习 Harness，并校验强主张。', clusters: ['K8'], order: 24 },
   'topcoder-fullstack-roadmap-plan.md': { kind: '全栈产品工程', description: '浏览器、TypeScript、React/Node、SQL、测试、安全、容器与发布。', clusters: ['K7', 'K8'], order: 25 },
   'distributed-systems-patterns-plan.md': { kind: '分布式系统模式', description: '日志、复制、共识、时钟、分区、幂等、2PC 与故障推理。', clusters: ['K7', 'K8'], order: 26 },
+  'prompt-engineering-method-plan.md': { kind: 'Prompt 工程', description: '任务契约、真源/权限、可验证输出、冻结评测、版本发布与回滚。', clusters: ['K3', 'K8'], order: 27 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
 };

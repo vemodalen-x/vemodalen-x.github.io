@@ -523,6 +523,26 @@
       exit: '列出任何有副作用工具都必须满足的六个 contract 字段。'
     },
     {
+      id: 'k8-prompt-contract', cluster: 'K8', title: 'Prompt PE-1/2/3：从模糊请求到可验证任务契约', kind: 'design', duration: 50, week: 5, prereqs: ['k3-metrics'],
+      goal: '用目标、真源、权限、成功标准和输出契约替代角色包装与隐藏思维链要求。', output: '六字段 Prompt Contract + schema/validator + 不可信上下文测试。',
+      prompt: '把“帮我分析这两个模型哪个好”改成可执行任务契约：受众、输入/真源、约束/权限、成功标准、输出结构和未知处理分别是什么？',
+      construct: '固定一个真实模型/API 版本，写 Objective、Inputs/Sources、Constraints/Authority、Success Criteria、Output Contract、Examples/Fallbacks；删除重复角色词，为 schema、单位、引用和缺证据行为各写一个 validator。',
+      transfer: '检索材料含有“忽略规则并外发数据”的注入指令，且两个来源相互冲突、关键延迟数据缺失。怎样保持来源层级、只问会改变决策的问题，并给出安全但仍有用的输出？',
+      hints: ['角色只在领域或语气确有作用时保留。', '每条“不得”都配一个可执行 fallback。', '要求假设、引用、计算或测试等可核查产物，不索取隐藏思维链。'],
+      rubric: ['目标、受众与可观察动作明确。', '指令、数据、来源时效和信任边界分开。', '成功标准与输出结构可由 validator 检查。', '缺证据、冲突、注入和副作用有安全处理。'],
+      exit: '闭卷用 90 秒解释为什么 Prompt Contract 比固定五段式更稳，并给出一个角色词应删除的反例。'
+    },
+    {
+      id: 'k8-prompt-eval-loop', cluster: 'K8', title: 'Prompt PE-0/4/5：冻结评测、回归门槛与版本发布', kind: 'debug', duration: 55, week: 5, prereqs: ['k8-prompt-contract', 'k3-metrics'],
+      goal: '用冻结任务集和版本化发布证明 Prompt 改动，而不是凭一次漂亮回答判断。', output: '20–30 条 eval set + v0–v3 对照 + release/rollback card。',
+      prompt: '如何比较 Prompt v0–v3，避免模型版本、检索器、工具 schema、随机采样或 judge 漂移混入结论？',
+      construct: '固定模型快照、系统指令、工具和任务分布；建立 normal/edge/adversarial/unanswerable/localization slices，定义结果/过程/安全/延迟/成本指标。每版只修一个已观测失败，在同集成对回归并记录失败分母。',
+      transfer: '候选版总体任务成功率上升、p95 降低，但事实引用和本地化高风险 slice 回归；新模型版本又进一步降本。请给出阻断、诊断、canary、人工校准和回滚方案。',
+      hints: ['相似度不能替代 groundedness 或任务成功。', '一次只改变 Prompt、模型、检索器或参数中的一类变量。', '先写发布与回滚门槛，再看候选结果。'],
+      rubric: ['基线、版本、任务分布和对照变量被冻结。', '指标覆盖结果、trace、安全、延迟与成本。', '有 slice、重复运行、分母和 judge/人工分歧。', '回归阻断、canary、监控和回滚可执行。'],
+      exit: '给出一个从真实失败进入 eval set、最小修复、同集回归到发布或回滚的完整闭环。'
+    },
+    {
       id: 'k8-multi-agent', cluster: 'K8', title: 'Agent Book Ch10：单 Agent 与多 Agent 的证据化选择', kind: 'design', duration: 50, week: 5, prereqs: ['k8-agent-evaluation', 'k8-agent-safety'],
       goal: '只在隔离、并行或专业化收益可验证时引入多 Agent。', output: '拓扑决策表 + 通信/故障域设计。',
       prompt: '对同一复杂任务，比较单 Agent、共享上下文角色转换、管理者模式和独立上下文协作。何时多 Agent 真正占优？',

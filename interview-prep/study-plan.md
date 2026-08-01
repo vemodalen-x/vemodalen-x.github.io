@@ -169,6 +169,8 @@ Tuning Playbook 配套：把 trial variance、study variance、data sampling var
 
 经典追问补充：只使用 [Reflection_Summary 路线](reflection-summary-plan.md)的 attention 追问链检查公式、shape、缩放和位置编码；跳过其早期 BERT/NLP 实现细节，现代推理仍使用本题库与更新资料。
 
+Prompt 工程：LLM、Agent、AI Product 或 Applied AI 岗使用[高质量 Prompt 路线](prompt-engineering-method-plan.md)完成 PE-0/1/3/4，先冻结真实任务、模型与 eval set，再写六字段任务契约、validator 和 v0–v3 回归。它替换重复 Prompt 博客阅读与一次泛化白板；RAG/Agent 再激活 PE-2，生产/平台岗位再激活 PE-5。不要默认索取隐藏思维链，也不要背跨模型 temperature/top_p 配方。
+
 LLM/VLM 后训练：使用 [Smol Course 路线](smol-course-plan.md)完成 SC-1、SC-2、SC-4，产出 chat-template/token/mask parity test、SFT 前后对照和三层评测矩阵。它替换一次泛读和一个重复的通用练习，不增加本周总时间。岗位明确要求 preference alignment 或 VLM 时，再从 SC-5/6 选择一个；课程复现环境与当前 TRL 环境分开，不混用依赖版本。
 
 统一多模态定向：仅当 JD 命中多模态生成、VLM Infra 或前沿模型架构时，使用 [SenseNova-U1 路线](sensenova-u1-plan.md)完成两个 Session：先解释视觉 patch、MoT/mask 和 CE+flow，再设计理解/生成/编辑/交错评测与 LightLLM/LightX2V 部署。它替换一个通用 VLM 设计和一个重复系统白板；其他岗位只在 G8 追问中做 90 秒架构比较。
@@ -186,6 +188,7 @@ Agentic 白板：未激活 Harness Engineering 时，使用 [Codemia](https://co
 本周交付：
 
 - 一页 Transformer inference 速查：attention、KV cache、prefill/decode、GQA、quantization。
+- LLM/Agent/AI Product 岗交付一份 Prompt Contract、20–30 条冻结 eval set、两个确定性 validator 和一张 release/rollback card；它替换一次重复阅读与白板，不新增时长。
 - 一份 SFT evidence card：训练前 baseline、template/token/mask 单测、held-out 与 regression 指标、资源预算；DPO/VLM 岗再附 preference-pair audit 或 image ablation。
 - 多模态生成/infra 岗再交一张 SenseNova-U1 主张—机制—证据矩阵，以及统一模型/解耦运行时架构卡；它替换上述一套泛化系统设计，不新增时长。
 - 一张 Agent loop/Harness 边界图和一份 context budget，能解释缓存、压缩、记忆与恢复。
@@ -233,6 +236,7 @@ Fullstack / Frontend / Backend / AI Product Engineer 定向：使用 [Topcoder F
 - 端侧：所用运行时官方文档、模型转换日志、真实设备 profiler/trace。
 - 系统设计：生产案例和设计复盘，不背唯一架构。
 - LLM/Agent：模型/框架官方文档、原论文、自己的 traces 与 evals。
+- Prompt：用户方法稿和博客只负责提出假设；参数/能力回查实际供应商与模型版本，改动用冻结 eval set、slice、validator、延迟/成本和发布回滚验证。
 - 全栈 Web：Topcoder 路线图只负责主题发现；HTML/CSS/浏览器回到 MDN，TypeScript、Node/Express、React/Next、PostgreSQL、Playwright、OWASP、Docker 与 GitHub Actions 回到当前官方文档和自己的版本锁实验。
 - 分布式系统：Martin Fowler/Unmesh Joshi 目录只负责模式发现；共识、复制状态机、时钟和去中心化版本回到 Paxos、Raft、Spanner、Dynamo 等一手论文，并用自己的事件历史与故障注入验证不变量。
 

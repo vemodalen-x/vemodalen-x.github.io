@@ -27,11 +27,12 @@
 - [《探秘 Claude Code，搞懂 Agent Harness》听辨与实践路线](agent-harness-podcast-plan.md)：把 48 分钟播客转成“会跑、跑久、跑稳”三层图、主张—证据矩阵和真实 Agent 故障实验，区分访谈观点、官方事实与自己的验证。
 - [Topcoder Fullstack 产品交付路线](topcoder-fullstack-roadmap-plan.md)：把 Web 路线图压缩为浏览器 → TypeScript → Node/Express → PostgreSQL → React/Next → 测试/安全/发布的 8 个 Session，并用一个纵向项目形成生产证据。
 - [Martin Fowler 分布式系统模式路线](distributed-systems-patterns-plan.md)：把 30 个模式聚成日志、复制/共识、成员协调、时钟/版本、分区、请求语义与 2PC 七个问题簇，并用确定性故障注入训练系统推理。
+- [高质量 Prompt 工程路线](prompt-engineering-method-plan.md)：把五段式模板、v0–v3 和参数建议逐条审计，升级为任务契约、不可信上下文、冻结评测、版本发布与回滚的 6 个 Session。
 
 ## 桌面应用与知识检索
 
 - Windows 首次使用：双击 [install-desktop-shortcut.cmd](install-desktop-shortcut.cmd)，桌面会创建应用快捷方式。也可直接双击 [launch-learning-os.cmd](launch-learning-os.cmd)。应用使用本机 Chrome/Edge 的独立窗口，不需要服务器。
-- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 23 份 Markdown、429 个标题章节，并与 49 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
+- “知识库”按 K1–K8 和学习系统元资料聚类；当前索引覆盖全部 24 份 Markdown、454 个标题章节，并与 51 个交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
 - 知识正文来自仓库内 Markdown，搜索索引是可再生文件。新增或修改资料后，运行 `node scripts/build-knowledge-index.cjs`；构建器会在有文件未被纳入元数据时直接失败，避免静默漏检。
 - 学习状态继续保存在浏览器本地。更新索引或应用文件不会清空进度；换浏览器或迁移电脑前先在应用中导出状态。
 
@@ -46,8 +47,9 @@
 7. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)建立原理，用 [Hello-Agents 实践路线](hello-agents-plan.md)完成三范式/最小运行时和评测项目，用[播客听辨路线](agent-harness-podcast-plan.md)形成三层总图，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)。
 8. Fullstack、Frontend、Backend 或 AI Product Engineer 岗命中，或项目只能讲模型不能讲交付时，用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成一个纵向切片；它替换一次泛化系统设计和多个随机 demo，不叠加课时。
 9. Backend、Platform、Infra、Data、ML Platform 或 Agent Infra 岗命中，或系统设计只会列组件时，用[分布式系统模式路线](distributed-systems-patterns-plan.md)完成复制日志与幂等写两个故障实验；它替换两场泛化白板，不顺序背 30 个模式。
-10. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
-11. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
+10. LLM、Agent 或 AI Product 岗需要解释 Prompt 设计，或真实系统出现不稳定输出时，用[高质量 Prompt 工程路线](prompt-engineering-method-plan.md)完成任务契约与冻结评测两个交互节点；它替换重复 Prompt 博客阅读，不背角色/参数配方。
+11. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
+12. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
 
 ## 题库来源与取舍
 
@@ -65,6 +67,7 @@
 - [OpenSenseNova/SenseNova-U1 中文 README](https://github.com/OpenSenseNova/SenseNova-U1/blob/main/README_CN.md)（[技术报告](https://arxiv.org/abs/2605.12500)）：用于学习无预训练 VE/VAE 的视觉接口、理解—生成 MoT、文本 CE + pixel flow、联合训练与生产推理。README、论文和 demo 属于作者证据；本准备包按[定向路线](sensenova-u1-plan.md)回查代码、评测脚本与已知限制，并明确“near-lossless、unified、8B、低显存”各自的精确定义和反例。默认不下载大型权重、不调用付费 judge。
 - [Topcoder Fullstack Roadmap](https://topcoderfullstack.com/roadmap)（[40+ 项目页](https://topcoderfullstack.com/projects)）：嵌入式 XMind 适合发现原生 Web、浏览器、Git/Docker、Node/Express、数据库、React/Next 和视觉开发主题；页面显示约一年前更新，并以六个月训练营为背景，不是版本化规范或掌握证明。本准备包按[产品交付路线](topcoder-fullstack-roadmap-plan.md)补入 TypeScript、PostgreSQL、测试、OWASP、安全、可访问性、可观测性与发布/回滚；框架/API 事实以当前官方文档为准。
 - [Catalog of Patterns of Distributed Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)：Unmesh Joshi 在 Martin Fowler 站点发布的 30 个模式短摘要，适合建立分布式存储与协调的模式地图；深入内容主要链接到书籍章节，不是形式化证明或完整目录。本准备包按[故障推理路线](distributed-systems-patterns-plan.md)回查 Paxos、Raft、Spanner 与 Dynamo 一手论文，并补足故障模型、fencing、读语义、幂等副作用、可观测性与确定性故障注入。
+- 用户提供的《高质量 Prompt 是怎么写出来的？》方法稿：保留任务分类、结构化、迭代和场景测试，纠正“默认索取思维链”、固定 temperature/top_p 配方、上下文越多越好和相似度即质量等不稳结论。本准备包按[工程化路线](prompt-engineering-method-plan.md)用 [OpenAI 当前模型指导](https://developers.openai.com/api/docs/guides/latest-model)校准，但所有参数与能力仍以实际供应商、模型快照和 API 为准。
 
 ### Transformer 可视化辅助
 

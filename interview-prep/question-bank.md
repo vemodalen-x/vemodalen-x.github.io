@@ -127,6 +127,8 @@ Coding Agent / Agent Infra 延伸：使用 [Harness Engineering 路线](harness-
 
 Harness 听辨：使用[播客实践路线](agent-harness-podcast-plan.md)把 G11–G14 重组为执行、状态、治理三层，并用主张—证据矩阵检查 CLI vs MCP、context vs control、memory 和权限分离；它提供新的回答结构，不新增主库题号。
 
+Prompt 工程延伸：使用[高质量 Prompt 路线](prompt-engineering-method-plan.md)深化 G9、G10、G13、G14。重点不是角色/五段式或固定 temperature，而是任务契约、真源/权限、可验证输出、冻结 eval set、版本与回滚；两项交互练习只增加变式和生产证据，不扩张本页 90 题主库。
+
 - **G1 · P0**：完整走一遍 Transformer block；为什么 attention score 要除以 √dₖ？
 - **G2 · P0**：KV cache 保存什么？prefill 与 decode 有何不同？上下文长度、batch 和层数如何影响显存？
 - **G3 · P1**：比较 MHA、MQA、GQA；它们怎样权衡质量、KV cache 和吞吐？
