@@ -2,9 +2,11 @@
 
 这是整个准备包的总入口。其他文件保存完整题库和资料细节；本文件决定当前练什么、先后依赖、何时升级，以及哪些内容只是缺口补充。
 
-交互入口：[Interview Learning OS V3](learning-os.html)。当前证据契约：[Learning OS V3](learning-experience-v3.md)；历史依据：[V2 评审](learning-experience-v2.md)。六周表是 curriculum guardrail；每天的下一步由能力证据、到期风险、时间预算和目标岗位共同决定。
+交互入口：[Interview Learning OS V3](learning-os.html)。底层坐标：[第一性原理知识地图](first-principles-knowledge-map.md)；当前证据契约：[Learning OS V3](learning-experience-v3.md)；历史依据：[V2 评审](learning-experience-v2.md)。六周表是 curriculum guardrail；每天的下一步由能力证据、到期风险、时间预算和目标岗位共同决定。
 
 默认目标：Senior AI Engineer / Computer Vision / Edge ML / Multimodal & Agentic AI，六周、每周 8–10 小时。
+
+知识库使用两层本体：P1–P8 是不随技术栈变化的第一性原理，K1–K8 是面试交付视图。资料与题库只能提供证据和练习入口，不能反过来定义学习结构；每个练习至少标一个主 P 原语、一个 K 能力簇和一个可检查产物。
 
 ## 一条主线，而不是十份资料
 
@@ -63,6 +65,7 @@ flowchart LR
 
 | 层级 | 主材料 | 在练习链中的职责 | 不做什么 |
 | --- | --- | --- | --- |
+| 底层坐标 | [第一性原理知识地图](first-principles-knowledge-map.md) | 用目标、表征、机制、状态、边界、评估、资源与 ownership 统一全部领域 | 不成为第九个能力簇或另一套必背题库 |
 | 核心问题 | [90 题主库](question-bank.md) | 定义面试官可能追问的原理、项目、系统和行为问题 | 不把短答案背成固定稿 |
 | 算法覆盖池 | [AlgoNote 32](algo-note-plan.md) + [Blind 75 补充 12](blind-75-plan.md) | 提供 44 道去重后的 DSA 模式池 | 六周默认不要求刷完 44 道 |
 | ML 实现 | [Deep-ML 14](deep-ml-plan.md) | 把公式、shape、数值稳定性变成可测试代码 | 不用 AC 代替生产理解 |
@@ -199,6 +202,7 @@ flowchart LR
 每次训练只建立一条记录，避免在多个文件重复打卡：
 
     日期 / 能力簇：
+    主 P 原语 / 迁移 P 原语：
     主锚点（题号或产物）：
     当前级别：0 未见 / 1 学习 / 2 可独立 / 3 可面试 / 4 稳定
     首次闭卷结果：

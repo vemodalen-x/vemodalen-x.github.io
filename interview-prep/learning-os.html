@@ -164,7 +164,7 @@
 
     <section class="workspace-section knowledge-section" id="library">
       <div class="section-heading">
-        <div><p class="eyebrow">KNOWLEDGE DIRECTORY</p><h2>一张目录，检索全部准备材料</h2><p>按能力簇浏览全部路线、题库与听辨材料，或搜索任意概念、题目、失败模式和工程关键词；结果同时覆盖知识章节与练习节点。</p></div>
+        <div><p class="eyebrow">KNOWLEDGE DIRECTORY</p><h2>先看原理，再看领域与资料</h2><p>第一性原理回答“为什么与依赖什么”，K1–K8 回答“在哪类面试中表现”，资料只提供证据；两个坐标可以组合筛选章节与练习。</p></div>
         <span class="section-note">Ctrl / ⌘ + K 搜索</span>
       </div>
 
@@ -172,7 +172,15 @@
         <article><strong id="knowledge-source-count">--</strong><span>份学习资料</span></article>
         <article><strong id="knowledge-section-count">--</strong><span>个可检索章节</span></article>
         <article><strong id="knowledge-task-count">--</strong><span>个练习节点</span></article>
-        <article><strong>8</strong><span>个能力簇</span></article>
+        <article><strong>8</strong><span>个第一性原理</span></article>
+      </div>
+
+      <div class="principle-navigator" aria-label="第一性原理导航">
+        <div class="principle-navigator-head">
+          <div><strong>第一性原理导航</strong><span>选择一个原语，再用左侧能力簇形成交叉视图；再次点击可取消。</span></div>
+          <button class="mini-button" id="knowledge-reset-filters" type="button">重置坐标</button>
+        </div>
+        <div class="principle-list" id="knowledge-principle-list"></div>
       </div>
 
       <div class="knowledge-search-shell">

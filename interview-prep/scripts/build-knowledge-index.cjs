@@ -4,12 +4,14 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const outputPath = path.join(root, 'knowledge-index.js');
 const allClusters = ['K1', 'K2', 'K3', 'K4', 'K5', 'K6', 'K7', 'K8'];
+const allPrinciples = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'];
 
 const metadata = {
   'README.md': { kind: '准备包入口', description: '全部学习材料、来源取舍与推荐使用顺序。', clusters: allClusters, order: 1 },
-  'practice-roadmap.md': { kind: '统一路线', description: '八个能力簇、依赖关系、六周激活路径与缺口路由。', clusters: allClusters, order: 2 },
-  'study-plan.md': { kind: '六周计划', description: '每周目标、每日训练、复习间隔、自测与临场策略。', clusters: allClusters, order: 3 },
-  'question-bank.md': { kind: '核心题库', description: '90 道项目、ML、CV、端侧、系统、Agent、编码与行为题。', clusters: allClusters, order: 4 },
+  'first-principles-knowledge-map.md': { kind: '第一性原理地图', description: '八个跨领域原语、通用答题内核、P×K 交叉表与缺口路由。', clusters: allClusters, order: 2 },
+  'practice-roadmap.md': { kind: '统一路线', description: '八个能力簇、依赖关系、六周激活路径与缺口路由。', clusters: allClusters, order: 3 },
+  'study-plan.md': { kind: '六周计划', description: '每周目标、每日训练、复习间隔、自测与临场策略。', clusters: allClusters, order: 4 },
+  'question-bank.md': { kind: '核心题库', description: '90 道项目、ML、CV、端侧、系统、Agent、编码与行为题。', clusters: allClusters, order: 5 },
   'ml-interviews-book-plan.md': { kind: '面试基础', description: 'Senior 信号、数学、数据、ML workflow、训练与 CV 盲区。', clusters: ['K1', 'K2', 'K3', 'K4', 'K5'], order: 10 },
   'tech-interview-handbook-plan.md': { kind: '面试执行', description: '编码协议、行为故事、自我介绍、JD 映射与模拟复盘。', clusters: ['K1', 'K7'], order: 11 },
   'algo-note-plan.md': { kind: '算法路线', description: '32 道 AI/CV/Edge 岗位核心算法题与双语言训练方法。', clusters: ['K7'], order: 12 },
@@ -30,6 +32,34 @@ const metadata = {
   'prompt-engineering-method-plan.md': { kind: 'Prompt 工程', description: '任务契约、真源/权限、可验证输出、冻结评测、版本发布与回滚。', clusters: ['K3', 'K8'], order: 27 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
+};
+
+const principlesByDocument = {
+  'README.md': allPrinciples,
+  'first-principles-knowledge-map.md': allPrinciples,
+  'practice-roadmap.md': allPrinciples,
+  'study-plan.md': allPrinciples,
+  'question-bank.md': allPrinciples,
+  'ml-interviews-book-plan.md': ['P1', 'P2', 'P3', 'P6', 'P8'],
+  'tech-interview-handbook-plan.md': ['P1', 'P3', 'P5', 'P8'],
+  'algo-note-plan.md': ['P2', 'P3', 'P5', 'P6'],
+  'blind-75-plan.md': ['P2', 'P3', 'P5', 'P6'],
+  'deep-ml-plan.md': ['P2', 'P3', 'P5', 'P6', 'P7'],
+  'reflection-summary-plan.md': ['P2', 'P3', 'P6'],
+  'tuning-playbook-plan.md': ['P1', 'P3', 'P6', 'P7'],
+  'key-book-plan.md': ['P2', 'P3', 'P6'],
+  'vincent-sitzmann-cv-plan.md': ['P2', 'P3', 'P4', 'P6', 'P7'],
+  'smol-course-plan.md': ['P1', 'P2', 'P3', 'P5', 'P6', 'P7'],
+  'sensenova-u1-plan.md': ['P2', 'P3', 'P5', 'P6', 'P7'],
+  'ai-agents-in-depth-plan.md': allPrinciples,
+  'hello-agents-plan.md': ['P3', 'P4', 'P5', 'P6', 'P7'],
+  'harness-engineering-plan.md': ['P4', 'P5', 'P6', 'P7', 'P8'],
+  'agent-harness-podcast-plan.md': ['P3', 'P4', 'P5', 'P7'],
+  'topcoder-fullstack-roadmap-plan.md': ['P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'],
+  'distributed-systems-patterns-plan.md': ['P2', 'P3', 'P4', 'P5', 'P6', 'P7'],
+  'prompt-engineering-method-plan.md': ['P1', 'P2', 'P5', 'P6', 'P7'],
+  'learning-experience-v3.md': ['P1', 'P5', 'P6', 'P8'],
+  'learning-experience-v2.md': ['P1', 'P5', 'P6', 'P8']
 };
 
 function cleanInlineMarkdown(value) {
@@ -55,6 +85,11 @@ function inferClusters(fileName, heading, fallback) {
     if (/^A\./.test(heading)) return ['K7'];
   }
   return fallback.slice();
+}
+
+function inferPrinciples(heading, fallback) {
+  const direct = [...heading.matchAll(/\bP([1-8])\b/gi)].map((match) => `P${match[1]}`);
+  return direct.length ? [...new Set(direct)] : fallback.slice();
 }
 
 function makeSnippet(content) {
@@ -85,6 +120,7 @@ function parseDocument(fileName, meta) {
     const end = index + 1 < headings.length ? headings[index + 1].index : lines.length;
     const content = lines.slice(heading.index + 1, end).join('\n').trim();
     const clusters = inferClusters(fileName, heading.title, meta.clusters);
+    const principles = inferPrinciples(heading.title, principlesByDocument[fileName]);
     return {
       id: `${path.basename(fileName, '.md')}--${String(index + 1).padStart(3, '0')}`,
       documentId: path.basename(fileName, '.md'),
@@ -93,6 +129,7 @@ function parseDocument(fileName, meta) {
       breadcrumb,
       level: heading.level,
       clusters,
+      principles,
       content,
       snippet: makeSnippet(content)
     };
@@ -106,6 +143,7 @@ function parseDocument(fileName, meta) {
       kind: meta.kind,
       description: meta.description,
       clusters: meta.clusters,
+      principles: principlesByDocument[fileName],
       order: meta.order,
       sectionCount: sections.length,
       characterCount: source.replace(/\s/g, '').length
@@ -117,8 +155,12 @@ function parseDocument(fileName, meta) {
 const markdownFiles = fs.readdirSync(root).filter((name) => name.endsWith('.md')).sort();
 const unknownFiles = markdownFiles.filter((name) => !metadata[name]);
 const missingFiles = Object.keys(metadata).filter((name) => !markdownFiles.includes(name));
-if (unknownFiles.length || missingFiles.length) {
-  throw new Error(`Knowledge metadata mismatch. Unknown: ${unknownFiles.join(', ') || 'none'}; missing: ${missingFiles.join(', ') || 'none'}.`);
+const missingPrinciples = markdownFiles.filter((name) => !principlesByDocument[name]);
+const invalidPrinciples = Object.entries(principlesByDocument).flatMap(([name, principles]) => principles
+  .filter((principle) => !allPrinciples.includes(principle))
+  .map((principle) => `${name}:${principle}`));
+if (unknownFiles.length || missingFiles.length || missingPrinciples.length || invalidPrinciples.length) {
+  throw new Error(`Knowledge metadata mismatch. Unknown: ${unknownFiles.join(', ') || 'none'}; missing: ${missingFiles.join(', ') || 'none'}; missing principles: ${missingPrinciples.join(', ') || 'none'}; invalid principles: ${invalidPrinciples.join(', ') || 'none'}.`);
 }
 
 const parsed = markdownFiles.map((name) => parseDocument(name, metadata[name]));

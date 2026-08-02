@@ -17,6 +17,26 @@
     K7: { title: 'DSA 与软件编码', short: 'Coding', description: '模式、不变量、复杂度与边界测试', color: '#3d63a8' },
     K8: { title: '系统、LLM 与 Agent', short: 'Systems', description: '上下文、Harness、工具、评估、协作与发布', color: '#755197' }
   };
+  var PRINCIPLES = {
+    P1: { title: '目标与证据', short: 'GOAL', description: '先定义决策、成功与可观察证据' },
+    P2: { title: '表征与信息', short: 'INFO', description: 'shape、schema、坐标、来源与信息损失' },
+    P3: { title: '机制与不变量', short: 'MECH', description: '从状态转移与不变量推导正确性' },
+    P4: { title: '状态、时间与协调', short: 'STATE', description: '所有权、顺序、并发、恢复与长程行为' },
+    P5: { title: '契约与边界', short: 'BOUNDARY', description: '接口、假设、权限、错误与兼容语义' },
+    P6: { title: '不确定性与评估', short: 'EVAL', description: 'slice、反例、对照、校准与发布门槛' },
+    P7: { title: '资源与风险', short: 'RESOURCE', description: '延迟、内存、成本、安全、降级与回滚' },
+    P8: { title: '所有权与表达', short: 'OWNER', description: '决定、弃选、影响、复盘与 Senior 信号' }
+  };
+  var PRINCIPLE_TASK_IDS = {
+    P1: ['k1-positioning', 'k1-project-depth', 'k1-failure', 'k3-metrics', 'k5-bokeh', 'k8-fullstack-release', 'k8-rag-eval', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-prompt-contract', 'k8-prompt-eval-loop'],
+    P2: ['k2-covariance', 'k2-softmax', 'k3-leakage', 'k5-conv', 'k5-dice', 'k5-neural-fields', 'k5-view-synthesis', 'k6-parity', 'k7-binary-search', 'k7-graph', 'k8-transformer', 'k8-masked-attention', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-context-harness'],
+    P3: ['k2-bias-variance', 'k2-softmax', 'k4-adam', 'k4-batchnorm', 'k4-training-debug', 'k5-conv', 'k5-neural-fields', 'k5-view-synthesis', 'k7-binary-search', 'k7-graph', 'k8-distributed-replicated-log', 'k8-transformer', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-agent-loop', 'k8-hello-agent-patterns'],
+    P4: ['k3-drift', 'k4-batchnorm', 'k5-temporal', 'k6-queue', 'k7-lru', 'k7-fullstack-vertical-slice', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-harness-backpressure', 'k8-harness-feedback', 'k8-agent-safety', 'k8-multi-agent'],
+    P5: ['k3-leakage', 'k6-parity', 'k6-queue', 'k7-fullstack-vertical-slice', 'k8-fullstack-release', 'k8-distributed-idempotency', 'k8-masked-attention', 'k8-smol-sft', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-rag-eval', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-harness-backpressure', 'k8-agent-safety', 'k8-prompt-contract', 'k8-multi-agent'],
+    P6: ['k2-bias-variance', 'k2-covariance', 'k2-softmax', 'k3-leakage', 'k3-metrics', 'k3-drift', 'k4-training-debug', 'k5-dice', 'k5-bokeh', 'k5-temporal', 'k5-neural-fields', 'k5-view-synthesis', 'k6-parity', 'k6-latency', 'k7-graph', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-hello-agent-patterns', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-eval-loop'],
+    P7: ['k4-mixed-precision', 'k5-bokeh', 'k5-view-synthesis', 'k6-latency', 'k6-queue', 'k7-lru', 'k7-fullstack-vertical-slice', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-transformer', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-backpressure', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-eval-loop', 'k8-multi-agent'],
+    P8: ['k1-positioning', 'k1-project-depth', 'k1-failure', 'k3-metrics', 'k5-bokeh', 'k6-latency', 'k8-fullstack-release', 'k8-distributed-idempotency', 'k8-agent-loop', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-contract', 'k8-prompt-eval-loop', 'k8-multi-agent']
+  };
   var KNOWLEDGE = window.INTERVIEW_KNOWLEDGE || { documents: [], sections: [], sourceCount: 0, sectionCount: 0 };
 
   var ROLE_WEIGHTS = {
@@ -567,7 +587,7 @@
   var activePlannedMinutes = 0;
   var selectedOverride = null;
   var clusterFilter = null;
-  var knowledgeState = { cluster: 'ALL', documentId: null, query: '' };
+  var knowledgeState = { cluster: 'ALL', principle: 'ALL', documentId: null, query: '' };
 
   var els = {};
 
@@ -655,7 +675,7 @@
       'rubric-list', 'feedback-notes', 'exit-prompt', 'exit-response',
       'session-preview', 'previous-phase', 'next-phase', 'session-status', 'toast',
       'state-file', 'knowledge-source-count', 'knowledge-section-count', 'knowledge-task-count',
-      'knowledge-search', 'knowledge-clear', 'knowledge-cluster-list', 'knowledge-document-grid',
+      'knowledge-search', 'knowledge-clear', 'knowledge-principle-list', 'knowledge-reset-filters', 'knowledge-cluster-list', 'knowledge-document-grid',
       'knowledge-results', 'knowledge-result-summary', 'knowledge-context-label', 'knowledge-context-title',
       'knowledge-reset-document', 'knowledge-dialog', 'knowledge-reader-source', 'knowledge-reader-title',
       'knowledge-reader-breadcrumb', 'knowledge-reader-content', 'knowledge-open-source'
@@ -911,12 +931,35 @@
     return CLUSTERS[id] || { title: id, short: id, description: '' };
   }
 
+  function knowledgePrincipleLabel(id) {
+    if (id === 'ALL') return { title: '全部第一性原理', short: 'ALL', description: '不限制第一性原理坐标' };
+    return PRINCIPLES[id] || { title: id, short: id, description: '' };
+  }
+
+  function taskPrinciples(task) {
+    return Object.keys(PRINCIPLES).filter(function (id) {
+      return (PRINCIPLE_TASK_IDS[id] || []).indexOf(task.id) >= 0;
+    });
+  }
+
   function documentMatchesCluster(document, cluster) {
     return cluster === 'ALL' || (document.clusters || []).indexOf(cluster) >= 0;
   }
 
   function sectionMatchesCluster(section, cluster) {
     return cluster === 'ALL' || (section.clusters || []).indexOf(cluster) >= 0;
+  }
+
+  function documentMatchesPrinciple(document, principle) {
+    return principle === 'ALL' || (document.principles || []).indexOf(principle) >= 0;
+  }
+
+  function sectionMatchesPrinciple(section, principle) {
+    return principle === 'ALL' || (section.principles || []).indexOf(principle) >= 0;
+  }
+
+  function taskMatchesPrinciple(task, principle) {
+    return principle === 'ALL' || taskPrinciples(task).indexOf(principle) >= 0;
   }
 
   function normalizeKnowledgeText(value) {
@@ -953,10 +996,11 @@
     var query = knowledgeState.query.trim();
     var sections = KNOWLEDGE.sections.filter(function (section) {
       if (!sectionMatchesCluster(section, knowledgeState.cluster)) return false;
+      if (!sectionMatchesPrinciple(section, knowledgeState.principle)) return false;
       return !knowledgeState.documentId || section.documentId === knowledgeState.documentId;
     }).map(function (section) {
       var document = knowledgeDocumentById(section.documentId);
-      var body = [document ? document.title : '', document ? document.kind : '', document ? document.description : '', section.breadcrumb.join(' '), section.content, section.clusters.join(' ')].join(' ');
+      var body = [document ? document.title : '', document ? document.kind : '', document ? document.description : '', section.breadcrumb.join(' '), section.content, section.clusters.join(' '), (section.principles || []).join(' ')].join(' ');
       return { type: 'section', item: section, score: knowledgeMatchScore(query, section.title, body) };
     }).filter(function (result) {
       if (query) return result.score > 0;
@@ -965,11 +1009,12 @@
     });
 
     var tasks = [];
-    if (query && !knowledgeState.documentId && knowledgeState.cluster !== 'META') {
+    if ((query || knowledgeState.principle !== 'ALL') && !knowledgeState.documentId && knowledgeState.cluster !== 'META') {
       tasks = TASKS.filter(function (task) {
-        return knowledgeState.cluster === 'ALL' || task.cluster === knowledgeState.cluster;
+        if (knowledgeState.cluster !== 'ALL' && task.cluster !== knowledgeState.cluster) return false;
+        return taskMatchesPrinciple(task, knowledgeState.principle);
       }).map(function (task) {
-        var body = [task.goal, task.output, task.prompt, task.construct, task.transfer, task.exit, task.hints.join(' '), task.rubric.join(' ')].join(' ');
+        var body = [task.goal, task.output, task.prompt, task.construct, task.transfer, task.exit, task.hints.join(' '), task.rubric.join(' '), taskPrinciples(task).join(' ')].join(' ');
         return { type: 'task', item: task, score: knowledgeMatchScore(query, task.title, body) + 4 };
       }).filter(function (result) { return result.score > 0; });
     }
@@ -987,25 +1032,41 @@
     els['knowledge-task-count'].textContent = String(TASKS.length);
     if (els['knowledge-search'].value !== knowledgeState.query) els['knowledge-search'].value = knowledgeState.query;
 
+    els['knowledge-principle-list'].innerHTML = Object.keys(PRINCIPLES).map(function (id) {
+      var principle = knowledgePrincipleLabel(id);
+      var documentCount = KNOWLEDGE.documents.filter(function (document) {
+        return documentMatchesPrinciple(document, id) && documentMatchesCluster(document, knowledgeState.cluster);
+      }).length;
+      var taskCount = TASKS.filter(function (task) {
+        return taskMatchesPrinciple(task, id) && (knowledgeState.cluster === 'ALL' || task.cluster === knowledgeState.cluster);
+      }).length;
+      return '<button class="principle-item' + (knowledgeState.principle === id ? ' active' : '') + '" type="button" data-knowledge-principle="' + id + '" aria-pressed="' + (knowledgeState.principle === id) + '">' +
+        '<span>' + id + ' · ' + escapeHtml(principle.short) + '</span><strong>' + escapeHtml(principle.title) + '</strong><p>' + escapeHtml(principle.description) + '</p><small>' + documentCount + ' 资料 · ' + taskCount + ' 练习</small></button>';
+    }).join('');
+    els['knowledge-reset-filters'].disabled = knowledgeState.principle === 'ALL' && knowledgeState.cluster === 'ALL' && !knowledgeState.documentId && !knowledgeState.query;
+
     var clusterIds = ['ALL'].concat(Object.keys(CLUSTERS)).concat(['META']);
     els['knowledge-cluster-list'].innerHTML = clusterIds.map(function (id) {
       var cluster = knowledgeClusterLabel(id);
-      var count = KNOWLEDGE.documents.filter(function (document) { return documentMatchesCluster(document, id); }).length;
+      var count = KNOWLEDGE.documents.filter(function (document) { return documentMatchesCluster(document, id) && documentMatchesPrinciple(document, knowledgeState.principle); }).length;
       return '<button class="catalog-tree-item' + (knowledgeState.cluster === id ? ' active' : '') + '" type="button" data-knowledge-cluster="' + id + '" aria-pressed="' + (knowledgeState.cluster === id) + '">' +
         '<span>' + escapeHtml(cluster.short) + '</span><strong>' + escapeHtml(cluster.title) + '</strong><small>' + count + ' 份</small></button>';
     }).join('');
 
     var cluster = knowledgeClusterLabel(knowledgeState.cluster);
+    var principle = knowledgePrincipleLabel(knowledgeState.principle);
     var activeDocument = knowledgeDocumentById(knowledgeState.documentId);
-    els['knowledge-context-label'].textContent = activeDocument ? activeDocument.kind : cluster.short + ' · DIRECTORY';
-    els['knowledge-context-title'].textContent = activeDocument ? activeDocument.title : cluster.title;
+    var coordinateLabel = knowledgeState.principle === 'ALL' ? cluster.short + ' · DIRECTORY' : knowledgeState.principle + ' · ' + principle.short + (knowledgeState.cluster === 'ALL' ? '' : ' × ' + cluster.short);
+    var coordinateTitle = knowledgeState.principle === 'ALL' ? cluster.title : principle.title + (knowledgeState.cluster === 'ALL' ? '' : ' × ' + cluster.title);
+    els['knowledge-context-label'].textContent = activeDocument ? activeDocument.kind : coordinateLabel;
+    els['knowledge-context-title'].textContent = activeDocument ? activeDocument.title : coordinateTitle;
     els['knowledge-reset-document'].hidden = !activeDocument;
 
     var documents = KNOWLEDGE.documents.filter(function (document) {
-      return documentMatchesCluster(document, knowledgeState.cluster);
+      return documentMatchesCluster(document, knowledgeState.cluster) && documentMatchesPrinciple(document, knowledgeState.principle);
     });
     els['knowledge-document-grid'].innerHTML = documents.map(function (document) {
-      var tags = document.clusters.slice(0, 4).map(function (id) { return '<span>' + escapeHtml(id) + '</span>'; }).join('');
+      var tags = (document.principles || []).slice(0, 2).concat(document.clusters.slice(0, 2)).map(function (id) { return '<span>' + escapeHtml(id) + '</span>'; }).join('');
       return '<button class="resource-card' + (knowledgeState.documentId === document.id ? ' active' : '') + '" type="button" data-document-id="' + escapeHtml(document.id) + '">' +
         '<span class="resource-kind">' + escapeHtml(document.kind) + '</span>' +
         '<strong>' + escapeHtml(document.title) + '</strong>' +
@@ -1016,23 +1077,23 @@
 
     var results = knowledgeResults();
     var visibleResults = results.slice(0, 80);
-    var scope = activeDocument ? '当前资料' : (knowledgeState.cluster === 'ALL' ? '全库' : cluster.title);
+    var scope = activeDocument ? '当前资料' : coordinateTitle;
     els['knowledge-result-summary'].textContent = knowledgeState.query ? scope + '找到 ' + results.length + ' 项' : (activeDocument ? activeDocument.sectionCount + ' 个章节' : scope + '章节索引');
     if (!visibleResults.length) {
-      els['knowledge-results'].innerHTML = '<div class="knowledge-empty"><strong>没有匹配结果</strong><p>减少关键词、切换能力簇，或返回全部资料再搜索。</p></div>';
+      els['knowledge-results'].innerHTML = '<div class="knowledge-empty"><strong>没有匹配结果</strong><p>减少关键词、切换原理或能力簇，或重置坐标后再搜索。</p></div>';
       return;
     }
     els['knowledge-results'].innerHTML = visibleResults.map(function (result) {
       if (result.type === 'task') {
         var task = result.item;
         return '<button class="knowledge-result task-result" type="button" data-knowledge-task-id="' + escapeHtml(task.id) + '">' +
-          '<span class="knowledge-result-type">练习 · ' + escapeHtml(task.cluster) + ' · ' + task.duration + ' min</span>' +
+          '<span class="knowledge-result-type">练习 · ' + escapeHtml(taskPrinciples(task).join(' / ')) + ' · ' + escapeHtml(task.cluster) + ' · ' + task.duration + ' min</span>' +
           '<strong>' + escapeHtml(task.title) + '</strong><p>' + escapeHtml(task.goal) + '</p><span class="knowledge-result-action">开始 Session →</span></button>';
       }
       var section = result.item;
       var document = knowledgeDocumentById(section.documentId);
       return '<button class="knowledge-result" type="button" data-section-id="' + escapeHtml(section.id) + '">' +
-        '<span class="knowledge-result-type">' + escapeHtml(document ? document.kind : section.path) + ' · ' + escapeHtml(section.clusters.join(' / ')) + '</span>' +
+        '<span class="knowledge-result-type">' + escapeHtml(document ? document.kind : section.path) + ' · ' + escapeHtml((section.principles || []).join(' / ')) + ' · ' + escapeHtml(section.clusters.join(' / ')) + '</span>' +
         '<strong>' + escapeHtml(section.title) + '</strong><p>' + escapeHtml(section.snippet || '打开章节查看完整内容。') + '</p>' +
         '<span class="knowledge-result-source">' + escapeHtml(document ? document.title : section.path) + '</span></button>';
     }).join('');
@@ -1612,6 +1673,21 @@
   }
 
   function bindEvents() {
+    els['knowledge-principle-list'].addEventListener('click', function (event) {
+      var button = event.target.closest('[data-knowledge-principle]');
+      if (!button) return;
+      var selected = button.dataset.knowledgePrinciple;
+      knowledgeState.principle = knowledgeState.principle === selected ? 'ALL' : selected;
+      knowledgeState.documentId = null;
+      renderKnowledge();
+    });
+    els['knowledge-reset-filters'].addEventListener('click', function () {
+      knowledgeState.principle = 'ALL';
+      knowledgeState.cluster = 'ALL';
+      knowledgeState.documentId = null;
+      knowledgeState.query = '';
+      renderKnowledge();
+    });
     els['knowledge-search'].addEventListener('input', function () {
       knowledgeState.query = els['knowledge-search'].value;
       renderKnowledge();
