@@ -162,6 +162,17 @@ Senior 面试最终评估的是能否在不完整信息下拥有一个决定：�
 - P7：tokens、latency、cost、越权和 fallback。
 - P8：自治边界、人工升级和发布责任。
 
+### Forward Deployed Engineering 投影
+
+- P1：从客户诉求还原工作流、baseline、成功与失败成本。
+- P2：梳理客户数据、schema、真源、缺失与 provenance。
+- P3：用最小纵向切片证明机制可运行，不从组件清单开始。
+- P4：协调既有系统、owner、状态、顺序、恢复和 handoff。
+- P5：明确 API、IAM、合规、范围、组织和错误语义边界。
+- P6：用 pilot、slice、adoption 和业务影响决定继续、调整或停止。
+- P7：约束时间、预算、安全、可靠性、成本、上线和回滚。
+- P8：推动 stakeholder 决策，并把 field failure 沉淀为可复用产品反馈。
+
 ### 分布式 / Fullstack 投影
 
 - P2：event、log、row、request、response 与 schema。
@@ -222,7 +233,7 @@ flowchart LR
 - **P1–P8 原语**：稳定坐标，回答“这个知识为什么存在、依赖什么”。
 - **K1–K8 能力簇**：面试交付视图，回答“在哪类题和岗位中表现出来”。
 - **90 题主库**：问题覆盖池，回答“面试官可能怎样提问”。
-- **51 个交互节点**：核心训练集，回答“今天产生什么可检查证据”。
+- **58 个交互节点**：核心训练集，回答“今天产生什么可检查证据”；其中 7 个 AFD 节点把 Agent 技术证据连接到 FDE 交付闭环。
 - **课程/仓库/论文/PDF**：来源与补充，回答“缺口需要用什么证据修复”。
 - **个人项目与 trace**：最高优先级的迁移证据，回答“你是否真的做过决定并承担结果”。
 
@@ -234,7 +245,7 @@ flowchart LR
 2. 90 秒闭卷，用七步内核作答；不会的地方标 `unknown`。
 3. 从最小来源补机制或证据，不顺序通读整份资料。
 4. 交付代码、图、实验卡、状态机、contract、trace 或决策记录之一。
-5. 改变领域或约束：ML 指标题迁移到 Agent eval，LRU 迁移到 context cache，重试迁移到工具副作用。
+5. 改变领域或约束：ML 指标题迁移到 Agent eval，LRU 迁移到 context cache，重试迁移到工具副作用，Agent demo 迁移到有 owner、pilot gate 与 adoption 的 FDE 交付。
 6. 用 Correctness、Reasoning、Transfer、Communication、Independence 评分。
 7. D+1/D+3/D+7 做无辅助变式；只有延迟迁移才算稳定。
 
@@ -261,4 +272,3 @@ flowchart LR
 - 每个核心节点都有主 P 标签、K 能力簇、前置依赖、产物、反例和延迟复测记录。
 - 新增来源必须明确修复哪个 P 原语缺口；无法回答时留在候选池，不进入核心路线。
 - 全真 mock 中不依赖模板名称，仍能从目标、机制、边界、证据和决定重新组织答案。
-

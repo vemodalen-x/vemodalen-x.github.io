@@ -28,14 +28,14 @@
     P8: { title: '所有权与表达', short: 'OWNER', description: '决定、弃选、影响、复盘与 Senior 信号' }
   };
   var PRINCIPLE_TASK_IDS = {
-    P1: ['k1-positioning', 'k1-project-depth', 'k1-failure', 'k3-metrics', 'k5-bokeh', 'k8-fullstack-release', 'k8-rag-eval', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-prompt-contract', 'k8-prompt-eval-loop'],
-    P2: ['k2-covariance', 'k2-softmax', 'k3-leakage', 'k5-conv', 'k5-dice', 'k5-neural-fields', 'k5-view-synthesis', 'k6-parity', 'k7-binary-search', 'k7-graph', 'k8-transformer', 'k8-masked-attention', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-context-harness'],
-    P3: ['k2-bias-variance', 'k2-softmax', 'k4-adam', 'k4-batchnorm', 'k4-training-debug', 'k5-conv', 'k5-neural-fields', 'k5-view-synthesis', 'k7-binary-search', 'k7-graph', 'k8-distributed-replicated-log', 'k8-transformer', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-agent-loop', 'k8-hello-agent-patterns'],
-    P4: ['k3-drift', 'k4-batchnorm', 'k5-temporal', 'k6-queue', 'k7-lru', 'k7-fullstack-vertical-slice', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-harness-backpressure', 'k8-harness-feedback', 'k8-agent-safety', 'k8-multi-agent'],
-    P5: ['k3-leakage', 'k6-parity', 'k6-queue', 'k7-fullstack-vertical-slice', 'k8-fullstack-release', 'k8-distributed-idempotency', 'k8-masked-attention', 'k8-smol-sft', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-rag-eval', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-harness-backpressure', 'k8-agent-safety', 'k8-prompt-contract', 'k8-multi-agent'],
-    P6: ['k2-bias-variance', 'k2-covariance', 'k2-softmax', 'k3-leakage', 'k3-metrics', 'k3-drift', 'k4-training-debug', 'k5-dice', 'k5-bokeh', 'k5-temporal', 'k5-neural-fields', 'k5-view-synthesis', 'k6-parity', 'k6-latency', 'k7-graph', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-hello-agent-patterns', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-eval-loop'],
-    P7: ['k4-mixed-precision', 'k5-bokeh', 'k5-view-synthesis', 'k6-latency', 'k6-queue', 'k7-lru', 'k7-fullstack-vertical-slice', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-transformer', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-backpressure', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-eval-loop', 'k8-multi-agent'],
-    P8: ['k1-positioning', 'k1-project-depth', 'k1-failure', 'k3-metrics', 'k5-bokeh', 'k6-latency', 'k8-fullstack-release', 'k8-distributed-idempotency', 'k8-agent-loop', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-contract', 'k8-prompt-eval-loop', 'k8-multi-agent']
+    P1: ['k1-positioning', 'k1-project-depth', 'k1-failure', 'k1-agent-fde-positioning', 'k3-metrics', 'k5-bokeh', 'k8-fullstack-release', 'k8-rag-eval', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-prompt-contract', 'k8-prompt-eval-loop', 'k8-fde-discovery', 'k8-agent-architecture-choice', 'k8-fde-eval-pilot', 'k8-fde-production-rollout', 'k8-fde-live-case'],
+    P2: ['k2-covariance', 'k2-softmax', 'k3-leakage', 'k5-conv', 'k5-dice', 'k5-neural-fields', 'k5-view-synthesis', 'k6-parity', 'k7-binary-search', 'k7-graph', 'k7-fde-existing-system', 'k8-transformer', 'k8-masked-attention', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-context-harness', 'k8-agent-architecture-choice', 'k8-fde-eval-pilot'],
+    P3: ['k2-bias-variance', 'k2-softmax', 'k4-adam', 'k4-batchnorm', 'k4-training-debug', 'k5-conv', 'k5-neural-fields', 'k5-view-synthesis', 'k7-binary-search', 'k7-graph', 'k7-fde-existing-system', 'k8-distributed-replicated-log', 'k8-transformer', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-agent-architecture-choice', 'k8-fde-live-case'],
+    P4: ['k3-drift', 'k4-batchnorm', 'k5-temporal', 'k6-queue', 'k7-lru', 'k7-fullstack-vertical-slice', 'k7-fde-existing-system', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-harness-backpressure', 'k8-harness-feedback', 'k8-agent-safety', 'k8-multi-agent', 'k8-agent-architecture-choice', 'k8-fde-production-rollout', 'k8-fde-live-case'],
+    P5: ['k3-leakage', 'k6-parity', 'k6-queue', 'k7-fullstack-vertical-slice', 'k7-fde-existing-system', 'k8-fullstack-release', 'k8-distributed-idempotency', 'k8-masked-attention', 'k8-smol-sft', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-rag-eval', 'k8-agent-loop', 'k8-hello-agent-patterns', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-harness-backpressure', 'k8-agent-safety', 'k8-prompt-contract', 'k8-multi-agent', 'k8-fde-discovery', 'k8-agent-architecture-choice', 'k8-fde-eval-pilot', 'k8-fde-production-rollout', 'k8-fde-live-case'],
+    P6: ['k2-bias-variance', 'k2-covariance', 'k2-softmax', 'k3-leakage', 'k3-metrics', 'k3-drift', 'k4-training-debug', 'k5-dice', 'k5-bokeh', 'k5-temporal', 'k5-neural-fields', 'k5-view-synthesis', 'k6-parity', 'k6-latency', 'k7-graph', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-hello-agent-patterns', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-eval-loop', 'k8-fde-discovery', 'k8-agent-architecture-choice', 'k8-fde-eval-pilot', 'k8-fde-production-rollout', 'k8-fde-live-case'],
+    P7: ['k4-mixed-precision', 'k5-bokeh', 'k5-view-synthesis', 'k6-latency', 'k6-queue', 'k7-lru', 'k7-fullstack-vertical-slice', 'k7-fde-existing-system', 'k8-fullstack-release', 'k8-distributed-replicated-log', 'k8-distributed-idempotency', 'k8-transformer', 'k8-smol-sft', 'k8-smol-dpo', 'k8-smol-vlm', 'k8-sensenova-unified', 'k8-sensenova-eval-runtime', 'k8-rag-eval', 'k8-context-harness', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-backpressure', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-eval-loop', 'k8-multi-agent', 'k8-agent-architecture-choice', 'k8-fde-eval-pilot', 'k8-fde-production-rollout', 'k8-fde-live-case'],
+    P8: ['k1-positioning', 'k1-project-depth', 'k1-failure', 'k1-agent-fde-positioning', 'k3-metrics', 'k5-bokeh', 'k6-latency', 'k7-fde-existing-system', 'k8-fullstack-release', 'k8-distributed-idempotency', 'k8-agent-loop', 'k8-harness-three-layers', 'k8-coding-agent', 'k8-harness-repo-map', 'k8-agent-evaluation', 'k8-hello-agent-capstone', 'k8-harness-feedback', 'k8-agent-safety', 'k8-prompt-contract', 'k8-prompt-eval-loop', 'k8-multi-agent', 'k8-fde-discovery', 'k8-fde-eval-pilot', 'k8-fde-production-rollout', 'k8-fde-live-case']
   };
   var KNOWLEDGE = window.INTERVIEW_KNOWLEDGE || { documents: [], sections: [], sourceCount: 0, sectionCount: 0 };
 
@@ -43,7 +43,8 @@
     balanced: { K1: 0.9, K2: 0.75, K3: 0.9, K4: 0.9, K5: 0.9, K6: 0.85, K7: 0.75, K8: 0.85 },
     cv: { K1: 0.75, K2: 0.8, K3: 0.85, K4: 0.95, K5: 1, K6: 0.9, K7: 0.7, K8: 0.55 },
     edge: { K1: 0.75, K2: 0.7, K3: 0.75, K4: 0.95, K5: 0.9, K6: 1, K7: 0.85, K8: 0.55 },
-    agent: { K1: 0.8, K2: 0.75, K3: 0.85, K4: 0.75, K5: 0.65, K6: 0.55, K7: 0.7, K8: 1 }
+    agent: { K1: 0.8, K2: 0.75, K3: 0.85, K4: 0.75, K5: 0.65, K6: 0.55, K7: 0.7, K8: 1 },
+    fde: { K1: 1, K2: 0.55, K3: 0.9, K4: 0.55, K5: 0.45, K6: 0.65, K7: 0.95, K8: 1 }
   };
 
   var MODE_WEIGHTS = {
@@ -91,6 +92,16 @@
       hints: ['避免把失败伪装成优点。', '寻找“为什么现有流程允许它发生”。', '长期改进应能改变系统默认行为，而不只是提醒大家小心。'],
       rubric: ['明确承认自己的判断缺口。', '影响和检测信号具体。', '根因不止停留在个人失误。', '长期机制能迁移到新场景。'],
       exit: '一句话说你学到了什么，再给一个能证明该学习已经落地的机制。'
+    },
+    {
+      id: 'k1-agent-fde-positioning', cluster: 'K1', title: 'AFD-0：Agent / FDE 转型定位与证据差距', kind: 'story', duration: 40, week: 1, prereqs: ['k1-project-depth'],
+      goal: '把现有 CV、Edge 和 ML 经历重组为可信的 Agent / FDE 转型叙事，而不是关键词改写。', output: '30 秒定位 + 2 分钟转型论证 + 主张—证据—缺口表。',
+      prompt: '为什么从现有方向转向 AI Agent / Forward Deployed Engineering？哪些能力已经被项目证明，哪些仍只是学习目标？',
+      construct: '选择三个项目，分别映射到 discovery、build/integration、eval、rollout/adoption；每个主张标注直接证据、相邻证据或尚未验证，并写出一个最小补证实验。',
+      transfer: '面试官指出你没有正式的客户现场 LLM 部署经历。请诚实界定边界，用相邻证据回答，并说明入职前怎样验证最大缺口。',
+      hints: ['先讲工作流结果和判断，再讲模型或框架。', '区分“我实现”“我推动”“团队完成”，不要放大 ownership。', '承认缺口时同时给时间盒、产物和验收标准。'],
+      rubric: ['能区分 Agent 工程与 FDE 的重心。', '转型主张均有可追问证据。', '缺口诚实且有最小补证动作。', '没有把旧简历机械替换成 Agent 关键词。'],
+      exit: '闭卷用 90 秒回答“为什么你能做 Agent / FDE”，只保留两个证据和一个正在补齐的缺口。'
     },
     {
       id: 'k2-bias-variance', cluster: 'K2', title: 'Bias–variance：从学习曲线到最小诊断实验', kind: 'explain', duration: 35, week: 1, prereqs: [],
@@ -321,6 +332,16 @@
       hints: ['前端 disabled 不能代替服务端幂等与唯一约束。', 'TypeScript 只提供编译期保证；外部 JSON 必须运行时验证。', '先让 schema 兼容新旧代码，再回填数据，最后收紧约束。'],
       rubric: ['跨层契约和 ownership 清楚。', '验证、事务与幂等语义正确。', '测试覆盖行为与失败。', '能解释兼容 migration 与回滚。'],
       exit: '闭卷用 90 秒走完一次请求，并指出最可能出现 silent failure 的两个边界。'
+    },
+    {
+      id: 'k7-fde-existing-system', cluster: 'K7', title: 'AFD-3：在陌生现有系统中做最小可靠改动', kind: 'debug', duration: 60, week: 3, prereqs: [],
+      goal: '证明能在未知代码、既有约束和时间压力下形成假设、验证边界并交付小而安全的改动。', output: '仓库地图 + 失败复现 + 最小 patch + 回归测试 + 决策复盘。',
+      prompt: '接手一个部分文档缺失的客户集成：为既有写接口增加 timeout、idempotency 和可观测性。你先读什么、怎样避免重写？',
+      construct: '用 60 分钟协议执行：10 分钟建入口/数据流/测试地图，10 分钟复现，10 分钟写假设与风险，20 分钟最小改动和回归，10 分钟说明残余风险与下一步。',
+      transfer: '负责人要求直接重写服务，因为原代码“不够优雅”；但客户本周必须上线。怎样用证据决定修补、隔离还是重写？',
+      hints: ['先让一个真实失败可重复，再判断根因。', '搜索调用方、schema、错误语义和现有测试，避免只读目标函数。', '最小 diff 也要留下 rollback、owner 和可观察信号。'],
+      rubric: ['能快速定位既有系统的边界与真源。', '假设由复现和观测证据支持。', '改动小、兼容且覆盖回归。', '沟通清楚风险、取舍和后续 ownership。'],
+      exit: '闭卷说出陌生仓库前 15 分钟的检查顺序，以及会阻止你直接重写的三类证据。'
     },
     {
       id: 'k8-fullstack-release', cluster: 'K8', title: 'Topcoder FS-6/7：可发布全栈项目与生产证据', kind: 'design', duration: 60, week: 6, prereqs: ['k7-fullstack-vertical-slice', 'k3-metrics'],
@@ -571,6 +592,56 @@
       hints: ['多角色不一定等于多 Agent。', '隔离减少上下文污染，也会造成信息损失和重复成本。', '为每个子任务定义可独立验证的交付契约。'],
       rubric: ['先证明多 Agent 的必要性。', '上下文与拓扑选择有依据。', '通信、所有权和终止清楚。', '覆盖并发冲突、错误级联和成本。'],
       exit: '给出三个“不该用多 Agent”的判据和一个确实值得使用的场景。'
+    },
+    {
+      id: 'k8-fde-discovery', cluster: 'K8', title: 'AFD-1：从模糊客户目标到可验收纵向切片', kind: 'design', duration: 50, week: 5, prereqs: ['k1-agent-fde-positioning', 'k3-metrics'],
+      goal: '把“做一个 Agent”还原为客户工作流、决策、失败成本和可测业务结果。', output: '现状工作流图 + 10 个 discovery 问题 + success metric + 不做清单。',
+      prompt: '客户希望“用 Agent 自动处理所有视觉质量事故”。你如何发现真正瓶颈，并把需求压缩为两周可验证的纵向切片？',
+      construct: '依次澄清 stakeholder、当前流程、输入与系统、错误成本、合规、owner 和 baseline；分别写两周 pilot、六周 rollout 与规模化阶段的范围、验收和退出条件。',
+      transfer: '业务赞助人想要炫目的多 Agent demo，但安全团队暂不允许生产数据接入。怎样重新设计 pilot 而不伪造价值？',
+      hints: ['先问谁在何时做什么决定，别从模型能力开始。', '成功指标必须包含 baseline、分母、时间窗和 owner。', '明确 not doing list 和升级条件，防止试点无限膨胀。'],
+      rubric: ['先定义工作流问题再选技术。', '成功、失败和退出门槛可测。', '范围、owner 与依赖清楚。', '能处理业务速度与安全边界冲突。'],
+      exit: '用 2 分钟完成 discovery 开场：五个关键问题、一个 pilot 指标和一个明确不做事项。'
+    },
+    {
+      id: 'k8-agent-architecture-choice', cluster: 'K8', title: 'AFD-2：Workflow、单 Agent 与多 Agent 的架构选择', kind: 'design', duration: 55, week: 5, prereqs: ['k8-agent-loop', 'k8-prompt-contract'],
+      goal: '从最简单可行 baseline 出发，用任务证据决定是否增加自治和协作复杂度。', output: '非 Agent baseline + 选型表 + 状态/工具/eval 架构图。',
+      prompt: '为视觉质量事故处理设计系统：哪些步骤应固定，哪些确实需要模型判断？何时单 Agent 足够，什么证据才允许增加多 Agent？',
+      construct: '先画确定性 workflow；再定义模型输入、工具 contract、状态、终止、人工升级与 replay。用任务成功、风险、延迟、成本和可调试性比较 workflow、单 Agent、多 Agent。',
+      transfer: '候选架构总体成功率提高 10%，但成本变成 3 倍，且错误工具调用 slice 回归。你保留什么、回退什么、下一步实验是什么？',
+      hints: ['自治只用于无法提前写死且价值足够高的决策。', '模型输出是提议；控制面负责权限、状态和验证。', '先冻结任务集和失败 slice，再比较架构。'],
+      rubric: ['有可运行的简单 baseline。', '状态、工具、终止和人工边界明确。', '选型由分层 eval 支持。', '能解释复杂度、成本与风险取舍。'],
+      exit: '给出使用 workflow、单 Agent、多 Agent 的各一个必要条件，并说出你的默认选择。'
+    },
+    {
+      id: 'k8-fde-eval-pilot', cluster: 'K8', title: 'AFD-4：从成功 Demo 到可决策 Pilot', kind: 'design', duration: 60, week: 5, prereqs: ['k8-agent-architecture-choice', 'k8-agent-evaluation'],
+      goal: '用冻结的真实失败分布和业务验收门槛决定 pilot 是否继续，而不是展示精选样例。', output: '50–100 例 eval 计划 + failure taxonomy + pilot/release gate。',
+      prompt: 'Agent demo 已经能跑。怎样建立足以决定 pilot go/no-go 的任务集、verifier、人工校准和线上信号？',
+      construct: '从真实工作流分层抽样，覆盖 component、trajectory、end-to-end、safety 与产品结果；记录失败分母、slice、重复运行、成本/延迟，并把离线门槛连接到 adoption 与人工处理时长。',
+      transfer: '离线任务成功率很高，但试点用户采用率低、经常绕过系统。你怎样区分模型问题、工作流摩擦、信任和培训缺口？',
+      hints: ['代表性与可判定性比样本数量更重要。', '最终状态检查和轨迹检查解决不同问题。', '离线质量必须连接业务结果、使用行为和人工反馈。'],
+      rubric: ['任务集有分母、来源和高风险 slices。', 'component/trace/E2E verifier 分工清楚。', '包含业务结果、采用率与人工校准。', 'go/no-go、canary 和回滚门槛明确。'],
+      exit: '闭卷列出 pilot dashboard 的六个指标，并指出哪三个信号会立刻暂停扩张。'
+    },
+    {
+      id: 'k8-fde-production-rollout', cluster: 'K8', title: 'AFD-5：企业级上线、治理与采用闭环', kind: 'design', duration: 60, week: 6, prereqs: ['k8-fde-eval-pilot', 'k8-agent-safety', 'k8-fullstack-release'],
+      goal: '把 20 人试点升级为安全、可靠、可运营且真正被采用的多租户生产系统。', output: 'RBAC/威胁模型 + SLO/runbook + canary/rollback + adoption/handoff 计划。',
+      prompt: '视觉事故 Agent 要跨团队上线并连接三个内部系统。怎样处理身份、数据、审计、可靠性、成本、培训和长期 owner？',
+      construct: '定义 IAM/RBAC、secret、PII、tenant isolation、audit、工具审批、SLO/trace、预算、degrade、incident runbook、canary 和 rollback；再写 champion、培训、反馈与运营移交。',
+      transfer: '同时出现检索型 prompt injection、重复外部写入和模型供应商故障。控制面怎样阻断、降级、审计并恢复？',
+      hints: ['安全、可靠性和采用都必须有 owner 与操作流程。', '副作用工具默认最小权限、幂等、确认和审计。', '上线完成不等于交付完成；观察真实使用和人工绕行。'],
+      rubric: ['权限、数据和工具治理完整。', 'SLO、故障处置与降级可执行。', '渐进发布、迁移和回滚可重放。', '采用、培训、反馈和移交有明确 owner。'],
+      exit: '用 3 分钟做 production-readiness review，只讲五个最可能阻止上线的门槛。'
+    },
+    {
+      id: 'k8-fde-live-case', cluster: 'K8', title: 'AFD-6：60 分钟 Agent / FDE 现场案例', kind: 'design', duration: 60, week: 6, prereqs: ['k8-fde-discovery', 'k7-fde-existing-system', 'k8-fde-production-rollout'],
+      goal: '在模糊约束下完成发现、取舍、架构、评估、上线与沟通的端到端答辩。', output: '一页 solution brief + 架构图 + 10 分钟答辩与反对意见记录。',
+      prompt: '一家未知企业希望六周内用 Agent 改造一个跨三个既有系统的高成本工作流。请现场澄清问题并提出可交付方案。',
+      construct: '12 分钟 discovery，8 分钟定义成功/范围，20 分钟架构与集成，10 分钟 eval/rollout，10 分钟处理安全、成本、采用和 ownership 反对意见。',
+      transfer: '预算被砍半且生产数据访问推迟三周。你保留哪条价值假设、怎样重切 pilot、哪些承诺必须撤回？',
+      hints: ['把假设写在图上并主动邀请修正。', '每个组件都连接一个需求、风险或验收信号。', '结束时复述决定、未知项、owner 和下一检查点。'],
+      rubric: ['问题 framing 和 discovery 有优先级。', '方案简单、可集成且取舍透明。', '评估、安全、可靠性和采用形成闭环。', '时间管理、协作表达和下一步清楚。'],
+      exit: '不用模板，闭卷用 10 分钟重新答辩，并让听者能复述目标、方案、最大风险和下一步。'
     }
   ];
 
@@ -1061,6 +1132,7 @@
     els['knowledge-context-label'].textContent = activeDocument ? activeDocument.kind : coordinateLabel;
     els['knowledge-context-title'].textContent = activeDocument ? activeDocument.title : coordinateTitle;
     els['knowledge-reset-document'].hidden = !activeDocument;
+    els['knowledge-document-grid'].hidden = Boolean(knowledgeState.query || activeDocument);
 
     var documents = KNOWLEDGE.documents.filter(function (document) {
       return documentMatchesCluster(document, knowledgeState.cluster) && documentMatchesPrinciple(document, knowledgeState.principle);

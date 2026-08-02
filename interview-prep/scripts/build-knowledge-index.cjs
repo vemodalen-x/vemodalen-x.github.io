@@ -30,6 +30,7 @@ const metadata = {
   'topcoder-fullstack-roadmap-plan.md': { kind: '全栈产品工程', description: '浏览器、TypeScript、React/Node、SQL、测试、安全、容器与发布。', clusters: ['K7', 'K8'], order: 25 },
   'distributed-systems-patterns-plan.md': { kind: '分布式系统模式', description: '日志、复制、共识、时钟、分区、幂等、2PC 与故障推理。', clusters: ['K7', 'K8'], order: 26 },
   'prompt-engineering-method-plan.md': { kind: 'Prompt 工程', description: '任务契约、真源/权限、可验证输出、冻结评测、版本发布与回滚。', clusters: ['K3', 'K8'], order: 27 },
+  'agent-fde-transition-plan.md': { kind: 'Agent / FDE 转型', description: '岗位能力模型、生产式 Agent 作品、客户交付、面试轮次与六周替换路线。', clusters: ['K1', 'K3', 'K7', 'K8'], order: 28 },
   'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
   'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
 };
@@ -58,6 +59,7 @@ const principlesByDocument = {
   'topcoder-fullstack-roadmap-plan.md': ['P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'],
   'distributed-systems-patterns-plan.md': ['P2', 'P3', 'P4', 'P5', 'P6', 'P7'],
   'prompt-engineering-method-plan.md': ['P1', 'P2', 'P5', 'P6', 'P7'],
+  'agent-fde-transition-plan.md': allPrinciples,
   'learning-experience-v3.md': ['P1', 'P5', 'P6', 'P8'],
   'learning-experience-v2.md': ['P1', 'P5', 'P6', 'P8']
 };

@@ -1196,6 +1196,10 @@ a:focus-visible {
   gap: 9px;
 }
 
+.resource-grid[hidden] {
+  display: none;
+}
+
 .resource-card {
   min-width: 0;
   min-height: 178px;

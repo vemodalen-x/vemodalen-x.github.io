@@ -4,7 +4,7 @@
 
 交互入口：[Interview Learning OS V3](learning-os.html)。底层坐标：[第一性原理知识地图](first-principles-knowledge-map.md)；当前证据契约：[Learning OS V3](learning-experience-v3.md)；历史依据：[V2 评审](learning-experience-v2.md)。六周表是 curriculum guardrail；每天的下一步由能力证据、到期风险、时间预算和目标岗位共同决定。
 
-默认目标：Senior AI Engineer / Computer Vision / Edge ML / Multimodal & Agentic AI，六周、每周 8–10 小时。
+默认目标：Senior AI Engineer / Computer Vision / Edge ML / Multimodal & Agentic AI / Forward Deployed Engineering，六周、每周 8–10 小时。
 
 知识库使用两层本体：P1–P8 是不随技术栈变化的第一性原理，K1–K8 是面试交付视图。资料与题库只能提供证据和练习入口，不能反过来定义学习结构；每个练习至少标一个主 P 原语、一个 K 能力簇和一个可检查产物。
 
@@ -83,6 +83,7 @@ flowchart LR
 | Agent 实现实验 | [Hello-Agents 路线](hello-agents-plan.md) | 用三范式对照、最小 runtime、故障注入、分层评测和 capstone 把原理变成代码/trace | 不顺序做完 16 章；框架 API、社区答案和 demo 不能替代版本锁与任务证据 |
 | Agent 仓库工程 | [Harness Engineering 路线](harness-engineering-plan.md) | 把仓库变成 Agent 可导航、可执行、可验证、可持续清理的环境 | 案例结论不直接泛化；仅 Agent/Coding/DevProd 岗默认激活 |
 | Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
+| Agent / FDE 转型 | [AI Agent / FDE 转型路线](agent-fde-transition-plan.md) | 用一个生产式 Agent 作品贯通 discovery、既有系统、eval、上线、采用与现场 case | 不把 FDE 当售前或免编码岗位；按具体 JD 校准客户面对、旅行和技术深度 |
 | 全栈产品交付 | [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md) | 把浏览器、API、事务、React 和发布接成一个可重放纵向切片 | 不学完 40+ demo；3D/Wasm/实时按 JD 选修 |
 | 分布式系统模式 | [Martin Fowler 模式路线](distributed-systems-patterns-plan.md) | 用日志、复制、时钟、分区、幂等和 2PC 建立故障推理链 | 不背 30 个名词；目录摘要不能替代论文、实现与故障实验 |
 | Prompt 工程 | [高质量 Prompt 路线](prompt-engineering-method-plan.md) | 把模糊需求写成可验证任务契约，并用冻结评测、版本和发布门槛迭代 | 不背角色模板、隐藏思维链要求或跨模型参数配方 |
@@ -157,9 +158,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、[Prompt 工程路线](prompt-engineering-method-plan.md)、Codemia 和自己的 traces/evals。
-- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → chat/data/eval contract → Prompt Contract/frozen eval → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → RAG/tool contract → Agent Harness/eval → Browser/API/DB 纵向切片 → safety/release。
-- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、Prompt Contract/eval set、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack 和系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[AI Agent / FDE 转型路线](agent-fde-transition-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、[Prompt 工程路线](prompt-engineering-method-plan.md)、Codemia 和自己的 traces/evals。
+- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → chat/data/eval contract → Prompt Contract/frozen eval → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → RAG/tool contract → Agent Harness/eval → Browser/API/DB 纵向切片 → discovery/scoping → pilot/eval → safety/production rollout → adoption/live case。
+- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、Prompt Contract/eval set、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack、discovery memo、pilot gate、adoption/handoff 和系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -183,6 +184,8 @@ flowchart LR
 若 JD 命中 Backend、Platform、Infra、Data、ML Platform 或 Agent Infra，第 4 周用分布式模式 PDS-0/1/2/6 和两个交互节点替换两场泛化白板；Paxos 证明、完整 Raft、CRDT 与拜占庭容错留在长期池。
 
 若 JD 命中 LLM、Agent、AI Product、Applied AI 或 Prompt/Eval，第 5 周用 PE-0/1/3/4 和两个 Prompt 交互节点替换重复框架阅读；RAG/Agent 追加 PE-2，生产/平台岗位追加 PE-5，但都必须等量删减其他选修。
+
+若 JD 命中 AI Agent、Applied AI、Deployment Engineer 或 FDE，使用[转型路线](agent-fde-transition-plan.md)贯穿六周：第 1 周 AFD-0，第 2–4 周完成 Agent baseline、既有系统 patch 与冻结 eval，第 5 周完成 AFD-1/2/4/5，第 6 周完成 AFD-6。它替换普通 Agent 架构白板、重复框架阅读和成功 demo；每周仍保留一场 DSA/生产编码。
 
 ## 每周 8–10 小时预算
 
