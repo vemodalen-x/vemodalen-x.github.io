@@ -32,11 +32,12 @@
 - [高质量 Prompt 工程路线](prompt-engineering-method-plan.md)：把五段式模板、v0–v3 和参数建议逐条审计，升级为任务契约、不可信上下文、冻结评测、版本发布与回滚的 6 个 Session。
 - [AI Agent / FDE 转型面试路线](agent-fde-transition-plan.md)：把 Agent 技术纵深与 FDE 的 discovery、集成、上线、采用和反馈闭环合成一条 T 型路线，包含岗位差异、作品集、面试轮次、30 道高信号问题、7 个评分节点与六周替换计划。
 - [2026 FDE 求职与面试作战指南（新加坡版）](fde-2026-job-search-guide.md)：覆盖当前 FDE/TDL/Applied AI 岗位原型、个人 Strong/Adjacent/Gap、230 道题、7 个系统设计 case、差异化作品、12/6 周计划、岗位评分、EP/固定薪酬与 offer 闸门；桌面端新增 9 个 FDE26 评分节点。
+- [FDE 2026 一页式执行索引](fde-2026-practice-index.md)：为 230 题建立 FDE-Q001–Q230 永久编号，并整理为核心 60、关键 12、72 小时应急路线、按面试轮次/JD 激活、六周矩阵和证据账本。
 
 ## 桌面应用与知识检索
 
 - Windows 首次使用：双击 [install-desktop-shortcut.cmd](install-desktop-shortcut.cmd)，桌面会创建应用快捷方式。也可直接双击 [launch-learning-os.cmd](launch-learning-os.cmd)。应用使用本机 Chrome/Edge 的独立窗口，不需要服务器。
-- “知识库”先按 P1–P8 第一性原理建立稳定坐标，再与 K1–K8/META 面试视图交叉筛选；当前索引覆盖全部 28 份 Markdown、646 个标题章节，并与 70 个多标签交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
+- “知识库”先按 P1–P8 第一性原理建立稳定坐标，再与 K1–K8/META 面试视图交叉筛选；当前索引覆盖全部 29 份 Markdown、676 个标题章节，并与 70 个多标签交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
 - 知识正文来自仓库内 Markdown，搜索索引是可再生文件。新增或修改资料后，运行 `node scripts/build-knowledge-index.cjs`；构建器会在有文件未被纳入元数据时直接失败，避免静默漏检。
 - 学习状态继续保存在浏览器本地。更新索引或应用文件不会清空进度；换浏览器或迁移电脑前先在应用中导出状态。
 
@@ -50,7 +51,7 @@
 6. 多模态生成、VLM Infra 或前沿架构岗位命中时，再用 [SenseNova-U1 路线](sensenova-u1-plan.md)比较典型 VLM 与原生统一模型；它替换一个通用 VLM 设计和一个重复系统白板，不叠加课时。
 7. 前沿 LLM 架构、Agent 模型、训练 Infra 或 Serving JD 命中时，在 G1 Transformer 与 Agent eval 基础后使用 [Kimi K3 路线](kimi-k3-plan.md)：核心只激活架构、Agent 训练、Serving 审计三个评分节点，替换一次 Transformer 泛化白板、一次 Agent 后训练白板和一次系统设计，不额外叠加。
 8. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)建立原理，用 [Hello-Agents 实践路线](hello-agents-plan.md)完成三范式/最小运行时和评测项目，用[播客听辨路线](agent-harness-podcast-plan.md)形成三层总图，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)。
-9. 目标命中 AI Agent、Applied AI、Deployment 或 FDE 时，选择桌面端 `AI Agent / Forward Deployed` 角色，先用[转型路线](agent-fde-transition-plan.md)完成 AFD-0–6，再按[2026 FDE 指南](fde-2026-job-search-guide.md)激活 FDE26-1–9：recruiter/硬闸门、pair build、企业集成、ACL-first RAG、受限部署、事故指挥、ROI、field-to-product 与 EP/offer；它们替换普通 Agent 白板、成功 demo 和泛化行为题，不额外叠加。
+9. 目标命中 AI Agent、Applied AI、Deployment 或 FDE 时，选择桌面端 `AI Agent / Forward Deployed` 角色，先从[FDE 执行索引](fde-2026-practice-index.md)选择核心、72 小时或具体面试轮次，再用[转型路线](agent-fde-transition-plan.md)和[2026 FDE 指南](fde-2026-job-search-guide.md)激活 AFD-0–6 与 FDE26-1–9；它们替换普通 Agent 白板、成功 demo 和泛化行为题，不额外叠加。
 10. Fullstack、Frontend、Backend 或 AI Product Engineer 岗命中，或项目只能讲模型不能讲交付时，用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成一个纵向切片；它替换一次泛化系统设计和多个随机 demo，不叠加课时。
 11. Backend、Platform、Infra、Data、ML Platform 或 Agent Infra 岗命中，或系统设计只会列组件时，用[分布式系统模式路线](distributed-systems-patterns-plan.md)完成复制日志与幂等写两个故障实验；它替换两场泛化白板，不顺序背 30 个模式。
 12. LLM、Agent 或 AI Product 岗需要解释 Prompt 设计，或真实系统出现不稳定输出时，用[高质量 Prompt 工程路线](prompt-engineering-method-plan.md)完成任务契约与冻结评测两个交互节点；它替换重复 Prompt 博客阅读，不背角色/参数配方。

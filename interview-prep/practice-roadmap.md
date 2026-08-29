@@ -85,6 +85,7 @@ flowchart LR
 | Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
 | Agent / FDE 转型 | [AI Agent / FDE 转型路线](agent-fde-transition-plan.md) | 用一个生产式 Agent 作品贯通 discovery、既有系统、eval、上线、采用与现场 case | 不把 FDE 当售前或免编码岗位；按具体 JD 校准客户面对、旅行和技术深度 |
 | 2026 FDE 求职闭环 | [新加坡 FDE 作战指南](fde-2026-job-search-guide.md) | 用 230 道题、七个系统 case、九个 FDE26 节点与岗位/EP/薪酬闸门连接备考和求职 | 不顺序背 230 题；按当次 JD 的 Strong/Adjacent/Gap 定向激活 |
+| FDE 分层执行 | [FDE 一页式执行索引](fde-2026-practice-index.md) | 用永久题号、核心 60、关键 12、72 小时路线和按轮次矩阵决定下一步 | 同时只激活一个真实岗位和 30–50 题；无外部 Ship 不计作完整求职日 |
 | 全栈产品交付 | [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md) | 把浏览器、API、事务、React 和发布接成一个可重放纵向切片 | 不学完 40+ demo；3D/Wasm/实时按 JD 选修 |
 | 分布式系统模式 | [Martin Fowler 模式路线](distributed-systems-patterns-plan.md) | 用日志、复制、时钟、分区、幂等和 2PC 建立故障推理链 | 不背 30 个名词；目录摘要不能替代论文、实现与故障实验 |
 | Prompt 工程 | [高质量 Prompt 路线](prompt-engineering-method-plan.md) | 把模糊需求写成可验证任务契约，并用冻结评测、版本和发布门槛迭代 | 不背角色模板、隐藏思维链要求或跨模型参数配方 |

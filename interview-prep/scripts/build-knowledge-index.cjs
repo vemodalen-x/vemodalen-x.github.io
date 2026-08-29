@@ -33,8 +33,9 @@ const metadata = {
   'prompt-engineering-method-plan.md': { kind: 'Prompt 工程', description: '任务契约、真源/权限、可验证输出、冻结评测、版本发布与回滚。', clusters: ['K3', 'K8'], order: 27 },
   'agent-fde-transition-plan.md': { kind: 'Agent / FDE 转型', description: '岗位能力模型、生产式 Agent 作品、客户交付、面试轮次与六周替换路线。', clusters: ['K1', 'K3', 'K7', 'K8'], order: 28 },
   'fde-2026-job-search-guide.md': { kind: '2026 FDE 求职指南', description: '岗位原型、个性化差距、230 道题、系统 case、作品、十二周计划、EP/薪酬与投递闸门。', clusters: ['K1', 'K3', 'K7', 'K8'], order: 29 },
-  'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 30 },
-  'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 31 }
+  'fde-2026-practice-index.md': { kind: 'FDE 执行索引', description: '稳定题号、核心 60、72 小时应急路线、六周矩阵、按轮次/JD 激活与证据账本。', clusters: ['K1', 'K3', 'K7', 'K8'], order: 30 },
+  'learning-experience-v3.md': { kind: '系统说明', description: 'Learning OS V3 的学习科学、状态模型与验证契约。', clusters: ['META'], order: 31 },
+  'learning-experience-v2.md': { kind: '历史设计', description: 'V2 设计评审与从静态计划到自适应系统的演进记录。', clusters: ['META'], order: 32 }
 };
 
 const principlesByDocument = {
@@ -64,6 +65,7 @@ const principlesByDocument = {
   'prompt-engineering-method-plan.md': ['P1', 'P2', 'P5', 'P6', 'P7'],
   'agent-fde-transition-plan.md': allPrinciples,
   'fde-2026-job-search-guide.md': allPrinciples,
+  'fde-2026-practice-index.md': allPrinciples,
   'learning-experience-v3.md': ['P1', 'P5', 'P6', 'P8'],
   'learning-experience-v2.md': ['P1', 'P5', 'P6', 'P8']
 };

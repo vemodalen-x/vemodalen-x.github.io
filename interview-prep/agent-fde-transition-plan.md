@@ -2,7 +2,7 @@
 
 这条路线解决的不是“再学几个 Agent 框架”，而是把现有 AI/CV/Edge 工程能力改造成两类岗位都认可的交付证据。AI Agent Engineer 负责让模型、工具、状态、评测和控制面可靠协作；Forward Deployed Engineer（FDE）负责在陌生客户环境中发现高价值问题，把方案接入既有系统，推进上线、采用和复用。两者共享同一条主干：**从模糊业务问题到可度量、可运行、可审计的生产系统**。
 
-岗位名称变化很快。这里把 FDE / FDSE、Technical Deployment Lead、Applied AI / Technical Success 与 Solutions 类岗位视为相邻但不完全相同的岗位族；申请时仍要逐条映射具体 JD。本路线依据 2026-08-29 可访问的官方岗位与面试资料建立，不把招聘页当永久规范。岗位筛选、EP/薪酬闸门、230 道题库、七个系统设计 case、十二周求职节奏与公司专项模板见[《2026 FDE 求职与面试作战指南》](fde-2026-job-search-guide.md)。
+岗位名称变化很快。这里把 FDE / FDSE、Technical Deployment Lead、Applied AI / Technical Success 与 Solutions 类岗位视为相邻但不完全相同的岗位族；申请时仍要逐条映射具体 JD。本路线依据 2026-08-29 可访问的官方岗位与面试资料建立，不把招聘页当永久规范。先用[FDE 一页式执行索引](fde-2026-practice-index.md)选择核心、72 小时或具体轮次；岗位筛选、EP/薪酬闸门、230 道题库、七个系统设计 case、十二周求职节奏与公司专项模板见[《2026 FDE 求职与面试作战指南》](fde-2026-job-search-guide.md)。
 
 ## 0. 先给结论
 

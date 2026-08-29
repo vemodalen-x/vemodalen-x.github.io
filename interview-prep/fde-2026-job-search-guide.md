@@ -142,7 +142,7 @@
 
 ## 5. 230 道 FDE 面试题与对应知识准备
 
-使用方式：不要从第 1 题顺序背到第 230 题。先按目标 JD 做 Strong / Adjacent / Gap 映射，再激活最相关的 30–50 题；每题至少留下口述、代码、图、decision record 或 mock feedback 中的一种证据。
+使用方式：不要从第 1 题顺序背到第 230 题。先按目标 JD 做 Strong / Adjacent / Gap 映射，再激活最相关的 30–50 题；每题至少留下口述、代码、图、decision record 或 mock feedback 中的一种证据。每题现有永久编号 `FDE-Q001`–`FDE-Q230`；分层题单、72 小时路线和按轮次激活方式见 [FDE 2026 一页式执行索引](fde-2026-practice-index.md)。
 
 ### 5.1 Recruiter、动机与岗位判断（12 题）
 
@@ -156,18 +156,18 @@
 
 **高分标准**：结论清楚、事实诚实、对岗位日常有现实理解；能说明为何你的旧深度可迁移，以及新缺口如何补证。
 
-1. 用 60 秒介绍你自己，并说明为什么适合这个 FDE 岗位。
-2. 为什么从 Computer Vision / Edge / ML 转向 Agent 与 FDE？
-3. 为什么是 FDE，而不是 Applied Scientist、Solutions Architect 或 Backend Engineer？
-4. 你认为 FDE 一周的实际工作是什么？最不吸引你的部分是什么？
-5. 你如何理解“forward deployed”？它与定制外包有什么区别？
-6. 为什么是我们，而不是另一家模型实验室或企业 AI 平台？
-7. 你愿意多少比例面对客户、写代码、旅行和处理生产事故？
-8. 你最匹配本 JD 的三项证据是什么？最大的两个 gap 是什么？
-9. 你当前在新加坡的工作授权情况是什么？需要什么雇主支持？
-10. 你的固定年薪目标如何定义？哪些是 fixed、bonus、equity？
-11. 你能接受 25–50% 旅行和每周三天办公室吗？哪些安排不可接受？
-12. 如果这个岗位实际只有 20% 编码、同时服务五个客户，你还会选择吗？为什么？
+1. **FDE-Q001** · 用 60 秒介绍你自己，并说明为什么适合这个 FDE 岗位。
+2. **FDE-Q002** · 为什么从 Computer Vision / Edge / ML 转向 Agent 与 FDE？
+3. **FDE-Q003** · 为什么是 FDE，而不是 Applied Scientist、Solutions Architect 或 Backend Engineer？
+4. **FDE-Q004** · 你认为 FDE 一周的实际工作是什么？最不吸引你的部分是什么？
+5. **FDE-Q005** · 你如何理解“forward deployed”？它与定制外包有什么区别？
+6. **FDE-Q006** · 为什么是我们，而不是另一家模型实验室或企业 AI 平台？
+7. **FDE-Q007** · 你愿意多少比例面对客户、写代码、旅行和处理生产事故？
+8. **FDE-Q008** · 你最匹配本 JD 的三项证据是什么？最大的两个 gap 是什么？
+9. **FDE-Q009** · 你当前在新加坡的工作授权情况是什么？需要什么雇主支持？
+10. **FDE-Q010** · 你的固定年薪目标如何定义？哪些是 fixed、bonus、equity？
+11. **FDE-Q011** · 你能接受 25–50% 旅行和每周三天办公室吗？哪些安排不可接受？
+12. **FDE-Q012** · 如果这个岗位实际只有 20% 编码、同时服务五个客户，你还会选择吗？为什么？
 
 ### 5.2 简历、项目深挖与 Senior 证据（12 题；累计 24）
 
@@ -178,18 +178,18 @@
 - 一份可画出的数据流/部署图；
 - 对所有数字准备分母、时间窗、测量方法和不确定性。
 
-1. 选择一个项目，从客户/用户结果倒推到你最关键的技术决定。
-2. 哪一部分是你亲自设计、实现或推动的？团队其他人做了什么？
-3. 当时最模糊的约束是什么？你如何把它变成可测试假设？
-4. 描述一次模型离线变好但真实产品变差的经历。
-5. 描述一次 PyTorch、ONNX/TFLite 与真实设备不一致的故障。
-6. 你如何建立 golden cases、failure taxonomy 和 release gate？
-7. 哪个 rejected alternative 最能体现你的判断？为什么没选？
-8. 哪个结果最初看似成功，后来被你发现是测量或数据问题？
-9. 你做过的最困难跨团队协调是什么？冲突的目标分别是什么？
-10. 如果把这个项目迁移到企业 Agent 系统，哪些机制仍然成立，哪些不成立？
-11. 项目失败时你拥有哪部分责任？修复后改变了什么机制？
-12. 如果让你用一页材料向 CTO 汇报，你保留哪五个信息？
+1. **FDE-Q013** · 选择一个项目，从客户/用户结果倒推到你最关键的技术决定。
+2. **FDE-Q014** · 哪一部分是你亲自设计、实现或推动的？团队其他人做了什么？
+3. **FDE-Q015** · 当时最模糊的约束是什么？你如何把它变成可测试假设？
+4. **FDE-Q016** · 描述一次模型离线变好但真实产品变差的经历。
+5. **FDE-Q017** · 描述一次 PyTorch、ONNX/TFLite 与真实设备不一致的故障。
+6. **FDE-Q018** · 你如何建立 golden cases、failure taxonomy 和 release gate？
+7. **FDE-Q019** · 哪个 rejected alternative 最能体现你的判断？为什么没选？
+8. **FDE-Q020** · 哪个结果最初看似成功，后来被你发现是测量或数据问题？
+9. **FDE-Q021** · 你做过的最困难跨团队协调是什么？冲突的目标分别是什么？
+10. **FDE-Q022** · 如果把这个项目迁移到企业 Agent 系统，哪些机制仍然成立，哪些不成立？
+11. **FDE-Q023** · 项目失败时你拥有哪部分责任？修复后改变了什么机制？
+12. **FDE-Q024** · 如果让你用一页材料向 CTO 汇报，你保留哪五个信息？
 
 ### 5.3 客户发现、范围与 Pilot 设计（16 题；累计 40）
 
@@ -202,22 +202,22 @@
 
 **面试协议**：先问 5–8 个高信息量问题，再给方案；不要在未知身份、数据和成功标准时直接选模型。
 
-1. 客户说“我们想做一个企业知识 Agent”，你的前十个问题是什么？
-2. 如何从一句模糊高层目标找到真正的用户决策与工作流？
-3. 谁是 buyer、exec sponsor、workflow owner、end user、security approver 和 blocker？
-4. 如何画 current-state workflow，并识别最昂贵的等待、返工和错误？
-5. 客户没有 baseline 数据时，你怎样定义 pilot success？
-6. 客户要求六周内“覆盖所有部门”，你如何缩成可交付纵向切片？
-7. 如何写 not-doing list，而不让客户感觉你在拒绝合作？
-8. 两个用例：一个价值高但数据/权限复杂，一个价值中等但两周可上线。你选哪个？
-9. 如何区分技术可行性 pilot、业务价值 pilot 与 adoption pilot？
-10. 什么时候应该建议客户不使用 LLM 或 Agent？
-11. 如何发现被忽略的 exception path、人工 workaround 和 shadow system？
-12. 成功指标是“用户喜欢”，你如何把它变成有分母、时间窗和 owner 的指标？
-13. 客户中途增加范围，如何保护 critical path，又不破坏关系？
-14. 如何管理假设、未决问题、依赖、风险和 decision log？
-15. Pilot 失败了：如何判断是模型、数据、集成、流程、采用还是错误用例？
-16. 用 12 分钟主持一次 discovery 开场，并在结尾复述范围、风险与下一步。
+1. **FDE-Q025** · 客户说“我们想做一个企业知识 Agent”，你的前十个问题是什么？
+2. **FDE-Q026** · 如何从一句模糊高层目标找到真正的用户决策与工作流？
+3. **FDE-Q027** · 谁是 buyer、exec sponsor、workflow owner、end user、security approver 和 blocker？
+4. **FDE-Q028** · 如何画 current-state workflow，并识别最昂贵的等待、返工和错误？
+5. **FDE-Q029** · 客户没有 baseline 数据时，你怎样定义 pilot success？
+6. **FDE-Q030** · 客户要求六周内“覆盖所有部门”，你如何缩成可交付纵向切片？
+7. **FDE-Q031** · 如何写 not-doing list，而不让客户感觉你在拒绝合作？
+8. **FDE-Q032** · 两个用例：一个价值高但数据/权限复杂，一个价值中等但两周可上线。你选哪个？
+9. **FDE-Q033** · 如何区分技术可行性 pilot、业务价值 pilot 与 adoption pilot？
+10. **FDE-Q034** · 什么时候应该建议客户不使用 LLM 或 Agent？
+11. **FDE-Q035** · 如何发现被忽略的 exception path、人工 workaround 和 shadow system？
+12. **FDE-Q036** · 成功指标是“用户喜欢”，你如何把它变成有分母、时间窗和 owner 的指标？
+13. **FDE-Q037** · 客户中途增加范围，如何保护 critical path，又不破坏关系？
+14. **FDE-Q038** · 如何管理假设、未决问题、依赖、风险和 decision log？
+15. **FDE-Q039** · Pilot 失败了：如何判断是模型、数据、集成、流程、采用还是错误用例？
+16. **FDE-Q040** · 用 12 分钟主持一次 discovery 开场，并在结尾复述范围、风险与下一步。
 
 ### 5.4 Python、全栈与生产编码（20 题；累计 60）
 
@@ -231,26 +231,26 @@
 
 **现场协议**：复述 contract → 示例/边界 → baseline → 测试 → 复杂度 → 可观测性/生产化；允许 AI 时仍需逐行解释、修改并验证。
 
-1. 实现一个带 timeout、指数退避、jitter 和错误分类的 API client。
-2. 为有副作用的工具调用实现 idempotency key 与结果缓存。
-3. 实现 bounded worker queue，支持 backpressure、取消和 graceful shutdown。
-4. 实现 token-bucket 或 sliding-window rate limiter，并说明分布式版本。
-5. 解析超大 JSONL/CSV，流式验证、统计错误并避免内存爆炸。
-6. 实现 LRU cache，讨论 TTL、并发与缓存击穿。
-7. 实现文档 chunk pipeline，保留 source、ACL、version 和 lineage。
-8. 实现一个 FastAPI endpoint：提交任务、轮询状态、取消任务、幂等重试。
-9. 实现 SSE/WebSocket 流式输出，处理断线重连与重复事件。
-10. 设计 Pydantic schema 验证模型结构化输出，并处理部分合法结果。
-11. 写 SQL：按 tenant 和 workflow 计算过去 7 天成功率、p95 延迟与人工接管率。
-12. 一个查询从 200ms 变成 8s，你如何用 query plan、索引和数据分布定位？
-13. 设计 job/status/event 表，支持重放、审计和 exactly-once illusion。
-14. 实现工具 registry：schema、权限、timeout、side-effect class、owner、version。
-15. 给一段陌生 Python 服务加 tracing、错误分类和 regression tests。
-16. 修复 async 代码中的 race、资源泄漏或无限重试。
-17. 在 React 中实现任务列表、详情、流式日志、取消和失败重试状态。
-18. 设计前后端错误 contract，区分用户错误、依赖错误、策略拒绝和系统错误。
-19. Code review：找出安全、可靠性、复杂度、测试和可维护性问题。
-20. 90 分钟内完成一个可运行纵向切片；你如何切时间并决定不做什么？
+1. **FDE-Q041** · 实现一个带 timeout、指数退避、jitter 和错误分类的 API client。
+2. **FDE-Q042** · 为有副作用的工具调用实现 idempotency key 与结果缓存。
+3. **FDE-Q043** · 实现 bounded worker queue，支持 backpressure、取消和 graceful shutdown。
+4. **FDE-Q044** · 实现 token-bucket 或 sliding-window rate limiter，并说明分布式版本。
+5. **FDE-Q045** · 解析超大 JSONL/CSV，流式验证、统计错误并避免内存爆炸。
+6. **FDE-Q046** · 实现 LRU cache，讨论 TTL、并发与缓存击穿。
+7. **FDE-Q047** · 实现文档 chunk pipeline，保留 source、ACL、version 和 lineage。
+8. **FDE-Q048** · 实现一个 FastAPI endpoint：提交任务、轮询状态、取消任务、幂等重试。
+9. **FDE-Q049** · 实现 SSE/WebSocket 流式输出，处理断线重连与重复事件。
+10. **FDE-Q050** · 设计 Pydantic schema 验证模型结构化输出，并处理部分合法结果。
+11. **FDE-Q051** · 写 SQL：按 tenant 和 workflow 计算过去 7 天成功率、p95 延迟与人工接管率。
+12. **FDE-Q052** · 一个查询从 200ms 变成 8s，你如何用 query plan、索引和数据分布定位？
+13. **FDE-Q053** · 设计 job/status/event 表，支持重放、审计和 exactly-once illusion。
+14. **FDE-Q054** · 实现工具 registry：schema、权限、timeout、side-effect class、owner、version。
+15. **FDE-Q055** · 给一段陌生 Python 服务加 tracing、错误分类和 regression tests。
+16. **FDE-Q056** · 修复 async 代码中的 race、资源泄漏或无限重试。
+17. **FDE-Q057** · 在 React 中实现任务列表、详情、流式日志、取消和失败重试状态。
+18. **FDE-Q058** · 设计前后端错误 contract，区分用户错误、依赖错误、策略拒绝和系统错误。
+19. **FDE-Q059** · Code review：找出安全、可靠性、复杂度、测试和可维护性问题。
+20. **FDE-Q060** · 90 分钟内完成一个可运行纵向切片；你如何切时间并决定不做什么？
 
 ### 5.5 数据建模、企业集成与身份（14 题；累计 74）
 
@@ -261,20 +261,20 @@
 - CRM、ticketing、document store、warehouse、Git/CI 等常见集成模式；
 - webhook、polling、pagination、rate limit、partial failure、reconciliation。
 
-1. 客户数据分散在 SharePoint、Slack、Jira、数据库和本地文件，如何建立第一版数据地图？
-2. 何时使用 batch、CDC、event stream 或 request-time fetch？
-3. 如何让 source ACL 贯穿 ingestion、index、retrieval、generation 和 citation？
-4. 文档权限变化后，如何保证旧 embedding 不继续泄露内容？
-5. 如何处理 schema evolution、backfill、双写与兼容读取？
-6. 外部 API 有 rate limit、分页、429、乱序 webhook 和重复事件，如何集成？
-7. 如何设计 reconciliation job，发现源系统与内部状态漂移？
-8. 多租户系统如何隔离数据、缓存、日志、向量索引和密钥？
-9. 用户身份、服务身份和 Agent 代理身份有何区别？
-10. 何时用 delegated authorization，何时用 service account？
-11. 如何做 data lineage，使每个答案和动作可追到 source/version/tool call？
-12. 数据质量未知时，pilot 前做哪些 profile 和 sampling？
-13. 客户不允许复制原始数据出网，架构如何变化？
-14. 集成上线后 source contract 改变，如何检测、降级与通知 owner？
+1. **FDE-Q061** · 客户数据分散在 SharePoint、Slack、Jira、数据库和本地文件，如何建立第一版数据地图？
+2. **FDE-Q062** · 何时使用 batch、CDC、event stream 或 request-time fetch？
+3. **FDE-Q063** · 如何让 source ACL 贯穿 ingestion、index、retrieval、generation 和 citation？
+4. **FDE-Q064** · 文档权限变化后，如何保证旧 embedding 不继续泄露内容？
+5. **FDE-Q065** · 如何处理 schema evolution、backfill、双写与兼容读取？
+6. **FDE-Q066** · 外部 API 有 rate limit、分页、429、乱序 webhook 和重复事件，如何集成？
+7. **FDE-Q067** · 如何设计 reconciliation job，发现源系统与内部状态漂移？
+8. **FDE-Q068** · 多租户系统如何隔离数据、缓存、日志、向量索引和密钥？
+9. **FDE-Q069** · 用户身份、服务身份和 Agent 代理身份有何区别？
+10. **FDE-Q070** · 何时用 delegated authorization，何时用 service account？
+11. **FDE-Q071** · 如何做 data lineage，使每个答案和动作可追到 source/version/tool call？
+12. **FDE-Q072** · 数据质量未知时，pilot 前做哪些 profile 和 sampling？
+13. **FDE-Q073** · 客户不允许复制原始数据出网，架构如何变化？
+14. **FDE-Q074** · 集成上线后 source contract 改变，如何检测、降级与通知 owner？
 
 ### 5.6 Enterprise RAG（18 题；累计 92）
 
@@ -285,24 +285,24 @@
 - retrieval、context assembly、generation 分层评估；
 - cache、成本、延迟、索引更新与 failure analysis。
 
-1. 设计一个带文档级和段落级 ACL 的企业 RAG。
-2. 为什么 RAG 不是“切块 + embedding + top-k”？
-3. 如何按文档结构、语义、表格、代码和会话切块？
-4. chunk 太大或太小分别造成什么失败？如何用实验选择？
-5. dense、sparse、hybrid、metadata filter 和 reranker 如何组合？
-6. 如何评估 retrieval recall，而不是只看最终回答？
-7. 没有标准答案时，如何建立 query/document relevance 标注集？
-8. 多语言查询和文档如何处理？何时翻译，何时跨语言 embedding？
-9. 如何保证引用真的支持答案，而不是只有格式正确？
-10. 文档每小时变化，如何处理 freshness、增量索引和删除？
-11. 如何防止权限过滤放在 rerank 之后造成泄露？
-12. RAG 回答“我不知道”的门槛如何设计与校准？
-13. 如何处理 contradictory sources、版本冲突和权威来源优先级？
-14. query rewrite 何时提升召回，何时破坏用户意图？
-15. context packing 如何在 token 预算、去重、覆盖和顺序间取舍？
-16. RAG 延迟 p95 太高，如何按 fetch/search/rerank/model 分解？
-17. 如何设计 semantic cache，又不跨 tenant 或权限复用错误结果？
-18. 从 50 用户 pilot 扩到 5,000 用户，索引、并发、成本和质量如何变化？
+1. **FDE-Q075** · 设计一个带文档级和段落级 ACL 的企业 RAG。
+2. **FDE-Q076** · 为什么 RAG 不是“切块 + embedding + top-k”？
+3. **FDE-Q077** · 如何按文档结构、语义、表格、代码和会话切块？
+4. **FDE-Q078** · chunk 太大或太小分别造成什么失败？如何用实验选择？
+5. **FDE-Q079** · dense、sparse、hybrid、metadata filter 和 reranker 如何组合？
+6. **FDE-Q080** · 如何评估 retrieval recall，而不是只看最终回答？
+7. **FDE-Q081** · 没有标准答案时，如何建立 query/document relevance 标注集？
+8. **FDE-Q082** · 多语言查询和文档如何处理？何时翻译，何时跨语言 embedding？
+9. **FDE-Q083** · 如何保证引用真的支持答案，而不是只有格式正确？
+10. **FDE-Q084** · 文档每小时变化，如何处理 freshness、增量索引和删除？
+11. **FDE-Q085** · 如何防止权限过滤放在 rerank 之后造成泄露？
+12. **FDE-Q086** · RAG 回答“我不知道”的门槛如何设计与校准？
+13. **FDE-Q087** · 如何处理 contradictory sources、版本冲突和权威来源优先级？
+14. **FDE-Q088** · query rewrite 何时提升召回，何时破坏用户意图？
+15. **FDE-Q089** · context packing 如何在 token 预算、去重、覆盖和顺序间取舍？
+16. **FDE-Q090** · RAG 延迟 p95 太高，如何按 fetch/search/rerank/model 分解？
+17. **FDE-Q091** · 如何设计 semantic cache，又不跨 tenant 或权限复用错误结果？
+18. **FDE-Q092** · 从 50 用户 pilot 扩到 5,000 用户，索引、并发、成本和质量如何变化？
 
 ### 5.7 Agent、工具、状态与 Harness（18 题；累计 110）
 
@@ -314,24 +314,24 @@
 - MCP/工具协议的价值与边界；
 - 2026 的重点已从 prompt 单点优化转向 context、tool、harness 与 eval 的联合设计。
 
-1. 什么时候确定性 workflow 足够，什么时候需要 Agent？
-2. 为什么“最强模型 + 更多工具”不一定更好？
-3. 设计一个 tool contract：哪些字段不可缺？
-4. 如何让模型理解工具返回 schema、错误类别与副作用？
-5. 工具调用 timeout 后结果未知，重试前如何避免重复副作用？
-6. Agent state 放在 prompt、数据库、event log 还是外部 workflow engine？
-7. 短期上下文、长期记忆、用户偏好与业务真源如何分开？
-8. 如何做 checkpoint/replay，使一次失败可复现？
-9. stopping condition 如何同时限制循环、成本、时间和风险？
-10. 什么时候需要人工确认？确认界面必须展示哪些证据？
-11. 工具返回不可信文本，如何防止其变成更高权限指令？
-12. Agent 选择了错误工具：你如何判断是描述、context、模型还是 policy 问题？
-13. 单 Agent 何时拆成多 Agent？用什么 eval 证明收益？
-14. 多 Agent 如何控制通信成本、重复工作、冲突状态和故障域？
-15. MCP 带来什么互操作价值？它没有自动解决哪些安全与语义问题？
-16. 如何设计 model routing：质量、延迟、成本、数据策略和 fallback？
-17. context window 很大时，为什么仍需要 compaction、retrieval 和状态外置？
-18. 如何把一个成功 demo 重构为可维护、可测试、可运营的 harness？
+1. **FDE-Q093** · 什么时候确定性 workflow 足够，什么时候需要 Agent？
+2. **FDE-Q094** · 为什么“最强模型 + 更多工具”不一定更好？
+3. **FDE-Q095** · 设计一个 tool contract：哪些字段不可缺？
+4. **FDE-Q096** · 如何让模型理解工具返回 schema、错误类别与副作用？
+5. **FDE-Q097** · 工具调用 timeout 后结果未知，重试前如何避免重复副作用？
+6. **FDE-Q098** · Agent state 放在 prompt、数据库、event log 还是外部 workflow engine？
+7. **FDE-Q099** · 短期上下文、长期记忆、用户偏好与业务真源如何分开？
+8. **FDE-Q100** · 如何做 checkpoint/replay，使一次失败可复现？
+9. **FDE-Q101** · stopping condition 如何同时限制循环、成本、时间和风险？
+10. **FDE-Q102** · 什么时候需要人工确认？确认界面必须展示哪些证据？
+11. **FDE-Q103** · 工具返回不可信文本，如何防止其变成更高权限指令？
+12. **FDE-Q104** · Agent 选择了错误工具：你如何判断是描述、context、模型还是 policy 问题？
+13. **FDE-Q105** · 单 Agent 何时拆成多 Agent？用什么 eval 证明收益？
+14. **FDE-Q106** · 多 Agent 如何控制通信成本、重复工作、冲突状态和故障域？
+15. **FDE-Q107** · MCP 带来什么互操作价值？它没有自动解决哪些安全与语义问题？
+16. **FDE-Q108** · 如何设计 model routing：质量、延迟、成本、数据策略和 fallback？
+17. **FDE-Q109** · context window 很大时，为什么仍需要 compaction、retrieval 和状态外置？
+18. **FDE-Q110** · 如何把一个成功 demo 重构为可维护、可测试、可运营的 harness？
 
 ### 5.8 Agent / LLM 评估（16 题；累计 126）
 
@@ -345,22 +345,22 @@
 
 [Anthropic 2026 Agent Evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)强调不能只看最终文本：应区分完整 trace 与环境最终 outcome，并对非确定任务运行多个 trials、阅读失败 transcript、维护活的 eval suite。
 
-1. Agent 的 task、trial、grader、trace 和 outcome 分别是什么？
-2. 为什么单次成功 demo 不能证明 Agent 可上线？
-3. 如何从真实工作流构建 50–100 条有分母的 eval set？
-4. component、trajectory 与 end-to-end eval 各发现什么问题？
-5. 最终回答正确但调用了危险工具，应如何评分？
-6. Agent 声称已执行动作但数据库无变化，grader 应看什么？
-7. 非确定输出为什么要多次 trials？如何报告 pass@k、成功率与方差？
-8. exact match、规则 grader、unit test、LLM judge 和人工评分如何组合？
-9. 如何校准 LLM judge，避免 position/style/verbosity bias？
-10. 如何从 production failure 持续扩展 eval suite，又避免只追昨天的问题？
-11. eval set 如何做 train/dev/test、版本和泄漏控制？
-12. 如何区分模型、prompt/context、tool、harness、环境和 grader 的失败？
-13. 什么时候 eval 已饱和？怎样增加难度而不制造不公平任务？
-14. latency、token、cost、tool error 和人工接管率如何进入 gate？
-15. offline 变好但 online adoption 下降，如何调查？
-16. 为 pilot 定义 go/no-go、canary pause 和 rollback 三组门槛。
+1. **FDE-Q111** · Agent 的 task、trial、grader、trace 和 outcome 分别是什么？
+2. **FDE-Q112** · 为什么单次成功 demo 不能证明 Agent 可上线？
+3. **FDE-Q113** · 如何从真实工作流构建 50–100 条有分母的 eval set？
+4. **FDE-Q114** · component、trajectory 与 end-to-end eval 各发现什么问题？
+5. **FDE-Q115** · 最终回答正确但调用了危险工具，应如何评分？
+6. **FDE-Q116** · Agent 声称已执行动作但数据库无变化，grader 应看什么？
+7. **FDE-Q117** · 非确定输出为什么要多次 trials？如何报告 pass@k、成功率与方差？
+8. **FDE-Q118** · exact match、规则 grader、unit test、LLM judge 和人工评分如何组合？
+9. **FDE-Q119** · 如何校准 LLM judge，避免 position/style/verbosity bias？
+10. **FDE-Q120** · 如何从 production failure 持续扩展 eval suite，又避免只追昨天的问题？
+11. **FDE-Q121** · eval set 如何做 train/dev/test、版本和泄漏控制？
+12. **FDE-Q122** · 如何区分模型、prompt/context、tool、harness、环境和 grader 的失败？
+13. **FDE-Q123** · 什么时候 eval 已饱和？怎样增加难度而不制造不公平任务？
+14. **FDE-Q124** · latency、token、cost、tool error 和人工接管率如何进入 gate？
+15. **FDE-Q125** · offline 变好但 online adoption 下降，如何调查？
+16. **FDE-Q126** · 为 pilot 定义 go/no-go、canary pause 和 rollback 三组门槛。
 
 ### 5.9 安全、隐私、治理与合规（18 题；累计 144）
 
@@ -372,24 +372,24 @@
 - human accountability、approval gate、policy-as-code、red team、incident response；
 - [OWASP Top 10 for LLM/GenAI](https://genai.owasp.org/llm-top-10/)、[NIST GenAI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf)与新加坡 [2026 Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai)。新加坡框架特别要求预先限制 Agent 权力、设置有意义的人类审批、全生命周期技术控制和用户透明/培训。
 
-1. 对一个能读邮件、查 CRM、创建退款的 Agent 做 threat model。
-2. direct 与 indirect prompt injection 有何不同？
-3. 为什么“在 system prompt 里说不要泄密”不是安全边界？
-4. 检索文档中藏有外发指令，如何在数据、模型、工具和网络层防御？
-5. 如何防止 sensitive information disclosure 和跨租户泄露？
-6. 工具权限如何做到 least privilege、scoped token 和 just-in-time approval？
-7. 哪些动作必须 human-in-the-loop？如何避免 rubber-stamp approval？
-8. Agent 生成 SQL/shell/code 后，在哪里验证和 sandbox？
-9. 如何设计 egress allowlist、network boundary 与 data residency？
-10. 模型/embedding/library/tool 供应链如何锁版本、验证和回滚？
-11. 如何处理日志中的 PII、secret 和完整 prompt/response？
-12. audit log 必须记录哪些主体、输入、policy、tool、结果和审批信息？
-13. 如何做 retention、right-to-delete、索引删除和 backup 删除？
-14. red-team suite 应覆盖哪些正常、边界、恶意和组合攻击？
-15. 安全误报太多导致用户绕过，如何重新设计控制？
-16. Agent 做出未授权动作，事故响应前 30 分钟做什么？
-17. 如何向 CISO 解释 residual risk，而不承诺“完全安全”？
-18. 如何把治理要求变成可执行 release gate，而不是文档 checklist？
+1. **FDE-Q127** · 对一个能读邮件、查 CRM、创建退款的 Agent 做 threat model。
+2. **FDE-Q128** · direct 与 indirect prompt injection 有何不同？
+3. **FDE-Q129** · 为什么“在 system prompt 里说不要泄密”不是安全边界？
+4. **FDE-Q130** · 检索文档中藏有外发指令，如何在数据、模型、工具和网络层防御？
+5. **FDE-Q131** · 如何防止 sensitive information disclosure 和跨租户泄露？
+6. **FDE-Q132** · 工具权限如何做到 least privilege、scoped token 和 just-in-time approval？
+7. **FDE-Q133** · 哪些动作必须 human-in-the-loop？如何避免 rubber-stamp approval？
+8. **FDE-Q134** · Agent 生成 SQL/shell/code 后，在哪里验证和 sandbox？
+9. **FDE-Q135** · 如何设计 egress allowlist、network boundary 与 data residency？
+10. **FDE-Q136** · 模型/embedding/library/tool 供应链如何锁版本、验证和回滚？
+11. **FDE-Q137** · 如何处理日志中的 PII、secret 和完整 prompt/response？
+12. **FDE-Q138** · audit log 必须记录哪些主体、输入、policy、tool、结果和审批信息？
+13. **FDE-Q139** · 如何做 retention、right-to-delete、索引删除和 backup 删除？
+14. **FDE-Q140** · red-team suite 应覆盖哪些正常、边界、恶意和组合攻击？
+15. **FDE-Q141** · 安全误报太多导致用户绕过，如何重新设计控制？
+16. **FDE-Q142** · Agent 做出未授权动作，事故响应前 30 分钟做什么？
+17. **FDE-Q143** · 如何向 CISO 解释 residual risk，而不承诺“完全安全”？
+18. **FDE-Q144** · 如何把治理要求变成可执行 release gate，而不是文档 checklist？
 
 ### 5.10 系统设计、可靠性、可观测性与成本（18 题；累计 162）
 
@@ -400,24 +400,24 @@
 - canary、feature flag、shadow、rollback、degrade、DR；
 - token/model/tool/data/infra cost decomposition。
 
-1. 设计一个多租户企业知识与行动 Agent 平台。
-2. 设计一个异步长任务系统，支持取消、重试、恢复、审计和 streaming。
-3. 如何定义 Agent 系统的 availability：请求成功、任务成功还是业务 outcome？
-4. SLI/SLO 应覆盖哪些 API、workflow、模型、工具和业务层指标？
-5. 模型供应商超时或限流时，如何降级？
-6. retry 何时放大故障？如何使用 timeout budget、backoff、jitter 和 circuit breaker？
-7. 如何用 queue 和 backpressure 保护下游工具？
-8. 如何设计 trace，使一次任务跨模型、retrieval、tool、approval 可重放？
-9. 如何区分 model latency、queue、retrieval、tool 和 frontend perception？
-10. 缓存哪些层：embedding、retrieval、prompt prefix、model response、tool result？各有什么失效风险？
-11. 如何做 model routing 与 fallback，避免质量静默下降？
-12. 部署新 prompt/model/tool schema 时如何 canary 与 rollback？
-13. 如何处理部分成功：三个工具中两个成功、一个失败？
-14. 如何设计 disaster recovery 与 region/data residency？
-15. 多租户 noisy neighbor 如何隔离并发、token、存储和成本？
-16. 每任务成本突然翻倍，如何定位 token、循环、检索、工具和重试？
-17. 如何设置预算和 stopping rule，不让一个 Agent 消耗无限资源？
-18. 从 100 到 100,000 日任务，架构哪些部分先变，哪些不要过早优化？
+1. **FDE-Q145** · 设计一个多租户企业知识与行动 Agent 平台。
+2. **FDE-Q146** · 设计一个异步长任务系统，支持取消、重试、恢复、审计和 streaming。
+3. **FDE-Q147** · 如何定义 Agent 系统的 availability：请求成功、任务成功还是业务 outcome？
+4. **FDE-Q148** · SLI/SLO 应覆盖哪些 API、workflow、模型、工具和业务层指标？
+5. **FDE-Q149** · 模型供应商超时或限流时，如何降级？
+6. **FDE-Q150** · retry 何时放大故障？如何使用 timeout budget、backoff、jitter 和 circuit breaker？
+7. **FDE-Q151** · 如何用 queue 和 backpressure 保护下游工具？
+8. **FDE-Q152** · 如何设计 trace，使一次任务跨模型、retrieval、tool、approval 可重放？
+9. **FDE-Q153** · 如何区分 model latency、queue、retrieval、tool 和 frontend perception？
+10. **FDE-Q154** · 缓存哪些层：embedding、retrieval、prompt prefix、model response、tool result？各有什么失效风险？
+11. **FDE-Q155** · 如何做 model routing 与 fallback，避免质量静默下降？
+12. **FDE-Q156** · 部署新 prompt/model/tool schema 时如何 canary 与 rollback？
+13. **FDE-Q157** · 如何处理部分成功：三个工具中两个成功、一个失败？
+14. **FDE-Q158** · 如何设计 disaster recovery 与 region/data residency？
+15. **FDE-Q159** · 多租户 noisy neighbor 如何隔离并发、token、存储和成本？
+16. **FDE-Q160** · 每任务成本突然翻倍，如何定位 token、循环、检索、工具和重试？
+17. **FDE-Q161** · 如何设置预算和 stopping rule，不让一个 Agent 消耗无限资源？
+18. **FDE-Q162** · 从 100 到 100,000 日任务，架构哪些部分先变，哪些不要过早优化？
 
 ### 5.11 Private cloud、on-prem 与受限环境（10 题；累计 172）
 
@@ -428,16 +428,16 @@
 - GPU/CPU/内存/存储容量，量化、batching、模型路由；
 - 不可出网数据下的检索、评估和 incident support。
 
-1. 客户禁止数据离开 VPC，系统如何部署与运维？
-2. air-gapped 环境如何交付模型、镜像、依赖、license 与安全更新？
-3. 没有外部 telemetry 时，如何观测、导出和远程支持？
-4. 客户只有有限 GPU，如何在质量、吞吐、延迟与成本间取舍？
-5. 如何验证本地模型与云模型的功能/质量 parity？
-6. secret、certificate、key rotation 在离线环境如何管理？
-7. 升级失败或新模型退化时，如何 atomic rollback？
-8. 如何定义客户、你的团队、云/模型供应商的 support ownership？
-9. 对数据 residency、retention 和 backup 做哪几类证据检查？
-10. 哪些功能在受限环境里应明确不支持？如何提前写进 acceptance criteria？
+1. **FDE-Q163** · 客户禁止数据离开 VPC，系统如何部署与运维？
+2. **FDE-Q164** · air-gapped 环境如何交付模型、镜像、依赖、license 与安全更新？
+3. **FDE-Q165** · 没有外部 telemetry 时，如何观测、导出和远程支持？
+4. **FDE-Q166** · 客户只有有限 GPU，如何在质量、吞吐、延迟与成本间取舍？
+5. **FDE-Q167** · 如何验证本地模型与云模型的功能/质量 parity？
+6. **FDE-Q168** · secret、certificate、key rotation 在离线环境如何管理？
+7. **FDE-Q169** · 升级失败或新模型退化时，如何 atomic rollback？
+8. **FDE-Q170** · 如何定义客户、你的团队、云/模型供应商的 support ownership？
+9. **FDE-Q171** · 对数据 residency、retention 和 backup 做哪几类证据检查？
+10. **FDE-Q172** · 哪些功能在受限环境里应明确不支持？如何提前写进 acceptance criteria？
 
 ### 5.12 Existing system、调试与事故指挥（12 题；累计 184）
 
@@ -448,18 +448,18 @@
 - hypothesis table、minimal discriminating experiment、timeline、postmortem；
 - rollback、kill switch、data repair、replay 与 recurrence prevention。
 
-1. 第一天进入陌生客户代码库，你前 90 分钟做什么？
-2. 一个 Agent 昨天正常、今天成功率下降 20%，如何分层定位？
-3. 线上错误无法本地复现，你如何固定输入、版本、state 和依赖？
-4. trace 显示模型输出正常但最终动作错误，下一步检查什么？
-5. 只在一个 tenant 失败，如何判断权限、数据、config、quota 或版本问题？
-6. 延迟只有 p99 恶化，平均值不变，你如何调查？
-7. 新索引上线后引用变差，如何安全回滚并保留证据？
-8. 工具调用可能重复执行，你如何止损、对账和补偿？
-9. 高优事故中何时先降级/停用，而不是继续找 root cause？
-10. 每 20 分钟 exec update 应包含哪些事实、决定、风险和 ask？
-11. Postmortem 如何避免“工程师更小心”这种无效 action item？
-12. 如何把一次客户特有故障抽象成平台级 regression test 与 reusable control？
+1. **FDE-Q173** · 第一天进入陌生客户代码库，你前 90 分钟做什么？
+2. **FDE-Q174** · 一个 Agent 昨天正常、今天成功率下降 20%，如何分层定位？
+3. **FDE-Q175** · 线上错误无法本地复现，你如何固定输入、版本、state 和依赖？
+4. **FDE-Q176** · trace 显示模型输出正常但最终动作错误，下一步检查什么？
+5. **FDE-Q177** · 只在一个 tenant 失败，如何判断权限、数据、config、quota 或版本问题？
+6. **FDE-Q178** · 延迟只有 p99 恶化，平均值不变，你如何调查？
+7. **FDE-Q179** · 新索引上线后引用变差，如何安全回滚并保留证据？
+8. **FDE-Q180** · 工具调用可能重复执行，你如何止损、对账和补偿？
+9. **FDE-Q181** · 高优事故中何时先降级/停用，而不是继续找 root cause？
+10. **FDE-Q182** · 每 20 分钟 exec update 应包含哪些事实、决定、风险和 ask？
+11. **FDE-Q183** · Postmortem 如何避免“工程师更小心”这种无效 action item？
+12. **FDE-Q184** · 如何把一次客户特有故障抽象成平台级 regression test 与 reusable control？
 
 ### 5.13 ROI、采用、变更管理与运营交接（12 题；累计 196）
 
@@ -470,18 +470,18 @@
 - champion、training、feedback channel、SOP、support model、operational owner；
 - 影子使用、selection bias、novelty effect 与 workload shift。
 
-1. 如何为“知识 Agent”定义业务价值，而不只报回答准确率？
-2. 节省时间如何测量，避免 self-report 和 novelty bias？
-3. 用户登录很多但真正完成 workflow 很少，如何诊断 adoption funnel？
-4. 模型质量达到 gate，但用户仍不用，可能有哪些流程和激励原因？
-5. 如何选择 pilot champion，又避免 champion 样本过于理想？
-6. 如何设计培训、office hours、反馈和 escalation？
-7. 人工接管率下降是好事吗？可能隐藏什么风险？
-8. 如何计算 ROI，同时呈现成本、风险和不确定性区间？
-9. 客户要求承诺 50% 效率提升，但没有 baseline，你如何回应？
-10. 什么时候应该停止 pilot，而不是继续调模型？
-11. 从 20 人扩到全组织前，哪些 owner、SOP、SLO 和 support 必须就位？
-12. 如何把系统交给客户运营团队，而不是永远依赖 FDE？
+1. **FDE-Q185** · 如何为“知识 Agent”定义业务价值，而不只报回答准确率？
+2. **FDE-Q186** · 节省时间如何测量，避免 self-report 和 novelty bias？
+3. **FDE-Q187** · 用户登录很多但真正完成 workflow 很少，如何诊断 adoption funnel？
+4. **FDE-Q188** · 模型质量达到 gate，但用户仍不用，可能有哪些流程和激励原因？
+5. **FDE-Q189** · 如何选择 pilot champion，又避免 champion 样本过于理想？
+6. **FDE-Q190** · 如何设计培训、office hours、反馈和 escalation？
+7. **FDE-Q191** · 人工接管率下降是好事吗？可能隐藏什么风险？
+8. **FDE-Q192** · 如何计算 ROI，同时呈现成本、风险和不确定性区间？
+9. **FDE-Q193** · 客户要求承诺 50% 效率提升，但没有 baseline，你如何回应？
+10. **FDE-Q194** · 什么时候应该停止 pilot，而不是继续调模型？
+11. **FDE-Q195** · 从 20 人扩到全组织前，哪些 owner、SOP、SLO 和 support 必须就位？
+12. **FDE-Q196** · 如何把系统交给客户运营团队，而不是永远依赖 FDE？
 
 ### 5.14 Field-to-product、复用与平台化（8 题；累计 204）
 
@@ -491,14 +491,14 @@
 - reusable asset：connector、eval、playbook、reference architecture、policy、template；
 - field signal 的频率、价值、证据、广度和 opportunity cost。
 
-1. 如何判断客户请求应做定制、配置、平台能力还是拒绝？
-2. 三个客户有相似但不相同的需求，如何抽象最小公共原语？
-3. 什么样的 field evidence 足以影响产品 roadmap？
-4. 如何写高质量 product feedback：用户、workflow、频率、影响、workaround、证据、proposal？
-5. 如何避免把产品变成客户特例集合？
-6. 哪些 eval、connector、runbook 或 demo 应做成 reusable asset？
-7. 复用率如何度量？复用本身何时反而拖慢交付？
-8. 描述一次你会把客户需求退回 discovery，而不是进入 build 的情况。
+1. **FDE-Q197** · 如何判断客户请求应做定制、配置、平台能力还是拒绝？
+2. **FDE-Q198** · 三个客户有相似但不相同的需求，如何抽象最小公共原语？
+3. **FDE-Q199** · 什么样的 field evidence 足以影响产品 roadmap？
+4. **FDE-Q200** · 如何写高质量 product feedback：用户、workflow、频率、影响、workaround、证据、proposal？
+5. **FDE-Q201** · 如何避免把产品变成客户特例集合？
+6. **FDE-Q202** · 哪些 eval、connector、runbook 或 demo 应做成 reusable asset？
+7. **FDE-Q203** · 复用率如何度量？复用本身何时反而拖慢交付？
+8. **FDE-Q204** · 描述一次你会把客户需求退回 discovery，而不是进入 build 的情况。
 
 ### 5.15 行为、领导力、冲突与客户沟通（16 题；累计 220）
 
@@ -508,35 +508,35 @@
 - 每个故事标注个人决定、反对意见、数字证据、残余风险与后续机制；
 - 技术工程师、产品负责人、CISO、业务高管四种表达版本。
 
-1. 描述一次你在高度模糊下推进交付。
-2. 描述一次你对客户或高层说“不”或缩小范围。
-3. 描述一次技术方案正确但 stakeholder 没有接受，你学到什么？
-4. 描述一次你与产品/研究/工程对优先级有冲突。
-5. 描述一次你在时间压力下做了可逆与不可逆决定。
-6. 描述一次上线事故：你如何止损、沟通和防复发？
-7. 描述一次你发现自己的主张或指标错了。
-8. 描述一次客户真正问题与最初请求不同。
-9. 描述一次你交付了 0→1，但后来必须平台化或重构。
-10. 描述一次你在没有正式 authority 时推动多方完成工作。
-11. 描述一次你公开暴露坏消息或不确定性。
-12. 描述一次你选择不构建某个功能。
-13. 描述一次你需要快速学习陌生领域并建立可信度。
-14. 如何面对强势但技术判断错误的客户 stakeholder？
-15. 如何同时向工程师和 exec 解释同一个风险？
-16. 你希望同事如何描述你的工作方式？给直接证据。
+1. **FDE-Q205** · 描述一次你在高度模糊下推进交付。
+2. **FDE-Q206** · 描述一次你对客户或高层说“不”或缩小范围。
+3. **FDE-Q207** · 描述一次技术方案正确但 stakeholder 没有接受，你学到什么？
+4. **FDE-Q208** · 描述一次你与产品/研究/工程对优先级有冲突。
+5. **FDE-Q209** · 描述一次你在时间压力下做了可逆与不可逆决定。
+6. **FDE-Q210** · 描述一次上线事故：你如何止损、沟通和防复发？
+7. **FDE-Q211** · 描述一次你发现自己的主张或指标错了。
+8. **FDE-Q212** · 描述一次客户真正问题与最初请求不同。
+9. **FDE-Q213** · 描述一次你交付了 0→1，但后来必须平台化或重构。
+10. **FDE-Q214** · 描述一次你在没有正式 authority 时推动多方完成工作。
+11. **FDE-Q215** · 描述一次你公开暴露坏消息或不确定性。
+12. **FDE-Q216** · 描述一次你选择不构建某个功能。
+13. **FDE-Q217** · 描述一次你需要快速学习陌生领域并建立可信度。
+14. **FDE-Q218** · 如何面对强势但技术判断错误的客户 stakeholder？
+15. **FDE-Q219** · 如何同时向工程师和 exec 解释同一个风险？
+16. **FDE-Q220** · 你希望同事如何描述你的工作方式？给直接证据。
 
 ### 5.16 流程、AI 工具政策、EP、薪酬与 Offer（10 题；累计 230）
 
-1. 这轮 coding/take-home 是否允许 AI、搜索或文档？允许到什么范围？
-2. 如果允许 AI，你如何证明自己理解、审查并拥有最终代码？
-3. 如果不允许 AI，你如何在有限时间保持语法与标准库熟练度？
-4. 公司和该具体岗位是否愿意为需要 EP 的候选人申请？谁能确认？
-5. offer 的 annual fixed cash 是 basic salary、固定 allowance 还是还包含 variable bonus？
-6. equity 的授予单位、vesting、cliff、refresh 和流动性风险是什么？
-7. 旅行时间、周末/跨时区、报销和客户 onsite 如何计算？
-8. level 与 scope 如何对应？成功的前 30/60/90 天是什么？
-9. 同时处理多少客户？on-call、事故、支持与交付边界是什么？
-10. 如果固定薪酬、EP、旅行或岗位实质不满足硬约束，什么条件才值得战略性例外？
+1. **FDE-Q221** · 这轮 coding/take-home 是否允许 AI、搜索或文档？允许到什么范围？
+2. **FDE-Q222** · 如果允许 AI，你如何证明自己理解、审查并拥有最终代码？
+3. **FDE-Q223** · 如果不允许 AI，你如何在有限时间保持语法与标准库熟练度？
+4. **FDE-Q224** · 公司和该具体岗位是否愿意为需要 EP 的候选人申请？谁能确认？
+5. **FDE-Q225** · offer 的 annual fixed cash 是 basic salary、固定 allowance 还是还包含 variable bonus？
+6. **FDE-Q226** · equity 的授予单位、vesting、cliff、refresh 和流动性风险是什么？
+7. **FDE-Q227** · 旅行时间、周末/跨时区、报销和客户 onsite 如何计算？
+8. **FDE-Q228** · level 与 scope 如何对应？成功的前 30/60/90 天是什么？
+9. **FDE-Q229** · 同时处理多少客户？on-call、事故、支持与交付边界是什么？
+10. **FDE-Q230** · 如果固定薪酬、EP、旅行或岗位实质不满足硬约束，什么条件才值得战略性例外？
 
 ---
 

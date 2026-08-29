@@ -1002,6 +1002,59 @@ a:focus-visible {
   color: var(--muted);
 }
 
+.knowledge-presets {
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.knowledge-presets-copy {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 2px;
+}
+
+.knowledge-presets-copy strong {
+  font-size: 11px;
+}
+
+.knowledge-presets-copy span {
+  color: var(--faint);
+  font-size: 8px;
+}
+
+.knowledge-preset-list {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.knowledge-preset-list button {
+  min-height: 30px;
+  padding: 0 10px;
+  color: var(--forest);
+  background: var(--mint);
+  border: 1px solid rgba(57, 116, 90, 0.12);
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.knowledge-preset-list button:hover,
+.knowledge-preset-list button.active {
+  color: #fff;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
 .knowledge-search-shell {
   margin-bottom: 14px;
   padding: 10px;
@@ -2206,6 +2259,15 @@ dialog::backdrop {
 
   .principle-item p {
     display: none;
+  }
+
+  .knowledge-presets {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .knowledge-preset-list {
+    justify-content: flex-start;
   }
 
   .resource-grid {

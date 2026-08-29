@@ -2,7 +2,7 @@
 
 默认目标：Computer Vision / Edge ML / Computational Photography / Multimodal & Agentic AI。P0 共 68 题，先练 P0。
 
-目标为 Forward Deployed Engineer / FDSE / Technical Deployment Lead / Applied AI 时，不在本页继续堆题：使用[《2026 FDE 求职与面试作战指南》](fde-2026-job-search-guide.md)的 230 道岗位定向题与 FDE26-1–9 评分节点。先按真实 JD 做 Strong/Adjacent/Gap，再激活 30–50 道；保留本页的 ML/CV/Edge 深度与每周生产编码，避免把 FDE 误当成免技术路线。
+目标为 Forward Deployed Engineer / FDSE / Technical Deployment Lead / Applied AI 时，不在本页继续堆题：先用[FDE 一页式执行索引](fde-2026-practice-index.md)选择核心 60、72 小时或对应轮次，再进入[《2026 FDE 求职与面试作战指南》](fde-2026-job-search-guide.md)的 FDE-Q001–Q230 与 FDE26-1–9 评分节点。按真实 JD 做 Strong/Adjacent/Gap，只激活 30–50 道；保留本页的 ML/CV/Edge 深度与每周生产编码，避免把 FDE 误当成免技术路线。
 
 ## 通用答题框架
 

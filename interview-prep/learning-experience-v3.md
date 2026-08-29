@@ -82,7 +82,7 @@ Session 中的文本、信心、评分、提示层级、阶段和有效练习时
 
 - Windows 快捷方式以 Chrome/Edge App 模式打开本地页面，形成无地址栏的独立窗口；`launch-learning-os.cmd` 是可移植的回退入口。
 - 目录先用 P1–P8 第一性原理标记文档、章节与练习，再与 K1–K8/META 交叉筛选；同一知识可以服务多个原语和能力簇，不复制正文。
-- 构建脚本把仓库内 28 份 Markdown 拆成 646 个章节索引；搜索同时覆盖章节全文与 70 个多标签 TASKS 中的目标、问题、迁移、提示和 rubric。
+- 构建脚本把仓库内 29 份 Markdown 拆成 676 个章节索引；搜索同时覆盖章节全文与 70 个多标签 TASKS 中的目标、问题、迁移、提示和 rubric。
 
 `knowledge-index.js` 是生成物，不是真源。真源仍是各 Markdown 和 `learning-os.js`；每次修改知识文件后必须重新运行 `node scripts/build-knowledge-index.cjs`。生成器要求每份 Markdown 都有显式元数据，新增文件没有进入目录时构建会失败，而不是静默遗漏。
 

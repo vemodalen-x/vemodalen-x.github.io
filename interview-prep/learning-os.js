@@ -1224,6 +1224,11 @@
     els['knowledge-section-count'].textContent = String(KNOWLEDGE.sectionCount || KNOWLEDGE.sections.length);
     els['knowledge-task-count'].textContent = String(TASKS.length);
     if (els['knowledge-search'].value !== knowledgeState.query) els['knowledge-search'].value = knowledgeState.query;
+    document.querySelectorAll('[data-knowledge-preset]').forEach(function (button) {
+      var active = normalizeKnowledgeText(knowledgeState.query).trim() === normalizeKnowledgeText(button.dataset.knowledgePreset).trim();
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
 
     els['knowledge-principle-list'].innerHTML = Object.keys(PRINCIPLES).map(function (id) {
       var principle = knowledgePrincipleLabel(id);
@@ -1885,6 +1890,15 @@
     els['knowledge-search'].addEventListener('input', function () {
       knowledgeState.query = els['knowledge-search'].value;
       renderKnowledge();
+    });
+    document.querySelectorAll('[data-knowledge-preset]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        knowledgeState.query = button.dataset.knowledgePreset;
+        knowledgeState.documentId = null;
+        els['knowledge-search'].value = knowledgeState.query;
+        renderKnowledge();
+        document.querySelector('.section-index-head').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     });
     els['knowledge-clear'].addEventListener('click', function () {
       knowledgeState.query = '';
