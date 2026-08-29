@@ -22,6 +22,7 @@
 - [Vincent Sitzmann 前沿 CV 学习路线](vincent-sitzmann-cv-plan.md)：把 MIT 课程、SRN、SIREN、Light Field Networks 和世界模型研究组织为几何 → 神经场 → 可微渲染 → 新视角 → 感知—行动的实践链。
 - [Hugging Face Smol Course 后训练路线](smol-course-plan.md)：把 Chat Template、SFT、LoRA、目标任务评测、DPO 和 VLM 组织为三个可验证的面试产物，并处理课程锁定版本与当前 TRL 文档的差异。
 - [SenseNova-U1 原生统一多模态路线](sensenova-u1-plan.md)：围绕 near-lossless visual interface、MoT、CE + pixel-flow、分阶段训练、四层评测与理解—生成解耦推理建立前沿 VLM 面试证据。
+- [Kimi K3 架构、技术报告与 Agent 系统路线](kimi-k3-plan.md)：用 sequence/depth/width/modality 四轴学习 KDA–MLA、AttnRes、Stable LatentMoE，再连接多教师 on-policy 蒸馏、可验证 Agent 环境、百万上下文训练与混合缓存 serving。
 - [《深入理解 AI Agent》面试化学习路线](ai-agents-in-depth-plan.md)：把 307 页中文 PDF 压缩成 8 个核心 Session、3 个岗位选修和 1 个 capstone，覆盖 Harness、上下文/记忆、工具、Coding Agent、评估与多 Agent。
 - [Hello-Agents 实践路线](hello-agents-plan.md)：把 16 章教程压缩为三范式故障实验、最小 Agent runtime、工具/上下文/协议边界、三层评测和单 Agent 优先的项目答辩。
 - [Harness Engineering 面试化学习路线](harness-engineering-plan.md)：把 Coding Agent 的仓库环境拆成 8 个 Session，覆盖 repo-as-record、SPEC/WORKFLOW、Guides × Sensors、Agent 可读性、合并经济学、熵管理与行为正确性。
@@ -34,7 +35,7 @@
 ## 桌面应用与知识检索
 
 - Windows 首次使用：双击 [install-desktop-shortcut.cmd](install-desktop-shortcut.cmd)，桌面会创建应用快捷方式。也可直接双击 [launch-learning-os.cmd](launch-learning-os.cmd)。应用使用本机 Chrome/Edge 的独立窗口，不需要服务器。
-- “知识库”先按 P1–P8 第一性原理建立稳定坐标，再与 K1–K8/META 面试视图交叉筛选；当前索引覆盖全部 26 份 Markdown、530 个标题章节，并与 58 个多标签交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
+- “知识库”先按 P1–P8 第一性原理建立稳定坐标，再与 K1–K8/META 面试视图交叉筛选；当前索引覆盖全部 27 份 Markdown、575 个标题章节，并与 61 个多标签交互练习节点联合检索。`Ctrl/⌘ + K` 可从任意位置聚焦搜索。
 - 知识正文来自仓库内 Markdown，搜索索引是可再生文件。新增或修改资料后，运行 `node scripts/build-knowledge-index.cjs`；构建器会在有文件未被纳入元数据时直接失败，避免静默漏检。
 - 学习状态继续保存在浏览器本地。更新索引或应用文件不会清空进度；换浏览器或迁移电脑前先在应用中导出状态。
 
@@ -46,13 +47,14 @@
 4. CV、3D、Computational Photography 或 world-model 岗命中时，用[Vincent Sitzmann 路线](vincent-sitzmann-cv-plan.md)深化 V5/V6/V13/V14；核心只做坐标网络对照与新视角系统设计，世界模型和“3D 会过时吗”按 JD 选修。
 5. LLM 后训练或多模态岗位命中时，在 Transformer 基础后使用 [Smol Course 路线](smol-course-plan.md)：SFT、评测为核心，DPO/VLM 按 JD 激活；不把 notebook 跑通或 train loss 下降当成掌握。
 6. 多模态生成、VLM Infra 或前沿架构岗位命中时，再用 [SenseNova-U1 路线](sensenova-u1-plan.md)比较典型 VLM 与原生统一模型；它替换一个通用 VLM 设计和一个重复系统白板，不叠加课时。
-7. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)建立原理，用 [Hello-Agents 实践路线](hello-agents-plan.md)完成三范式/最小运行时和评测项目，用[播客听辨路线](agent-harness-podcast-plan.md)形成三层总图，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)。
-8. 目标命中 AI Agent、Applied AI、Deployment 或 FDE 时，选择桌面端 `AI Agent / Forward Deployed` 角色并执行[转型路线](agent-fde-transition-plan.md)：先做 AFD-0 定位，再用一个生产式 Agent 作品串起 discovery、既有系统、eval、rollout 与 live case；这些任务替换普通 Agent 白板和成功 demo，不额外叠加。
-9. Fullstack、Frontend、Backend 或 AI Product Engineer 岗命中，或项目只能讲模型不能讲交付时，用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成一个纵向切片；它替换一次泛化系统设计和多个随机 demo，不叠加课时。
-10. Backend、Platform、Infra、Data、ML Platform 或 Agent Infra 岗命中，或系统设计只会列组件时，用[分布式系统模式路线](distributed-systems-patterns-plan.md)完成复制日志与幂等写两个故障实验；它替换两场泛化白板，不顺序背 30 个模式。
-11. LLM、Agent 或 AI Product 岗需要解释 Prompt 设计，或真实系统出现不稳定输出时，用[高质量 Prompt 工程路线](prompt-engineering-method-plan.md)完成任务契约与冻结评测两个交互节点；它替换重复 Prompt 博客阅读，不背角色/参数配方。
-12. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
-13. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
+7. 前沿 LLM 架构、Agent 模型、训练 Infra 或 Serving JD 命中时，在 G1 Transformer 与 Agent eval 基础后使用 [Kimi K3 路线](kimi-k3-plan.md)：核心只激活架构、Agent 训练、Serving 审计三个评分节点，替换一次 Transformer 泛化白板、一次 Agent 后训练白板和一次系统设计，不额外叠加。
+8. 按缺口路由调用 ML Interviews、Reflection、钥匙书或 Tuning Playbook；Agent 岗或 K8 失分时先使用[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)建立原理，用 [Hello-Agents 实践路线](hello-agents-plan.md)完成三范式/最小运行时和评测项目，用[播客听辨路线](agent-harness-podcast-plan.md)形成三层总图，Coding Agent / Agent Infra 岗再接 [Harness Engineering 路线](harness-engineering-plan.md)。
+9. 目标命中 AI Agent、Applied AI、Deployment 或 FDE 时，选择桌面端 `AI Agent / Forward Deployed` 角色并执行[转型路线](agent-fde-transition-plan.md)：先做 AFD-0 定位，再用一个生产式 Agent 作品串起 discovery、既有系统、eval、rollout 与 live case；这些任务替换普通 Agent 白板和成功 demo，不额外叠加。
+10. Fullstack、Frontend、Backend 或 AI Product Engineer 岗命中，或项目只能讲模型不能讲交付时，用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成一个纵向切片；它替换一次泛化系统设计和多个随机 demo，不叠加课时。
+11. Backend、Platform、Infra、Data、ML Platform 或 Agent Infra 岗命中，或系统设计只会列组件时，用[分布式系统模式路线](distributed-systems-patterns-plan.md)完成复制日志与幂等写两个故障实验；它替换两场泛化白板，不顺序背 30 个模式。
+12. LLM、Agent 或 AI Product 岗需要解释 Prompt 设计，或真实系统出现不稳定输出时，用[高质量 Prompt 工程路线](prompt-engineering-method-plan.md)完成任务契约与冻结评测两个交互节点；它替换重复 Prompt 博客阅读，不背角色/参数配方。
+13. 每道题都要产生口述、代码/测试、图或 mock 记录；真实项目证据必须包含决策、指标、失败和权衡。
+14. 拿到具体 JD 后，再从覆盖池加入公司定向题；新增任务必须服从每周 8–10 小时上限。
 
 ## 题库来源与取舍
 
@@ -68,6 +70,7 @@
 - [Vincent Sitzmann](https://www.vincentsitzmann.com/) 与 [MIT Scene Representation Group](https://www.scenerepresentations.org/)：用于补足相机/多视图几何、神经场、SIREN、可微渲染、新视角合成、视频生成和具身视觉。主页展示的是动态研究选集，不是完整基础课；本准备包按[定向路线](vincent-sitzmann-cv-plan.md)使用 2026 课程与一手项目页交叉验证，并把“3D 会过时”保留为有范围和反例的研究观点。
 - [Hugging Face Smol Course](https://huggingface.co/smol-course)（[v2 仓库](https://github.com/huggingface/smol-course)）：用于小模型 instruction tuning、DPO 与 VLM 实践。当前 v2 实际发布的是 Unit 1–3，Unit 4 仍为 Coming Soon，评测分散在单元练习中；本准备包用[后训练路线](smol-course-plan.md)补齐先评测后训练的闭环，并明确区分课程 lock 与当前 TRL API。默认不创建付费 Job、不上传模型/数据、不公开结果。
 - [OpenSenseNova/SenseNova-U1 中文 README](https://github.com/OpenSenseNova/SenseNova-U1/blob/main/README_CN.md)（[技术报告](https://arxiv.org/abs/2605.12500)）：用于学习无预训练 VE/VAE 的视觉接口、理解—生成 MoT、文本 CE + pixel flow、联合训练与生产推理。README、论文和 demo 属于作者证据；本准备包按[定向路线](sensenova-u1-plan.md)回查代码、评测脚本与已知限制，并明确“near-lossless、unified、8B、低显存”各自的精确定义和反例。默认不下载大型权重、不调用付费 judge。
+- [MoonshotAI/Kimi-K3](https://github.com/MoonshotAI/Kimi-K3)（[技术报告](https://arxiv.org/abs/2607.24653)、[视频领读](https://www.bilibili.com/video/BV1KZ8X6uEPL/)）：用于学习 hybrid KDA–MLA、Attention Residuals、Stable LatentMoE、多教师 on-policy 蒸馏、原生视觉、百万 token Agent RL 与 serving co-design。架构数字和实验结论以官方报告为真源；视频用于论文谱系和第二解释，截至 2026-08-29 无公开字幕/章节，不猜时间轴或讲者原话。执行时使用[面试化路线](kimi-k3-plan.md)，并把约 2.5× scaling efficiency、榜单和系统数字保留为带设置与限制的发布方证据。
 - [Topcoder Fullstack Roadmap](https://topcoderfullstack.com/roadmap)（[40+ 项目页](https://topcoderfullstack.com/projects)）：嵌入式 XMind 适合发现原生 Web、浏览器、Git/Docker、Node/Express、数据库、React/Next 和视觉开发主题；页面显示约一年前更新，并以六个月训练营为背景，不是版本化规范或掌握证明。本准备包按[产品交付路线](topcoder-fullstack-roadmap-plan.md)补入 TypeScript、PostgreSQL、测试、OWASP、安全、可访问性、可观测性与发布/回滚；框架/API 事实以当前官方文档为准。
 - [Catalog of Patterns of Distributed Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)：Unmesh Joshi 在 Martin Fowler 站点发布的 30 个模式短摘要，适合建立分布式存储与协调的模式地图；深入内容主要链接到书籍章节，不是形式化证明或完整目录。本准备包按[故障推理路线](distributed-systems-patterns-plan.md)回查 Paxos、Raft、Spanner 与 Dynamo 一手论文，并补足故障模型、fencing、读语义、幂等副作用、可观测性与确定性故障注入。
 - 用户提供的《高质量 Prompt 是怎么写出来的？》方法稿：保留任务分类、结构化、迭代和场景测试，纠正“默认索取思维链”、固定 temperature/top_p 配方、上下文越多越好和相似度即质量等不稳结论。本准备包按[工程化路线](prompt-engineering-method-plan.md)用 [OpenAI 当前模型指导](https://developers.openai.com/api/docs/guides/latest-model)校准，但所有参数与能力仍以实际供应商、模型快照和 API 为准。

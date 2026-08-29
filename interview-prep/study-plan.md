@@ -181,6 +181,8 @@ LLM/VLM 后训练：使用 [Smol Course 路线](smol-course-plan.md)完成 SC-1�
 
 统一多模态定向：仅当 JD 命中多模态生成、VLM Infra 或前沿模型架构时，使用 [SenseNova-U1 路线](sensenova-u1-plan.md)完成两个 Session：先解释视觉 patch、MoT/mask 和 CE+flow，再设计理解/生成/编辑/交错评测与 LightLLM/LightX2V 部署。它替换一个通用 VLM 设计和一个重复系统白板；其他岗位只在 G8 追问中做 90 秒架构比较。
 
+Kimi K3 定向：仅当前沿 LLM 架构、Agent 模型、训练 Infra、Inference/Serving 或相关研究 JD 命中时，使用 [Kimi K3 路线](kimi-k3-plan.md)。第 5 周完成 KK3 架构与 Agent 训练两个节点：用 sequence/depth/width/modality 四轴解释 KDA–MLA、AttnRes、Stable LatentMoE，再画九教师 RL、MOPD、AET/Harness/verifier；它们分别替换一次 Transformer 泛化白板和一次 Agent 后训练白板。第 6 周相关系统岗再做混合缓存/Serving 审计，替换一场通用系统设计。视频只作论文谱系与第二解释，数字、机制和实验结论回到官方报告；不把发布方的组合效率或榜单当普遍定律。
+
 Agent 工程主线：使用[《深入理解 AI Agent》面试化路线](ai-agents-in-depth-plan.md)完成 AID-1、AID-2、AID-4、AID-6，分别产出 Harness 边界图、context budget、工具 contract/异步状态机和 eval matrix。这四项替换泛读与重复练习，不增加本周总时间。Agent 岗再激活 AID-5、AID-7 和 AID-8；模型后训练、自我进化、多模态章节按 JD 选修。
 
 Agent 实现实验：在 AID-1 后用 [Hello-Agents 路线](hello-agents-plan.md)完成 HA-1/2，把 ReAct、Plan-and-Solve、Reflection 与固定 workflow 放进同一 fake-model/fake-tool 故障实验，并画最小 runtime contract；在 AID-6 后完成 HA-6。它们分别替换一次重复概念阅读和一次泛化评测白板，不增加本周总时间。只有 Agent 应用/平台岗位才在第 6 周激活 HA-7 capstone；低代码/框架横评、Agentic RL 和多 Agent 仿真按 JD 选修。
@@ -196,6 +198,7 @@ Agentic 白板：未激活 Harness Engineering 时，使用 [Codemia](https://co
 本周交付：
 
 - 一页 Transformer inference 速查：attention、KV cache、prefill/decode、GQA、quantization。
+- 前沿 LLM/Agent 模型岗再交一张 K3 四轴架构图、一张 MOPD—Harness—verifier lineage；Serving 岗在第 6 周补 hybrid KDA/MLA cache 状态机与 benchmark evidence card。三项按 JD 替换同类白板，不新增总时长。
 - LLM/Agent/AI Product 岗交付一份 Prompt Contract、20–30 条冻结 eval set、两个确定性 validator 和一张 release/rollback card；它替换一次重复阅读与白板，不新增时长。
 - 一份 SFT evidence card：训练前 baseline、template/token/mask 单测、held-out 与 regression 指标、资源预算；DPO/VLM 岗再附 preference-pair audit 或 image ablation。
 - 多模态生成/infra 岗再交一张 SenseNova-U1 主张—机制—证据矩阵，以及统一模型/解耦运行时架构卡；它替换上述一套泛化系统设计，不新增时长。

@@ -40,7 +40,7 @@
 
 - **核心问题**：对象、shape、单位、坐标、schema、来源、精度和生命周期是什么。
 - **常见错误**：省略 axis/layout；把 embedding 当事实；混淆事件与当前状态；让检索数据反向改写指令。
-- **主要投影**：K2 数学、K5 CV、K6 tensor/runtime、K7 数据结构、K8 token/RAG/多模态。
+- **主要投影**：K2 数学、K5 CV、K6 tensor/runtime、K7 数据结构、K8 token/RAG/多模态，以及 Kimi K3 中“逐 token MLA KV”与“压缩历史的 KDA state”的信息差异。
 - **完成证据**：一张输入—表示—变换—输出图，以及一次替换表征后的信息损失实验。
 
 ### P3 · 机制与不变量（MECH）
@@ -49,7 +49,7 @@
 
 - **核心问题**：状态怎样转移；公式/算法为什么得到结果；什么在每一步保持不变；复杂度来自哪里。
 - **常见错误**：背名词和流程；用相关性替代机制；代码能跑但无法解释正确性。
-- **主要投影**：K2、K4、K5、K7 以及 K8 的 Transformer/分布式机制。
+- **主要投影**：K2、K4、K5、K7 以及 K8 的 Transformer/分布式机制；KDA recurrence、AttnRes 深度选择和 Quantile Balancing 是同一原语的新练习面。
 - **完成证据**：推导或最小实现、一个循环/状态不变量、正常与反例测试。
 
 ### P4 · 状态、时间与协调（STATE）
@@ -58,7 +58,7 @@
 
 - **核心问题**：哪些状态持久/临时；谁拥有；按什么顺序变化；并发、重复、延迟、崩溃后怎样恢复。
 - **常见错误**：把 timeout 当失败；忽略 stale state；把单帧/单请求正确当长程正确；混淆消息到达与副作用提交。
-- **主要投影**：K4 train/eval、K5 temporal、K6 queue、K7 LRU、K8 distributed/Agent/fullstack。
+- **主要投影**：K4 train/eval、K5 temporal、K6 queue、K7 LRU、K8 distributed/Agent/fullstack；KDA checkpoint、MLA KV、partial rollout 与 Agent sandbox 共同训练长程状态所有权。
 - **完成证据**：事件历史或状态机，覆盖 duplicate、reorder、crash、resume 中至少三种故障。
 
 ### P5 · 契约与边界（BOUNDARY）
@@ -67,7 +67,7 @@
 
 - **核心问题**：输入/输出、前置条件、权限、错误语义、幂等、确认、兼容和升级边界是什么。
 - **常见错误**：把模型输出当授权；用文档代替控制面；只写 happy path；把 exactly-once 当组件属性。
-- **主要投影**：全部能力簇，尤其 K3 leakage、K6 parity、K8 RAG/Agent/Prompt/全栈/分布式。
+- **主要投影**：全部能力簇，尤其 K3 leakage、K6 parity、K8 RAG/Agent/Prompt/全栈/分布式；混合 cache 共用内存池但保留不同命中与生命周期语义，是“共享实现不等于共享契约”的反例。
 - **完成证据**：可执行 contract、validator、失败返回和一个越界/不兼容测试。
 
 ### P6 · 不确定性与评估（EVAL）
@@ -76,7 +76,7 @@
 
 - **核心问题**：随机性来自哪里；样本如何代表目标分布；指标与错误成本怎样连接；什么实验能区分竞争解释。
 - **常见错误**：泄漏；只看均值/最好值；相似度代替正确性；judge 未校准；无标签时把 proxy 当真值。
-- **主要投影**：K2 泛化、K3 数据/指标、K4 调参、K5 hard cases、K8 eval/Prompt/Agent。
+- **主要投影**：K2 泛化、K3 数据/指标、K4 调参、K5 hard cases、K8 eval/Prompt/Agent；前沿报告的效率/榜单还要审计模型版本、effort、采样、Harness、工具、日期与失败分母。
 - **完成证据**：冻结 eval set、失败 taxonomy、置信/方差或人工分歧，以及预先定义的接受门槛。
 
 ### P7 · 资源与风险（RESOURCE）
@@ -233,7 +233,7 @@ flowchart LR
 - **P1–P8 原语**：稳定坐标，回答“这个知识为什么存在、依赖什么”。
 - **K1–K8 能力簇**：面试交付视图，回答“在哪类题和岗位中表现出来”。
 - **90 题主库**：问题覆盖池，回答“面试官可能怎样提问”。
-- **58 个交互节点**：核心训练集，回答“今天产生什么可检查证据”；其中 7 个 AFD 节点把 Agent 技术证据连接到 FDE 交付闭环。
+- **61 个交互节点**：核心训练集，回答“今天产生什么可检查证据”；其中 7 个 AFD 节点把 Agent 技术证据连接到 FDE 交付闭环，3 个 Kimi K3 节点连接前沿模型架构、Agent 后训练与百万上下文 serving。
 - **课程/仓库/论文/PDF**：来源与补充，回答“缺口需要用什么证据修复”。
 - **个人项目与 trace**：最高优先级的迁移证据，回答“你是否真的做过决定并承担结果”。
 

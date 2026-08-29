@@ -158,9 +158,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[AI Agent / FDE 转型路线](agent-fde-transition-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、[Prompt 工程路线](prompt-engineering-method-plan.md)、Codemia 和自己的 traces/evals。
-- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → chat/data/eval contract → Prompt Contract/frozen eval → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → RAG/tool contract → Agent Harness/eval → Browser/API/DB 纵向切片 → discovery/scoping → pilot/eval → safety/production rollout → adoption/live case。
-- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、Prompt Contract/eval set、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack、discovery memo、pilot gate、adoption/handoff 和系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[Kimi K3 路线](kimi-k3-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[AI Agent / FDE 转型路线](agent-fde-transition-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、[Prompt 工程路线](prompt-engineering-method-plan.md)、Codemia 和自己的 traces/evals。
+- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → modern hybrid KDA/MLA 与深度/宽度信息流 → chat/data/eval contract → Prompt Contract/frozen eval → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多教师 on-policy Agent 后训练 → RAG/tool contract → Agent Harness/eval → hybrid cache/long-context serving → Browser/API/DB 纵向切片 → discovery/scoping → pilot/eval → safety/production rollout → adoption/live case。
+- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、K3 四轴架构/训练 lineage/混合缓存卡、Prompt Contract/eval set、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack、discovery memo、pilot gate、adoption/handoff 和系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -174,8 +174,8 @@ flowchart LR
 | 2 CV | V1、V2、V3、V10、V14；VSCV-4/5 替换同等时长泛读；hard-case taxonomy | DML 41、73、115 | LC 48 Rotate Image、LC 54 Spiral Matrix、LC 239 Sliding Window Max | 30 分钟 CV depth + 30 分钟神经场/代码复盘 |
 | 3 Training + Edge | M8；E2、E4、E5、E8；parity/latency 图 | DML 15、17、49、160 | LC 215 Kth Largest、LC 146 LRU、LC 912 Sort Array；至少一题 C++ | 45 分钟 coding + Edge follow-up |
 | 4 Data + System | M5、M6、M10、M12；S4、S6；两套系统设计 | DML 18、19 | LC 200 Number of Islands、LC 210 Course Schedule II、LC 322 Coin Change | 45 分钟 ML system design mock |
-| 5 LLM + Agent | G1、G7、G11、G12；PE-0/1/3/4、SC-1/2/4、AID-1/2/4/6 按岗位替换重复阅读；SNU1 两节点仅多模态生成/infra JD 激活 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟 Prompt、后训练、统一多模态或 RAG/Agent mock 四选一 |
-| 6 公司定向 | JD → 证据 → 题号 → 当前评分 → 缺口动作 | 从 14 道中随机 1 道离线实现 | 从 44 道覆盖池随机 1–2 道 | 行为、技术、系统、编码各 1 场全真 mock |
+| 5 LLM + Agent | G1、G7、G11、G12；PE-0/1/3/4、SC-1/2/4、AID-1/2/4/6 按岗位替换重复阅读；SNU1 仅多模态生成/infra、KK3 架构/训练仅前沿 LLM/Agent 模型 JD 激活 | DML 53、107、109 | LC 238 Product Except Self、LC 133 Clone Graph、LC 208 Trie | 45 分钟 Prompt、后训练、统一多模态、K3 或 RAG/Agent mock 五选一 |
+| 6 公司定向 | JD → 证据 → 题号 → 当前评分 → 缺口动作；Agent Infra/Serving 岗可激活 KK3 混合缓存审计 | 从 14 道中随机 1 道离线实现 | 从 44 道覆盖池随机 1–2 道 | 行为、技术、系统、编码各 1 场全真 mock |
 
 这 15 道 DSA 是六周平衡主干，不代表其余 29 道无价值。若目标公司明显 coding-heavy，每周从 Blind 75 缺口或 hard 校准池追加 1–2 道；新增时等量减少阅读，不突破总时长。
 
