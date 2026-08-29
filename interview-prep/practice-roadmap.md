@@ -84,6 +84,7 @@ flowchart LR
 | Agent 仓库工程 | [Harness Engineering 路线](harness-engineering-plan.md) | 把仓库变成 Agent 可导航、可执行、可验证、可持续清理的环境 | 案例结论不直接泛化；仅 Agent/Coding/DevProd 岗默认激活 |
 | Agent Harness 听辨 | [播客实践路线](agent-harness-podcast-plan.md) | 用会跑、跑久、跑稳形成三层总图，并训练观点校验 | 不把嘉宾观点、泄露解读或未来预测当官方事实 |
 | Agent / FDE 转型 | [AI Agent / FDE 转型路线](agent-fde-transition-plan.md) | 用一个生产式 Agent 作品贯通 discovery、既有系统、eval、上线、采用与现场 case | 不把 FDE 当售前或免编码岗位；按具体 JD 校准客户面对、旅行和技术深度 |
+| 2026 FDE 求职闭环 | [新加坡 FDE 作战指南](fde-2026-job-search-guide.md) | 用 230 道题、七个系统 case、九个 FDE26 节点与岗位/EP/薪酬闸门连接备考和求职 | 不顺序背 230 题；按当次 JD 的 Strong/Adjacent/Gap 定向激活 |
 | 全栈产品交付 | [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md) | 把浏览器、API、事务、React 和发布接成一个可重放纵向切片 | 不学完 40+ demo；3D/Wasm/实时按 JD 选修 |
 | 分布式系统模式 | [Martin Fowler 模式路线](distributed-systems-patterns-plan.md) | 用日志、复制、时钟、分区、幂等和 2PC 建立故障推理链 | 不背 30 个名词；目录摘要不能替代论文、实现与故障实验 |
 | Prompt 工程 | [高质量 Prompt 路线](prompt-engineering-method-plan.md) | 把模糊需求写成可验证任务契约，并用冻结评测、版本和发布门槛迭代 | 不背角色模板、隐藏思维链要求或跨模型参数配方 |
@@ -95,7 +96,7 @@ flowchart LR
 ### K1. 项目叙事与 Senior 证据
 
 - **核心题**：R1–R10、B1–B8。
-- **支持材料**：ML Interviews 的 Senior signals；Handbook 的自我介绍、行为故事与 JD 映射。
+- **支持材料**：ML Interviews 的 Senior signals；Handbook 的自我介绍、行为故事与 JD 映射；[2026 FDE 指南](fde-2026-job-search-guide.md)的定位、硬闸门、项目深挖、ROI、EP 与 offer 卡。
 - **练习链**：30 秒定位 → 2 分钟项目故事 → 技术三层追问 → 冲突/失败追问 → hiring-manager mock。
 - **产物**：两版自我介绍、六个母故事、三个项目架构图、每个故事的证据与最不利解读。
 - **过关**：先说影响和个人决策；至少承受三轮 why/why not/what failed，不泄露机密。
@@ -150,6 +151,7 @@ flowchart LR
 - **覆盖池**：AlgoNote 32 + Blind 75 新增 12，共 44 道去重题。
 - **执行协议**：Handbook 的澄清 → baseline/优化 → 边写边解释 → 测试/复盘。
 - **全栈补充**：仅在 Fullstack/AI Product JD 或项目交付证据薄弱时，使用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)的 FS-1/2/3/4/5；沿 Browser → API → Service → DB → Response 写一个 strict TypeScript 纵向切片，不新增算法题量。
+- **FDE 编码补充**：目标是 FDE/FDSE 时，用 FDE26-2 pair build 与 FDE26-3 enterprise integration 替换一场重复 DSA 和一场泛化系统白板；仍保留每周至少一场无 AI/按公司规则执行的生产编码。
 - **六周主干**：只激活下方 15 道；其余是公司定向、随机 mock 或六周后的覆盖池。
 - **练习链**：识别模式 → 写不变量 → 正确 baseline → 复杂度 → 边界测试 → Python/C++ 迁移。
 - **过关**：独立实现、四维评分均至少 3/4；看过题解后必须从空文件重写。
@@ -158,9 +160,9 @@ flowchart LR
 
 - **核心题**：S1–S10、G1–G14。
 - **实现锚点**：Deep-ML 53 Self-Attention、107 Masked Attention、109 LayerNorm。
-- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[Kimi K3 路线](kimi-k3-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[AI Agent / FDE 转型路线](agent-fde-transition-plan.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、[Prompt 工程路线](prompt-engineering-method-plan.md)、Codemia 和自己的 traces/evals。
-- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → modern hybrid KDA/MLA 与深度/宽度信息流 → chat/data/eval contract → Prompt Contract/frozen eval → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多教师 on-policy Agent 后训练 → RAG/tool contract → Agent Harness/eval → hybrid cache/long-context serving → Browser/API/DB 纵向切片 → discovery/scoping → pilot/eval → safety/production rollout → adoption/live case。
-- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、K3 四轴架构/训练 lineage/混合缓存卡、Prompt Contract/eval set、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack、discovery memo、pilot gate、adoption/handoff 和系统设计。
+- **支持材料**：Transformer visual guide、[Smol Course 路线](smol-course-plan.md)、[SenseNova-U1 路线](sensenova-u1-plan.md)、[Kimi K3 路线](kimi-k3-plan.md)、[《深入理解 AI Agent》路线](ai-agents-in-depth-plan.md)、[Hello-Agents 实践路线](hello-agents-plan.md)、[Harness 播客听辨路线](agent-harness-podcast-plan.md)、[Harness Engineering 路线](harness-engineering-plan.md)、[AI Agent / FDE 转型路线](agent-fde-transition-plan.md)、[2026 FDE 指南](fde-2026-job-search-guide.md)、[Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)、[分布式系统模式路线](distributed-systems-patterns-plan.md)、[Prompt 工程路线](prompt-engineering-method-plan.md)、Codemia 和自己的 traces/evals。
+- **练习链**：WAL/recovery → majority/replicated log → membership/lease → clock/version → partition/read semantics → retry/idempotency → 2PC boundary → Transformer shape → modern hybrid KDA/MLA 与深度/宽度信息流 → chat/data/eval contract → Prompt Contract/frozen eval → SFT/LoRA → DPO/VLM → 原生统一理解—生成 → 多教师 on-policy Agent 后训练 → RAG/tool contract → Agent Harness/eval → hybrid cache/long-context serving → Browser/API/DB 纵向切片 → discovery/scoping → ACL-first RAG/企业集成 → pilot/eval → safety/受限部署/事故 → ROI/adoption → field-to-product/live case。
+- **产物**：复制日志 trace、幂等请求状态机、分布式故障矩阵、Transformer inference 卡、K3 四轴架构/训练 lineage/混合缓存卡、Prompt Contract/eval set、template parity test、SFT eval matrix、NEO-unify 架构/runtime card、Agent loop/Harness 图、context budget、工具 contract、分层 eval、仓库地图、全栈 release pack、discovery memo、ACL-first RAG 图、private-cloud runbook、incident update、ROI/adoption memo、field-to-product memo 与系统设计。
 - **过关**：先给简单 baseline；设计包含数据、离线/在线指标、故障、安全、成本、发布和回滚。
 
 ## 六周唯一激活路径
@@ -185,7 +187,7 @@ flowchart LR
 
 若 JD 命中 LLM、Agent、AI Product、Applied AI 或 Prompt/Eval，第 5 周用 PE-0/1/3/4 和两个 Prompt 交互节点替换重复框架阅读；RAG/Agent 追加 PE-2，生产/平台岗位追加 PE-5，但都必须等量删减其他选修。
 
-若 JD 命中 AI Agent、Applied AI、Deployment Engineer 或 FDE，使用[转型路线](agent-fde-transition-plan.md)贯穿六周：第 1 周 AFD-0，第 2–4 周完成 Agent baseline、既有系统 patch 与冻结 eval，第 5 周完成 AFD-1/2/4/5，第 6 周完成 AFD-6。它替换普通 Agent 架构白板、重复框架阅读和成功 demo；每周仍保留一场 DSA/生产编码。
+若 JD 命中 AI Agent、Applied AI、Deployment Engineer 或 FDE，使用[转型路线](agent-fde-transition-plan.md)与[2026 FDE 指南](fde-2026-job-search-guide.md)贯穿六周：第 1 周 AFD-0 + FDE26-1；第 2–3 周完成 Agent baseline、AFD-3、FDE26-2/3；第 4 周完成冻结 eval 与 FDE26-4；第 5 周完成 AFD-1/2/4/5 + FDE26-7；第 6 周完成 AFD-6 + FDE26-5/6/8/9 中与具体 JD/流程相关的节点。它们替换普通 Agent 白板、重复框架阅读、泛化行为题和成功 demo；每周仍保留一场生产编码。
 
 ## 每周 8–10 小时预算
 

@@ -672,6 +672,96 @@
       hints: ['把假设写在图上并主动邀请修正。', '每个组件都连接一个需求、风险或验收信号。', '结束时复述决定、未知项、owner 和下一检查点。'],
       rubric: ['问题 framing 和 discovery 有优先级。', '方案简单、可集成且取舍透明。', '评估、安全、可靠性和采用形成闭环。', '时间管理、协作表达和下一步清楚。'],
       exit: '不用模板，闭卷用 10 分钟重新答辩，并让听者能复述目标、方案、最大风险和下一步。'
+    },
+    {
+      id: 'k1-fde-recruiter-screen-2026', cluster: 'K1', principles: ['P1', 'P5', 'P7', 'P8'], title: 'FDE26-1：Recruiter Screen、岗位边界与硬闸门', kind: 'story', duration: 35, week: 1, prereqs: ['k1-agent-fde-positioning'],
+      goal: '在首轮同时建立可信定位，并尽早验证岗位实质、新加坡地点、旅行、EP 和固定薪酬，避免把时间投入错误流程。', output: '90 秒定位 + FDE/TDL/Applied AI 边界表 + 五个 recruiter 问题 + go/hold/reject 决策。',
+      prompt: '请模拟新加坡 FDE recruiter screen：介绍自己、说明为何转型，并主动澄清编码/客户/旅行比例、EP 支持、固定薪酬与面试 AI 工具政策。',
+      construct: '选一个当前真实 JD，逐条标 Strong/Adjacent/Gap；使用 Singapore、EP unverified、fixed S$150k–170k、旅行/办公可接受性作为硬闸门。没有官方或 recruiter 证据时不能把 EP 标 confirmed。',
+      transfer: '岗位标题是 FDE，但 recruiter 说明只有 20% 编码、同时服务五个客户、固定薪酬明显低于目标且 EP 仍未验证。你怎样礼貌追问并决定 go/hold/reject？',
+      hints: ['先讲直接生产证据，再讲正在补齐的 Agent 证据。', '薪酬把 fixed、bonus、equity 分开。', 'Relocation 或公司办过 EP 都不等于具体岗位已确认。'],
+      rubric: ['定位不虚构企业 Agent 年限。', '能区分岗位族与日常职责。', '硬约束被早期、礼貌、明确地提出。', '决策由证据而不是公司光环驱动。'],
+      exit: '闭卷完成 90 秒定位和五个问题；最后给出该岗位进入下一轮所需的最小证据。'
+    },
+    {
+      id: 'k7-fde-pair-build-2026', cluster: 'K7', principles: ['P2', 'P3', 'P5', 'P6', 'P7', 'P8'], title: 'FDE26-2：90 分钟生产式 Pair Build', kind: 'code', duration: 60, week: 3, prereqs: ['k7-fullstack-vertical-slice'],
+      goal: '证明自己能在合作式环境中澄清 contract、交付可运行纵向切片、测试边界并解释生产取舍，而不是只会算法或让 AI 代写。', output: 'Python API/worker + typed schema + idempotency/timeout + unit/integration tests + 5 分钟 code review。',
+      prompt: '实现一个异步任务 API：提交、查询、取消与重试；依赖工具可能超时且有副作用。先定义状态机和错误契约，再写最小可运行版本。',
+      construct: '按 10 分钟 contract/样例、35 分钟 baseline、15 分钟 tests、10 分钟可靠性/观测、20 分钟 review/变化题切时。记录任何 AI/文档使用，并能逐行解释与修改。',
+      transfer: '面试官要求把 in-memory 状态换成数据库，并保证重复请求不产生重复外部动作。你修改哪些 schema、不变量和测试？',
+      hints: ['先区分 task accepted、running、succeeded、failed、cancelled 与 outcome unknown。', '重试前先问副作用是否已发生。', '时间不足时保留正确 contract、happy path 和最高风险测试。'],
+      rubric: ['contract、状态与错误语义清楚。', '代码可运行、可读且边界测试有效。', '幂等、timeout、取消和观测具体。', '能解释所有代码并合作式调整。'],
+      exit: '不用代码，3 分钟说明状态机、三个最危险边界和生产前仍需补什么。'
+    },
+    {
+      id: 'k7-fde-enterprise-integration', cluster: 'K7', principles: ['P2', 'P3', 'P4', 'P5', 'P6', 'P7'], title: 'FDE26-3：企业数据、身份与集成故障', kind: 'debug', duration: 55, week: 3, prereqs: ['k7-fde-existing-system', 'k8-distributed-idempotency'],
+      goal: '把 source、schema、ACL、identity、webhook、rate limit 和 reconciliation 组织成可诊断的企业集成边界。', output: 'data/identity map + connector contract + failure table + reconciliation tests。',
+      prompt: '一个 SharePoint/Jira/数据库连接器出现重复事件、权限漂移和部分数据过期；只有一个 tenant 失败。请定位并给最小安全修复。',
+      construct: '画 source identity、user/delegated/service identity、ACL/version、cursor/webhook、internal event 和 index 的 lineage；按权限、schema、rate limit、乱序/重复、配置、版本提出可区分实验。',
+      transfer: '客户禁止复制原始数据出 VPC，且权限每小时变化。你如何改变 ingestion、retrieval、cache、telemetry 与 support 方案？',
+      hints: ['只在一个 tenant 失败时先找配置/身份/数据差异。', '权限必须在 retrieval 前生效，删除与变化要有时效 SLO。', '所有外部事件都按至少一次交付设计。'],
+      rubric: ['身份与权限传播链完整。', 'schema/version/lineage 可追踪。', '重复、乱序、部分失败与对账有策略。', '修复最小且含 regression/reconciliation。'],
+      exit: '列出连接器上线必须满足的八个 contract 字段，并指出哪三个失败必须自动降级。'
+    },
+    {
+      id: 'k8-fde-acl-rag-2026', cluster: 'K8', principles: ['P1', 'P2', 'P5', 'P6', 'P7'], title: 'FDE26-4：ACL-first Enterprise RAG', kind: 'design', duration: 60, week: 4, prereqs: ['k8-rag-eval', 'k7-fde-enterprise-integration'],
+      goal: '从 source 权限、版本和删除出发设计企业 RAG，并用 retrieval、citation、abstention、延迟与采用指标证明可上线。', output: '身份/数据/检索架构 + 分层 eval + threat cases + rollout gate。',
+      prompt: '为 5,000 名员工设计跨 SharePoint、Jira 与内部数据库的知识助手；权限频繁变化，答案必须引用，不能跨租户泄露。',
+      construct: '覆盖 SSO/claims、ACL sync、version/delete、hybrid retrieval、ACL pre-filter、rerank、context、citation entailment、abstention、cache isolation、retrieval/e2e/safety eval、p95/cost/canary。',
+      transfer: '离线答案正确率上升，但引用支持率与高权限文档泄露测试退化。你是否发布？怎样定位并重切 gate？',
+      hints: ['权限过滤不能放到生成后补。', '把 retrieval miss、bad context、unsupported generation 分开。', '引用格式正确不等于证据真的支持主张。'],
+      rubric: ['ACL 贯穿 source 到 answer。', '检索/引用/回答评估分层。', '版本、删除、缓存和多租户边界完整。', 'release gate 同时覆盖质量、安全、延迟与采用。'],
+      exit: '闭卷画出十个框，并用 2 分钟说明最危险的三个 trust boundary。'
+    },
+    {
+      id: 'k8-fde-restricted-deployment', cluster: 'K8', principles: ['P4', 'P5', 'P6', 'P7', 'P8'], title: 'FDE26-5：Private Cloud / On-prem 受限部署', kind: 'design', duration: 55, week: 6, prereqs: ['k8-fde-production-rollout'],
+      goal: '在数据不出 VPC、GPU 有限、升级窗口稀疏的环境中定义可交付架构、支持边界与回滚证据。', output: 'deployment bill of materials + capacity/quality trade-off + offline eval/telemetry + upgrade/rollback runbook。',
+      prompt: '金融客户要求 private cloud，生产数据不能出网，每季度只能升级一次，GPU 预算有限。请设计部署与运营方案。',
+      construct: '列模型/镜像/依赖/SBOM、identity/secret/certificate、capacity、量化/路由、local retrieval、离线 eval、support bundle、telemetry export、compatibility、atomic rollback 与 ownership。',
+      transfer: '安全团队进一步要求 air-gap，且不允许远程 shell。哪些功能停止承诺，怎样提供可审计支持与安全更新？',
+      hints: ['先区分 private cloud、on-prem 与 air-gap。', '把安装、运行、升级、故障、退役五个生命周期都写出来。', '没有远程观测时 support bundle 本身就是产品能力。'],
+      rubric: ['约束改变了架构而非只改部署地点。', '供应链、密钥和离线观测具体。', '容量/质量/成本 trade-off 可验证。', '升级、回滚与双方责任清楚。'],
+      exit: '用一页 production-readiness checklist 说明哪些五项不满足就拒绝上线。'
+    },
+    {
+      id: 'k8-fde-incident-command', cluster: 'K8', principles: ['P1', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'], title: 'FDE26-6：Agent 生产事故指挥与复盘', kind: 'debug', duration: 55, week: 6, prereqs: ['k8-fde-production-rollout', 'k7-fde-existing-system'],
+      goal: '在高风险未授权工具调用中先控制 blast radius、保全证据、对账和沟通，再定位并形成平台级回归。', output: '0–30 分钟时间线 + hypothesis/experiment table + exec updates + postmortem actions。',
+      prompt: '新模型 canary 后 2% 高风险任务出现未授权工具调用；部分动作结果未知。你是 incident commander，前 30 分钟怎么做？',
+      construct: '定义 severity/roles；kill switch/side-effect disable；按 tenant/task/model/tool/policy/time 定界；保留 trace/audit；reconcile；固定 update cadence；再分 model/context/policy/tool/harness root cause。',
+      transfer: '客户要求立刻给根因，但你只有相关性证据；同时业务要求恢复服务。你如何汇报不确定性并设计安全降级？',
+      hints: ['Mitigation 可以先于 root cause。', '结果未知的副作用不能盲目重试。', 'Action item 必须有 owner、日期和可验证完成条件。'],
+      rubric: ['先止损并保护证据。', '定界与假设实验能区分层级。', '沟通结论/未知/决定/ask 清楚。', '复盘产生回归、控制和平台复用。'],
+      exit: '闭卷做一份 90 秒 exec update：事实、影响、当前措施、未知、下一决定与时间。'
+    },
+    {
+      id: 'k1-fde-executive-roi', cluster: 'K1', principles: ['P1', 'P6', 'P7', 'P8'], title: 'FDE26-7：Executive ROI、采用与坏消息', kind: 'story', duration: 45, week: 5, prereqs: ['k8-fde-eval-pilot'],
+      goal: '把离线质量、工作流、采用、成本和风险连接成可决策的高管更新，而不是演示技术指标。', output: 'value hypothesis + baseline/ROI 表 + adoption funnel + 一页 go/stop/reshape memo。',
+      prompt: 'Pilot 离线质量达标，但用户重复使用率低、人工修订仍高；exec sponsor 期望宣布成功。你如何汇报并建议下一步？',
+      construct: '区分 eligible/activated/repeated/completed/retained，检查 selection/novelty bias；把 time/quality/risk/cost 与不确定性连接，给 stop、reshape、scale 三个 option 和推荐。',
+      transfer: '客户要求承诺 50% 效率提升，但没有可信 baseline。你如何保留关系、拒绝虚假承诺并设计测量？',
+      hints: ['结论先行，技术细节只支持决定。', '登录或好评不等于 workflow outcome。', '每个指标包含分母、时间窗、owner 与 counterfactual。'],
+      rubric: ['ROI 不混淆质量、采用与财务结果。', '偏差和不确定性诚实。', '给出明确 options、trade-off 与 ask。', '能在压力下报告坏消息。'],
+      exit: '用 2 分钟向 exec sponsor 推荐 stop、reshape 或 scale，并让听者能复述证据和最大不确定性。'
+    },
+    {
+      id: 'k8-fde-field-to-product', cluster: 'K8', principles: ['P1', 'P5', 'P6', 'P8'], title: 'FDE26-8：Field-to-Product 复用与平台化', kind: 'design', duration: 45, week: 6, prereqs: ['k8-fde-live-case'],
+      goal: '把多个客户现场信号区分为配置、connector、reusable pattern、core product gap 或应拒绝的定制。', output: '三客户需求矩阵 + 最小公共原语 + product feedback memo + 复用指标。',
+      prompt: '三个客户提出相似但不同的审批、工具和审计需求。哪些做配置，哪些做平台能力，哪些不做？',
+      construct: '按 workflow、频率、价值、数据/身份、风险、workaround、客户广度和 opportunity cost 比较；设计最小公共 primitive、迁移路径、backward compatibility 与 reusable eval。',
+      transfer: '产品团队拒绝你的平台提案，认为证据只来自一个大客户。你还需要收集什么 field signal，短期怎样交付而不制造永久特例？',
+      hints: ['相似 UI 不代表相同领域不变量。', '先抽象 policy/tool/approval/eval 原语，再谈统一产品。', '复用率是信号，不是目的。'],
+      rubric: ['one-off、config 与 product gap 区分清楚。', '抽象由多客户证据支持。', '兼容、迁移和机会成本具体。', 'feedback memo 能被产品团队行动。'],
+      exit: '写一段七句 field-to-product memo：用户、workflow、频率、影响、workaround、证据、建议。'
+    },
+    {
+      id: 'k1-fde-offer-ep-negotiation', cluster: 'K1', principles: ['P1', 'P5', 'P7', 'P8'], title: 'FDE26-9：EP、固定薪酬与 Offer 决策', kind: 'story', duration: 35, week: 6, prereqs: ['k1-fde-recruiter-screen-2026'],
+      goal: '把 Employment Pass、fixed/variable/equity、level、旅行、on-call 与岗位实质拆开验证，避免把口头信号当确认。', output: 'offer comparison table + recruiter questions + BATNA + go/hold/reject 决策记录。',
+      prompt: '你收到 FDE offer：总包听起来达标，但 fixed 低于 S$150k；bonus/equity 占比高，EP 仅口头说“通常可以”，旅行可能 50%。你怎样澄清和谈判？',
+      construct: '按 annual basic、fixed allowance、AWS、variable、sign-on、equity/vesting、benefit、travel/on-call 拆分；要求具体岗位 EP 证据；验证 level/scope/90-day success；记录硬闸门与战略例外条件。',
+      transfer: '另一份 Applied AI offer fixed 更高、EP 更清楚，但 Agent/FDE scope 较弱。你如何用职业证据、风险和 BATNA 比较，不被标题左右？',
+      hints: ['总包不等于 fixed annual cash。', 'EP 由雇主/agent 申请，未获具体确认就是 unverified。', '例外要提前写条件，不能在公司光环下临时移动门槛。'],
+      rubric: ['薪酬口径完整且不混算。', 'EP、地点、旅行与 scope 有证据状态。', '谈判围绕价值与可比较条款。', '最终决定可审计且保留 BATNA。'],
+      exit: '闭卷列出签 offer 前必须书面澄清的十项，并说明哪三项是不可交换硬闸门。'
     }
   ];
 
@@ -1038,6 +1128,7 @@
   }
 
   function taskPrinciples(task) {
+    if (Array.isArray(task.principles) && task.principles.length) return task.principles.slice();
     return Object.keys(PRINCIPLES).filter(function (id) {
       return (PRINCIPLE_TASK_IDS[id] || []).indexOf(task.id) >= 0;
     });
@@ -1116,7 +1207,8 @@
         return taskMatchesPrinciple(task, knowledgeState.principle);
       }).map(function (task) {
         var body = [task.goal, task.output, task.prompt, task.construct, task.transfer, task.exit, task.hints.join(' '), task.rubric.join(' '), taskPrinciples(task).join(' ')].join(' ');
-        return { type: 'task', item: task, score: knowledgeMatchScore(query, task.title, body) + 4 };
+        var matchScore = knowledgeMatchScore(query, task.title, body);
+        return { type: 'task', item: task, score: matchScore > 0 ? matchScore + 4 : 0 };
       }).filter(function (result) { return result.score > 0; });
     }
 

@@ -2,7 +2,7 @@
 
 这条路线解决的不是“再学几个 Agent 框架”，而是把现有 AI/CV/Edge 工程能力改造成两类岗位都认可的交付证据。AI Agent Engineer 负责让模型、工具、状态、评测和控制面可靠协作；Forward Deployed Engineer（FDE）负责在陌生客户环境中发现高价值问题，把方案接入既有系统，推进上线、采用和复用。两者共享同一条主干：**从模糊业务问题到可度量、可运行、可审计的生产系统**。
 
-岗位名称变化很快。这里把 OpenAI 的 FDE / AI Deployment Engineer、Anthropic 的 Forward Deployed / Applied AI Engineer、Palantir 的 Forward Deployed Software Engineer 视为相邻但不完全相同的岗位族；申请时仍要逐条映射具体 JD。本路线依据 2026-08-02 可访问的官方岗位与面试资料建立，不把招聘页当永久规范。
+岗位名称变化很快。这里把 FDE / FDSE、Technical Deployment Lead、Applied AI / Technical Success 与 Solutions 类岗位视为相邻但不完全相同的岗位族；申请时仍要逐条映射具体 JD。本路线依据 2026-08-29 可访问的官方岗位与面试资料建立，不把招聘页当永久规范。岗位筛选、EP/薪酬闸门、230 道题库、七个系统设计 case、十二周求职节奏与公司专项模板见[《2026 FDE 求职与面试作战指南》](fde-2026-job-search-guide.md)。
 
 ## 0. 先给结论
 
@@ -37,7 +37,7 @@
 
 核心问题是：在客户目标、数据、组织、旧系统、合规和时间都不完整的情况下，怎样选中值得做的问题并交付可持续采用的系统。
 
-OpenAI 当前 FDE 岗位把职责写成 discovery、technical scoping、system design、build、production rollout，并用生产采用、工作流影响和 eval 驱动反馈衡量成功；AI Deployment Engineer 还明确要求处理集成、可靠性、可观测性、安全、隐私、治理、性能与成本。换言之，FDE 不是“会演示 API 的售前”，也不是“客户说什么就定制什么”的外包开发。
+OpenAI 当前新加坡 FDE 岗位把职责写成 discovery、technical scoping、system design、build、production rollout，并用生产采用、工作流影响和 eval 驱动反馈衡量成功；同一岗位族的 Technical Deployment Lead 进一步拥有多工作流排序、ROI、变更管理与复用。换言之，FDE 不是“会演示 API 的售前”，也不是“客户说什么就定制什么”的外包开发。
 
 面试信号通常包括：
 
@@ -83,10 +83,11 @@ OpenAI 当前 FDE 岗位把职责写成 discovery、technical scoping、system d
 
 | 一手来源 | 当前信号 | 对备考的直接影响 |
 | --- | --- | --- |
-| [OpenAI FDE](https://openai.com/careers/forward-deployed-engineer-%28fde%29-seattle-seattle/) | discovery 到 production rollout；生产采用、工作流影响、field feedback；全栈代码与高压判断 | 必须练客户 case、范围取舍、上线和可复用反馈，不能只练 Agent 架构 |
-| [OpenAI AI Deployment Engineer](https://openai.com/careers/ai-deployment-engineer-enterprise-san-francisco/) | 架构、实现计划、eval、可靠性、可观测性、安全、治理、延迟和成本；成功不是 demo | 作品集必须有 eval harness、生产约束、adoption 和 business outcome |
+| [OpenAI Singapore FDE](https://openai.com/careers/forward-deployed-engineer-singapore-singapore/) | discovery 到 production rollout；生产采用、工作流影响、field feedback；生产全栈代码与高压判断 | 必须练客户 case、范围取舍、上线和可复用反馈，不能只练 Agent 架构 |
+| [OpenAI Singapore Technical Deployment Lead](https://openai.com/careers/technical-deployment-lead-singapore-singapore/) | 多工作流计划、依赖/里程碑、ROI、采用、变更管理与 pattern reuse | 区分 hands-on FDE 与 delivery leadership；准备排序、exec update 与价值测量 |
+| [OpenAI Singapore Applied AI Engineer, Cyber](https://openai.com/careers/applied-ai-engineer-cyber-singapore/) | discovery、prototype、pilot criteria、tool/retrieval/eval/guardrail/telemetry 与 field assets | 用来校准 Applied AI 相邻岗位；没有 cyber 领域证据时不能把它当强匹配 |
 | [OpenAI Interview Guide](https://openai.com/interview-guide/) | assessment 可能是 pair coding、take-home 或技术测试；最终轮强调设计、代码质量、性能、测试、沟通 | 同时准备 DSA、可维护代码、测试、项目深挖与合作式思考 |
-| [Anthropic Applied AI Engineer](https://job-boards.greenhouse.io/anthropic/jobs/5343697008) | eval、harness hill-climbing、Agent 原型、pair programming、代码贡献、教学与生态工具 | 需要 builder credibility、现场共同开发、技术讲解和 1→N 复用 |
+| [Anthropic Careers](https://www.anthropic.com/careers) | 强调直接证据、技术 assessment 与岗位特定 AI 工具规则；签证支持按具体岗位判断 | 面试前确认工具政策；用可验证代码和作品说话，不用课程完成度替代证据 |
 | [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) | 从最简单方案开始；workflow 与 Agent 分开；复杂性必须由效果证明 | 系统设计先给非 Agent / workflow baseline，再证明自治必要性 |
 | [Anthropic Agent Evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | 多轮 Agent 要评估完整轨迹和环境结果，不能只看末尾文本 | 准备可重放环境、trace grader、单测/状态检查和失败 taxonomy |
 | [Palantir 工程面试指南](https://www.palantir.com/careers/getting-hired/) | coding、效率、开放题、技术问题和既有系统；要求讲清思路与澄清 | 增加陌生代码库修改、开放式 case、复杂度和协作式白板 |

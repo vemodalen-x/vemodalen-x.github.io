@@ -189,7 +189,7 @@ Agent 实现实验：在 AID-1 后用 [Hello-Agents 路线](hello-agents-plan.md
 
 Coding Agent / Agent Infra 定向：接着用 [Harness Engineering 路线](harness-engineering-plan.md)完成 HE-1、HE-3、HE-6，产出仓库地图、Guides × Sensors 矩阵和行为验证阶梯。这三项替换一次 Codemia 白板、重复 Agent 阅读和一次泛化系统设计，不增加本周总时间；通用 ML/CV 岗不默认激活。
 
-AI Agent / FDE 转型定向：使用[转型路线](agent-fde-transition-plan.md)把本周分散的 Agent 内容收束到同一作品。第 1–4 周应已完成 AFD-0 定位、最小 workflow/Agent、一次陌生 repo patch 和冻结 eval；本周完成 AFD-1 discovery、AFD-2 架构选择、AFD-4 pilot gate 与 AFD-5 production rollout。它们替换普通 Agent 白板、重复框架阅读和成功 demo，不叠加课时。
+AI Agent / FDE 转型定向：使用[转型路线](agent-fde-transition-plan.md)与[2026 FDE 指南](fde-2026-job-search-guide.md)把本周分散的 Agent 内容收束到同一作品。第 1–4 周应已完成 AFD-0 定位、FDE26-1 recruiter/硬闸门、最小 workflow/Agent、FDE26-2 pair build、FDE26-3 企业集成、一次陌生 repo patch、冻结 eval 与 FDE26-4 ACL-first RAG；本周完成 AFD-1 discovery、AFD-2 架构选择、AFD-4 pilot gate、AFD-5 production rollout 与 FDE26-7 ROI/adoption。它们替换普通 Agent 白板、重复框架阅读、泛化行为题和成功 demo，不叠加课时。
 
 听觉总图：在 AID-1/2 后使用[《探秘 Claude Code，搞懂 Agent Harness》路线](agent-harness-podcast-plan.md)完成 AHP-1；只精听 01:52–38:52 的技术段并产出三层图。Agent/Coding 岗再做 AHP-2，它替换一次重复 Harness 阅读，不叠加时长。
 
@@ -231,7 +231,7 @@ JD 要求 → 简历证据 → 题库题号 → 当前评分 → 缺口动作
 
 Fullstack / Frontend / Backend / AI Product Engineer 定向：使用 [Topcoder Fullstack 路线](topcoder-fullstack-roadmap-plan.md)完成 FS-5、FS-6、FS-7，并闭卷完成两个交互节点。它接续第 1 周 FS-0/1 与第 3–4 周 FS-2/3/4，交付一个 Browser → API → Service → PostgreSQL 的 strict TypeScript 纵向切片，以及 test matrix、threat model、SLO/trace、CI、migration 和 rollback。它替换一场泛化系统设计与多个随机 demo；通用 ML/CV 岗只有在项目交付证据薄弱时才做 FS-0/3/6。
 
-AI Agent / FDE 岗把本周一场系统设计 mock 替换为 AFD-6：60 分钟内完成 discovery、范围、架构/集成、eval、生产上线、采用与反对意见处理；再用 10 分钟答辩。另保留一场生产编码或陌生 repo 修改，避免把 FDE 误当成免编码通道。
+AI Agent / FDE 岗把本周一场系统设计 mock 替换为 AFD-6：60 分钟内完成 discovery、范围、架构/集成、eval、生产上线、采用与反对意见处理；再用 10 分钟答辩。按真实流程从 FDE26-5 受限部署、FDE26-6 事故指挥、FDE26-8 field-to-product、FDE26-9 EP/offer 中选择两个替换泛化行为/系统题；另保留一场 FDE26-2 生产编码或陌生 repo 修改，避免把 FDE 误当成免编码通道。230 道题只按 JD 激活 30–50 道，不顺序背诵。
 
 算法 mock 从 AlgoNote 32 + Blind 75 新增 12 题中随机抽取；不按题单顺序，也不把“曾经 AC”视为掌握。
 
