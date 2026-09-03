@@ -9,6 +9,7 @@ const allPrinciples = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'];
 const metadata = {
   'README.md': { kind: '准备包入口', description: '全部学习材料、来源取舍与推荐使用顺序。', clusters: allClusters, order: 1 },
   'first-principles-knowledge-map.md': { kind: '第一性原理地图', description: '八个跨领域原语、通用答题内核、P×K 交叉表与缺口路由。', clusters: allClusters, order: 2 },
+  'ai-era-learning-operating-system.md': { kind: '人机学习协议', description: '双能力账户、AI 开关、委托契约、人工审计、延迟迁移与 Learn + Ship + Close。', clusters: allClusters, order: 2.5 },
   'practice-roadmap.md': { kind: '统一路线', description: '八个能力簇、依赖关系、六周激活路径与缺口路由。', clusters: allClusters, order: 3 },
   'study-plan.md': { kind: '六周计划', description: '每周目标、每日训练、复习间隔、自测与临场策略。', clusters: allClusters, order: 4 },
   'question-bank.md': { kind: '核心题库', description: '90 道项目、ML、CV、端侧、系统、Agent、编码与行为题。', clusters: allClusters, order: 5 },
@@ -41,6 +42,7 @@ const metadata = {
 const principlesByDocument = {
   'README.md': allPrinciples,
   'first-principles-knowledge-map.md': allPrinciples,
+  'ai-era-learning-operating-system.md': allPrinciples,
   'practice-roadmap.md': allPrinciples,
   'study-plan.md': allPrinciples,
   'question-bank.md': allPrinciples,

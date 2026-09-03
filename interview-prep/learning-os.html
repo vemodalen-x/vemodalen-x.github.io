@@ -74,7 +74,9 @@
             <option value="30">30 分钟</option>
             <option value="45">45 分钟</option>
             <option value="60">60 分钟</option>
-            <option value="90" selected>90 分钟</option>
+            <option value="75" selected>标准 75 分钟</option>
+            <option value="90">90 分钟</option>
+            <option value="120">深度 120 分钟</option>
           </select>
         </label>
         <div class="profile-rule">
@@ -184,9 +186,10 @@
         <div class="principle-list" id="knowledge-principle-list"></div>
       </div>
 
-      <div class="knowledge-presets" aria-label="FDE 快速入口">
-        <div class="knowledge-presets-copy"><strong>FDE 快速入口</strong><span>按目标进入，不必先浏览全部资料</span></div>
-        <div class="knowledge-preset-list" role="group" aria-label="FDE 检索预设">
+      <div class="knowledge-presets" aria-label="学习快速入口">
+        <div class="knowledge-presets-copy"><strong>学习快速入口</strong><span>先选执行协议或面试目标，不必浏览全部资料</span></div>
+        <div class="knowledge-preset-list" role="group" aria-label="学习检索预设">
+          <button type="button" data-knowledge-preset="Human Leverage">AI 时代学习</button>
           <button type="button" data-knowledge-preset="FDE26">9 个专项练习</button>
           <button type="button" data-knowledge-preset="FDE-CORE">核心 60</button>
           <button type="button" data-knowledge-preset="FDE-72H">72 小时路线</button>
@@ -197,7 +200,7 @@
       </div>
 
       <div class="knowledge-search-shell">
-        <label for="knowledge-search"><span aria-hidden="true">⌕</span><input id="knowledge-search" type="search" autocomplete="off" placeholder="搜索：FDE-Q111、FDE26、RAG、行为面试、Harness…"><kbd>Ctrl K</kbd></label>
+        <label for="knowledge-search"><span aria-hidden="true">⌕</span><input id="knowledge-search" type="search" autocomplete="off" placeholder="搜索：Human Leverage、FDE-Q111、RAG、Harness…"><kbd>Ctrl K</kbd></label>
         <button class="quiet-button" id="knowledge-clear" type="button">清除</button>
       </div>
 
@@ -257,7 +260,7 @@
 
   <footer>
     <p>Interview Learning OS V3 · delayed transfer · local evidence</p>
-    <p><a href="practice-roadmap.md">统一练习脉络</a> · <a href="ai-agents-in-depth-plan.md">Agent 深度路线</a> · <a href="harness-engineering-plan.md">Harness 工程路线</a> · <a href="study-plan.md">六周计划</a> · <a href="README.md">准备包入口</a></p>
+    <p><a href="practice-roadmap.md">统一练习脉络</a> · <a href="ai-era-learning-operating-system.md">人机学习协议</a> · <a href="ai-agents-in-depth-plan.md">Agent 深度路线</a> · <a href="harness-engineering-plan.md">Harness 工程路线</a> · <a href="study-plan.md">六周计划</a> · <a href="README.md">准备包入口</a></p>
   </footer>
 
   <dialog id="session-dialog" aria-labelledby="session-title">
@@ -286,6 +289,7 @@
       <div class="session-body">
         <section class="phase-panel" data-phase-panel="0">
           <p class="phase-kicker">ORIENT</p>
+          <p class="phase-ai-policy define">AI RULES · 先定义目标与权限</p>
           <h3>先确认本次要留下什么证据</h3>
           <div class="orient-grid">
             <article><span>目标</span><p id="orient-goal"></p></article>
@@ -299,6 +303,7 @@
 
         <section class="phase-panel" data-phase-panel="1" hidden>
           <p class="phase-kicker">RETRIEVE</p>
+          <p class="phase-ai-policy off">AI OFF · 暴露真实基线</p>
           <h3>闭卷回答。不要先搜索。</h3>
           <div class="prompt-card"><p id="retrieve-prompt"></p></div>
           <label class="range-label">
@@ -313,6 +318,7 @@
 
         <section class="phase-panel" data-phase-panel="2" hidden>
           <p class="phase-kicker">CONSTRUCT</p>
+          <p class="phase-ai-policy optional">AI OPTIONAL · 先写委托契约</p>
           <h3>把理解变成可检查的产物</h3>
           <p class="construct-brief" id="construct-brief"></p>
           <label class="textarea-label">
@@ -329,6 +335,7 @@
 
         <section class="phase-panel" data-phase-panel="3" hidden>
           <p class="phase-kicker">CHALLENGE</p>
+          <p class="phase-ai-policy critic">AI AS CRITIC · 人决定是否修订</p>
           <h3>换约束，检查是否只是记住表面答案</h3>
           <div class="prompt-card transfer"><p id="transfer-prompt"></p></div>
           <label class="textarea-label">
@@ -339,6 +346,7 @@
 
         <section class="phase-panel" data-phase-panel="4" hidden>
           <p class="phase-kicker">FEEDBACK</p>
+          <p class="phase-ai-policy verify">HUMAN VERIFIES · AI 只给第二意见</p>
           <h3>按证据评分，不按流畅度评分</h3>
           <div class="rubric-card">
             <strong>本题 rubric</strong>
@@ -359,6 +367,7 @@
 
         <section class="phase-panel" data-phase-panel="5" hidden>
           <p class="phase-kicker">CONSOLIDATE</p>
+          <p class="phase-ai-policy off">AI OFF · 结算无辅助能力</p>
           <h3>关闭帮助，完成无辅助 exit ticket</h3>
           <div class="prompt-card exit"><p id="exit-prompt"></p></div>
           <label class="textarea-label">

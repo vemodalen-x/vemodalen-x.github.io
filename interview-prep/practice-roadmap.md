@@ -49,6 +49,8 @@ flowchart LR
 5. **Feedback**：按 rubric 反馈；只有卡住时逐级给提示。
 6. **Consolidate**：关闭帮助做 exit ticket，记录证据、信心和下次复习。
 
+六步之下统一使用[AI 时代人机学习协议](ai-era-learning-operating-system.md)：Retrieve 是 `H0 / AI OFF` 真实基线；Construct 可在九项委托契约后进入 `A1 / AI ON`；Challenge 与 Feedback 属于 `H2 / HUMAN AUDIT`；到期后的 Consolidate/Review 才是 `T3 / AI OFF` 延迟迁移。Agent 完成本次任务与人掌握该能力必须分账记录。
+
 推荐下一题使用透明启发式：35% 掌握缺口 + 25% JD 相关性 + 20% 遗忘风险 + 15% 前置解锁 + 5% 交互形式多样性。推荐必须说明理由，学习者可以改选；不要把规则分数伪装成精确的学习概率。
 
 每个节点同时评估 Correctness、Reasoning、Transfer、Communication、Independence。Transfer 或 Independence 低于 3 时，即使平均分高，也不能晋级“可面试”。详细设计见 [Learning OS V2](learning-experience-v2.md)。
@@ -66,6 +68,7 @@ flowchart LR
 | 层级 | 主材料 | 在练习链中的职责 | 不做什么 |
 | --- | --- | --- | --- |
 | 底层坐标 | [第一性原理知识地图](first-principles-knowledge-map.md) | 用目标、表征、机制、状态、边界、评估、资源与 ownership 统一全部领域 | 不成为第九个能力簇或另一套必背题库 |
+| 人机执行协议 | [AI 时代的人机学习操作系统](ai-era-learning-operating-system.md) | 决定何时关 AI、何时委托、如何审计、怎样延迟迁移，并维护人的基础账户与 Agent 杠杆账户 | 不新增课程，不用 Agent 产出冒充人的掌握 |
 | 核心问题 | [90 题主库](question-bank.md) | 定义面试官可能追问的原理、项目、系统和行为问题 | 不把短答案背成固定稿 |
 | 算法覆盖池 | [AlgoNote 32](algo-note-plan.md) + [Blind 75 补充 12](blind-75-plan.md) | 提供 44 道去重后的 DSA 模式池 | 六周默认不要求刷完 44 道 |
 | ML 实现 | [Deep-ML 14](deep-ml-plan.md) | 把公式、shape、数值稳定性变成可测试代码 | 不用 AC 代替生产理解 |
@@ -211,7 +214,11 @@ flowchart LR
     主 P 原语 / 迁移 P 原语：
     主锚点（题号或产物）：
     当前级别：0 未见 / 1 学习 / 2 可独立 / 3 可面试 / 4 稳定
+    人的基础账户（AI OFF 能做什么）：
+    Agent 杠杆账户（委托后放大什么）：
     首次闭卷结果：
+    Agent 委托契约 / 使用范围：
+    人工审计：真源 / 正常 / 边界 / 失败 / 安全
     具体缺口：知识 / 证据 / 结构 / 表达 / 实现 / 测试
     本次最小补充来源：
     输出证据：答案卡 / 代码 / 测试 / 图 / trace / mock
@@ -219,6 +226,7 @@ flowchart LR
     五维评分：Correctness / Reasoning / Transfer / Communication / Independence
     作答前信心（0–100）/ 校准误差：
     使用提示层级：0 / L1 / L2 / L3
+    是否完成延迟 AI OFF 迁移：是 / 否
     下一步：
 
 ### 晋级规则
@@ -262,15 +270,15 @@ flowchart LR
 
 ## 第一个七天：直接照此开始
 
-1. **Day 0**：做 60 分钟基线，只评分，不读答案。
-2. **Day 1**：完成 30 秒/2 分钟自我介绍和一个母故事；练 R1、B1。
-3. **Day 2**：闭卷回答 M1；完成 Deep-ML 10；写协方差 orientation 与分母反例。
-4. **Day 3**：完成 Two Sum；按四维评分卡复盘，不因题简单跳过沟通和测试。
-5. **Day 4**：闭卷回答 M2、M4；完成 Deep-ML 23，并测试大 logits。
-6. **Day 5**：完成 Binary Search；固定一种区间不变量并做空数组/单元素测试。
-7. **Day 6**：完成 Reverse Linked List；随后做 60 分钟 breadth + story mock，生成下一周唯一缺口清单。
+1. **Day 0**：选择当前唯一岗位；完成 `HL-1`（30 分钟）和 45 分钟闭卷基线，只评分，不读答案。
+2. **Day 1**：完成 `HL-2` Agent 委托契约；再用剩余 40 分钟完成 30 秒/2 分钟自我介绍和一个 R1/B1 母故事。
+3. **Day 2**：闭卷回答 M1；完成 Deep-ML 10；写协方差 orientation 与分母反例，全程保留 AI OFF 基线和人工审计。
+4. **Day 3**：完成 `HL-3` AI 输出对抗审计；再做 Two Sum，并按四维评分卡复盘沟通、实现与边界测试。
+5. **Day 4**：闭卷回答 M2、M4；完成 Deep-ML 23，并测试大 logits；若超出 75 分钟，M4 移到次日而不是压缩验证。
+6. **Day 5**：完成 Binary Search；再把一项 CV/Edge 强项翻译为 Agent/FDE 证据：golden set→eval、parity→Harness 消融、release gate→canary/rollback。
+7. **Day 6**：完成 Reverse Linked List；随后做 35–40 分钟 breadth + story mock，生成下一周唯一缺口清单。
 
-Day 7 只做 D+1/D+3 到期复习和整理，不新增资料。之后进入第 2 周 CV 簇。
+**Day 7**：完成 `HL-4`，再做 D+1/D+3 到期复习和删减；不新增资料。之后进入第 2 周 CV 簇。
 
 ## 完成定义
 

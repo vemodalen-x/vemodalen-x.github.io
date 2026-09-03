@@ -1906,6 +1906,37 @@ dialog::backdrop {
   display: none;
 }
 
+.phase-ai-policy {
+  margin: -2px 0 8px;
+  padding-left: 8px;
+  color: var(--muted);
+  border-left: 3px solid var(--line-dark);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+}
+
+.phase-ai-policy.off {
+  color: var(--forest);
+  border-left-color: var(--forest);
+}
+
+.phase-ai-policy.optional {
+  color: var(--violet);
+  border-left-color: var(--violet);
+}
+
+.phase-ai-policy.critic {
+  color: var(--coral);
+  border-left-color: var(--coral);
+}
+
+.phase-ai-policy.verify {
+  color: var(--amber);
+  border-left-color: var(--amber);
+}
+
 .phase-panel h3 {
   margin: 0 0 22px;
   font-size: 27px;

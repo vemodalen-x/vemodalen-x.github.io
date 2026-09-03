@@ -762,6 +762,46 @@
       hints: ['总包不等于 fixed annual cash。', 'EP 由雇主/agent 申请，未获具体确认就是 unverified。', '例外要提前写条件，不能在公司光环下临时移动门槛。'],
       rubric: ['薪酬口径完整且不混算。', 'EP、地点、旅行与 scope 有证据状态。', '谈判围绕价值与可比较条款。', '最终决定可审计且保留 BATNA。'],
       exit: '闭卷列出签 offer 前必须书面澄清的十项，并说明哪三项是不可交换硬闸门。'
+    },
+    {
+      id: 'hl-ai-off-baseline', cluster: 'K1', principles: ['P1', 'P2', 'P6', 'P8'], title: 'HL-1：Human Leverage 无 AI 基线与不确定性地图', kind: 'explain', duration: 30, week: 1, prereqs: [],
+      goal: '把“会用 AI”拆成人的独立能力与 Agent 杠杆两本账，先测出真实基线，再决定该补知识还是该改委托。', output: 'AI OFF 首次答案 + 信心预测 + unknown/assumption 清单 + 双账户差距表。',
+      prompt: '关闭 AI 和资料：选一个当前岗位高频题，用 90 秒给出结论、机制、最小反例和验证方法；再标出哪些内容是确定、推断与未知。',
+      construct: '完成两次同题对照：第一次严格 AI OFF；第二次允许 Agent 追问和查最小真源。分别记录耗时、错误、验证覆盖和你能否独立解释，不把第二次改进计入人的掌握分。',
+      transfer: '把题目从熟悉的 CV/Edge 场景换成 Agent/FDE 场景；哪些判断能力可以迁移，哪些只是术语替换或依赖 Agent？',
+      hints: ['先写答案再写信心，避免结果反向污染预测。', '区分知识缺口、证据缺口、结构缺口和委托缺口。', 'Agent 提升的是本次产出还是下次无辅助能力？两者分开记录。'],
+      rubric: ['AI OFF 基线真实且保留 unknown。', '人的基础账户与 Agent 杠杆账户分开。', '比较包含时间、错误与验证而不只看速度。', '能从强项迁移而不夸大陌生领域经验。'],
+      exit: '关闭所有帮助，写出你当前最大的人的能力缺口、最大的 Agent 杠杆缺口，以及明天各自一个最小动作。'
+    },
+    {
+      id: 'hl-agent-delegation-contract', cluster: 'K8', principles: ['P1', 'P2', 'P5', 'P7', 'P8'], title: 'HL-2：Human Leverage Agent 委托契约与验收测试', kind: 'design', duration: 35, week: 1, prereqs: ['hl-ai-off-baseline'],
+      goal: '把模糊的“让 AI 帮我”改成目标、上下文、边界、权限和验收均可审计的委托。', output: '九项 Agent 委托契约 + acceptance tests + stop conditions + 返回证据清单。',
+      prompt: '你要让 Agent 为一个 FDE 面试 case 或作品实现最小纵向切片。先不用 Agent：写清 Goal、Context、Constraints、Non-goals、Output、Tests、Authority、Stop 与 Evidence。',
+      construct: '选择一个真实小任务执行契约。上下文只给最小高信号文件；要求 Agent 报告假设、改动、测试和剩余风险。记录一次范围漂移或信息不足，并修改契约而不是追加一段模糊提示。',
+      transfer: '把任务换成包含客户 PII、写工具副作用或受限部署的场景；哪些 Authority、Stop、Evidence 和 approval 条款必须改变？',
+      hints: ['验收条件要能运行、观察或明确评审。', '权限要区分读、写、运行、联网、发布和外部沟通。', '上下文越多不一定越好；保留真源、接口、样例和失败证据。'],
+      rubric: ['九项契约完整且彼此不冲突。', '验收测试覆盖正常、边界和至少一个失败。', '权限与停止条件能阻止越权或范围漂移。', '返回证据足以让人重放与审计。'],
+      exit: 'AI OFF 用 60 秒复述这次委托的成功标准、最高风险、不可委托判断和必须由你签字的最终决定。'
+    },
+    {
+      id: 'hl-ai-output-audit', cluster: 'K7', principles: ['P3', 'P5', 'P6', 'P7', 'P8'], title: 'HL-3：Human Leverage AI 输出对抗审计', kind: 'debug', duration: 40, week: 1, prereqs: ['hl-agent-delegation-contract'],
+      goal: '训练发现 AI 产物中事实、机制、实现、权限与发布风险的能力，而不是凭流畅度接受答案。', output: 'claim/source 表 + 正常/边界/失败/安全测试 + 修订 diff + go/hold/reject 决定。',
+      prompt: '选一段 AI 生成的技术答案、架构或代码。哪些主张没有真源，哪些假设未写出，哪个最小反例最可能推翻结论？',
+      construct: '至少检查一个一手来源，运行或手工验证一个正常测试、一个边界测试和一个失败测试；涉及 Agent 工具时再检查注入、权限、PII、secret、副作用、幂等和 rollback。只修最大风险，并记录为什么。',
+      transfer: '假设这段产物将在客户现场演示，且错误会触发外部副作用。你的验证门槛、人工审批、观测和降级如何升级？',
+      hints: ['把每个关键句标成 fact、inference、assumption 或 unknown。', '先验证最可能改变发布决定的风险。', '测试通过不等于需求正确；回到目标、用户和错误成本。'],
+      rubric: ['主张可追溯且事实/推断分开。', '测试真正覆盖边界和失败而非只跑 happy path。', '安全、副作用与回滚有明确控制。', '最终决定包含证据、剩余风险与 owner。'],
+      exit: '关闭 AI，给出 90 秒发布审查：结论、阻断项、已运行证据、残余风险、owner 与下一步。'
+    },
+    {
+      id: 'hl-delayed-transfer-loop', cluster: 'K1', principles: ['P3', 'P6', 'P8'], title: 'HL-4：Human Leverage 延迟迁移与能力结算', kind: 'story', duration: 30, week: 2, prereqs: ['hl-ai-output-audit'],
+      goal: '把即时正确与稳定能力分开，只在延迟、变式、无辅助条件下结算人的掌握，并把 Agent 成功沉淀为可复用机制。', output: 'D+1/D+3/D+7 复测卡 + 新约束答案 + 能力阶梯等级 + 删除/保留决定。',
+      prompt: '关闭 AI 和历史答案：重做一个到期题目，并把数据、规模、设备、客户、错误成本或角色至少改变一项。哪些结论仍成立，哪些必须重建？',
+      construct: '用 Explain→Build→Break→Transfer→Defend→Ship 阶梯定位证据；对照首次基线，记录保留、遗忘、误校准和提示依赖。把 Agent 的一次成功沉淀为测试、eval、runbook 或模板，而不是答案收藏。',
+      transfer: '如果下周出现新框架或更强模型，你的哪项能力仍然有效？删除一个低回报阅读任务，用省下的时间修复本次最大迁移缺口。',
+      hints: ['看过答案后的流畅复述不算延迟证据。', 'Transfer 与 Independence 都至少为 3 才结算。', '先删任务再加任务，保持每周时间上限。'],
+      rubric: ['复测有真实时间间隔且 AI OFF。', '变式改变了约束而非只换措辞。', '掌握等级由证据而非熟悉感决定。', '形成可复用机制并删除一个低回报任务。'],
+      exit: '不用任何帮助，回答：我现在能独立做什么、能借助 Agent 放大什么、仍不能承诺什么、下次用什么证据验证？'
     }
   ];
 
@@ -785,7 +825,7 @@
   function defaultState() {
     return {
       version: VERSION,
-      profile: { role: 'balanced', mode: 'balanced', minutes: 90 },
+      profile: { role: 'balanced', mode: 'balanced', minutes: 75 },
       nodes: {},
       evidence: [],
       draft: null,
@@ -944,7 +984,7 @@
   }
 
   function buildDailyPlan() {
-    var budget = Math.max(15, Number(state.profile.minutes) || 90);
+    var budget = Math.max(15, Number(state.profile.minutes) || 75);
     var used = 0;
     var items = [];
     rankedTasks().some(function (item) {
@@ -1212,7 +1252,18 @@
       }).filter(function (result) { return result.score > 0; });
     }
 
+    var humanLeverageOrder = ['hl-ai-off-baseline', 'hl-agent-delegation-contract', 'hl-ai-output-audit', 'hl-delayed-transfer-loop'];
+    var isHumanLeveragePreset = normalizeKnowledgeText(query) === 'human leverage';
     return sections.concat(tasks).sort(function (a, b) {
+      if (isHumanLeveragePreset) {
+        var aIndex = a.type === 'task' ? humanLeverageOrder.indexOf(a.item.id) : -1;
+        var bIndex = b.type === 'task' ? humanLeverageOrder.indexOf(b.item.id) : -1;
+        if (aIndex >= 0 || bIndex >= 0) {
+          if (aIndex < 0) return 1;
+          if (bIndex < 0) return -1;
+          return aIndex - bIndex;
+        }
+      }
       if (b.score !== a.score) return b.score - a.score;
       return a.item.title.localeCompare(b.item.title, 'zh-CN');
     });
