@@ -17,12 +17,18 @@ class WorkflowRequest:
     minimum_confidence: float = 0.65
 
     def __post_init__(self) -> None:
-        if not self.request_id.strip():
+        if not isinstance(self.request_id, str) or not self.request_id.strip():
             raise ValueError("request_id must not be empty")
-        if not self.goal.strip():
+        if not isinstance(self.goal, str) or not self.goal.strip():
             raise ValueError("goal must not be empty")
-        if not 0 <= self.minimum_confidence <= 1:
+        if (isinstance(self.minimum_confidence, bool)
+                or not isinstance(self.minimum_confidence, (int, float))
+                or not 0 <= self.minimum_confidence <= 1):
             raise ValueError("minimum_confidence must be between 0 and 1")
+        for field in ("evidence", "constraints"):
+            values = getattr(self, field)
+            if not isinstance(values, tuple) or any(not isinstance(item, str) for item in values):
+                raise ValueError(f"{field} must be a tuple of strings")
 
 
 @dataclass(frozen=True)

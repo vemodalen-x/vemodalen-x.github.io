@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-agentic-ai.png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
+<body class="portfolio-site">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="masthead">
     <nav class="topnav" aria-label="Primary navigation">
@@ -26,7 +26,7 @@
       <div class="topnav-links">
         <a href="index.html">About</a>
         <a href="work.html">Work</a>
-        <a class="active" href="agentic-systems.html">Agents</a>
+        <a class="active" aria-current="page" href="agentic-systems.html">Agents</a>
         <a href="writing.html">Notes</a>
         <a href="resume.html">CV</a>
       </div>
@@ -38,21 +38,19 @@
       <img class="avatar" src="assets/junxian-wu.jpg" alt="Junxian Wu" width="150" height="150" style="object-fit: cover; object-position: center 18%;">
       <h1>Junxian Wu</h1>
       <p class="role">Senior AI Engineer</p>
-      <p class="bio">Applied AI systems built with explicit workflow state, evaluation, and production constraints.</p>
+      <p class="bio">Singapore</p>
       <ul class="profile-links">
-        <li><span>Foundation</span> Production CV &amp; Edge AI</li>
-        <li><span>Agent focus</span> Orchestration &amp; Evaluation</li>
-        <li><span>Location</span> Singapore</li>
-        <li><a href="work.html#agentic-multimodal">Multimodal case study</a></li>
-        <li><a href="technical-lines.html#reasoning">Technical map</a></li>
+        <li><a href="mailto:vemodalenx@gmail.com">Email</a></li>
+        <li><a href="https://github.com/vemodalen-x">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/junxian-wu-085aa11b4/">LinkedIn</a></li>
       </ul>
     </aside>
 
     <main id="main" class="content">
       <section class="intro">
         <p class="eyebrow">Agentic Systems</p>
-        <h2>Reliability mechanics you can inspect.</h2>
-        <p>I bring production discipline from computer vision and edge deployment into agent and multimodal workflows. The public evidence below separates tested orchestration code from deterministic browser applications and private production experience.</p>
+        <h2>Agent workflow engineering</h2>
+        <p>Independent projects exploring output validation, failure handling and review policy. The Python reference uses scripted providers; the photography app uses local image analysis and retrieval. Neither calls a live LLM.</p>
         <div class="signal-grid" aria-label="Agentic AI positioning summary">
           <article>
             <h3>State</h3>
@@ -71,12 +69,12 @@
 
       <section id="workflow-reference" class="case">
         <h2>Reliable Agent Workflow reference</h2>
-        <p class="summary">A dependency-free Python implementation of the orchestration layer, with ten executable tests.</p>
+        <p class="summary">A dependency-free Python reference with executable tests for success, failure and human-review paths.</p>
         <h3>System shape</h3>
-        <p>A small provider protocol keeps model adapters outside the workflow core. The router records every attempt, retries expected transient failures, falls back on permanent or contract failures, validates structured outputs, and forces human review below the request confidence threshold.</p>
+        <p>A small provider protocol keeps model adapters outside the workflow core. The router records every attempt, retries expected transient failures, falls back on permanent or contract failures, validates structured outputs, and marks outputs pending review when confidence is below the request threshold or the provider requests review.</p>
         <pre class="architecture-trace" aria-label="Agent workflow state trace">request -&gt; route(primary) -&gt; attempt -&gt; transient failure
         -&gt; route(fallback) -&gt; validate contract
-        -&gt; confidence gate -&gt; accepted output + trace</pre>
+        -&gt; review gate -&gt; accepted OR pending_review + trace</pre>
         <h3>Executable evidence</h3>
         <p>The hard-case suite covers primary success, retry recovery, invalid-contract fallback, confidence-based human review, total provider failure, and evaluation reporting.</p>
         <div class="link-row"><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/tree/main/agentic_workflow">Review implementation</a><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/tests/test_agentic_workflow.py">Review tests</a><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/examples/run_agentic_workflow.py">Run example</a></div>
@@ -92,17 +90,13 @@
         <p><a class="more-link" href="photography-mentor-agent.html">Open the Photography Mentor</a></p>
       </section>
 
-      <section id="production-transfer" class="case">
-        <h2>Production discipline carried forward</h2>
-        <p class="summary">The differentiator is not claiming a larger model stack; it is applying deployment and evaluation discipline to a new workflow class.</p>
-        <p>My production experience is in computer vision, computational photography, edge deployment, native integration, visual debugging, and release evaluation. The public agent reference makes the adjacent orchestration mechanics inspectable without exposing employer code or presenting scripted adapters as live provider integrations.</p>
+      <section id="production-transfer">
+        <h2>What remains to be built</h2>
+        <p>The reference validates orchestration policy, not model accuracy. A real provider adapter would need request deadlines, rate-limit backoff, secret management, cost tracking and evaluation on labeled task data. Confidence is supplied by the provider and is not calibrated by this implementation.</p>
+        <p><a href="writing.html#review-gates">Read the review-gate design note</a> or <a href="work.html#vision-edge">see my production vision experience</a>.</p>
       </section>
 
-      <section class="case">
-        <h2>Role fit</h2>
-        <p class="summary">Applied AI and Forward Deployed Engineering where perception, workflow design, runtime constraints, evaluation, and handoff matter together.</p>
-        <p>The public evidence demonstrates provider-neutral orchestration mechanics and deterministic multimodal tooling. It complements production depth in computer vision, computational photography, edge deployment, native integration, visual debugging, and release evaluation.</p>
-      </section>
+
     </main>
   </div>
 

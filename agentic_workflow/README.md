@@ -25,4 +25,13 @@ python -m unittest discover -s tests -v
 
 ## Boundary
 
+Schema validity and human approval are separate states. If the provider requests
+review or confidence is below the request threshold, the trace ends with
+`review_gate: required` and `completion: pending_review`. Otherwise it ends with
+`completion: accepted`. Consumers must not execute actions from a pending result.
+The library returns this status; it does not run a human approval queue or execute actions.
+
+Provider confidence is not calibrated here. Live adapters also need transport deadlines,
+backoff, rate-limit handling, secret management and task-level accuracy evaluation.
+
 This code demonstrates orchestration and reliability engineering. It does not claim model training, a production provider integration, or hyperscale agent infrastructure.

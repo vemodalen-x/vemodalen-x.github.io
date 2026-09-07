@@ -18,14 +18,14 @@
   <meta name="twitter:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-work.png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
+<body class="portfolio-site">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="masthead">
     <nav class="topnav" aria-label="Primary navigation">
       <a class="site-title" href="index.html">Junxian Wu</a>
       <div class="topnav-links">
         <a href="index.html">About</a>
-        <a class="active" href="work.html">Work</a>
+        <a class="active" aria-current="page" href="work.html">Work</a>
         <a href="agentic-systems.html">Agents</a>
         <a href="writing.html">Notes</a>
         <a href="resume.html">CV</a>
@@ -35,67 +35,57 @@
 
   <div class="page">
     <aside class="sidebar" aria-label="Profile">
-      <div class="avatar" aria-hidden="true">JW</div>
+      <img class="avatar" src="assets/junxian-wu.jpg" alt="Junxian Wu" width="150" height="150" style="object-fit: cover; object-position: center 18%;">
       <h1>Junxian Wu</h1>
-      <p class="role">Selected Systems</p>
-      <p class="bio">Three evidence pillars connected by one delivery spine.</p>
+      <p class="role">Senior AI Engineer</p>
+      <p class="bio">Singapore</p>
       <ul class="profile-links">
-        <li><a href="#vision-edge">Vision &amp; Edge AI</a></li>
-        <li><a href="#computational-photography">Computational Photography</a></li>
-        <li><a href="#agentic-multimodal">Agentic &amp; Multimodal</a></li>
-        <li><a href="#business-learning-studio">Business Learning Studio</a></li>
-        <li><a href="technical-lines.html">Compact technical map</a></li>
-        <li><a href="assets/junxian-wu-cv.pdf">Download CV</a></li>
+        <li><a href="mailto:vemodalenx@gmail.com">Email</a></li>
+        <li><a href="https://github.com/vemodalen-x">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/junxian-wu-085aa11b4/">LinkedIn</a></li>
       </ul>
     </aside>
 
     <main id="main" class="content">
       <section class="intro">
         <p class="eyebrow">Selected Systems</p>
-        <h2>From perception to production.</h2>
-        <p>I build production vision systems and inspectable agent workflow references from perception and reasoning through runtime integration, evaluation, and handoff.</p>
-        <p>The projects below are grouped by evidence, not chronology. Together they show one operating pattern: make model behavior explicit, integrate it into a real system, measure failure modes, and leave a maintainable delivery path.</p>
+        <h2>Selected engineering work</h2>
+        <p>At Black Sesame Technologies, I work across camera algorithms, native integration and release evaluation. The production summaries below describe my engineering responsibilities without disclosing customer identities, employer code or internal metrics.</p>
+        <p>Independent projects are listed separately, with links to their source and limitations. <a href="assets/junxian-wu-cv.pdf">Download CV</a> for roles and dates.</p>
       </section>
 
-      <section id="delivery-spine">
-        <h2>One delivery spine</h2>
-        <ol class="clean-list">
-          <li><strong>Perception:</strong> segmentation, matting, depth, detection, tracking, and visual understanding.</li>
-          <li><strong>Reasoning:</strong> composition state machines, agent workflow state, retrieval, structured decisions, and review.</li>
-          <li><strong>Runtime:</strong> quantization, TFLite/ONNX/TensorRT, C++/Android, GPU rendering, APIs, and services.</li>
-          <li><strong>Evaluation:</strong> hard cases, golden cases, visual comparison, traces, A/B tests, regression, and release gates.</li>
-          <li><strong>Handoff:</strong> technical scoping, debugging, documentation, reusable workflows, and production ownership.</li>
-        </ol>
-      </section>
+
 
       <section id="vision-edge" class="case">
-        <h2>Production foundation: Vision and Edge AI</h2>
-        <p class="summary">A repeatable model-to-device path for camera and imaging systems.</p>
-        <h3>System owned</h3>
+        <h2>Vision models on edge devices</h2>
+        <p class="eyebrow">Professional work / Black Sesame Technologies</p>
+        <p class="summary">The challenge: preserve model behavior when moving from training to a camera runtime.</p>
+        <h3>My contribution</h3>
         <p>Connected data preparation, training, quantization, export validation, native integration, device testing, and model replacement checks across segmentation, image matting, monocular depth, detection, and camera-oriented image processing.</p>
-        <h3>Engineering judgment</h3>
+        <h3>Design decisions</h3>
         <p>Model architecture, I/O contracts, quantization behavior, runtime assumptions, and device debugging were treated as one design space rather than separate team boundaries.</p>
         <h3>Representative stack</h3>
         <p>Python, PyTorch, TFLite, ONNX, TensorRT/ONNXRuntime, OpenCV, C++, Android NDK, CMake, Docker, and device-side debugging.</p>
       </section>
 
       <section id="computational-photography" class="case">
-        <h2>Differentiation: Computational Photography</h2>
-        <p class="summary">Perception, rendering, and camera behavior combined into controllable visual systems.</p>
-        <h3>System owned</h3>
+        <h2>Portrait imaging &amp; computational photography</h2>
+        <p class="eyebrow">Professional work / Black Sesame Technologies</p>
+        <p class="summary">The challenge: combine depth, subject boundaries and rendering into a controllable portrait effect.</p>
+        <h3>My contribution</h3>
         <p>Worked across depth-aware bokeh, portrait segmentation and matting, subject protection, optical highlights, GPU rendering, and real-time composition using detection, optical-flow tracking, camera guidance, and application state behavior.</p>
-        <h3>Engineering judgment</h3>
+        <h3>Design decisions</h3>
         <p>Final image quality depends on the interaction between model output, rendering parameters, long-tail boundaries, motion, device constraints, and review criteria. The work therefore included visual debugging, hard-case analysis, batch comparison, and release-quality review artifacts.</p>
         <h3>Representative stack</h3>
         <p>Monocular depth, image matting, detection and tracking, OpenGL/GLSL, C++ rendering, alpha compositing, OpenCV, TensorRT, ONNXRuntime, and Android camera workflows.</p>
       </section>
 
       <section id="agentic-multimodal" class="case">
-        <h2>Adjacent growth: Reliable Agent and Multimodal Workflows</h2>
-        <p class="summary">Tested orchestration mechanics and deterministic multimodal tooling, with explicit evidence boundaries.</p>
+        <h2>Independent work: agent &amp; multimodal workflows</h2>
+        <p class="summary">Public reference code and browser-local applications. The workflow uses scripted providers, and the photography app uses deterministic analysis; neither demonstrates a live LLM deployment.</p>
         <h3>Public evidence</h3>
         <p>Implemented a provider-neutral Python workflow for retry, fallback, structured-output validation, confidence gates, deterministic traces, and hard-case evaluation. Built a browser-local Photography Mentor for image diagnostics, retrieval, practice planning, and review state.</p>
-        <h3>Engineering judgment</h3>
+        <h3>Design decisions</h3>
         <p>Routing and generation are not enough. Expected failures need explicit policy; invalid outputs must be rejected; low-confidence results require review; and every decision path should leave a trace that can be reproduced in a hard-case suite.</p>
         <h3>Representative stack</h3>
         <p>Python, dataclasses, provider protocols, validated output contracts, unittest, local retrieval, deterministic image analysis, and browser-local persistence.</p>
@@ -107,7 +97,7 @@
         <p class="summary">A privacy-first, offline-capable workspace that turns ambiguous business questions into evidence, experiments, and decisions.</p>
         <h3>Public evidence</h3>
         <p>Built a complete browser-local learning loop with diagnostic planning, four practice modes, transparent feedback, mastery tracking, 32 original knowledge cards, and a five-gate decision coach.</p>
-        <h3>Engineering judgment</h3>
+        <h3>Design decisions</h3>
         <p>The product treats learning as observable performance rather than content completion. User state remains in the browser, runtime dependencies are vendored, and release automation rejects screenshots, local paths, private-source markers, and non-allowlisted files.</p>
         <h3>Representative stack</h3>
         <p>Progressive Web App, service-worker offline cache, local storage, deterministic coaching rules, generated JSON knowledge artifacts, Node.js contract tests, privacy audit, and GitHub Actions.</p>
@@ -115,8 +105,8 @@
       </section>
 
       <section id="evaluation-handoff" class="case">
-        <h2>Operating method: Evaluation and Handoff</h2>
-        <p class="summary">The common method that connects vision, runtime, and agents.</p>
+        <h2>Evaluation &amp; handoff</h2>
+        <p class="summary">Make the release decision reproducible for the next engineer.</p>
         <p>Translate ambiguous product or field issues into a technical scope, failure taxonomy, hard-case set, prototype, measurable acceptance criteria, regression path, and release decision. Preserve reproducible traces and turn working patterns into reusable tools, documentation, and handoff material.</p>
       </section>
     </main>

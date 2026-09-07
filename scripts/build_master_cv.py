@@ -9,7 +9,7 @@ from docx.shared import Inches, Pt, RGBColor
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_DIR = ROOT / "outputs" / "personal_brand_consolidation_2026_07_14"
+OUTPUT_DIR = ROOT / "outputs" / "cv"
 OUTPUT_PATH = OUTPUT_DIR / "Junxian_Wu_AI_Systems_CV_2026.docx"
 
 GRAPHITE = "1F2933"
@@ -92,7 +92,7 @@ def add_body(doc, text, after=2.5, keep=False):
     p.paragraph_format.space_after = Pt(after)
     p.paragraph_format.keep_with_next = keep
     run = p.add_run(text)
-    set_font(run, 9.35)
+    set_font(run, 10.0)
     return p
 
 
@@ -100,7 +100,7 @@ def add_bullet(doc, text):
     p = doc.add_paragraph(style="CV Bullet")
     p.paragraph_format.keep_together = True
     run = p.add_run(text)
-    set_font(run, 9.15)
+    set_font(run, 10.0)
     return p
 
 
@@ -120,7 +120,7 @@ def add_compact_entry(doc, title, meta, text=None):
     p = doc.add_paragraph(style="CV Job")
     p.paragraph_format.keep_with_next = True
     set_font(p.add_run(title), 9.6, bold=True)
-    set_font(p.add_run(f" | {meta}"), 9.15, color=MUTED)
+    set_font(p.add_run(f" | {meta}"), 10.0, color=MUTED)
     if text:
         add_body(doc, text, after=3.0)
 
@@ -129,7 +129,7 @@ def configure_styles(doc):
     normal = doc.styles["Normal"]
     normal.font.name = "Aptos"
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), "Aptos")
-    normal.font.size = Pt(9.35)
+    normal.font.size = Pt(10.0)
     normal.font.color.rgb = RGBColor.from_string(GRAPHITE)
     normal.paragraph_format.space_after = Pt(2.5)
     normal.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
@@ -181,7 +181,7 @@ def build_cv():
     props.author = "Junxian Wu"
     props.keywords = "Senior AI Engineer, Computer Vision, Multimodal AI, Edge AI, Forward Deployed Engineer"
 
-    name = doc.add_paragraph()
+    name = doc.add_paragraph(style="Title")
     name.alignment = WD_ALIGN_PARAGRAPH.CENTER
     name.paragraph_format.space_after = Pt(0)
     set_font(name.add_run("JUNXIAN WU"), 23.5, bold=True)
@@ -189,7 +189,7 @@ def build_cv():
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     title.paragraph_format.space_after = Pt(1.5)
-    set_font(title.add_run("Senior AI Engineer | Computer Vision, Multimodal & Edge AI"), 11.4, bold=True, color=TEAL)
+    set_font(title.add_run("Senior AI Engineer | Computer Vision & Edge AI"), 11.4, bold=True, color=TEAL)
 
     contact = doc.add_paragraph()
     contact.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -197,9 +197,9 @@ def build_cv():
     set_font(contact.add_run("Singapore  |  "), 8.3, color=MUTED)
     add_hyperlink(contact, "vemodalenx@gmail.com", "mailto:vemodalenx@gmail.com")
     set_font(contact.add_run("  |  "), 8.3, color=MUTED)
-    add_hyperlink(contact, "linkedin.com/in/junxian-wu-085aa11b4", "https://www.linkedin.com/in/junxian-wu-085aa11b4/")
+    add_hyperlink(contact, "LinkedIn", "https://www.linkedin.com/in/junxian-wu-085aa11b4/")
     set_font(contact.add_run("  |  "), 8.3, color=MUTED)
-    add_hyperlink(contact, "github.com/vemodalen-x", "https://github.com/vemodalen-x")
+    add_hyperlink(contact, "GitHub", "https://github.com/vemodalen-x")
     set_font(contact.add_run("  |  "), 8.3, color=MUTED)
     add_hyperlink(contact, "vemodalen-x.github.io", "https://vemodalen-x.github.io/")
     set_paragraph_border(contact, color=TEAL, size="8", space="4")
@@ -207,23 +207,9 @@ def build_cv():
     add_section_heading(doc, "Profile")
     add_body(
         doc,
-        "Senior AI Engineer with production depth in camera AI, computational photography, edge deployment, and C++/Android integration. I turn model behavior and visual-quality feedback into deployable systems, hard-case evaluation, and maintainable handoff, while building public tested references for reliable agent workflows. Target roles: Applied AI Engineer, Forward Deployed Engineer, Computer Vision Engineer, and Multimodal AI Engineer.",
+        "Senior AI Engineer delivering computer vision and computational photography for mobile camera systems. Experience spans model development, quantization, C++/Android integration, visual-quality evaluation and cross-team release delivery. Independent projects explore agent orchestration and local image-analysis workflows.",
         after=2.0,
     )
-    positioning = doc.add_paragraph(style="CV Body")
-    positioning.paragraph_format.space_after = Pt(2)
-    for index, (label, value) in enumerate(
-        [
-            ("Production", "Vision & Edge AI"),
-            ("Domain", "Computational Photography"),
-            ("Adjacent", "Reliable Agent & Multimodal Workflows"),
-        ]
-    ):
-        if index:
-            set_font(positioning.add_run("  |  "), 8.9, color=MUTED)
-        set_font(positioning.add_run(f"{label}: "), 8.9, bold=True, color=TEAL)
-        set_font(positioning.add_run(value), 8.9)
-
     add_section_heading(doc, "Professional Experience")
     add_job(
         doc,
@@ -231,10 +217,10 @@ def build_cv():
         "Black Sesame Technologies (Singapore)",
         "Jan 2025 - Present",
         [
-            "Own end-to-end camera and image AI delivery, translating product requirements and field feedback into technical scope, prototypes, hard-case evaluation, release gates, and production handoff.",
-            "Lead real-time composition and portrait-imaging systems combining detection, optical-flow tracking, segmentation and matting, monocular depth, GPU rendering, and application state.",
-            "Drive model-to-device integration across PyTorch, quantization, TFLite/ONNX, native C++/Android, GPU pipelines, and on-device debugging.",
-            "Coordinate product, camera tuning, runtime, QA, and customer-facing teams around reproducible issue sets, acceptance decisions, and release readiness.",
+            "Own camera AI delivery from product requirements and field feedback through prototypes, hard-case evaluation and release handoff with product, camera tuning, runtime and QA teams.",
+            "Lead portrait-imaging development across matting, monocular depth and GPU rendering, investigating subject boundaries, visual artifacts and device behavior.",
+            "Develop real-time composition workflows combining object detection, optical-flow tracking, camera guidance and application state.",
+            "Drive PyTorch-to-device integration through quantization, TFLite/ONNX export validation, native C++/Android pipelines and on-device debugging.",
         ],
     )
     add_job(
@@ -243,9 +229,9 @@ def build_cv():
         "Black Sesame Technologies (Singapore)",
         "Aug 2022 - Jan 2025",
         [
-            "Productized models for portrait segmentation and matting, monocular depth, object detection, and camera-oriented image processing.",
-            "Built repeatable training-to-deployment workflows spanning data preparation, quantization, export validation, runtime assumptions, and model replacement checks.",
-            "Integrated models into C++ and Android camera pipelines and developed depth-aware bokeh workflows with device debugging, golden cases, and release-review tooling.",
+            "Productized portrait segmentation, matting and monocular depth models for mobile camera pipelines.",
+            "Built training-to-deployment workflows with quantization, export checks and regression comparisons to validate model replacements.",
+            "Integrated models into C++/Android runtimes and developed depth-aware bokeh with visual debugging, golden cases and batch release-review tooling.",
         ],
     )
 
@@ -265,20 +251,20 @@ def build_cv():
 
     add_section_heading(doc, "Selected Public Systems")
     public_agent = doc.add_paragraph(style="CV Body")
-    set_font(public_agent.add_run("Reliable Agent Workflow: "), 9.1, bold=True, color=TEAL)
-    set_font(public_agent.add_run("Provider-neutral Python reference for retry, fallback, validated outputs, confidence gates, traces, and executable hard cases. "), 9.1)
+    set_font(public_agent.add_run("Reliable Agent Workflow: "), 10.0, bold=True, color=TEAL)
+    set_font(public_agent.add_run("Scripted-provider Python reference for retries, fallback, output validation and human-review gates, with trace-based regression tests. "), 9.1)
     add_hyperlink(
         public_agent,
-        "github.com/vemodalen-x/vemodalen-x.github.io/tree/main/agentic_workflow",
+        "Code and tests",
         "https://github.com/vemodalen-x/vemodalen-x.github.io/tree/main/agentic_workflow",
     )
     public_mentor = doc.add_paragraph(style="CV Body")
     public_mentor.paragraph_format.space_after = Pt(2)
-    set_font(public_mentor.add_run("Photography Mentor: "), 9.1, bold=True, color=TEAL)
-    set_font(public_mentor.add_run("Browser-local image diagnostics, retrieval, practice planning, review state, and evidence-aware coaching. "), 9.1)
+    set_font(public_mentor.add_run("Photography Mentor: "), 10.0, bold=True, color=TEAL)
+    set_font(public_mentor.add_run("Browser-local image diagnostics, source-linked retrieval and practice tracking using deterministic analysis and coaching rules. "), 9.1)
     add_hyperlink(
         public_mentor,
-        "vemodalen-x.github.io/photography-mentor-agent.html",
+        "Live application",
         "https://vemodalen-x.github.io/photography-mentor-agent.html",
     )
 
@@ -288,19 +274,19 @@ def build_cv():
         ("Runtime and quality", "Python, C++, Android/NDK, TFLite, ONNX, TensorRT, OpenGL/GLSL, Docker, quantization, hard cases, traces, release gates"),
     ]:
         p = doc.add_paragraph(style="CV Bullet")
-        set_font(p.add_run(f"{label}: "), 9.05, bold=True)
-        set_font(p.add_run(value), 9.05)
+        set_font(p.add_run(f"{label}: "), 9.5, bold=True)
+        set_font(p.add_run(value), 9.5)
 
     add_section_heading(doc, "Education")
-    add_compact_entry(doc, "Master of Technology, Intelligent Systems", "NUS-ISS | 2021 - 2022 | GPA 4.33 / 5.00")
-    add_compact_entry(doc, "Bachelor of Engineering, Software Engineering", "Shandong University | 2017 - 2021 | GPA 86.86 / 100 | Outstanding Graduate")
+    add_compact_entry(doc, "Master of Technology, Intelligent Systems", "National University of Singapore, ISS | 2021 - 2022")
+    add_compact_entry(doc, "Bachelor of Engineering, Software Engineering", "Shandong University | 2017 - 2021 | Outstanding Graduate")
 
     add_section_heading(doc, "Publication")
     pub = doc.add_paragraph(style="CV Body")
-    set_font(pub.add_run("Co-author, "), 9.05, bold=True)
-    set_font(pub.add_run("\"Automated classification of 'cluttered' construction housekeeping images through supervised and self-supervised feature representation learning,\" "), 9.05)
-    set_font(pub.add_run("Automation in Construction"), 9.05, italic=True)
-    set_font(pub.add_run(", 2023. "), 9.05)
+    set_font(pub.add_run("Co-author, "), 9.5, bold=True)
+    set_font(pub.add_run("\"Automated classification of 'cluttered' construction housekeeping images through supervised and self-supervised feature representation learning,\" "), 9.5)
+    set_font(pub.add_run("Automation in Construction"), 9.5, italic=True)
+    set_font(pub.add_run(", 2023. "), 9.5)
     add_hyperlink(pub, "doi.org/10.1016/j.autcon.2023.105095", "https://doi.org/10.1016/j.autcon.2023.105095")
 
     doc.save(OUTPUT_PATH)

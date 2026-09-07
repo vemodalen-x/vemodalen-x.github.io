@@ -7,7 +7,7 @@
   <meta name="description" content="Public engineering notes by Junxian Wu across vision and edge AI, computational photography, agentic systems, evaluation, and handoff.">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
+<body class="portfolio-site">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="masthead">
     <nav class="topnav" aria-label="Primary navigation">
@@ -16,7 +16,7 @@
         <a href="index.html">About</a>
         <a href="work.html">Work</a>
         <a href="agentic-systems.html">Agents</a>
-        <a class="active" href="writing.html">Notes</a>
+        <a class="active" aria-current="page" href="writing.html">Notes</a>
         <a href="resume.html">CV</a>
       </div>
     </nav>
@@ -24,57 +24,46 @@
 
   <div class="page">
     <aside class="sidebar" aria-label="Profile">
-      <div class="avatar" aria-hidden="true">JW</div>
+      <img class="avatar" src="assets/junxian-wu.jpg" alt="Junxian Wu" width="150" height="150" style="object-fit: cover; object-position: center 18%;">
       <h1>Junxian Wu</h1>
-      <p class="role">Public engineering notebook</p>
-      <p class="bio">Notes I plan to maintain as reusable engineering material.</p>
+      <p class="role">Senior AI Engineer</p>
+      <p class="bio">Singapore</p>
+      <ul class="profile-links">
+        <li><a href="mailto:vemodalenx@gmail.com">Email</a></li>
+        <li><a href="https://github.com/vemodalen-x">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/junxian-wu-085aa11b4/">LinkedIn</a></li>
+      </ul>
     </aside>
 
     <main id="main" class="content">
       <section class="intro">
-        <p class="eyebrow">Notes</p>
-        <h2>Writing along the same system spine.</h2>
-        <p>These notes develop reusable engineering judgment around perception, reasoning, runtime, evaluation, and handoff. They support the portfolio without repeating the CV.</p>
+        <p class="eyebrow">Engineering notes</p>
+        <h2>Decisions behind the code</h2>
+        <p>Short notes on failure handling and release verification in this portfolio. Each links to the implementation and regression tests.</p>
       </section>
-
-      <section class="note-track">
-        <h2>Production foundation: Vision &amp; Edge AI</h2>
-        <p>Model quality and deployment quality are one design problem across data, architecture, export, runtime, and device constraints.</p>
-        <ul class="clean-list">
-          <li>Debugging paths from PyTorch to TFLite and ONNX.</li>
-          <li>PTQ, QAT, operator compatibility, and INT8 regression analysis.</li>
-          <li>Validation checklists for native and on-device vision runtimes.</li>
-        </ul>
+      <section id="review-gates">
+        <p class="eyebrow">Agent orchestration / September 2026</p>
+        <h2>A review flag must change the trace</h2>
+        <p>A valid response can still require a human decision. The original workflow preserved a provider's review flag in the output but recorded the review gate as passed. Downstream consumers reading only the trace could mistake a pending decision for an accepted one.</p>
+        <h3>Decision</h3>
+        <p>Require review when either the provider requests it or its reported confidence falls below the request threshold. Keep schema validation separate: a structurally valid response is not automatically safe to act on.</p>
+        <pre class="architecture-trace">valid contract
+  + (provider review flag OR low confidence)
+  = review_gate: required
+    completion: pending_review</pre>
+        <h3>Verification &amp; limits</h3>
+        <p>Regression cases cover provider-requested review at both high and low confidence, the threshold boundary, invalid confidence values and fallback. The library returns a pending result; it does not implement a human approval queue or execute the suggested actions. Provider confidence is not a calibrated probability of correctness.</p>
+        <div class="link-row"><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/agentic_workflow/workflow.py">Implementation</a><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/tests/test_agentic_workflow.py">Regression tests</a></div>
       </section>
-
-      <section class="note-track">
-        <h2>Differentiation: Computational Photography</h2>
-        <p>The final image is shaped by perception, rendering, camera behavior, long-tail boundaries, motion, and review criteria.</p>
-        <ul class="clean-list">
-          <li>Why AI bokeh is difficult at subject boundaries.</li>
-          <li>Engineering constraints of monocular depth in camera effects.</li>
-          <li>State-machine design for real-time composition guidance.</li>
-        </ul>
-      </section>
-
-      <section class="note-track">
-        <h2>Growth vector: Agentic &amp; Multimodal AI</h2>
-        <p>The goal is not longer model output. It is visual and knowledge work that is constrainable, traceable, comparable, and improvable.</p>
-        <ul class="clean-list">
-          <li>Designing local RAG and evidence-aware workflows.</li>
-          <li>Using schemas, routing, retries, and fallbacks for reliability.</li>
-          <li>Evaluating multimodal decisions with hard cases and traces.</li>
-        </ul>
-      </section>
-
-      <section class="note-track">
-        <h2>Operating method: Evaluation &amp; Handoff</h2>
-        <p>This track covers the work between a promising prototype and a system another team can operate and improve.</p>
-        <ul class="clean-list">
-          <li>Translating ambiguous feedback into hard cases and acceptance gates.</li>
-          <li>Building reproducible comparison reports and regression paths.</li>
-          <li>Codifying interfaces, assumptions, debugging paths, and release criteria.</li>
-        </ul>
+      <section id="release-snapshot">
+        <p class="eyebrow">Release engineering / September 2026</p>
+        <h2>Audit what Git will publish</h2>
+        <p>A file can contain different text in the working directory and the Git index. Listing staged filenames and then opening their working copies checks the wrong snapshot: staged private text could pass after only the working copy was cleaned.</p>
+        <h3>Decision</h3>
+        <p>Read each indexed blob by its Git object ID. Use NUL-delimited paths so spaces and non-ASCII names remain intact. Reject unresolved merges, symbolic links and submodules at the publication boundary.</p>
+        <h3>Verification &amp; limits</h3>
+        <p>A regression test stages a synthetic secret, replaces the working copy with clean text and confirms that the audit still fails. Another test checks the reverse. Pattern matching is only a guardrail: it cannot identify every confidential fact or replace manual review of images and PDFs.</p>
+        <div class="link-row"><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/scripts/check_public_release.py">Release audit</a><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/blob/main/tests/test_public_release.py">Snapshot tests</a></div>
       </section>
     </main>
   </div>

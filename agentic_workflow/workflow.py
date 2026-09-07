@@ -56,8 +56,15 @@ class ReliableWorkflow:
     def __init__(self, providers: Sequence[Provider], max_attempts_per_provider: int = 2) -> None:
         if not providers:
             raise ValueError("at least one provider is required")
-        if max_attempts_per_provider < 1:
-            raise ValueError("max_attempts_per_provider must be positive")
+        if (isinstance(max_attempts_per_provider, bool)
+                or not isinstance(max_attempts_per_provider, int)
+                or max_attempts_per_provider < 1):
+            raise ValueError("max_attempts_per_provider must be a positive integer")
+        names = [provider.name for provider in providers]
+        if any(not isinstance(name, str) or not name.strip() for name in names):
+            raise ValueError("provider names must be non-empty strings")
+        if len(set(names)) != len(names):
+            raise ValueError("provider names must be unique for unambiguous traces")
         self.providers = tuple(providers)
         self.max_attempts_per_provider = max_attempts_per_provider
 
@@ -87,18 +94,22 @@ class ReliableWorkflow:
                     record("validation", provider.name, "fallback", str(error))
                     break
 
-                if output.confidence < request.minimum_confidence and not output.needs_human_review:
+                record("validation", provider.name, "passed", "output contract valid")
+                low_confidence = output.confidence < request.minimum_confidence
+                if low_confidence or output.needs_human_review:
                     output = replace(output, needs_human_review=True)
                     record(
                         "review_gate",
                         provider.name,
                         "required",
-                        f"confidence={output.confidence:.2f} threshold={request.minimum_confidence:.2f}",
+                        (f"confidence={output.confidence:.2f} threshold={request.minimum_confidence:.2f}"
+                         if low_confidence else "provider requested human review"),
                     )
                 else:
                     record("review_gate", provider.name, "passed", f"confidence={output.confidence:.2f}")
 
-                record("completion", provider.name, "accepted", f"actions={len(output.actions)}")
+                status = "pending_review" if output.needs_human_review else "accepted"
+                record("completion", provider.name, status, f"actions={len(output.actions)}")
                 return WorkflowRun(request.request_id, provider.name, output, tuple(trace))
 
         record("completion", "none", "failed", "all providers exhausted")

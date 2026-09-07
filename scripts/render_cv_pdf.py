@@ -50,15 +50,16 @@ def paragraph_markup(paragraph) -> str:
 
 def build_styles() -> dict[str, ParagraphStyle]:
     base = getSampleStyleSheet()["BodyText"]
+    base.spaceBefore = 0
     return {
         "name": ParagraphStyle("CVName", parent=base, fontName="Helvetica-Bold", fontSize=21, leading=22, textColor=GRAPHITE, alignment=TA_CENTER, spaceAfter=0),
         "title": ParagraphStyle("CVTitle", parent=base, fontName="Helvetica-Bold", fontSize=10.6, leading=12, textColor=TEAL, alignment=TA_CENTER, spaceAfter=1),
-        "contact": ParagraphStyle("CVContact", parent=base, fontName="Helvetica", fontSize=7.5, leading=9, textColor=MUTED, alignment=TA_CENTER, spaceAfter=3),
-        "section": ParagraphStyle("CVSection", parent=base, fontName="Helvetica-Bold", fontSize=9.5, leading=10.5, textColor=TEAL, spaceBefore=4.5, spaceAfter=1),
-        "body": ParagraphStyle("CVBody", parent=base, fontName="Helvetica", fontSize=8.05, leading=9.7, textColor=GRAPHITE, spaceAfter=1.4),
-        "job": ParagraphStyle("CVJob", parent=base, fontName="Helvetica-Bold", fontSize=8.45, leading=9.5, textColor=GRAPHITE, spaceBefore=1.5, spaceAfter=0),
-        "meta": ParagraphStyle("CVMeta", parent=base, fontName="Helvetica-Bold", fontSize=7.7, leading=8.5, textColor=MUTED, spaceAfter=0.5),
-        "bullet": ParagraphStyle("CVBullet", parent=base, fontName="Helvetica", fontSize=7.95, leading=9.4, leftIndent=10, firstLineIndent=-7, textColor=GRAPHITE, spaceAfter=0.8),
+        "contact": ParagraphStyle("CVContact", parent=base, fontName="Helvetica", fontSize=9, leading=11, textColor=MUTED, alignment=TA_CENTER, spaceAfter=4),
+        "section": ParagraphStyle("CVSection", parent=base, fontName="Helvetica-Bold", fontSize=10, leading=12, textColor=TEAL, spaceBefore=7, spaceAfter=2, keepWithNext=True),
+        "body": ParagraphStyle("CVBody", parent=base, fontName="Helvetica", fontSize=9.5, leading=11.5, textColor=GRAPHITE, spaceAfter=3),
+        "job": ParagraphStyle("CVJob", parent=base, fontName="Helvetica-Bold", fontSize=9.5, leading=11.5, textColor=GRAPHITE, spaceBefore=3, spaceAfter=1, keepWithNext=True),
+        "meta": ParagraphStyle("CVMeta", parent=base, fontName="Helvetica", fontSize=9, leading=10.5, textColor=MUTED, spaceAfter=2, keepWithNext=True),
+        "bullet": ParagraphStyle("CVBullet", parent=base, fontName="Helvetica", fontSize=9.5, leading=11.5, leftIndent=10, firstLineIndent=-7, textColor=GRAPHITE, spaceAfter=2),
     }
 
 
@@ -81,7 +82,9 @@ def render(input_path: Path, output_path: Path) -> None:
             story.append(HRFlowable(width="100%", thickness=0.8, color=TEAL, spaceBefore=1, spaceAfter=1))
         elif style_name == "CV Section":
             story.append(Paragraph(markup, styles["section"]))
-            story.append(HRFlowable(width="100%", thickness=0.45, color=LINE, spaceBefore=0, spaceAfter=1.5))
+            rule = HRFlowable(width="100%", thickness=0.45, color=LINE, spaceBefore=0, spaceAfter=1.5)
+            rule.keepWithNext = True
+            story.append(rule)
         elif style_name == "CV Job":
             story.append(Paragraph(markup, styles["job"]))
         elif style_name == "CV Meta":

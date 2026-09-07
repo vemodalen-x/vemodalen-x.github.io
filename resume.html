@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://vemodalen-x.github.io/assets/linkedin-featured-cv.png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
+<body class="portfolio-site">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="masthead">
     <nav class="topnav" aria-label="Primary navigation">
@@ -28,7 +28,7 @@
         <a href="work.html">Work</a>
         <a href="agentic-systems.html">Agents</a>
         <a href="writing.html">Notes</a>
-        <a class="active" href="resume.html">CV</a>
+        <a class="active" aria-current="page" href="resume.html">CV</a>
       </div>
     </nav>
   </header>
@@ -37,10 +37,10 @@
     <aside class="sidebar" aria-label="Profile">
       <img class="avatar" src="assets/junxian-wu.jpg" alt="Junxian Wu" width="150" height="150" style="object-fit: cover; object-position: center 18%;">
       <h1>Junxian Wu</h1>
-      <p class="role">Senior AI Engineer<br>Computer Vision, Multimodal &amp; Edge AI</p>
+      <p class="role">Senior AI Engineer</p>
+      <p class="bio">Singapore</p>
       <ul class="profile-links">
-        <li><span>Location</span> Singapore</li>
-        <li><a href="mailto:vemodalenx@gmail.com">vemodalenx@gmail.com</a></li>
+        <li><a href="mailto:vemodalenx@gmail.com">Email</a></li>
         <li><a href="https://github.com/vemodalen-x">GitHub</a></li>
         <li><a href="https://www.linkedin.com/in/junxian-wu-085aa11b4/">LinkedIn</a></li>
       </ul>
@@ -48,16 +48,10 @@
 
     <main id="main" class="content">
       <section class="intro">
-        <p class="eyebrow">Curriculum Vitae</p>
-        <h2>Production vision systems, from model behavior to device release.</h2>
-        <p>I build camera and image AI systems across model development, C++/Android integration, visual-quality evaluation, and production handoff. My public work extends that discipline into reliable agent and multimodal workflows.</p>
-        <p><a class="more-link" href="assets/junxian-wu-cv.pdf">Download one-page PDF CV</a></p>
-      </section>
-
-      <section>
-        <h2>Profile</h2>
-        <p>Senior AI Engineer with production depth in camera AI, computational photography, edge deployment, and C++/Android integration. I turn model behavior and visual-quality feedback into deployable systems, hard-case evaluation, and maintainable handoff, while building tested public references for reliable agent workflows.</p>
-        <p><strong>Target roles:</strong> Applied AI Engineer, Forward Deployed Engineer, Computer Vision Engineer, and Multimodal AI Engineer.</p>
+        <p class="eyebrow">Curriculum vitae</p>
+        <h2>Senior AI Engineer<br>Computer Vision &amp; Edge AI</h2>
+        <p>Senior AI Engineer delivering computer vision and computational photography for mobile camera systems. Experience spans model development, quantization, C++/Android integration, visual-quality evaluation and cross-team release delivery. Independent projects explore agent orchestration and local image-analysis workflows.</p>
+        <div class="contact-actions"><a class="cv-action" href="assets/junxian-wu-cv.pdf">Download CV <span class="file-format">PDF</span></a><a href="mailto:vemodalenx@gmail.com">Get in touch</a></div>
       </section>
 
       <section>
@@ -67,20 +61,19 @@
             <h3>Senior AI Engineer | Black Sesame Technologies (Singapore)</h3>
             <p>Jan 2025 - Present</p>
             <ul class="clean-list">
-              <li>Own end-to-end delivery for camera and image AI features, translating product requirements and field feedback into technical scope, prototypes, evaluation gates, and production handoff.</li>
-              <li>Lead real-time composition and portrait-imaging systems combining detection, optical-flow tracking, segmentation and matting, monocular depth, GPU rendering, and application state behavior.</li>
-              <li>Drive model-to-device delivery across PyTorch, quantization, TFLite/ONNX, C++/Android integration, GPU pipelines, and on-device debugging.</li>
-              <li>Coordinate product, camera tuning, runtime, QA, and customer-facing teams around reproducible issue sets, acceptance decisions, and release readiness.</li>
+              <li>Own camera AI delivery from product requirements and field feedback through prototypes, hard-case evaluation and release handoff with product, camera tuning, runtime and QA teams.</li>
+              <li>Lead portrait-imaging development across matting, monocular depth and GPU rendering, investigating subject boundaries, visual artifacts and device behavior.</li>
+              <li>Develop real-time composition workflows combining object detection, optical-flow tracking, camera guidance and application state.</li>
+              <li>Drive PyTorch-to-device integration through quantization, TFLite/ONNX export validation, native C++/Android pipelines and on-device debugging.</li>
             </ul>
           </article>
           <article>
             <h3>AI Engineer | Black Sesame Technologies (Singapore)</h3>
             <p>Aug 2022 - Jan 2025</p>
             <ul class="clean-list">
-              <li>Productized vision models for portrait segmentation and matting, monocular depth, object detection, and camera-oriented image processing.</li>
-              <li>Built repeatable training-to-deployment workflows spanning data preparation, training, quantization, export validation, runtime assumptions, and model replacement checks.</li>
-              <li>Integrated models into native C++ and Android camera pipelines with simulation, cross-platform builds, device deployment, and visual debugging.</li>
-              <li>Developed depth-aware bokeh and portrait-rendering workflows with hard-case datasets, batch comparison, golden cases, and release-review tooling.</li>
+              <li>Productized portrait segmentation, matting and monocular depth models for mobile camera pipelines.</li>
+              <li>Built training-to-deployment workflows with quantization, export checks and regression comparisons to validate model replacements.</li>
+              <li>Integrated models into C++/Android runtimes and developed depth-aware bokeh with visual debugging, golden cases and batch release-review tooling.</li>
             </ul>
           </article>
           <article>
@@ -100,23 +93,19 @@
       </section>
 
       <section>
-        <h2>Selected Systems</h2>
+        <h2>Independent Projects</h2>
         <div class="topic-list">
           <article>
             <h3>Reliable Agent Workflow</h3>
-            <p>Provider-neutral Python reference for retry, fallback, validated output contracts, confidence gates, traces, and executable hard cases.</p>
+            <p>Scripted-provider Python reference for retries, fallback, output validation and human-review gates, with trace-based regression tests.</p>
             <p><a href="https://github.com/vemodalen-x/vemodalen-x.github.io/tree/main/agentic_workflow">Code and tests</a></p>
           </article>
           <article>
             <h3>Photography Mentor</h3>
-            <p>Browser-local image diagnostics, retrieval, practice planning, review state, and evidence-aware coaching.</p>
+            <p>Browser-local image diagnostics, source-linked retrieval and practice tracking using deterministic analysis and coaching rules.</p>
             <p><a href="photography-mentor-agent.html">Open the system</a></p>
           </article>
-          <article>
-            <h3>Production Vision &amp; Edge AI</h3>
-            <p>Training-to-deployment workflows, quantization and export validation, native C++/Android integration, on-device debugging, and release checks.</p>
-            <p><a href="work.html">Read selected system evidence</a></p>
-          </article>
+
         </div>
       </section>
 
@@ -132,8 +121,8 @@
       <section>
         <h2>Education & Publication</h2>
         <div class="compact-list">
-          <article><h3>Master of Technology, Intelligent Systems | NUS-ISS</h3><p>2021 - 2022 | GPA 4.33 / 5.00</p></article>
-          <article><h3>Bachelor of Engineering, Software Engineering | Shandong University</h3><p>2017 - 2021 | GPA 86.86 / 100 | Outstanding Graduate</p></article>
+          <article><h3>Master of Technology, Intelligent Systems | NUS-ISS</h3><p>2021 - 2022</p></article>
+          <article><h3>Bachelor of Engineering, Software Engineering | Shandong University</h3><p>2017 - 2021 | Outstanding Graduate</p></article>
           <article>
             <h3>Peer-reviewed publication</h3>
             <p>Co-author, "Automated classification of 'cluttered' construction housekeeping images through supervised and self-supervised feature representation learning," <em>Automation in Construction</em>, 2023. <a href="https://doi.org/10.1016/j.autcon.2023.105095">DOI</a></p>

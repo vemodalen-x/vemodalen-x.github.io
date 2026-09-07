@@ -13,7 +13,7 @@ The narrative is **from perception to production**:
 - `agentic-systems.html` - evidence and boundaries for reliable agent and multimodal workflows.
 - `photography-mentor-agent.html` - browser-local image diagnostics, retrieval, practice planning, and review state.
 - `business-learning-studio/` - privacy-first commercial learning workspace with 32 original knowledge cards, four practice modes, a five-gate local coach, and offline support.
-- `resume.html` - ATS-readable web CV.
+- `resume.html` - text-based web CV with standard experience and education headings.
 - `assets/junxian-wu-cv.pdf` - downloadable one-page CV.
 - `agentic_workflow/` - provider-neutral orchestration reference with validated output contracts, retry, fallback, human-review gates, and deterministic traces.
 - `tests/` - executable hard cases and release-safety checks.
@@ -44,7 +44,7 @@ npm run verify
 
 This is a GitHub Pages repository, not a general local workspace. Generated exports, private knowledge indexes, authenticated course material, browser state, local paths, and downloaded third-party media are excluded from publication.
 
-Audit the tracked release:
+Audit the complete Git index (the exact staged contents, not working-tree copies):
 
 ```powershell
 python scripts/check_public_release.py
@@ -55,6 +55,25 @@ Audit only the staged release candidate before committing:
 ```powershell
 python scripts/check_public_release.py --staged
 ```
+
+The audit rejects private paths, common secret patterns, oversized files, unresolved
+merges, symlinks and submodules. It is a guardrail, not a guarantee of confidentiality:
+review text, PDFs and images before staging. The portfolio workflow also runs Python
+regression tests, local link and asset checks, and both application release suites.
+
+## Rebuild the CV
+
+The public PDF is generated from the editable DOCX source builder. Install the optional
+document dependencies in a virtual environment, then run:
+
+```powershell
+python -m pip install python-docx reportlab
+python scripts/build_master_cv.py
+python scripts/render_cv_pdf.py outputs/cv/Junxian_Wu_AI_Systems_CV_2026.docx assets/junxian-wu-cv.pdf
+```
+
+Inspect the rendered PDF before publishing. Keep employer names, dates and responsibilities
+consistent with `resume.html`. DOCX exports remain under ignored `outputs/cv/`.
 
 ## Editorial Boundary
 

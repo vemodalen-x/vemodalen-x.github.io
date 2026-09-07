@@ -79,6 +79,51 @@ class ReliableWorkflowTests(unittest.TestCase):
     def test_contract_error_is_public(self) -> None:
         self.assertTrue(issubclass(ContractError, ValueError))
 
+    def test_provider_requested_review_is_never_marked_passed(self) -> None:
+        for confidence in (0.3, 0.9):
+            with self.subTest(confidence=confidence):
+                provider = ScriptedProvider("primary", [valid_output(confidence, human_review=True)])
+                run = ReliableWorkflow((provider,)).run(self.request)
+                self.assertEqual(run.trace[-2].status, "required")
+                self.assertEqual(run.trace[-1].status, "pending_review")
+
+    def test_low_confidence_is_pending_not_accepted(self) -> None:
+        run = ReliableWorkflow((ScriptedProvider("primary", [valid_output(0.2)]),)).run(self.request)
+        self.assertEqual(run.trace[-1].status, "pending_review")
+
+    def test_validation_success_is_traced(self) -> None:
+        run = ReliableWorkflow((ScriptedProvider("primary", [valid_output()]),)).run(self.request)
+        self.assertTrue(any(event.stage == "validation" and event.status == "passed" for event in run.trace))
+        self.assertEqual([event.sequence for event in run.trace], list(range(1, len(run.trace) + 1)))
+
+    def test_invalid_attempt_budgets_are_rejected_at_construction(self) -> None:
+        for attempts in (True, 0, -1, 1.5, "2", None):
+            with self.subTest(attempts=attempts), self.assertRaises(ValueError):
+                ReliableWorkflow((ScriptedProvider("primary", [valid_output()]),), attempts)
+
+    def test_ambiguous_provider_names_are_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            ReliableWorkflow((ScriptedProvider("same", [valid_output()]), ScriptedProvider("same", [valid_output()])))
+
+    def test_invalid_request_values_are_rejected(self) -> None:
+        for threshold in (True, "0.8", float("nan"), float("inf"), -0.1, 1.1):
+            with self.subTest(threshold=threshold), self.assertRaises(ValueError):
+                WorkflowRequest("id", "goal", minimum_confidence=threshold)
+        for fields in ({"request_id": None}, {"goal": 42}, {"evidence": "case"}, {"constraints": (1,)}):
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                WorkflowRequest(**({"request_id": "id", "goal": "goal"} | fields))
+
+    def test_threshold_equality_does_not_require_review(self) -> None:
+        run = ReliableWorkflow((ScriptedProvider("primary", [valid_output(0.65)]),)).run(self.request)
+        self.assertFalse(run.output.needs_human_review)
+
+    def test_invalid_confidence_triggers_fallback(self) -> None:
+        for confidence in (True, float("nan"), float("inf"), "0.9"):
+            with self.subTest(confidence=confidence):
+                run = ReliableWorkflow((ScriptedProvider("primary", [valid_output(confidence)]),
+                                        ScriptedProvider("fallback", [valid_output()]))).run(self.request)
+                self.assertEqual(run.selected_provider, "fallback")
+
 
 if __name__ == "__main__":
     unittest.main()
