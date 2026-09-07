@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Junxian Wu 的每日 AI 求职驾驶舱：每天学习一点、推进一个申请动作、完成闭环。">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>每日 AI 求职驾驶舱 · RoleFit</title>
+  <link rel="stylesheet" href="daily-job-search-cockpit.css">
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <a class="brand" href="index.html?tab=status" aria-label="返回 RoleFit">
+      <span class="brand-mark">R</span>
+      <span><strong>RoleFit</strong><small>DAILY JOB COCKPIT</small></span>
+    </a>
+    <nav aria-label="求职工具导航">
+      <a href="index.html?tab=status">求职状态</a>
+      <a href="multi-role-interview-playbook.html">面试手册</a>
+      <a href="../assets/junxian-wu-cv.pdf">当前 CV</a>
+      <a class="nav-primary" href="#today">开始今天</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="welcome-band">
+      <div>
+        <p id="today-label" class="date-label"></p>
+        <h1>今天只完成<br><span>三件事。</span></h1>
+        <p class="welcome-copy">学习一个能说出口的答案，推进一个真实申请动作，再给明天留下清晰入口。完成比完美更重要。</p>
+      </div>
+      <aside class="momentum-panel" aria-label="连续行动统计">
+        <div class="streak-ring"><strong id="streak-count">0</strong><span>连续天数</span></div>
+        <div class="momentum-copy"><span>本周完成</span><strong id="week-contracts">0 / 7 天</strong><small>同时完成“学习 + 推进”才计入</small></div>
+      </aside>
+    </section>
+
+    <section id="today" class="today-layout">
+      <article class="contract-panel">
+        <header class="panel-header">
+          <div><span class="section-label">TODAY'S CONTRACT</span><h2>今日求职合约</h2><p>一次只推进一个岗位；做完即可停止。</p></div>
+          <div id="mode-switch" class="mode-switch" aria-label="选择今日模式"></div>
+        </header>
+
+        <div class="role-selector-row">
+          <label>今日主攻岗位<select id="role-selector"></select></label>
+          <div class="role-gates"><span>Singapore</span><span>EP 待确认</span><span>S$150–170k fixed</span></div>
+        </div>
+
+        <div id="freshness-gate" class="freshness-gate" role="status" aria-live="polite"></div>
+
+        <div id="task-list" class="task-list"></div>
+
+        <div class="contract-footer">
+          <button id="rescue-mode" class="rescue-button" type="button">今天状态差：切换 20 分钟保底模式</button>
+          <div class="contract-progress"><span id="contract-progress-copy">0 / 3</span><div><i id="contract-progress-bar"></i></div></div>
+        </div>
+      </article>
+
+      <aside class="focus-column">
+        <section class="timer-panel">
+          <div class="timer-heading"><span class="section-label">FOCUS BLOCK</span><svg><use href="#icon-clock"/></svg></div>
+          <strong id="timer-display">15:00</strong>
+          <p id="timer-prompt">先做最小动作：打开题目，写下答案第一句。</p>
+          <div class="timer-actions">
+            <button id="timer-toggle" type="button"><svg><use href="#icon-play"/></svg><span>开始专注</span></button>
+            <button id="timer-reset" type="button" aria-label="重置计时"><svg><use href="#icon-reset"/></svg></button>
+          </div>
+        </section>
+
+        <section class="intention-panel">
+          <span class="section-label">IF–THEN PLAN</span>
+          <h3>让开始变成默认动作</h3>
+          <p>当触发点出现时，不再重新做决定。</p>
+          <div class="intention-form">
+            <label>在<input id="anchor-time" type="time" value="20:30"></label>
+            <label>完成<input id="anchor-event" type="text" value="晚饭" maxlength="20"></label>
+            <label>地点<input id="anchor-place" type="text" value="书桌" maxlength="20"></label>
+          </div>
+          <blockquote id="intention-sentence"></blockquote>
+        </section>
+      </aside>
+    </section>
+
+    <section class="log-section">
+      <div class="section-heading">
+        <div><span class="section-label">SHIP LOG</span><h2>今天真正推进了什么？</h2><p>只记录对外可用的结果；浏览职位和收藏不算推进。</p></div>
+      </div>
+      <form id="ship-form" class="ship-form">
+        <select id="ship-type" aria-label="结果类型">
+          <option value="application">已投递</option>
+          <option value="outreach">已联络 / 内推</option>
+          <option value="followup">已 Follow-up</option>
+          <option value="artifact">完成申请材料</option>
+          <option value="mock">完成面试练习</option>
+        </select>
+        <input id="ship-note" type="text" required maxlength="160" placeholder="例如：完成 GoTo 定制 CV 并保存待提交版本">
+        <button type="submit">记录结果 <svg><use href="#icon-arrow"/></svg></button>
+      </form>
+      <div id="ship-log" class="ship-log"></div>
+    </section>
+
+    <section class="week-section">
+      <div class="section-heading split-heading">
+        <div><span class="section-label">WEEKLY RHYTHM</span><h2>一周不是七次意志力测试</h2><p>预先决定每天的任务类型，只在岗位选择上做小调整。</p></div>
+        <div class="week-metrics"><div><strong id="metric-applications">0</strong><span>投递</span></div><div><strong id="metric-conversations">0</strong><span>联络</span></div><div><strong id="metric-practice">0</strong><span>练习</span></div></div>
+      </div>
+      <div id="week-grid" class="week-grid"></div>
+    </section>
+
+    <section class="skills-section">
+      <div class="section-heading split-heading">
+        <div><span class="section-label">YOUR MARKET SKILLS</span><h2>你的能力，不是一串关键词</h2><p>按可证明程度分层：Strong 可以直接主张，Adjacent 要说明迁移逻辑，Build Next 是每天学习的来源。</p></div>
+        <button id="copy-skill-command" class="skill-link" type="button">复制个人 Skill 指令 <svg><use href="#icon-link"/></svg></button>
+      </div>
+      <div id="skill-map" class="skill-map"></div>
+    </section>
+
+    <section class="method-section">
+      <div class="section-heading"><span class="section-label">EVIDENCE-BASED SYSTEM</span><h2>这套流程为什么这样设计</h2><p>把网络最佳实践压缩为四条可以执行的规则。</p></div>
+      <div id="method-grid" class="method-grid"></div>
+    </section>
+  </main>
+
+  <footer><p>RoleFit · Learn one thing · Ship one thing · Close the loop</p><a href="index.html?tab=status">返回完整求职工作台</a></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="daily-job-search-cockpit.js"></script>
+</body>
+</html>
