@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; font-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="referrer" content="no-referrer">
-  <title>Photography Mentor | Local Photography Learning OS</title>
-  <meta name="description" content="本地优先的摄影学习应用：用可追溯知识卡、刻意练习、照片诊断和复习计划学习计算摄影、摄影美学与前后期流程。">
+  <title>Photography Mentor | Evidence-grounded Learning</title>
+  <meta name="description" content="本地摄影 Mentor：把图像证据、摄影知识、单变量练习和掌握度复习整合为可验证的学习闭环。">
   <meta name="application-name" content="Photography Mentor Agent">
-  <meta name="version" content="1.2.0">
+  <meta name="version" content="1.3.0">
   <meta name="theme-color" content="#0f766e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Photo Mentor">
@@ -202,9 +202,269 @@
     }
 
     .photography-mentor-app .agent-output {
-      white-space: pre-wrap;
       min-height: 430px;
+      padding: 0;
+      white-space: normal;
+      font-family: inherit;
+      font-size: 13px;
       line-height: 1.62;
+      overflow-wrap: anywhere;
+    }
+
+    .photography-mentor-app .agent-output.empty {
+      padding: 18px 20px;
+      white-space: pre-line;
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+    }
+
+    .mentor-plan {
+      color: var(--photo-ink);
+    }
+
+    .photography-mentor-app .content .mentor-plan-section {
+      margin: 0;
+      padding: 17px 18px;
+      border-bottom: 1px solid var(--photo-line);
+    }
+
+    .photography-mentor-app .content .mentor-plan-section:last-child {
+      margin: 0;
+      padding: 17px 18px;
+      border-bottom: 0;
+    }
+
+    .mentor-plan-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .mentor-plan-heading h4 {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .mentor-plan-heading svg {
+      width: 16px;
+      height: 16px;
+      color: var(--photo-teal);
+    }
+
+    .mentor-plan-route,
+    .mentor-plan-audit,
+    .mentor-plan-boundary {
+      margin: 0;
+      color: var(--photo-muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .mentor-plan-route strong {
+      color: var(--photo-ink);
+    }
+
+    .mentor-plan-bottleneck {
+      background: #f3f8f6;
+      border-left: 4px solid var(--photo-teal);
+    }
+
+    .mentor-plan-bottleneck strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 17px;
+    }
+
+    .mentor-plan-bottleneck p,
+    .mentor-plan-action p {
+      margin: 0;
+    }
+
+    .mentor-confidence {
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border: 1px solid #8db8ad;
+      border-radius: 4px;
+      color: #075e55;
+      background: #e5f3ef;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .mentor-ledger,
+    .mentor-verification {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 14px;
+    }
+
+    .mentor-ledger-column,
+    .mentor-verification > div {
+      padding-left: 11px;
+      border-left: 3px solid var(--photo-line);
+    }
+
+    .mentor-ledger-column:nth-child(1) { border-color: var(--photo-teal); }
+    .mentor-ledger-column:nth-child(2) { border-color: var(--photo-amber); }
+    .mentor-ledger-column:nth-child(3) { border-color: var(--photo-blue); }
+    .mentor-verification > div:nth-child(1) { border-color: var(--photo-teal); }
+    .mentor-verification > div:nth-child(2) { border-color: var(--photo-red); }
+    .mentor-verification > div:nth-child(3) { border-color: var(--photo-blue); }
+
+    .mentor-ledger-column strong,
+    .mentor-verification strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--photo-muted);
+    }
+
+    .mentor-plan ul,
+    .mentor-plan ol {
+      margin: 0;
+      padding-left: 19px;
+    }
+
+    .mentor-plan li + li {
+      margin-top: 5px;
+    }
+
+    .mentor-knowledge-list {
+      display: grid;
+    }
+
+    .mentor-knowledge-item {
+      padding: 12px 0;
+      border-top: 1px solid var(--photo-line);
+    }
+
+    .mentor-knowledge-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .mentor-knowledge-item h5 {
+      margin: 0 0 4px;
+      font-size: 13px;
+    }
+
+    .mentor-knowledge-item p {
+      margin: 0;
+      color: #3f4852;
+      font-size: 12px;
+      line-height: 1.58;
+    }
+
+    .mentor-knowledge-reason {
+      margin-top: 5px !important;
+      color: var(--photo-muted) !important;
+    }
+
+    .mentor-knowledge-sources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 10px;
+      margin-top: 7px;
+      font-size: 11px;
+    }
+
+    .mentor-knowledge-sources a {
+      color: #075e55;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .mentor-plan-action {
+      padding: 12px 14px;
+      border-left: 4px solid var(--photo-amber);
+      background: #f8f4ea;
+      font-weight: 650;
+    }
+
+    .mentor-plan-practice {
+      margin-top: 12px;
+    }
+
+    .mentor-plan-practice strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .mentor-verification p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .decision-feedback {
+      display: grid;
+      gap: 12px;
+      padding: 15px 18px 17px;
+      border-top: 1px solid var(--photo-line);
+      background: #f7faf9;
+    }
+
+    .decision-feedback[hidden] {
+      display: none;
+    }
+
+    .decision-feedback-head,
+    .decision-feedback-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .decision-feedback-head strong {
+      font-size: 13px;
+    }
+
+    .decision-feedback-head span,
+    .decision-feedback-status {
+      color: var(--photo-muted);
+      font-size: 12px;
+    }
+
+    .decision-feedback-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .decision-feedback-actions {
+      justify-content: flex-start;
+    }
+
+    .decision-feedback-actions .secondary-action[aria-pressed="true"] {
+      border-color: var(--photo-teal);
+      background: #e5f3ef;
+      color: #075e55;
+    }
+
+    .decision-evidence-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 9px;
+    }
+
+    .decision-evidence-row input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .decision-feedback-status {
+      margin: 0;
+      line-height: 1.45;
     }
 
     .photography-mentor-app .kb-panel {
@@ -220,6 +480,88 @@
       min-width: 48px;
       padding: 3px 7px;
       white-space: nowrap;
+    }
+
+    .kb-match-reason {
+      margin: 10px 0 0;
+      padding: 8px 10px;
+      border-left: 3px solid #8db8ad;
+      background: #f4f8f6;
+      color: #43534d !important;
+      font-size: 12px !important;
+      line-height: 1.5 !important;
+    }
+
+    .session-source-rail {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--photo-line);
+      background: #fbfcfb;
+    }
+
+    .session-source-rail > strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .session-source-rail p {
+      margin: 6px 0;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .session-source-rail .kb-meta {
+      display: inline-flex;
+      margin-left: 6px;
+    }
+
+    .data-control-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      border-top: 1px solid var(--photo-line);
+      border-bottom: 1px solid var(--photo-line);
+      padding: 18px 0;
+    }
+
+    .data-control-copy {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .data-control-copy strong {
+      font-size: 15px;
+    }
+
+    .data-control-copy span,
+    .data-control-status {
+      color: var(--photo-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .data-control-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .data-import-action input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .data-control-status {
+      margin: 10px 0 0;
     }
 
     .kb-card-details {
@@ -1604,54 +1946,6 @@
       color: var(--photo-muted);
       font-size: 13px;
       margin-top: 10px;
-    }
-
-    .data-control-strip {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 18px;
-      align-items: center;
-      border-top: 1px solid var(--photo-line);
-      border-bottom: 1px solid var(--photo-line);
-      padding: 18px 0;
-    }
-
-    .data-control-copy {
-      display: grid;
-      gap: 5px;
-      min-width: 0;
-    }
-
-    .data-control-copy strong {
-      font-size: 15px;
-    }
-
-    .data-control-copy span,
-    .data-control-status {
-      color: var(--photo-muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .data-control-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .data-import-action input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      white-space: nowrap;
-    }
-
-    .data-control-status {
-      margin: 10px 0 0;
     }
 
     .sybj-dialog {
@@ -3105,6 +3399,14 @@
         width: 100%;
       }
 
+      .decision-evidence-row {
+        grid-template-columns: 1fr;
+      }
+
+      .decision-evidence-row .secondary-action {
+        width: 100%;
+      }
+
       .data-control-actions {
         justify-content: flex-start;
       }
@@ -3129,19 +3431,18 @@
         <span class="app-brand-mark" aria-hidden="true"><i data-lucide="aperture"></i></span>
         <span>
           <strong>Photography Mentor</strong>
-        <small>Local learning, practice and review</small>
+        <small>Browser-local retrieval and practice</small>
         </span>
       </a>
       <div class="app-health" role="status">
         <span class="health-dot" aria-hidden="true"></span>
-        Offline-ready · <span id="header-kb-count">0 cards</span>
+        Local KB · <span id="header-kb-count">0 cards</span>
       </div>
       <div class="app-header-links">
         <button type="button" class="icon-button install-app-button" id="install-app" aria-label="安装摄影 Mentor 应用" data-tooltip="安装应用" hidden><i data-lucide="download"></i></button>
         <a href="index.html">Portfolio</a>
-        <a href="docs/photography-mentor/README.md" target="_blank" rel="noreferrer">Docs</a>
-        <a href="docs/photography-mentor/PRIVACY.md" target="_blank" rel="noreferrer">Privacy</a>
-        <a href="docs/photography-mentor/TERMS.md" target="_blank" rel="noreferrer">Terms</a>
+        <a href="work.html">Work</a>
+        <a href="writing.html">Notes</a>
         <a class="active" href="photography-mentor-agent.html">Photo Mentor</a>
       </div>
     </nav>
@@ -3414,6 +3715,24 @@
 4. 练习任务
 5. 评片追问
             </div>
+            <div class="decision-feedback" id="decision-feedback" hidden>
+              <div class="decision-feedback-head">
+                <strong>这条建议是否值得执行？</strong>
+                <div class="decision-feedback-meta">
+                  <span>浏览器本地记录</span>
+                  <button type="button" class="icon-button" id="delete-decision-feedback" aria-label="删除本轮反馈" data-tooltip="删除本轮反馈"><i data-lucide="trash-2"></i></button>
+                </div>
+              </div>
+              <div class="decision-feedback-actions" role="group" aria-label="建议反馈">
+                <button type="button" class="secondary-action" data-decision-outcome="accepted" aria-pressed="false"><i data-lucide="thumbs-up"></i>采纳</button>
+                <button type="button" class="secondary-action" data-decision-outcome="rejected" aria-pressed="false"><i data-lucide="thumbs-down"></i>不适用</button>
+              </div>
+              <div class="decision-evidence-row">
+                <input id="decision-evidence" class="photo-search-input" type="text" maxlength="280" aria-label="本轮结果证据" placeholder="结果证据：before/after、参数或观察">
+                <button type="button" class="secondary-action" id="verify-decision"><i data-lucide="badge-check"></i>完成验证</button>
+              </div>
+              <p class="decision-feedback-status" id="decision-feedback-status">本轮尚未记录反馈。</p>
+            </div>
           </div>
         </div>
       </section>
@@ -3491,7 +3810,7 @@
           <div>
             <p class="eyebrow">RAG Library</p>
             <h2>摄影知识库</h2>
-            <p>按主题筛选或搜索。每张卡片都是摘要级知识块，并保留来源链接。</p>
+            <p>网络资料、脱敏本机总结和授权笔记统一检索；每张卡片显示匹配依据、来源类型与原始链接。</p>
           </div>
           <span class="section-note" id="library-count">0 cards</span>
         </div>
@@ -3514,7 +3833,7 @@
         <div class="kb-panel" id="kb-panel" aria-live="polite"></div>
       </section>
 
-      <section id="local-books" class="workspace-section workspace-view-section" data-workspace-view="library" data-workspace-disabled hidden>
+      <section id="local-books" class="workspace-section workspace-view-section" data-workspace-view="library">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Local books</p>
@@ -3533,7 +3852,7 @@
             <span>整理库合计体量</span>
           </article>
           <article class="local-books-note">
-            <p>已先按分类和索引总结为摘要级知识卡，不复制书籍全文。完整清单可打开 Markdown 总结核对。</p>
+            <p>本机资料已按主题汇总为脱敏知识卡，只保留可学习的概念、练习和问题；不发布文件路径、文件名或书籍全文。</p>
           </article>
         </div>
 
@@ -3543,9 +3862,9 @@
       <section id="sybj-ingest" class="workspace-section workspace-view-section" data-workspace-view="library">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">User-controlled source</p>
+            <p class="eyebrow">SYBJ Restricted Source</p>
             <h2>摄影笔记 SYBJ 教程接入</h2>
-            <p>SYBJ 教程可能需要登录并限制自动访问。这里仅提供官方微信登录入口和本地导入区，用你自己整理的课程摘要生成可检索知识卡。</p>
+            <p>SYBJ 需要登录，且站点禁止爬取。这里提供微信登录入口和本地导入区，用你自己整理的课程摘要生成可检索知识卡。</p>
           </div>
           <span class="workspace-badge"><i data-lucide="lock-keyhole"></i>Manual import</span>
         </div>
@@ -3561,7 +3880,7 @@
             <ul class="sybj-checklist">
               <li><i data-lucide="check-circle-2"></i><span>登录后进入你有权限的教程或课程。</span></li>
               <li><i data-lucide="check-circle-2"></i><span>不要整篇复制课程原文，先整理成自己的摘要和练习笔记。</span></li>
-              <li><i data-lucide="check-circle-2"></i><span>把摘要粘贴到右侧，本地生成 RAG 知识卡；登录凭据不会进入本应用。</span></li>
+              <li><i data-lucide="check-circle-2"></i><span>把摘要粘贴到右侧，本地生成 RAG 知识卡。</span></li>
             </ul>
           </div>
 
@@ -3595,7 +3914,7 @@
         <div class="data-control-strip">
           <div class="data-control-copy">
             <strong>完整学习备份</strong>
-            <span>包含档案、7 天计划、掌握度、练习日志、工作台草稿和手动导入摘要；不包含照片像素或第三方登录信息。</span>
+            <span>包含档案、7 天计划、掌握度、练习日志、决策反馈、工作台草稿和手动导入摘要；不包含照片像素或第三方登录信息。</span>
           </div>
           <div class="data-control-actions">
             <button type="button" class="primary-action" id="export-all-learning-data"><i data-lucide="download"></i>导出备份</button>
@@ -3650,26 +3969,22 @@
         </div>
         <div class="system-prompt-grid">
           <ul class="prompt-rule-list">
-            <li>先判断用户问题属于评片、拍摄计划、后期流程、计算摄影解释或学习路线。</li>
-            <li>只基于检索到的知识块和用户提供的信息回答；看不到照片时明确说明是基于描述推断。</li>
-            <li>每次输出都包含：观察/判断、知识依据、下一步动作、练习、评片追问。</li>
-            <li>尊重不同题材的真实边界：纪实、比赛、商业和个人创作的后期尺度不同。</li>
+            <li>先建立证据账本，分开记录事实、测量、推断和未知信息。</li>
+            <li>从任务中只选择一个第一瓶颈，避免一次给出互相干扰的改动。</li>
+            <li>网络来源、本机主题总结和授权笔记按证据等级混合检索，并显示匹配依据。</li>
+            <li>每次输出一个可执行动作，同时定义成功标准、失败信号和复盘问题。</li>
           </ul>
-          <pre class="prompt-box" id="system-prompt">你是一个摄影 Mentor Agent。你的目标不是替用户做审美盖章，而是帮助用户形成可复用的摄影判断力。
+          <pre class="prompt-box" id="system-prompt">你是一个摄影 Mentor Agent。你的目标不是替用户做审美盖章，而是帮助用户形成可验证、可迁移的摄影判断力。
 
 工作流程：
-1. 读取用户的学习阶段、目标、设备、时间和能力基线，再识别任务类型：评片、拍摄计划、后期流程、计算摄影解释、学习路线。
-2. 从 RAG 知识库检索 4-6 个相关知识块，优先使用带来源的摘要，并区分客观资料、经验建议和基于描述的推断。
-3. 如果没有看到照片，只能基于用户描述推断，并要求补充主体、主题、光线、场景、器材、输出用途。
-4. 输出必须包含：
-   - Mentor 判断：当前最大瓶颈是什么。
-   - 知识依据：引用知识块标题和来源。
-   - 下一步动作：一次拍摄或一次后期即可执行。
-   - 练习任务：可在 1-7 天内完成。
-   - 评片追问：帮助用户复盘。
-5. 避免固定参数万能论、滤镜万能论和未经说明的合成建议。
-6. 在纪实、比赛、商业交付中主动提醒真实边界和后期尺度。
-7. 每次只安排一个主要改进变量；把建议转成可勾选任务，并在用户保存复盘后更新高频短板。</pre>
+1. 先识别任务：评片、拍摄计划、后期流程、计算摄影解释或学习路线；再映射到知识阶段和能力簇。
+2. 建立证据账本，严格区分：用户提供的事实、图像或 EXIF 测量、基于证据的推断、仍未知的信息。
+3. 从网络资料、本机书籍主题总结和用户授权笔记中检索 4-6 个知识块；控制来源类型，避免单一资料源垄断答案。
+4. 只选择一个第一瓶颈。输出必须包含：任务定义、证据账本、第一瓶颈、知识依据、单变量动作、成功标准、失败信号和复盘问题。
+5. 没有照片时明确说明判断基于描述；没有来源时不得把经验建议写成事实；置信度必须与证据强度一致。
+6. 不给万能参数或万能滤镜。一次练习只改变一个主要变量，并保留 before/after 证据。
+7. 在纪实、比赛、商业交付中主动提醒真实性、产权、合成和 AI 修改边界。
+8. 用户完成练习后，把判断、证据、掌握层级和下次复习时间写入学习状态。</pre>
         </div>
       </section>
 
@@ -3677,7 +3992,7 @@
         <details open>
           <summary><span><i data-lucide="book-open" aria-hidden="true"></i><strong>资料来源与使用边界</strong></span><span id="source-count">0 项</span></summary>
           <div class="source-list">
-            <p>本页面使用摘要级知识块作为 RAG，不复制教程全文。点击下方来源可回到原始资料继续学习。</p>
+            <p>本页面使用摘要级知识块作为 RAG，不复制教程全文。本机资料仅发布脱敏主题总结；外部资料可从来源链接继续核对。</p>
             <div class="source-list-grid" id="source-list"></div>
           </div>
         </details>
@@ -3764,7 +4079,7 @@
         </div>
         <button type="button" class="icon-button" id="close-sybj-dialog" aria-label="关闭 SYBJ 登录提示"><i data-lucide="x"></i></button>
       </div>
-      <p>SYBJ 教程可能跳转到微信登录页并限制自动访问。请在 SYBJ 官方页面完成登录，阅读你有权限的教程后，把自己整理的摘要粘贴进本地导入区。</p>
+      <p>我检测到 `www.sybj.com` 会跳转到登录页，且站点禁止爬取。请在 SYBJ 官方页面用微信扫码登录，阅读你有权限的教程后，把自己整理的摘要粘贴进本地导入区。</p>
       <p>这个本地页面不会读取你的微信、手机号、Cookie 或课程账号，也不会自动抓取登录后的内容。</p>
       <div class="sybj-dialog-actions">
         <button type="button" class="primary-action" id="dialog-open-sybj-login"><i data-lucide="qr-code"></i>打开微信登录页</button>
@@ -3776,16 +4091,18 @@
   <footer class="app-footer">
     <span><i data-lucide="hard-drive" aria-hidden="true"></i>本地运行 · 草稿保存在当前浏览器</span>
     <span class="app-footer-links"><a href="docs/photography-mentor/PRIVACY.md" target="_blank" rel="noreferrer">隐私</a><a href="docs/photography-mentor/TERMS.md" target="_blank" rel="noreferrer">条款</a><a href="docs/photography-mentor/THIRD_PARTY_NOTICES.md" target="_blank" rel="noreferrer">第三方声明</a></span>
-    <span>Photography Mentor v1.2.0 · 2026-07-18</span>
+    <span>Photography Mentor Agent · v1.3.0 · 2026-09-07</span>
   </footer>
 
   <script src="knowledge/photography-mentor-kb.js"></script>
+  <script src="knowledge/photography-local-summaries.js"></script>
   <script src="knowledge/photography-mentor-taxonomy.js"></script>
+  <script src="knowledge/photography-mentor-core.js"></script>
   <script src="assets/vendor/lucide-1.23.0.min.js"></script>
   <script>
     (() => {
       const KB = window.PHOTOGRAPHY_MENTOR_KB || { cards: [], sources: [] };
-      const LocalBooksKB = window.LOCAL_PHOTOGRAPHY_BOOKS_KB || { cards: [], sources: [], totalFiles: 0, totalSize: "0 GB" };
+      const LocalBooksKB = window.PHOTOGRAPHY_LOCAL_SUMMARIES || { cards: [], sources: [], totalFiles: 0, totalSize: "0 GB" };
       const Taxonomy = window.PHOTOGRAPHY_MENTOR_TAXONOMY || { stages: [], stats: {} };
       const taxonomyStageColors = ["#0f766e", "#2563eb", "#a16207", "#7c3aed", "#c2410c", "#be123c", "#475569"];
       const storageKey = "photography-mentor-agent-draft";
@@ -3796,6 +4113,7 @@
       const learningPlanStorageKey = "photography-mentor-learning-plan";
       const masteryStorageKey = "photography-mentor-cluster-mastery";
       const workspaceViewStorageKey = "photography-mentor-workspace-view";
+      const decisionFeedbackStorageKey = "photography-mentor-decision-feedback";
       const sybjLoginUrl = "https://www.sybj.com/may.php?c=w&a=loginWeixinPC&t=1";
       const sybjFeatureEnabled = !document.getElementById("sybj-ingest")?.hasAttribute("data-workspace-disabled");
       KB.sources = KB.sources || [];
@@ -3827,6 +4145,11 @@
       } catch (error) {
         localStorage.removeItem(sybjStorageKey);
       }
+      let MentorCore = null;
+      function refreshMentorCore() {
+        MentorCore = window.PHOTOGRAPHY_MENTOR_CORE?.create({ knowledge: KB, taxonomy: Taxonomy }) || null;
+      }
+      refreshMentorCore();
       const sourceById = Object.fromEntries((KB.sources || []).map((source) => [source.id, source]));
       const modeDescriptions = {
         critique: "从主体、主题、光线、构图和后期动作拆解一张照片的最大改进点。",
@@ -3896,14 +4219,17 @@
         draftStatus: document.getElementById("draft-status"),
         status: document.getElementById("status-line"),
         output: document.getElementById("agent-output"),
+        decisionFeedback: document.getElementById("decision-feedback"),
+        decisionEvidence: document.getElementById("decision-evidence"),
+        decisionFeedbackStatus: document.getElementById("decision-feedback-status"),
+        dataControlStatus: document.getElementById("data-control-status"),
+        importLearningData: document.getElementById("import-learning-data"),
         kbPanel: document.getElementById("kb-panel"),
         librarySearch: document.getElementById("library-search"),
         systemPrompt: document.getElementById("system-prompt"),
         sybjImportText: document.getElementById("sybj-import-text"),
         sybjImportStatus: document.getElementById("sybj-import-status"),
         sybjDialog: document.getElementById("sybj-login-dialog"),
-        importLearningData: document.getElementById("import-learning-data"),
-        dataControlStatus: document.getElementById("data-control-status"),
         localBookCount: document.getElementById("local-book-count"),
         localBookSize: document.getElementById("local-book-size"),
         localBooksPanel: document.getElementById("local-books-panel"),
@@ -3987,6 +4313,8 @@
         taxonomyMapFilter: "all",
         taxonomyMapQuery: "",
         taxonomyMapCluster: null,
+        currentPlan: null,
+        currentDecisionId: null,
         installPrompt: null
       };
 
@@ -4109,6 +4437,14 @@
       }
 
       function retrieveCards(query, options = {}) {
+        if (MentorCore) {
+          return MentorCore.retrieve(query, {
+            limit: options.limit || 6,
+            mode: options.mode || state.mode || "critique",
+            genre: options.genre || "auto",
+            domain: options.domain || "all"
+          });
+        }
         const fullQuery = [query, options.genre === "auto" ? "" : options.genre, modeLabels[options.mode] || ""].join(" ");
         const ranked = (KB.cards || [])
           .filter((card) => !options.domain || options.domain === "all" || card.domain === options.domain)
@@ -4123,7 +4459,11 @@
         return (card.sourceIds || [])
           .map((id) => sourceById[id])
           .filter(Boolean)
-          .map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(source.title)} <i data-lucide="external-link"></i></a>`)
+          .map((source) => {
+            const url = source.url || "#source-boundary";
+            const external = /^https?:/i.test(url);
+            return `<a href="${escapeHtml(url)}" ${external ? 'target="_blank" rel="noreferrer"' : ""}>${escapeHtml(source.title)} <i data-lucide="${external ? "external-link" : "library"}"></i></a>`;
+          })
           .join("");
       }
 
@@ -4131,7 +4471,7 @@
         return (card.sourceIds || [])
           .map((id) => sourceById[id])
           .filter(Boolean)
-          .map((source) => `[${source.title}](${source.url})`)
+          .map((source) => /^https?:/i.test(source.url || "") ? `[${source.title}](${source.url})` : `${source.title}（本机总结）`)
           .join("；");
       }
 
@@ -4142,15 +4482,16 @@
           return;
         }
         target.innerHTML = cards.map((card) => `
-          <article>
+          <article class="kb-card">
             <div class="kb-card-top">
               <div class="kb-meta">${sourceLinks(card)}</div>
-              <span class="score-chip" title="本地关键词相关度">相关 ${Math.max(0, Math.round(card.score || 0))}</span>
+              <span class="score-chip" title="混合检索相关度">${Number.isFinite(card.score) ? `相关 ${Math.max(0, Math.round(card.score))}` : (card.sourceKinds || []).includes("local-synthesis") || card.level === "local-synthesis" ? "本机总结" : "知识卡"}</span>
             </div>
             <h3>${escapeHtml(card.title)}</h3>
             <p>${escapeHtml(card.summary)}</p>
             <strong>Mentor 用法</strong>
             <p>${escapeHtml(card.mentorUse)}</p>
+            ${(card.retrievalReasons || []).length ? `<p class="kb-match-reason"><strong>命中依据</strong> · ${card.retrievalReasons.map(escapeHtml).join("；")}</p>` : ""}
             <div class="tag-row">${(card.tags || []).slice(0, 6).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
             <details class="kb-card-details">
               <summary>展开练习与评片问题</summary>
@@ -4166,6 +4507,13 @@
 
       function taxonomyCardMap() {
         return Object.fromEntries((KB.cards || []).map((card) => [card.id, card]));
+      }
+
+      function knowledgeCardsForCluster(cluster, limit = 100) {
+        if (!cluster) return [];
+        if (MentorCore) return MentorCore.cardsForCluster(cluster.id, limit);
+        const cardById = taxonomyCardMap();
+        return (cluster.cardIds || []).map((id) => cardById[id]).filter(Boolean).slice(0, limit);
       }
 
       function allTaxonomyClusters() {
@@ -4242,8 +4590,8 @@
       }
 
       function sessionQuestions(cluster) {
-        const cardById = taxonomyCardMap();
-        const questions = (cluster.cardIds || []).flatMap((id) => cardById[id]?.questions || []).filter(Boolean);
+        const supportingCards = knowledgeCardsForCluster(cluster, 12);
+        const questions = supportingCards.flatMap((card) => card?.questions || []).filter(Boolean);
         return questions.length ? questions : [`不用参数名，解释“${cluster.title}”中最重要的判断是什么？`];
       }
 
@@ -4416,12 +4764,14 @@
         }
         if (session.step === 2) {
           const hints = (cluster.principles || []).slice(0, session.hintLevel);
+          const supportingCards = knowledgeCardsForCluster(cluster, 3);
           return `
             <span class="session-phase-label">Progressive feedback</span>
             <h3>把你的判断与知识依据进行对照。</h3>
             <div class="session-answer-preview"><strong>你的回答</strong>${escapeHtml(session.answer)}</div>
             <p>${escapeHtml(cluster.summary)}</p>
             <ul class="session-hints">${hints.map((hint, index) => `<li><span>${index + 1}</span><span>${escapeHtml(hint)}</span></li>`).join("")}</ul>
+            ${supportingCards.length ? `<div class="session-source-rail"><strong>本轮知识证据</strong>${supportingCards.map((card) => `<p>${escapeHtml(card.title)}<span class="kb-meta">${sourceLinks(card)}</span></p>`).join("")}</div>` : ""}
             <div class="session-actions">
               ${session.hintLevel < (cluster.principles || []).length ? '<button type="button" class="secondary-action" data-session-more-hint><i data-lucide="plus"></i>再给一个提示</button>' : ""}
               <button type="button" class="primary-action" data-session-practice><i data-lucide="camera"></i>进入实拍</button>
@@ -4491,7 +4841,7 @@
             <ul class="session-meta-list">
               <li><span>历史 Session</span><strong>${Number(record.attempts || 0)} 次</strong></li>
               <li><span>下次复习</span><strong>${escapeHtml(formatReviewDate(record.nextReview))}</strong></li>
-              <li><span>知识规模</span><strong>${(cluster.cardIds || []).length} 张原子卡</strong></li>
+              <li><span>知识规模</span><strong>${knowledgeCardsForCluster(cluster).length} 张原子卡</strong></li>
             </ul>
             <button type="button" class="secondary-action" data-session-next><i data-lucide="shuffle"></i>更换主题</button>
           </aside>
@@ -4755,8 +5105,7 @@
         const status = taxonomyClusterStatus(cluster);
         const matchesFilter = state.taxonomyMapFilter === "all" || status === state.taxonomyMapFilter;
         const query = normalize(state.taxonomyMapQuery);
-        const cardById = taxonomyCardMap();
-        const atomicKnowledge = (cluster.cardIds || []).map((id) => cardById[id]).filter(Boolean).map(cardText).join(" ");
+        const atomicKnowledge = knowledgeCardsForCluster(cluster).map(cardText).join(" ");
         const matchesQuery = !query || normalize(`${cluster.title} ${cluster.summary} ${cluster.query || ""} ${(cluster.principles || []).join(" ")} ${atomicKnowledge}`).includes(query);
         return matchesFilter && matchesQuery;
       }
@@ -4776,7 +5125,7 @@
         const status = taxonomyClusterStatus(cluster);
         const stageIndex = Math.max(0, (Taxonomy.stages || []).findIndex((item) => item.id === stage.id));
         const color = taxonomyStageColors[stageIndex % taxonomyStageColors.length];
-        const cards = (cluster.cardIds || []).map((id) => taxonomyCardMap()[id]).filter(Boolean);
+        const cards = knowledgeCardsForCluster(cluster);
         const sources = [...new Map(cards.flatMap((card) => card.sourceIds || []).map((id) => sourceById[id]).filter(Boolean).map((source) => [source.id, source])).values()].slice(0, 5);
         els.taxonomyInspector.style.setProperty("--inspector-color", color);
         els.taxonomyInspector.innerHTML = `
@@ -4812,7 +5161,7 @@
             const status = taxonomyClusterStatus(cluster);
             return `
               <button type="button" class="taxonomy-atlas-node" style="--mastery:${score}%" data-status="${status}" data-atlas-stage="${escapeHtml(stage.id)}" data-atlas-cluster="${escapeHtml(cluster.id)}" aria-selected="${cluster.id === state.taxonomyMapCluster}" title="${escapeHtml(cluster.title)}，${taxonomyStatusLabel(status)}，掌握 ${score}%">
-                <div class="taxonomy-node-title"><i class="taxonomy-node-state"></i><div><strong>${escapeHtml(cluster.title)}</strong><small>${taxonomyStatusLabel(status)} · ${(cluster.cardIds || []).length} 卡</small></div></div>
+                <div class="taxonomy-node-title"><i class="taxonomy-node-state"></i><div><strong>${escapeHtml(cluster.title)}</strong><small>${taxonomyStatusLabel(status)} · ${knowledgeCardsForCluster(cluster).length} 卡</small></div></div>
                 <span class="taxonomy-node-score" style="--node-score:${score}%">${score}</span>
               </button>
             `;
@@ -4877,7 +5226,6 @@
         }
 
         const stage = stages.find((item) => item.id === stageId) || stages[0];
-        const cardById = taxonomyCardMap();
         state.taxonomyStage = stage.id;
         els.taxonomySpine.innerHTML = stages.map((item) => `
           <button type="button" class="taxonomy-step" role="tab" data-taxonomy-stage="${escapeHtml(item.id)}" aria-selected="${item.id === stage.id}" aria-controls="taxonomy-detail">
@@ -4887,7 +5235,7 @@
         `).join("");
 
         const clusters = (stage.clusters || []).map((cluster, index) => {
-          const cards = (cluster.cardIds || []).map((id) => cardById[id]).filter(Boolean);
+          const cards = knowledgeCardsForCluster(cluster);
           const score = masteryScore(cluster.id);
           const attempts = Number(masteryRecord(cluster.id).attempts || 0);
           const principles = (cluster.principles || []).map((principle) => `<li><i data-lucide="check"></i><span>${escapeHtml(principle)}</span></li>`).join("");
@@ -4919,17 +5267,6 @@
           `;
         }).join("");
 
-        const localCards = (stage.localCardIds || []).map((id) => cardById[id]).filter(Boolean);
-        const localReferences = localCards.length ? `
-          <div class="taxonomy-local-references">
-            <div>
-              <h4>本机资料深读索引</h4>
-              <p>摘要卡负责指向材料，不与概念节点重复计数。</p>
-            </div>
-            <ul>${localCards.map((card) => `<li>${escapeHtml(card.title)}</li>`).join("")}</ul>
-          </div>
-        ` : "";
-
         els.taxonomyDetail.innerHTML = `
           <div class="taxonomy-stage-header">
             <div>
@@ -4943,7 +5280,6 @@
             </div>
           </div>
           <div class="curriculum-grid">${clusters}</div>
-          ${localReferences}
         `;
         if (els.curriculumCount) {
           const reviewedCards = (KB.cards || []).length;
@@ -4969,12 +5305,16 @@
       }
 
       function renderSources() {
-        els.sourceList.innerHTML = (KB.sources || []).map((source) => `
-          <a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">
-            <span>${escapeHtml(source.title)}<small>${escapeHtml(source.type || "source")}</small></span>
-            <i data-lucide="external-link"></i>
-          </a>
-        `).join("");
+        els.sourceList.innerHTML = (KB.sources || []).map((source) => {
+          const url = source.url || "#source-boundary";
+          const external = /^https?:/i.test(url);
+          return `
+            <a href="${escapeHtml(url)}" ${external ? 'target="_blank" rel="noreferrer"' : ""}>
+              <span>${escapeHtml(source.title)}<small>${escapeHtml(source.type || "source")}</small></span>
+              <i data-lucide="${external ? "external-link" : "library"}"></i>
+            </a>
+          `;
+        }).join("");
         els.sourceCount.textContent = `${(KB.sources || []).length} 项`;
       }
 
@@ -5015,6 +5355,178 @@
 
       function savePracticeLog(entries) {
         localStorage.setItem(practiceStorageKey, JSON.stringify(entries.slice(0, 80)));
+      }
+
+      function mentorList(items, fallback) {
+        const values = Array.isArray(items) && items.length ? items : [fallback];
+        return `<ul>${values.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+      }
+
+      function mentorSourceLinks(card) {
+        const sources = (card.sourceIds || []).map((id) => sourceById[id]).filter(Boolean);
+        if (!sources.length) return '<span>未标注来源</span>';
+        return sources.map((source) => {
+          const title = escapeHtml(source.title || "资料来源");
+          const url = String(source.url || "");
+          return /^https?:\/\//i.test(url)
+            ? `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${title}</a>`
+            : `<span>${title}</span>`;
+        }).join("");
+      }
+
+      function renderDecisionPlan(plan) {
+        const stages = (plan.route?.activeStages || []).map((stage) => stage.title).join(" → ") || "按当前问题动态路由";
+        const confidence = Math.round(Number(plan.decision?.confidenceScore || 0) * 100);
+        const assumptions = plan.evidence?.assumptions || [];
+        const unknowns = plan.evidence?.unknowns?.length ? plan.evidence.unknowns : ["当前信息足以开始第一轮验证。"];
+        const knowledge = (plan.knowledge || []).map((card, index) => `
+          <article class="mentor-knowledge-item">
+            <h5>${index + 1}. ${escapeHtml(card.title)}</h5>
+            <p>${escapeHtml(card.summary)}</p>
+            ${card.retrievalReasons?.length ? `<p class="mentor-knowledge-reason">命中原因：${escapeHtml(card.retrievalReasons.join("；"))}</p>` : ""}
+            <div class="mentor-knowledge-sources" aria-label="知识来源">${mentorSourceLinks(card)}</div>
+          </article>
+        `).join("") || '<p class="mentor-plan-boundary">没有检索到足够相关的知识块，请补充更具体的信息。</p>';
+        const quality = plan.retrievalQuality || {};
+
+        els.output.innerHTML = `
+          <article class="mentor-plan" aria-label="Photography Mentor 决策单">
+            <section class="mentor-plan-section" data-plan-section="task">
+              <div class="mentor-plan-heading"><h4><i data-lucide="route"></i>任务定义</h4></div>
+              <p class="mentor-plan-route"><strong>${escapeHtml(plan.modeLabel)}</strong> · ${escapeHtml(stages)} · 一次只验证一个主要判断</p>
+            </section>
+            <section class="mentor-plan-section" data-plan-section="evidence">
+              <div class="mentor-plan-heading"><h4><i data-lucide="notebook-pen"></i>证据账本</h4></div>
+              <div class="mentor-ledger">
+                <div class="mentor-ledger-column"><strong>已知事实</strong>${mentorList(plan.evidence?.facts, "尚无可核对事实。")}</div>
+                <div class="mentor-ledger-column"><strong>待验证假设</strong>${mentorList(assumptions, "尚未提出假设。")}</div>
+                <div class="mentor-ledger-column"><strong>仍未知</strong>${mentorList(unknowns, "当前信息足以开始第一轮验证。")}</div>
+              </div>
+            </section>
+            <section class="mentor-plan-section mentor-plan-bottleneck" data-plan-section="bottleneck">
+              <div class="mentor-plan-heading"><h4><i data-lucide="crosshair"></i>第一瓶颈</h4><span class="mentor-confidence">证据置信度 ${confidence}%</span></div>
+              <strong>${escapeHtml(plan.decision?.label)}</strong>
+              <p>${escapeHtml(plan.decision?.why)}</p>
+            </section>
+            <section class="mentor-plan-section" data-plan-section="knowledge">
+              <div class="mentor-plan-heading"><h4><i data-lucide="book-open-check"></i>知识依据</h4></div>
+              <div class="mentor-knowledge-list">${knowledge}</div>
+              <p class="mentor-plan-audit">检索审计：${Number(quality.cards || 0)} 个知识块 · ${Number(quality.sources || 0)} 个来源 · ${Number(quality.primarySources || 0)} 个一手或官方来源 · ${Number(quality.localSources || 0)} 个本机资料总结</p>
+            </section>
+            <section class="mentor-plan-section" data-plan-section="action">
+              <div class="mentor-plan-heading"><h4><i data-lucide="move-right"></i>单变量动作</h4></div>
+              <div class="mentor-plan-action"><p>${escapeHtml(plan.actions?.immediate)}</p></div>
+              <div class="mentor-plan-practice"><strong>延伸练习</strong>${mentorList(plan.actions?.practice, "完成一次单变量 before/after 练习，并记录取舍。")}</div>
+            </section>
+            <section class="mentor-plan-section" data-plan-section="verification">
+              <div class="mentor-plan-heading"><h4><i data-lucide="badge-check"></i>验证标准</h4></div>
+              <div class="mentor-verification">
+                <div><strong>成功</strong><p>${escapeHtml(plan.verification?.success)}</p></div>
+                <div><strong>失败信号</strong><p>${escapeHtml(plan.verification?.failure)}</p></div>
+                <div><strong>下一份证据</strong><p>${escapeHtml(plan.verification?.nextEvidence)}</p></div>
+              </div>
+            </section>
+            <section class="mentor-plan-section" data-plan-section="review">
+              <div class="mentor-plan-heading"><h4><i data-lucide="messages-square"></i>复盘问题</h4></div>
+              ${mentorList(plan.actions?.questions, "这次改变是否真的服务创作意图？")}
+              <p class="mentor-plan-boundary">画面判断是待验证假设；本机资料只使用主题级总结；纪实、比赛和商业交付涉及合成或 AI 修改时必须说明。</p>
+            </section>
+          </article>
+        `;
+        els.output.classList.remove("empty");
+        refreshIcons();
+      }
+
+      function loadDecisionFeedback() {
+        try {
+          const entries = JSON.parse(localStorage.getItem(decisionFeedbackStorageKey) || "[]");
+          return Array.isArray(entries) ? entries : [];
+        } catch (error) {
+          localStorage.removeItem(decisionFeedbackStorageKey);
+          return [];
+        }
+      }
+
+      function saveDecisionFeedback(entries) {
+        localStorage.setItem(decisionFeedbackStorageKey, JSON.stringify(entries.slice(0, 120)));
+      }
+
+      function feedbackStats(entries = loadDecisionFeedback()) {
+        return {
+          accepted: entries.filter((entry) => ["accepted", "verified"].includes(entry.outcome)).length,
+          rejected: entries.filter((entry) => entry.outcome === "rejected").length,
+          verified: entries.filter((entry) => entry.outcome === "verified").length
+        };
+      }
+
+      function renderDecisionFeedback() {
+        if (!els.decisionFeedback || !state.currentDecisionId) return;
+        const entries = loadDecisionFeedback();
+        const current = entries.find((entry) => entry.id === state.currentDecisionId);
+        const stats = feedbackStats(entries);
+        els.decisionFeedback.querySelectorAll("[data-decision-outcome]").forEach((button) => {
+          const accepted = button.dataset.decisionOutcome === "accepted" && ["accepted", "verified"].includes(current?.outcome);
+          const rejected = button.dataset.decisionOutcome === "rejected" && current?.outcome === "rejected";
+          button.setAttribute("aria-pressed", String(accepted || rejected));
+        });
+        if (current?.evidence && document.activeElement !== els.decisionEvidence) els.decisionEvidence.value = current.evidence;
+        const currentLabel = ({ accepted: "本轮已采纳，等待结果证据。", rejected: "本轮已标记为不适用。", verified: "本轮已完成结果验证。" })[current?.outcome] || "本轮尚未记录反馈。";
+        els.decisionFeedbackStatus.textContent = `${currentLabel} 累计采纳 ${stats.accepted} 次 · 验证 ${stats.verified} 次 · 不适用 ${stats.rejected} 次。`;
+      }
+
+      function activateDecisionFeedback(plan) {
+        state.currentPlan = plan;
+        state.currentDecisionId = `decision-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        els.decisionEvidence.value = "";
+        els.decisionFeedback.hidden = false;
+        renderDecisionFeedback();
+        refreshIcons();
+      }
+
+      function hideDecisionFeedback() {
+        state.currentPlan = null;
+        state.currentDecisionId = null;
+        if (els.decisionFeedback) els.decisionFeedback.hidden = true;
+        if (els.decisionEvidence) els.decisionEvidence.value = "";
+      }
+
+      function recordDecisionOutcome(outcome, evidence = "") {
+        if (!state.currentPlan || !state.currentDecisionId) {
+          setStatus("请先生成一条 Mentor 决策。", "error");
+          return;
+        }
+        const entries = loadDecisionFeedback();
+        const existingIndex = entries.findIndex((entry) => entry.id === state.currentDecisionId);
+        const previous = existingIndex >= 0 ? entries[existingIndex] : null;
+        const now = new Date().toISOString();
+        const record = {
+          id: state.currentDecisionId,
+          createdAt: previous?.createdAt || now,
+          updatedAt: now,
+          outcome,
+          evidence: evidence || previous?.evidence || "",
+          planVersion: state.currentPlan.version,
+          mode: state.currentPlan.mode,
+          genre: selectedGenre(),
+          task: String(state.currentPlan.query || "").slice(0, 600),
+          bottleneck: state.currentPlan.decision.type,
+          confidenceScore: state.currentPlan.decision.confidenceScore,
+          knowledgeIds: state.currentPlan.knowledge.map((card) => card.id),
+          sourceCount: state.currentPlan.retrievalQuality.sources
+        };
+        if (existingIndex >= 0) entries.splice(existingIndex, 1);
+        saveDecisionFeedback([record, ...entries]);
+        renderDecisionFeedback();
+        setStatus(outcome === "verified" ? "已保存本轮结果证据。" : outcome === "accepted" ? "已记录采纳，完成练习后补充结果证据。" : "已记录本轮建议不适用。 ");
+      }
+
+      function deleteCurrentDecisionFeedback() {
+        if (!state.currentDecisionId) return;
+        const entries = loadDecisionFeedback().filter((entry) => entry.id !== state.currentDecisionId);
+        saveDecisionFeedback(entries);
+        els.decisionEvidence.value = "";
+        renderDecisionFeedback();
+        setStatus("已删除本轮反馈记录。 ");
       }
 
       function defaultProfile() {
@@ -5268,6 +5780,7 @@
         renderGrowthDashboard();
         renderCards(cards);
         if (showOutput) {
+          hideDecisionFeedback();
           const markdown = `# 我的 7 天摄影训练计划\n\n学习档案：${currentProfileContext() || "通用入门路径"}\n\n${tasks.map((task, index) => `${index + 1}. Day ${index + 1} · ${task.title}\n   ${task.detail}`).join("\n")}\n\n## 本轮知识依据\n${cards.map((card, index) => `${index + 1}. ${card.title}：${card.summary}\n   来源：${sourceLinksMarkdown(card) || "本地知识库"}`).join("\n")}\n\n计划已保存到成长面板；完成一项即可勾选，并用照片诊断保存复盘。`;
           state.lastMarkdown = markdown;
           els.output.textContent = markdown;
@@ -5307,15 +5820,22 @@
       }
 
       function exportLearningData() {
+        let workbenchDraft = null;
+        try {
+          workbenchDraft = JSON.parse(localStorage.getItem(storageKey) || "null");
+        } catch (error) {
+          localStorage.removeItem(storageKey);
+        }
         const payload = {
           exportedAt: new Date().toISOString(),
-          version: 3,
+          version: 4,
           learnerProfile: state.profile,
           learningPlan: state.learningPlan,
           clusterMastery: state.mastery,
           practiceLog: loadPracticeLog(),
+          decisionFeedback: loadDecisionFeedback(),
           sybjSummaryCards: importedSybjCards(),
-          workbenchDraft: JSON.parse(localStorage.getItem(storageKey) || "null")
+          workbenchDraft
         };
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
         const url = URL.createObjectURL(blob);
@@ -5324,22 +5844,31 @@
         link.download = `photography-mentor-backup-${localDateKey()}.json`;
         link.click();
         URL.revokeObjectURL(url);
-        setStatus("学习档案、计划、掌握度、复盘和本地导入摘要已备份。 ");
+        setStatus("学习档案、计划、掌握度、建议反馈、复盘和本地导入摘要已备份。 ");
         if (els.dataControlStatus) els.dataControlStatus.textContent = "完整学习备份已导出。";
       }
 
       async function importLearningData(file) {
         if (!file) return;
         try {
+          if (file.size > 5 * 1024 * 1024) throw new Error("备份文件超过 5 MB 上限");
           const payload = JSON.parse(await file.text());
-          if (!payload || payload.version !== 3 || typeof payload !== "object") throw new Error("备份格式或版本不受支持");
+          if (!payload || typeof payload !== "object" || ![3, 4].includes(payload.version)) throw new Error("备份格式或版本不受支持");
+          const isObject = (value) => value == null || (typeof value === "object" && !Array.isArray(value));
+          if (!isObject(payload.learnerProfile) || !isObject(payload.learningPlan) || !isObject(payload.clusterMastery) || !isObject(payload.workbenchDraft)) {
+            throw new Error("备份对象结构无效");
+          }
+          if (![payload.practiceLog, payload.sybjSummaryCards, payload.decisionFeedback].every((value) => value == null || Array.isArray(value))) {
+            throw new Error("备份列表结构无效");
+          }
           if (!window.confirm("恢复这份备份？当前浏览器中的同类学习数据将被覆盖。")) return;
           const entries = [
             [profileStorageKey, payload.learnerProfile],
             [learningPlanStorageKey, payload.learningPlan],
             [masteryStorageKey, payload.clusterMastery],
-            [practiceStorageKey, payload.practiceLog],
-            [sybjStorageKey, payload.sybjSummaryCards],
+            [practiceStorageKey, (payload.practiceLog || []).slice(0, 80)],
+            [decisionFeedbackStorageKey, (payload.decisionFeedback || []).slice(0, 120)],
+            [sybjStorageKey, (payload.sybjSummaryCards || []).slice(0, 200)],
             [storageKey, payload.workbenchDraft]
           ];
           entries.forEach(([key, value]) => {
@@ -5358,7 +5887,7 @@
 
       function clearAllLearningData() {
         if (!window.confirm("删除当前浏览器中的全部 Photography Mentor 学习数据？此操作无法撤销，建议先导出备份。")) return;
-        [storageKey, sybjStorageKey, sybjNoticeKey, practiceStorageKey, profileStorageKey, learningPlanStorageKey, masteryStorageKey, workspaceViewStorageKey]
+        [storageKey, sybjStorageKey, sybjNoticeKey, practiceStorageKey, profileStorageKey, learningPlanStorageKey, masteryStorageKey, workspaceViewStorageKey, decisionFeedbackStorageKey]
           .forEach((key) => localStorage.removeItem(key));
         if (els.dataControlStatus) els.dataControlStatus.textContent = "本地学习数据已删除，正在重新载入应用。";
         window.setTimeout(() => location.reload(), 120);
@@ -5704,58 +6233,29 @@
       function buildPhotoCritique() {
         if (!state.imageAnalysis) analyzeCurrentPhoto();
         if (!state.imageAnalysis) return;
+        if (!MentorCore) {
+          setStatus("Mentor Core 未加载，无法生成证据化评片。", "error");
+          return;
+        }
         const analysisText = photoAnalysisText();
-        const brief = [currentBrief(), currentProfileContext(), analysisText, state.diagnostics.map((item) => item.type).join(" ")].join("\n");
-        const cards = retrieveCards(brief, {
-          limit: 6,
+        const exifFacts = analysisText.split("\n").filter((line) => line.startsWith("EXIF：") && !line.includes("未读取"));
+        const plan = MentorCore.advise({
+          query: currentBrief() || "请基于当前照片，判断最值得优先验证的一个问题。",
           mode: "critique",
-          genre: selectedGenre()
+          genre: selectedGenre(),
+          limit: 6,
+          context: {
+            profile: currentProfileContext(),
+            imageAnalysis: state.imageAnalysis,
+            diagnostics: state.diagnostics,
+            extraFacts: exifFacts
+          }
         });
-        const primary = state.diagnostics[0];
-        const diagnosticLines = state.diagnostics.map((item, index) => `${index + 1}. ${item.title}：${item.detail}`).join("\n");
-        const knowledgeLines = cards.map((card, index) => `${index + 1}. ${card.title}：${card.summary}\n   来源：${sourceLinksMarkdown(card) || "本地知识库"}`).join("\n");
-        const actionMap = {
-          exposure: "先重拍一张保高光版本，再用局部提亮主体；高反差场景尝试包围曝光或手机 HDR 关闭/开启对比。",
-          light: "换一个光线方向或等待更有层次的光；后期只做局部对比，不要全局硬拉。",
-          color: "先校准白平衡和肤色，再建立主色调；不要把所有颜色都推到高饱和。",
-          sharpness: "检查主体关键边缘，对焦点和快门速度；下一次用更稳的姿势、更快快门或连拍。",
-          composition: "重拍时先移动一步清理边缘，再让主体落在中央或三分交点附近，确认最强视觉重量就是主题。",
-          compute: "把算法当变量测试：普通模式、HDR/夜景、RAW/JPEG 各拍一张，只比较高光、噪点和局部对比。",
-          critique: "客观指标均衡时，下一步看主题是否清楚、情绪是否成立、画面是否有记忆点。"
-        };
-        const markdown = `# 照片评片报告
-
-## 客观读数
-${analysisText}
-
-## 最大瓶颈
-- ${primary.title}：${primary.detail}
-
-## 诊断清单
-${diagnosticLines}
-
-## 下一次重拍或重修
-1. ${actionMap[primary.type] || actionMap.critique}
-2. 只改一个变量后再对比：机位、光线、曝光、白平衡、局部后期或裁切。
-3. 保留原图和修改版，写 80 字复盘：原意图、实际效果、最大问题、下一次动作。
-
-## 本轮知识依据
-${knowledgeLines}
-
-## 评片追问
-1. 观众第一眼是否看到了你想表达的主体？
-2. 当前最亮、最锐、最饱和的位置是否服务主题？
-3. 这个问题应该前期解决，还是后期解决？
-4. 下一张照片只改一件事，会改什么？
-
-## 边界
-- 本评片基于浏览器端像素统计、常见 EXIF 和 RAG 知识库，不等于人工看图的完整语义判断。
-- 图片没有上传到服务器。`;
-        state.lastMarkdown = markdown;
-        els.output.textContent = markdown;
-        els.output.classList.remove("empty");
-        renderCards(cards);
-        setStatus("已生成照片评片报告。");
+        state.lastMarkdown = plan.markdown;
+        renderDecisionPlan(plan);
+        activateDecisionFeedback(plan);
+        renderCards(plan.knowledge);
+        setStatus(`已基于本地图像证据和 ${plan.retrievalQuality.sources} 个来源生成评片决策单。`);
       }
 
       function savePracticeEntry() {
@@ -5849,6 +6349,7 @@ ${tasks[top] || tasks.composition}
 1. 只评价这一项短板，不同时追求所有东西。
 2. 输出 3 张候选图，每张写最大优点和最大问题。
 3. 再上传最满意的一张，继续生成评片。`;
+        hideDecisionFeedback();
         state.lastMarkdown = markdown;
         els.output.textContent = markdown;
         els.output.classList.remove("empty");
@@ -5924,51 +6425,28 @@ ${tasks[top] || tasks.composition}
       }
 
       function buildAdvice() {
+        if (!MentorCore) {
+          setStatus("Mentor Core 未加载，无法生成证据化建议。", "error");
+          return;
+        }
         const brief = currentBrief() || "我想系统学习摄影，兼顾计算摄影、摄影美学、前期拍摄、后期和评片复盘。";
-        const retrievalBrief = [brief, currentProfileContext()].filter(Boolean).join("\n");
-        const cards = retrieveCards(retrievalBrief, {
-          limit: 6,
+        const includePhotoEvidence = state.mode === "critique" && state.imageAnalysis;
+        const plan = MentorCore.advise({
+          query: brief,
           mode: state.mode,
-          genre: selectedGenre()
+          genre: selectedGenre(),
+          limit: 6,
+          context: {
+            profile: currentProfileContext(),
+            imageAnalysis: includePhotoEvidence ? state.imageAnalysis : null,
+            diagnostics: includePhotoEvidence ? state.diagnostics : []
+          }
         });
-        const gaps = detectGaps(brief, state.mode);
-        const actions = modeAction(state.mode);
-        const knowledgeLines = cards.map((card, index) => `${index + 1}. ${card.title}：${card.summary}\n   来源：${sourceLinksMarkdown(card) || "本地知识库"}`);
-        const practiceLines = cards.slice(0, 3).map((card, index) => `${index + 1}. ${card.practice}`);
-        const questionLines = cards.flatMap((card) => card.questions || []).slice(0, 6).map((question, index) => `${index + 1}. ${question}`);
-        const gapBlock = gaps.length ? gaps.map((gap) => `- ${gap}`).join("\n") : "- 信息已经足够进入第一轮建议；下一步用实际照片或样片复盘。";
-        const markdown = `# Photography Mentor 建议
-
-## Mentor 判断
-- 当前模式：${modeLabels[state.mode]}
-- 题材线索：${selectedGenre()}
-- 学习档案：${currentProfileContext() || "尚未设置，使用通用建议"}
-- 优先处理：先把问题收敛到“主体/主题、光线、视觉层级、动态范围或后期局部”中的一个最大瓶颈。
-
-需要补充的信息：
-${gapBlock}
-
-## 本轮知识依据
-${knowledgeLines.join("\n")}
-
-## 下一步动作
-${actions.map((action, index) => `${index + 1}. ${action}`).join("\n")}
-
-## 练习任务
-${practiceLines.join("\n")}
-
-## 评片追问
-${questionLines.join("\n")}
-
-## 使用边界
-- 如果没有上传或提供照片细节，上述判断基于你的文字描述。
-- RAG 知识库是摘要级资料；深入学习请打开来源链接继续阅读。
-- 纪实、比赛、商业交付和个人创作的后期尺度不同，涉及合成时要主动说明。`;
-        state.lastMarkdown = markdown;
-        els.output.textContent = markdown;
-        els.output.classList.remove("empty");
-        renderCards(cards);
-        setStatus(`已检索 ${cards.length} 个知识块，并生成 ${modeLabels[state.mode]} 建议。`);
+        state.lastMarkdown = plan.markdown;
+        renderDecisionPlan(plan);
+        activateDecisionFeedback(plan);
+        renderCards(plan.knowledge);
+        setStatus(`已检索 ${plan.retrievalQuality.cards} 个知识块、${plan.retrievalQuality.sources} 个来源，并生成${modeLabels[state.mode]}决策单。`);
       }
 
       function retrieveOnly() {
@@ -5980,6 +6458,7 @@ ${questionLines.join("\n")}
         renderCards(cards);
         const lines = cards.map((card, index) => `${index + 1}. ${card.title}：${card.summary}`).join("\n\n");
         const output = `# 检索结果\n\n${lines || "没有命中。请补充更具体的关键词。"}\n\n来源链接已显示在知识库卡片中。`;
+        hideDecisionFeedback();
         state.lastMarkdown = output;
         els.output.textContent = output;
         els.output.classList.remove("empty");
@@ -6088,6 +6567,7 @@ ${questionLines.join("\n")}
         const updated = [...existing, ...cards];
         localStorage.setItem(sybjStorageKey, JSON.stringify(updated));
         KB.cards = (KB.cards || []).filter((card) => !(card.sourceIds || []).includes("sybj-imported")).concat(updated);
+        refreshMentorCore();
         els.sybjImportText.value = "";
         syncSybjImportStatus();
         renderLibrary();
@@ -6097,6 +6577,7 @@ ${questionLines.join("\n")}
       function clearSybjImports() {
         localStorage.removeItem(sybjStorageKey);
         KB.cards = (KB.cards || []).filter((card) => !(card.sourceIds || []).includes("sybj-imported"));
+        refreshMentorCore();
         syncSybjImportStatus();
         renderLibrary();
         setStatus("已清空 SYBJ 本地导入卡。");
@@ -6327,7 +6808,7 @@ ${questionLines.join("\n")}
         document.getElementById("reset-learning-plan").addEventListener("click", resetLearningPlan);
         document.getElementById("export-learning-data").addEventListener("click", exportLearningData);
         document.getElementById("export-all-learning-data").addEventListener("click", exportLearningData);
-        els.importLearningData.addEventListener("change", (event) => importLearningData(event.target.files?.[0]));
+        els.importLearningData.addEventListener("change", (event) => importLearningData(event.target.files[0]));
         document.getElementById("clear-all-learning-data").addEventListener("click", clearAllLearningData);
         document.getElementById("reset-mastery").addEventListener("click", resetMastery);
         els.learningTaskList.addEventListener("change", (event) => {
@@ -6369,6 +6850,7 @@ ${questionLines.join("\n")}
           els.input.value = "";
           localStorage.removeItem(storageKey);
           state.lastMarkdown = "";
+          hideDecisionFeedback();
           els.output.textContent = "工作台已清空。输入新的摄影问题后重新生成建议。";
           els.output.classList.add("empty");
           saveDraft();
@@ -6376,6 +6858,20 @@ ${questionLines.join("\n")}
         });
         document.getElementById("copy-output").addEventListener("click", () => copyText(state.lastMarkdown || els.output.textContent));
         document.getElementById("download-output").addEventListener("click", downloadMarkdown);
+        els.decisionFeedback.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-decision-outcome]");
+          if (button) recordDecisionOutcome(button.dataset.decisionOutcome);
+        });
+        document.getElementById("verify-decision").addEventListener("click", () => {
+          const evidence = els.decisionEvidence.value.trim();
+          if (evidence.length < 8) {
+            setStatus("请先写下一条可核对的结果证据。", "error");
+            els.decisionEvidence.focus();
+            return;
+          }
+          recordDecisionOutcome("verified", evidence);
+        });
+        document.getElementById("delete-decision-feedback").addEventListener("click", deleteCurrentDecisionFeedback);
         document.getElementById("copy-prompt").addEventListener("click", () => copyText(els.systemPrompt.textContent));
         els.photoFileInput.addEventListener("change", (event) => loadPhotoFile(event.target.files[0]));
         ["dragenter", "dragover"].forEach((eventName) => {

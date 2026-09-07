@@ -1,14 +1,17 @@
 {
   "name": "vemodalen-x-public-portfolio",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Public portfolio and Photography Mentor commercial web application.",
   "type": "module",
   "scripts": {
     "manifest": "node scripts/build-photography-mentor-release-manifest.mjs",
     "validate": "node scripts/validate-photography-mentor.mjs",
+    "evaluate": "node scripts/evaluate-photography-mentor.mjs",
+    "test:core": "node --test tests/photography-mentor-core.test.mjs",
+    "test:browser": "node tests/photography-mentor-e2e.cjs",
     "audit": "node scripts/audit-photography-mentor-release.mjs",
-    "test": "npm run validate && npm run audit"
+    "test": "npm run validate && npm run evaluate && npm run test:core && npm run audit"
   },
   "license": "UNLICENSED",
   "engines": {

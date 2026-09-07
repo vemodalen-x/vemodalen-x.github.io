@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = "docs/photography-mentor/release-manifest.json";
-const textExtensions = new Set([".css", ".html", ".js", ".json", ".md", ".mjs", ".svg", ".webmanifest"]);
+const textExtensions = new Set([".cjs", ".css", ".html", ".js", ".json", ".md", ".mjs", ".svg", ".webmanifest"]);
 const expectedFiles = new Set([
   "PHOTOGRAPHY_MENTOR_RELEASE.md",
   "assets/photo-mentor-foundation.css",
@@ -20,18 +20,26 @@ const expectedFiles = new Set([
   "docs/photography-mentor/TERMS.md",
   "docs/photography-mentor/THIRD_PARTY_NOTICES.md",
   manifestPath,
+  "knowledge/photography-local-summaries.js",
+  "knowledge/photography-mentor-core.js",
   "knowledge/photography-mentor-kb.js",
   "knowledge/photography-mentor-taxonomy.js",
   "manifest.webmanifest",
   "notes/photography-knowledge-review-2026-07-14.md",
+  "notes/photography-mentor-first-principles-integration-2026-08-02.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
   "notes/photography-mentor-research-2026-07-11.md",
   "package.json",
   "photography-mentor-agent.html",
   "scripts/audit-photography-mentor-release.mjs",
+  "scripts/build-photography-local-summaries.mjs",
   "scripts/build-photography-mentor-release-manifest.mjs",
+  "scripts/evaluate-photography-mentor.mjs",
   "scripts/validate-photography-mentor.mjs",
-  "sw.js"
+  "sw.js",
+  "tests/fixtures/photography-mentor-eval.json",
+  "tests/photography-mentor-core.test.mjs",
+  "tests/photography-mentor-e2e.cjs"
 ]);
 
 const failures = [];
@@ -85,7 +93,7 @@ try {
   const manifestExpected = files.filter((file) => file !== manifestPath);
   const missingFromManifest = manifestExpected.filter((file) => !manifestPaths.has(file));
   const extraInManifest = [...manifestPaths].filter((file) => !manifestExpected.includes(file));
-  manifest.version === "1.2.0" ? pass("manifest-version", manifest.version) : fail("manifest-version", String(manifest.version));
+  manifest.version === "1.3.0" ? pass("manifest-version", manifest.version) : fail("manifest-version", String(manifest.version));
   if (missingFromManifest.length || extraInManifest.length) {
     fail("manifest-file-set", `missing=${missingFromManifest.join(",")}; extra=${extraInManifest.join(",")}`);
   } else {
