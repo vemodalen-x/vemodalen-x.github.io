@@ -2070,6 +2070,42 @@ dialog::backdrop {
   margin-top: 5px;
 }
 
+.ai-usage-field {
+  margin-top: 14px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.65fr);
+  align-items: center;
+  gap: 14px;
+  background: var(--amber-soft);
+  border-radius: 11px;
+}
+
+.ai-usage-field > span {
+  display: grid;
+  gap: 3px;
+}
+
+.ai-usage-field strong {
+  color: #6a3b0a;
+  font-size: 11px;
+}
+
+.ai-usage-field small {
+  color: #7a5b36;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.ai-usage-field select {
+  min-height: 38px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.ai-usage-field select:invalid {
+  color: var(--faint);
+}
+
 .score-grid {
   margin-top: 14px;
   display: grid;
@@ -2431,6 +2467,10 @@ dialog::backdrop {
   .orient-grid,
   .score-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .ai-usage-field {
+    grid-template-columns: 1fr;
   }
 
   .session-footer {

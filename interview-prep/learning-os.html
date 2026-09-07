@@ -289,7 +289,7 @@
       <div class="session-body">
         <section class="phase-panel" data-phase-panel="0">
           <p class="phase-kicker">ORIENT</p>
-          <p class="phase-ai-policy define">AI RULES · 先定义目标与权限</p>
+          <p class="phase-ai-policy define" data-phase-ai="orient">AI RULES · 先定义目标与权限</p>
           <h3>先确认本次要留下什么证据</h3>
           <div class="orient-grid">
             <article><span>目标</span><p id="orient-goal"></p></article>
@@ -303,7 +303,7 @@
 
         <section class="phase-panel" data-phase-panel="1" hidden>
           <p class="phase-kicker">RETRIEVE</p>
-          <p class="phase-ai-policy off">AI OFF · 暴露真实基线</p>
+          <p class="phase-ai-policy off" data-phase-ai="retrieve">AI OFF · 暴露真实基线</p>
           <h3>闭卷回答。不要先搜索。</h3>
           <div class="prompt-card"><p id="retrieve-prompt"></p></div>
           <label class="range-label">
@@ -318,7 +318,7 @@
 
         <section class="phase-panel" data-phase-panel="2" hidden>
           <p class="phase-kicker">CONSTRUCT</p>
-          <p class="phase-ai-policy optional">AI OPTIONAL · 先写委托契约</p>
+          <p class="phase-ai-policy optional" data-phase-ai="construct">AI OPTIONAL · 先写委托契约</p>
           <h3>把理解变成可检查的产物</h3>
           <p class="construct-brief" id="construct-brief"></p>
           <label class="textarea-label">
@@ -335,7 +335,7 @@
 
         <section class="phase-panel" data-phase-panel="3" hidden>
           <p class="phase-kicker">CHALLENGE</p>
-          <p class="phase-ai-policy critic">AI AS CRITIC · 人决定是否修订</p>
+          <p class="phase-ai-policy critic" data-phase-ai="challenge">AI AS CRITIC · 人决定是否修订</p>
           <h3>换约束，检查是否只是记住表面答案</h3>
           <div class="prompt-card transfer"><p id="transfer-prompt"></p></div>
           <label class="textarea-label">
@@ -346,12 +346,22 @@
 
         <section class="phase-panel" data-phase-panel="4" hidden>
           <p class="phase-kicker">FEEDBACK</p>
-          <p class="phase-ai-policy verify">HUMAN VERIFIES · AI 只给第二意见</p>
+          <p class="phase-ai-policy verify" data-phase-ai="feedback">HUMAN VERIFIES · AI 只给第二意见</p>
           <h3>按证据评分，不按流畅度评分</h3>
           <div class="rubric-card">
             <strong>本题 rubric</strong>
             <ul id="rubric-list"></ul>
           </div>
+          <label class="ai-usage-field" for="ai-usage">
+            <span><strong>本次最高 AI / Agent 介入</strong><small id="ai-usage-help">如实记录使用范围；本次产出和人的掌握分账保存。</small></span>
+            <select id="ai-usage" required>
+              <option value="" selected disabled>选择最高介入程度</option>
+              <option value="none">未使用外部 AI</option>
+              <option value="critic">仅追问、反馈或生成变式</option>
+              <option value="research">参与检索、比较或补知识</option>
+              <option value="builder">参与生成、构建或代码</option>
+            </select>
+          </label>
           <div class="score-grid">
             <label>Correctness <select data-score="correctness" required><option value="" selected disabled>选择证据等级</option><option value="0">0 · 未形成</option><option value="1">1 · 有零散线索</option><option value="2">2 · 结论有缺口</option><option value="3">3 · 可独立完成</option><option value="4">4 · 面试级稳定</option></select></label>
             <label>Reasoning <select data-score="reasoning" required><option value="" selected disabled>选择证据等级</option><option value="0">0 · 无机制解释</option><option value="1">1 · 只会复述</option><option value="2">2 · 能解释但不完整</option><option value="3">3 · 机制与假设清楚</option><option value="4">4 · 能反驳替代方案</option></select></label>
@@ -367,7 +377,7 @@
 
         <section class="phase-panel" data-phase-panel="5" hidden>
           <p class="phase-kicker">CONSOLIDATE</p>
-          <p class="phase-ai-policy off">AI OFF · 结算无辅助能力</p>
+          <p class="phase-ai-policy off" data-phase-ai="consolidate">AI OFF · 结算无辅助能力</p>
           <h3>关闭帮助，完成无辅助 exit ticket</h3>
           <div class="prompt-card exit"><p id="exit-prompt"></p></div>
           <label class="textarea-label">
@@ -375,7 +385,7 @@
             <textarea id="exit-response" rows="7" placeholder="不用复制前文；用更短、更准确的版本重新回答。"></textarea>
           </label>
           <div class="session-preview" id="session-preview">
-            完成评分后将显示 mastery、校准误差和建议复习间隔。
+            记录 AI 使用并完成评分后，将显示 mastery、校准误差和建议复习间隔。
           </div>
         </section>
       </div>

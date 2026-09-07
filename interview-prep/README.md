@@ -4,8 +4,8 @@
 
 ## 交付内容
 
-- [Interview Learning OS Desktop](learning-os.html)：可从桌面快捷方式直接启动的本地学习应用，提供 P1–P8 第一性原理 × K1–K8 能力簇双轴目录、预算化任务包、延迟无辅助复测、全库离线检索、分层提示、锚定评分、草稿恢复和证据日志。首次安装快捷方式运行 `install-desktop-shortcut.ps1`；也可双击 `launch-learning-os.cmd`。
-- [Learning OS V3 设计与验证契约](learning-experience-v3.md)：说明 V3 如何修复即时迁移冒充延迟能力、默认评分偏差、队列超预算和草稿丢失，并定义状态迁移、验证标准与下一轮实验。
+- [Interview Learning OS Desktop](learning-os.html)：可从桌面快捷方式直接启动的本地学习应用，提供 P1–P8 第一性原理 × K1–K8 能力簇双轴目录、预算化任务包、延迟无辅助复测、全库离线检索、分层提示、锚定评分、AI / Agent 介入分账、草稿恢复和证据日志。首次安装快捷方式运行 `install-desktop-shortcut.ps1`；也可双击 `launch-learning-os.cmd`。
+- [Learning OS V3 设计与验证契约](learning-experience-v3.md)：说明 V3 如何修复即时迁移冒充延迟能力、外部 AI 介入混账、默认评分偏差、队列超预算和草稿丢失，并定义状态迁移、验证标准与下一轮实验。
 - [Learning OS V2 设计评审](learning-experience-v2.md)：保留为历史设计记录，涵盖自适应学习系统的初版差距分析、学习科学依据和 AI 教练契约。
 - [第一性原理知识地图](first-principles-knowledge-map.md)：用目标、表征、机制、状态、边界、评估、资源和 ownership 八个原语重组全部知识，并提供通用答题内核、P×K 交叉表和缺口路由。先用它确定坐标。
 - [AI 时代的人机学习操作系统](ai-era-learning-operating-system.md)：把“跟上 AI”落实为人的基础账户 × Agent 杠杆账户，以及 AI OFF 基线 → Agent 加速 → 人工审计 → AI OFF 延迟迁移；包含内容删减、每日/每周节奏、委托契约、审计清单和七天启动方案。

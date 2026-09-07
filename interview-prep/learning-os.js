@@ -6,6 +6,13 @@
   var VERSION = 3;
   var DAY = 24 * 60 * 60 * 1000;
   var SCORE_DIMENSIONS = ['correctness', 'reasoning', 'transfer', 'communication', 'independence'];
+  var AI_USAGE_LABELS = {
+    none: 'AI 未使用',
+    critic: 'AI 仅评审',
+    research: 'AI 检索补缺',
+    builder: 'AI 参与构建',
+    unrecorded: 'AI 未记录'
+  };
 
   var CLUSTERS = {
     K1: { title: '项目叙事与 Senior 证据', short: 'Narrative', description: '影响、个人决策、失败与领导力证据', color: '#d96647' },
@@ -822,6 +829,13 @@
 
   var els = {};
 
+  function normalizeEvidence(item) {
+    var normalized = Object.assign({ isDelayedReview: false, unaidedTransfer: false }, item || {});
+    normalized.aiUsage = Object.prototype.hasOwnProperty.call(AI_USAGE_LABELS, normalized.aiUsage) ? normalized.aiUsage : 'unrecorded';
+    normalized.unaidedTransfer = Boolean(normalized.unaidedTransfer) && normalized.aiUsage === 'none';
+    return normalized;
+  }
+
   function defaultState() {
     return {
       version: VERSION,
@@ -849,9 +863,7 @@
       if (!parsed || typeof parsed !== 'object') return fallback;
       parsed.profile = Object.assign({}, fallback.profile, parsed.profile || {});
       parsed.nodes = parsed.nodes || {};
-      parsed.evidence = Array.isArray(parsed.evidence) ? parsed.evidence.map(function (item) {
-        return Object.assign({ isDelayedReview: false, unaidedTransfer: false }, item);
-      }) : [];
+      parsed.evidence = Array.isArray(parsed.evidence) ? parsed.evidence.map(normalizeEvidence) : [];
       parsed.draft = parsed.draft && parsed.draft.taskId ? parsed.draft : null;
       parsed.version = VERSION;
       return parsed;
@@ -903,7 +915,7 @@
       'orient-prereqs', 'orient-mode', 'retrieve-prompt', 'confidence-input', 'confidence-value',
       'retrieve-response', 'construct-brief', 'construct-response', 'hint-status',
       'request-hint', 'hint-message', 'transfer-prompt', 'transfer-response',
-      'rubric-list', 'feedback-notes', 'exit-prompt', 'exit-response',
+      'rubric-list', 'ai-usage', 'ai-usage-help', 'feedback-notes', 'exit-prompt', 'exit-response',
       'session-preview', 'previous-phase', 'next-phase', 'session-status', 'toast',
       'state-file', 'knowledge-source-count', 'knowledge-section-count', 'knowledge-task-count',
       'knowledge-search', 'knowledge-clear', 'knowledge-principle-list', 'knowledge-reset-filters', 'knowledge-cluster-list', 'knowledge-document-grid',
@@ -962,7 +974,12 @@
 
   function rankedTasks() {
     var pool = clusterFilter ? TASKS.filter(function (task) { return task.cluster === clusterFilter; }) : TASKS.slice();
-    return pool.map(taskPriority).sort(function (a, b) { return b.score - a.score; });
+    return pool.map(taskPriority).sort(function (a, b) {
+      var aIsDue = a.progress.attempts > 0 && a.dueDays !== null && a.dueDays <= 0;
+      var bIsDue = b.progress.attempts > 0 && b.dueDays !== null && b.dueDays <= 0;
+      if (aIsDue !== bIsDue) return aIsDue ? -1 : 1;
+      return b.score - a.score;
+    });
   }
 
   function reviewVariant(task, attempts) {
@@ -1143,6 +1160,7 @@
       var summary = item.exit || item.notes || '已完成一次练习';
       var flags = [
         '<span class="evidence-flag">' + (item.isDelayedReview ? '延迟复测' : '即时练习') + '</span>',
+        '<span class="evidence-flag">' + escapeHtml(AI_USAGE_LABELS[item.aiUsage] || AI_USAGE_LABELS.unrecorded) + '</span>',
         item.unaidedTransfer ? '<span class="evidence-flag pass">无辅助迁移通过</span>' : '',
         item.isDelayedReview && !item.unaidedTransfer ? '<span class="evidence-flag">尚未无辅助通过</span>' : ''
       ].join('');
@@ -1482,8 +1500,9 @@
     els['hint-message'].textContent = '';
     els['hint-status'].textContent = '尚未使用提示';
     els['request-hint'].textContent = '请求 L1 提示';
+    els['ai-usage'].value = '';
     document.querySelectorAll('[data-score]').forEach(function (select) { select.value = ''; });
-    els['session-preview'].textContent = '完成锚定评分后将显示 mastery、校准误差和建议复习间隔。';
+    els['session-preview'].textContent = '记录 AI 使用并完成锚定评分后，将显示 mastery、校准误差和建议复习间隔。';
   }
 
   function restoreDraft(draft) {
@@ -1493,6 +1512,7 @@
     });
     els['confidence-input'].value = String(draft.confidence === undefined ? 50 : draft.confidence);
     els['confidence-value'].textContent = els['confidence-input'].value;
+    els['ai-usage'].value = draft.aiUsage || '';
     var scores = draft.scores || {};
     document.querySelectorAll('[data-score]').forEach(function (select) {
       select.value = scores[select.dataset.score] === undefined ? '' : String(scores[select.dataset.score]);
@@ -1525,6 +1545,7 @@
       plannedMinutes: activePlannedMinutes,
       variant: activeVariant,
       confidence: Number(els['confidence-input'].value),
+      aiUsage: els['ai-usage'].value,
       scores: currentScores(),
       responses: responses
     };
@@ -1557,8 +1578,33 @@
     }).join('；') : '无硬前置；先做闭卷基线';
     els['orient-mode'].textContent = isReview ? '延迟、零提示、变式迁移；通过后才计入北极星' : '即时检索、构建、迁移；只形成候选证据';
     els['session-guardrail'].textContent = isReview ?
-      '不要查看历史证据。先闭卷重建，再处理新变式；只有零提示且 Transfer / Independence ≥ 3 才算无辅助迁移通过。' :
+      '不要查看历史证据。先闭卷重建，再处理新变式；只有未使用外部 AI、零提示且 Transfer / Independence ≥ 3 才算无辅助迁移通过。' :
       '先预测，后验证。前 15–25 分钟不给完整答案；同一 Session 内的迁移不会直接计入延迟北极星。';
+    els['ai-usage-help'].textContent = isReview ?
+      '延迟复测应全程关闭外部 AI；如实选择其他介入仍可保存，但不会计入无辅助通过。' :
+      '如实记录最高介入程度；本次产出和人的掌握分账保存。';
+    var learnPolicies = {
+      orient: ['define', 'AI RULES · 先定义目标与权限'],
+      retrieve: ['off', 'AI OFF · 暴露真实基线'],
+      construct: ['optional', 'AI OPTIONAL · 先写委托契约'],
+      challenge: ['critic', 'AI AS CRITIC · 人决定是否修订'],
+      feedback: ['verify', 'HUMAN VERIFIES · AI 只给第二意见'],
+      consolidate: ['off', 'AI OFF · 结算无辅助能力']
+    };
+    var reviewPolicies = {
+      orient: ['off', 'AI OFF FOR PASS · 复测全程关闭'],
+      retrieve: ['off', 'AI OFF · 延迟重建'],
+      construct: ['off', 'AI OFF FOR PASS · 独立重建'],
+      challenge: ['off', 'AI OFF FOR PASS · 独立迁移'],
+      feedback: ['verify', 'HUMAN VERIFIES · 如实记录任何介入'],
+      consolidate: ['off', 'AI OFF · 结算延迟能力']
+    };
+    var policies = isReview ? reviewPolicies : learnPolicies;
+    document.querySelectorAll('[data-phase-ai]').forEach(function (element) {
+      var policy = policies[element.dataset.phaseAi];
+      element.className = 'phase-ai-policy ' + policy[0];
+      element.textContent = policy[1];
+    });
     els['retrieve-prompt'].textContent = isReview ? task.exit : task.prompt;
     els['construct-brief'].textContent = isReview ? '不用复刻旧答案：' + task.construct : task.construct;
     els['transfer-prompt'].textContent = isReview ? task.transfer + '\n\n本次新变式 · ' + activeVariant.label + '：' + activeVariant.prompt : task.transfer;
@@ -1601,6 +1647,10 @@
     }
     if (activePhase === 4 && !hasCompleteScores()) {
       toast('五个维度都必须按证据选择等级；系统不会再默认给 3 分。');
+      return false;
+    }
+    if (activePhase === 4 && !els['ai-usage'].value) {
+      toast('请如实记录本次最高 AI / Agent 介入程度。');
       return false;
     }
     if (activePhase === 4 && els['feedback-notes'].value.trim().length < 12) {
@@ -1655,8 +1705,9 @@
   }
 
   function calculatedResult() {
-    if (!hasCompleteScores()) return null;
+    if (!hasCompleteScores() || !els['ai-usage'].value) return null;
     var scores = currentScores();
+    var aiUsage = els['ai-usage'].value;
     var average = scoreAverage(scores);
     var capped = average;
     if (scores.transfer < 3 || scores.independence < 3) capped = Math.min(capped, 2.9);
@@ -1666,7 +1717,7 @@
     if (hintLevel >= 2) interval = Math.min(interval, 3);
     if (calibration >= 1.5 && average < 3) interval = Math.min(interval, 3);
     var isDelayedReview = activeSessionMode === 'review';
-    var unaidedTransfer = isDelayedReview && hintLevel === 0 && scores.transfer >= 3 && scores.independence >= 3;
+    var unaidedTransfer = isDelayedReview && aiUsage === 'none' && hintLevel === 0 && scores.transfer >= 3 && scores.independence >= 3;
     if (isDelayedReview && !unaidedTransfer) interval = Math.min(interval, 3);
     if (unaidedTransfer) {
       var reviewIntervals = [7, 14, 30];
@@ -1678,6 +1729,7 @@
       mastery: capped,
       confidence: confidence,
       calibration: calibration,
+      aiUsage: aiUsage,
       interval: interval,
       isDelayedReview: isDelayedReview,
       unaidedTransfer: unaidedTransfer
@@ -1687,11 +1739,11 @@
   function updateSessionPreview() {
     var result = calculatedResult();
     if (!result) {
-      els['session-preview'].textContent = '请先完成五维锚定评分；空白不会被当作 0，也不会默认给 3。';
+      els['session-preview'].textContent = '请先记录 AI 使用并完成五维锚定评分；空白不会被当作无 AI 或默认 3 分。';
       return;
     }
     var gate = result.isDelayedReview ?
-      (result.unaidedTransfer ? '计入延迟无辅助迁移通过' : '本次不计入北极星通过') :
+      (result.unaidedTransfer ? '计入延迟无辅助迁移通过' : (result.aiUsage !== 'none' ? '记录了 AI 介入，不计入无辅助通过' : '本次不计入北极星通过')) :
       (result.scores.transfer >= 3 && result.scores.independence >= 3 ? '形成候选证据，等待延迟复测' : '尚未通过迁移/独立性门槛');
     els['session-preview'].innerHTML = '<strong>预计 mastery ' + result.mastery.toFixed(1) + '/4</strong> · ' +
       escapeHtml(gate) + ' · 信心校准误差 ' + result.calibration.toFixed(1) + ' · 建议 ' + result.interval + ' 天后复习。';
@@ -1733,6 +1785,7 @@
       confidence: result.confidence,
       calibration: result.calibration,
       hintLevel: hintLevel,
+      aiUsage: result.aiUsage,
       sessionMode: activeSessionMode,
       isDelayedReview: result.isDelayedReview,
       reviewLagDays: activeReviewLagDays,
@@ -1799,7 +1852,7 @@
       '6. 最后停止帮助，让我完成无辅助 exit ticket，并按 Correctness、Reasoning、Transfer、Communication、Independence 各 0–4 评分。',
       '',
       '练习：' + task.title,
-      '证据模式：' + (activeSessionMode === 'review' ? '延迟无辅助复测；不要展示历史答案；零提示通过才计入北极星。' : '即时学习；只形成候选证据，必须等待后续延迟复测。'),
+      '证据模式：' + (activeSessionMode === 'review' ? '延迟无辅助复测；不要展示历史答案；若使用本提示必须记录 AI 介入，本次不计无辅助通过。' : '即时学习；只形成候选证据，必须等待后续延迟复测。'),
       '目标：' + task.goal,
       '闭卷问题：' + task.prompt,
       '迁移挑战：' + task.transfer + (activeSessionMode === 'review' ? '；新变式：' + activeVariant.label + ' — ' + activeVariant.prompt : ''),
@@ -1812,7 +1865,7 @@
       'AI 教练契约：先问后答；前 15–25 分钟不给完整答案；一次处理一个最大误差；',
       '提示按检查维度 → 模式/不变量 → 部分 worked example 分级；',
       '必须用反例和变式检查迁移；最后关闭帮助完成 exit ticket；同一 Session 内的正确不计作延迟北极星；',
-      '评分维度为 Correctness、Reasoning、Transfer、Communication、Independence；',
+      '评分维度为 Correctness、Reasoning、Transfer、Communication、Independence；另如实记录本次最高 AI / Agent 介入；',
       '不接收客户数据、雇主机密、PII、密钥或未公开项目细节。'
     ].join('\n');
   }
@@ -1864,9 +1917,7 @@
         state.profile = Object.assign({}, defaultState().profile, parsed.profile);
         state.version = VERSION;
         state.draft = parsed.draft && parsed.draft.taskId ? parsed.draft : null;
-        state.evidence = parsed.evidence.map(function (item) {
-          return Object.assign({ isDelayedReview: false, unaidedTransfer: false }, item);
-        });
+        state.evidence = parsed.evidence.map(normalizeEvidence);
         saveState();
         render();
         toast('状态已恢复。');
@@ -2076,6 +2127,10 @@
         updateSessionPreview();
         saveDraft();
       });
+    });
+    els['ai-usage'].addEventListener('change', function () {
+      updateSessionPreview();
+      saveDraft();
     });
     ['retrieve-response', 'construct-response', 'transfer-response', 'feedback-notes', 'exit-response'].forEach(function (id) {
       els[id].addEventListener('input', saveDraft);
