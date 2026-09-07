@@ -1,0 +1,130 @@
+[
+  {
+    "id": "dynamic-range-landscape",
+    "query": "日出风光天空经常过曝，山体暗部又太黑。我用相机 RAW，希望先解决现场曝光。",
+    "mode": "plan",
+    "genre": "风光",
+    "expectedBottleneck": "exposure",
+    "expectedStage": "capture",
+    "requirePrimary": true,
+    "relevantCardIds": ["histogram-dynamic-range", "metering-exposure-compensation", "landscape-planning-weather"]
+  },
+  {
+    "id": "portrait-window-light",
+    "query": "室内窗边人像脸部一半太硬，背景比人物更亮。我想保留自然光情绪，只调整光线方向。",
+    "mode": "critique",
+    "genre": "人像",
+    "expectedBottleneck": "light",
+    "expectedStage": "capture",
+    "relevantCardIds": ["light-quality-direction", "portrait-natural-light", "flash-ambient-balance"]
+  },
+  {
+    "id": "portrait-skin-color",
+    "query": "Lightroom 修人像时肤色偏黄偏绿，背景饱和度又抢戏，希望交付自然肤色。",
+    "mode": "post",
+    "genre": "人像",
+    "expectedBottleneck": "color",
+    "expectedStage": "edit",
+    "relevantCardIds": ["white-balance-color-intent", "color-hierarchy", "post-global-local"]
+  },
+  {
+    "id": "sports-motion-blur",
+    "query": "相机拍室外跑步人物经常虚焦和运动模糊，快门不够稳定，应该怎样设置对焦追踪？",
+    "mode": "plan",
+    "genre": "活动",
+    "expectedBottleneck": "sharpness",
+    "expectedStage": "capture",
+    "relevantCardIds": ["focus-af-tracking", "motion-stabilization-rolling-shutter", "exposure-triangle"]
+  },
+  {
+    "id": "street-frame-order",
+    "query": "雨天街头画面很乱，主体和背景重叠，四个边缘也有干扰，希望第一眼落点更明确。",
+    "mode": "critique",
+    "genre": "城市 街头",
+    "expectedBottleneck": "composition",
+    "expectedStage": "visual",
+    "relevantCardIds": ["city-street-order", "frame-edges-background-control", "visual-hierarchy-path"]
+  },
+  {
+    "id": "mobile-night-ghosting",
+    "query": "手机夜景模式为什么会出现行人鬼影？请解释多帧 HDR、对齐和 tone mapping 的取舍。",
+    "mode": "compute",
+    "genre": "手机 计算摄影",
+    "expectedBottleneck": "compute",
+    "expectedStage": "compute",
+    "requirePrimary": true,
+    "relevantCardIds": ["burst-hdr-computation", "motion-stabilization-rolling-shutter", "proraw-computational-raw"]
+  },
+  {
+    "id": "nondestructive-workflow",
+    "query": "我在 Lightroom 里反复覆盖文件，目录、原片、调整和备份混在一起，想建立非破坏后期流程。",
+    "mode": "post",
+    "genre": "后期 调色",
+    "expectedBottleneck": "post",
+    "expectedStage": "deliver",
+    "relevantCardIds": ["catalog-nondestructive-workflow", "backup-originals-catalog-exports", "layers-masks"]
+  },
+  {
+    "id": "tutorial-collection-no-progress",
+    "query": "收藏了很多摄影课程和知识，但练习没有进步，也不能在新场景独立判断，想安排复习计划。",
+    "mode": "learn",
+    "genre": "auto",
+    "expectedBottleneck": "learning",
+    "expectedStage": "intent",
+    "relevantCardIds": ["deliberate-constraint-practice", "learning-four-stages", "agent-rag-structure"]
+  },
+  {
+    "id": "documentary-ai-ethics",
+    "query": "纪实照片里有一个路人影响画面，我能否用 AI 移除人物后参加比赛？需要保证真实性和编辑披露。",
+    "mode": "critique",
+    "genre": "街头 纪实",
+    "expectedBottleneck": "intent",
+    "expectedStage": "intent",
+    "relevantCardIds": ["documentary-caption-ethics", "ai-editing-disclosure", "content-credentials-provenance"]
+  },
+  {
+    "id": "screen-to-print",
+    "query": "照片在屏幕很好看，打印后却偏暗偏色。我要做软打样并确认色彩空间和纸张输出。",
+    "mode": "post",
+    "genre": "后期 调色",
+    "expectedBottleneck": "delivery",
+    "expectedStage": "deliver",
+    "relevantCardIds": ["soft-proof-print-output", "color-management-output", "master-export-variants"]
+  },
+  {
+    "id": "commercial-reflection-light",
+    "query": "商业静物拍玻璃产品时反光杂乱，材质轮廓不稳定，希望只改变布光和反光控制。",
+    "mode": "plan",
+    "genre": "商业 静物",
+    "expectedBottleneck": "light",
+    "expectedStage": "capture",
+    "relevantCardIds": ["commercial-still-life-brief", "light-quality-direction", "flash-ambient-balance"]
+  },
+  {
+    "id": "panorama-parallax",
+    "query": "全景接片出现视差和接缝，近景位置对不上。我应该怎样控制机位、透视和旋转中心？",
+    "mode": "plan",
+    "genre": "风光",
+    "expectedBottleneck": "composition",
+    "expectedStage": "capture",
+    "relevantCardIds": ["panorama-parallax-workflow", "lens-viewpoint-perspective", "frame-edges-background-control"]
+  },
+  {
+    "id": "astro-focus-trails",
+    "query": "拍星空时星点虚焦并出现拖影，相机和广角镜头已经固定，想先验证对焦与快门。",
+    "mode": "plan",
+    "genre": "星空 夜景",
+    "expectedBottleneck": "sharpness",
+    "expectedStage": "capture",
+    "relevantCardIds": ["astro-night-stack", "focus-af-tracking", "motion-stabilization-rolling-shutter"]
+  },
+  {
+    "id": "stock-delivery-metadata",
+    "query": "准备向 Adobe Stock 交付商业素材，需要核对导出尺寸、JPEG、元数据、关键词、版权和授权。",
+    "mode": "post",
+    "genre": "商业 静物",
+    "expectedBottleneck": "delivery",
+    "expectedStage": "deliver",
+    "relevantCardIds": ["metadata-keywords-rights", "master-export-variants", "commercial-still-life-brief"]
+  }
+]

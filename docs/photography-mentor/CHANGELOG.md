@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.0 - 2026-09-07
+
+- Unified general coaching, photo diagnostics, knowledge search and daily sessions behind one deterministic Mentor Core.
+- Added an inspectable first-principles decision contract with facts, assumptions, unknowns, one bottleneck, cited knowledge, one-variable action and verification criteria.
+- Added 12 sanitized topic summaries distilled from the local photography library, bringing the unified graph to 74 cards across 7 stages and 22 capability clusters.
+- Added hybrid retrieval with stage, task, genre, source-diversity and local-summary quotas.
+- Added accepted, rejected and verified decision feedback with result evidence and export support.
+- Added a 14-case evaluation fixture, core regression tests and desktop/mobile browser coverage.
+- Preserved the v1.2 commercial controls: SYBJ user-note import, data export/restore/delete, CSP, privacy terms and deterministic release auditing.
+- Updated the offline cache to v16 and expanded the checksum allowlist without adding screenshots or private file metadata.
+
 ## 1.2.0 - 2026-07-18
 
 - Packaged the product as a standalone commercial distribution with a root entry page.
