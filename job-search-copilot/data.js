@@ -49,7 +49,6 @@ window.ROLEFIT_DATA = {
   linkedinOpportunityPipeline: {
     verifiedAt: "2026-08-15",
     target: "固定年薪 S$150k–170k；bonus/equity 分开",
-    workbookUrl: "../outputs/linkedin_job_search_2026_08_15/Junxian_Wu_LinkedIn_Application_Pipeline_2026-08-15.xlsx",
     roles: [
       { priority: "A1", company: "GoTo Financial", role: "Senior Data Scientist - Computer Vision & AI", fit: 93, status: "Ready", salary: "S$155–167k total pay；base 待确认", ep: "可行性高 · 未确认", next: "24 小时内投递", url: "https://sg.linkedin.com/jobs/view/goto-financial-senior-data-scientist-computer-vision-ai-at-goto-group-4436873063" },
       { priority: "A2", company: "Motional", role: "Senior Machine Learning Engineer - Perception", fit: 91, status: "Ready", salary: "S$108–192k · 与目标重叠", ep: "可行性高 · 未确认", next: "48 小时内投递", url: "https://sg.linkedin.com/jobs/view/senior-machine-learning-engineer-perception-at-motional-4424876999" },

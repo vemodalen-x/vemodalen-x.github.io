@@ -63,6 +63,7 @@ const server = http.createServer((request, response) => {
     assert.strictEqual(await page.locator(".opportunity-status.status-recheck").count(), 14);
     assert.match(await page.locator(".pipeline-summary-grid article").nth(1).innerText(), /READY\s*0/);
     assert.strictEqual(await page.locator('.linkedin-opportunity-board a[href="multi-role-interview-playbook.html"]').count(), 1);
+    assert.strictEqual(await page.locator('a[href*=".xlsx"], a[href*="outputs/linkedin_job_search"]').count(), 0, "Public app must not expose local workbook paths");
     assert.strictEqual(await page.locator('.linkedin-opportunity-board a[href="daily-job-search-cockpit.html"]').count(), 1);
     assert.match(await page.locator(".application-archive-card").innerText(), /Junxian_Wu_Applied_AI_FDE_CV_2026/);
     assert.strictEqual(await page.locator('a[href="enterprise-rag-playbook.html"]').count(), 1);
@@ -232,6 +233,7 @@ const server = http.createServer((request, response) => {
     const multiRoleErrors = [];
     multiRoleGuide.on("pageerror", error => multiRoleErrors.push(error.message));
     await multiRoleGuide.goto(`http://127.0.0.1:${port}/multi-role-interview-playbook.html?role=goto`, { waitUntil: "networkidle" });
+    assert.strictEqual(await multiRoleGuide.locator('a[href*=".xlsx"], a[href*="outputs/linkedin_job_search"]').count(), 0, "Interview guide must not expose local workbook paths");
     assert.match(await multiRoleGuide.title(), /多岗位面试作战手册/);
     assert.strictEqual(await multiRoleGuide.locator(".role-card").count(), 14);
     assert.strictEqual(await multiRoleGuide.locator(".role-card.highlight").count(), 1);
