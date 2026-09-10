@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "product": "Photography Mentor",
-  "version": "1.3.0",
-  "releaseDate": "2026-09-07",
+  "version": "1.4.0",
+  "releaseDate": "2026-09-10",
   "files": [
     {
       "path": "PHOTOGRAPHY_MENTOR_RELEASE.md",
-      "bytes": 6771,
-      "sha256": "fe5b9906a894bddf0cb1bfa8dc0ddd5a8eb7499fbf2fd328d9e486caa98ea809"
+      "bytes": 8504,
+      "sha256": "1a16d69904a75b337610913a0f933603d358bd3a3041c14bbc5cca8a7071eb02"
     },
     {
       "path": "assets/photo-mentor-foundation.css",
@@ -26,8 +26,8 @@
     },
     {
       "path": "docs/photography-mentor/CHANGELOG.md",
-      "bytes": 2184,
-      "sha256": "1c6ee414e6314f37c6cc33e320ce4d528e2b7e89496a859faaa80035d0a817d0"
+      "bytes": 2712,
+      "sha256": "4b68c1f26a57185d04972c056dcaec0dd63fdf94c2320bca4d4a6e5ebd92fdb2"
     },
     {
       "path": "docs/photography-mentor/LICENSE.md",
@@ -36,33 +36,38 @@
     },
     {
       "path": "docs/photography-mentor/PRIVACY.md",
-      "bytes": 1671,
-      "sha256": "daf09c72e9bd97311940cae423a50aef7988f518aa0f7777073e2a0eed56bc69"
+      "bytes": 2214,
+      "sha256": "32c7db62a1536d16773b4da15058c3338c690c76e163cfb0e1956fcc634835d7"
     },
     {
       "path": "docs/photography-mentor/README.md",
-      "bytes": 2650,
-      "sha256": "7de61d5cd4e1e6a84702c90b015260b2138585e68b595cb0be54e12dac887b49"
+      "bytes": 3188,
+      "sha256": "f3b297b6264bde4ff2a24c10ed3c0a296585cce8ae81f0fe15519ebded950359"
     },
     {
       "path": "docs/photography-mentor/RELEASE_NOTES.md",
-      "bytes": 1719,
-      "sha256": "a16a07b5d07ff819e1ed131714f27a4efbfb7b8dc292d6bbdd65fcede4a52992"
+      "bytes": 2083,
+      "sha256": "7209a47f8f758caaa49abd68cb2f65ceee923b159af33ba528348b92e14f332d"
     },
     {
       "path": "docs/photography-mentor/SECURITY.md",
-      "bytes": 896,
-      "sha256": "a33ca2e5fb344615c9da35716514349b0df801fea4e85bc7181850e21bf3f73f"
+      "bytes": 1059,
+      "sha256": "1f488c5fbd4eac9fec9bcf2f1670b64425198ec1cd8bdc4665fe73f828107f46"
     },
     {
       "path": "docs/photography-mentor/TERMS.md",
-      "bytes": 1304,
-      "sha256": "ad1a30b4bfda22ac59e9a69110922ab30d03d789b75dcfefb7f1ea25f590d1e6"
+      "bytes": 1663,
+      "sha256": "0574967452cc1ed6c5723dc8077f6a03e958618bc33daec2200fd68fc5531898"
     },
     {
       "path": "docs/photography-mentor/THIRD_PARTY_NOTICES.md",
       "bytes": 1146,
       "sha256": "0393191cd95fedc4d06b2111b5b7c97529fdcc93114d137069ef05ff66545010"
+    },
+    {
+      "path": "knowledge/photography-commercial-engine.js",
+      "bytes": 14405,
+      "sha256": "fb1e2f90fc3657727ac2407fa0ca843569b4a5823a1db258e79a1c33914b1961"
     },
     {
       "path": "knowledge/photography-local-summaries.js",
@@ -86,13 +91,18 @@
     },
     {
       "path": "manifest.webmanifest",
-      "bytes": 1167,
-      "sha256": "83117a31ffd3a5ede26dda144757ff099a6e4c38f86303f8fb62dda89b9afcec"
+      "bytes": 1409,
+      "sha256": "3124556ad363a1caddc8d87d6f54756f2dd535a7ae69f9ff71ea67a16cc5375d"
     },
     {
       "path": "notes/photography-knowledge-review-2026-07-14.md",
       "bytes": 6832,
       "sha256": "66c9332ef601a50ebc96a4ba4ea06be10586a4e0207d393508a0afb50444a7be"
+    },
+    {
+      "path": "notes/photography-mentor-commercial-research-2026-09-10.md",
+      "bytes": 6328,
+      "sha256": "c262273839c487b3ca3dd49bcfa6f11fc48d0d32183e0b3b47e0c8101deff976"
     },
     {
       "path": "notes/photography-mentor-first-principles-integration-2026-08-02.md",
@@ -111,18 +121,18 @@
     },
     {
       "path": "package.json",
-      "bytes": 773,
-      "sha256": "9fb5c2ee840cd61c4e6c338f071d269d1f0b4092b6d131b88b520032fe4d659a"
+      "bytes": 883,
+      "sha256": "ad58fc71394706d604876e98874b14abd96a5cf4346dffb6195a262c7c2f8285"
     },
     {
       "path": "photography-mentor-agent.html",
-      "bytes": 268876,
-      "sha256": "e3640e1a3857cd062506699c856463f8f1f9c56a78583d40dd5a2f141ed4b28e"
+      "bytes": 305987,
+      "sha256": "aa672a25c31ee27f7dff74df8a4e84438b853743a284385e16db28bd5b163d27"
     },
     {
       "path": "scripts/audit-photography-mentor-release.mjs",
-      "bytes": 5758,
-      "sha256": "4742ea0ea106c39442f7600624ec75dbad63367b8f56bcec269da7752f5df0df"
+      "bytes": 5920,
+      "sha256": "36fbadf4cb0cb9d2cf068f06c292805374f097e8042446c9edfabc4d150513d1"
     },
     {
       "path": "scripts/build-photography-local-summaries.mjs",
@@ -131,8 +141,8 @@
     },
     {
       "path": "scripts/build-photography-mentor-release-manifest.mjs",
-      "bytes": 2849,
-      "sha256": "c9345de385fda10f56bb4907f811a9a4d4aa6133403f24d9fe71ad3019704e03"
+      "bytes": 3011,
+      "sha256": "aef18d7472c2dccdfde8178c5a4e6e194a11ad92ff8d47bb7bad330f29752e85"
     },
     {
       "path": "scripts/evaluate-photography-mentor.mjs",
@@ -141,18 +151,23 @@
     },
     {
       "path": "scripts/validate-photography-mentor.mjs",
-      "bytes": 13798,
-      "sha256": "aa47f1e76cb4b6efa1359688fea011f296761df3356460b2d7c4a2d57ed86d64"
+      "bytes": 14684,
+      "sha256": "a3cbf19ebe6a4796375bc46905fb4007edb37047aa15ecf5ae844105b12c76fe"
     },
     {
       "path": "sw.js",
-      "bytes": 2301,
-      "sha256": "b61dcfca5fd42c8fa3a4c6e7d0d3becb939a3eab2558a57d90f46056c36dcdee"
+      "bytes": 2349,
+      "sha256": "74920004dba8f373ea665a5016336fdbd9a1907c5a54c4d20e34251d0e60cf2d"
     },
     {
       "path": "tests/fixtures/photography-mentor-eval.json",
       "bytes": 5654,
       "sha256": "435ff6d0f52396421c9ba39a897ef73f0a45ecae57b5f893be8361d95a26e295"
+    },
+    {
+      "path": "tests/photography-mentor-commercial.test.mjs",
+      "bytes": 3998,
+      "sha256": "b0da7b7253ffbe7e0bf38d5263a35c5f467e1770585499b4aa08121d44cbd289"
     },
     {
       "path": "tests/photography-mentor-core.test.mjs",
@@ -161,8 +176,8 @@
     },
     {
       "path": "tests/photography-mentor-e2e.cjs",
-      "bytes": 9058,
-      "sha256": "ea8085d75fc3a82be3d3488aae38ca7eac389b1daef010a2e9307a3f1af18f38"
+      "bytes": 12210,
+      "sha256": "588b6b4dd13355338e538960fa2906957b932f7d1af4c8dda215256681fb590e"
     }
   ]
 }

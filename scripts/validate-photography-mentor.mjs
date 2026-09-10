@@ -48,12 +48,14 @@ const releaseFiles = [
   "knowledge/photography-local-summaries.js",
   "knowledge/photography-mentor-taxonomy.js",
   "knowledge/photography-mentor-core.js",
+  "knowledge/photography-commercial-engine.js",
   "manifest.webmanifest",
   "sw.js",
   "notes/photography-mentor-research-2026-07-11.md",
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
   "notes/photography-mentor-first-principles-integration-2026-08-02.md",
+  "notes/photography-mentor-commercial-research-2026-09-10.md",
   "package.json",
   "scripts/audit-photography-mentor-release.mjs",
   "scripts/build-photography-local-summaries.mjs",
@@ -62,6 +64,7 @@ const releaseFiles = [
   "scripts/validate-photography-mentor.mjs",
   "tests/fixtures/photography-mentor-eval.json",
   "tests/photography-mentor-core.test.mjs",
+  "tests/photography-mentor-commercial.test.mjs",
   "tests/photography-mentor-e2e.cjs"
 ];
 
@@ -73,12 +76,14 @@ assert(
 );
 
 const html = read("photography-mentor-agent.html");
-assert(/<meta name="version" content="1\.3\.0">/.test(html), "release-version", "HTML declares v1.3.0");
+assert(/<meta name="version" content="1\.4\.0">/.test(html), "release-version", "HTML declares v1.4.0");
 assert(/href="docs\/photography-mentor\/PRIVACY\.md"/.test(html) && /href="docs\/photography-mentor\/TERMS\.md"/.test(html), "commercial-policy-links", "namespaced privacy and terms are linked in-app");
 assert(/href="index\.html">Portfolio</.test(html), "portfolio-navigation", "main-site return link present");
 assert(/<section id="sybj-ingest"[^>]*data-workspace-view="library"(?![^>]*data-workspace-disabled)/.test(html), "sybj-user-import", "user-controlled SYBJ import is enabled");
 assert(/Content-Security-Policy/.test(html) && /name="referrer" content="no-referrer"/.test(html), "browser-security-policy", "CSP and referrer policy declared");
 assert(/id="export-all-learning-data"/.test(html) && /id="import-learning-data"/.test(html) && /id="clear-all-learning-data"/.test(html), "data-portability-controls", "export, restore and delete controls present");
+assert(/<section id="commercial-studio"[^>]*data-workspace-view="studio"/.test(html) && /id="commercial-file-input"/.test(html) && /id="commercial-folder-input"/.test(html), "commercial-local-selector", "commercial multi-file and folder selectors present");
+assert(/id="commercial-export-csv"/.test(html) && /id="commercial-export-json"/.test(html) && /id="commercial-open-platform"/.test(html), "commercial-delivery-controls", "metadata export and official platform handoff controls present");
 const localReferences = [...html.matchAll(/<(?:a|link|script)\b[^>]*?\b(?:href|src)="([^"]+)"/gi)]
   .map((match) => match[1])
   .filter((reference) => !/^(?:https?:|mailto:|#|data:|javascript:)/i.test(reference))
@@ -128,7 +133,8 @@ for (const file of [
   "knowledge/photography-mentor-kb.js",
   "knowledge/photography-local-summaries.js",
   "knowledge/photography-mentor-taxonomy.js",
-  "knowledge/photography-mentor-core.js"
+  "knowledge/photography-mentor-core.js",
+  "knowledge/photography-commercial-engine.js"
 ]) {
   try {
     vm.runInContext(read(file), context, { filename: file });
@@ -141,7 +147,8 @@ const canonical = context.window.PHOTOGRAPHY_MENTOR_KB;
 const localSynthesis = context.window.PHOTOGRAPHY_LOCAL_SUMMARIES;
 const taxonomy = context.window.PHOTOGRAPHY_MENTOR_TAXONOMY;
 const mentorCoreFactory = context.window.PHOTOGRAPHY_MENTOR_CORE;
-assert(Boolean(canonical && localSynthesis && taxonomy && mentorCoreFactory), "knowledge-globals", "canonical, local synthesis, taxonomy and Mentor Core globals loaded");
+const commercialEngine = context.window.PHOTOGRAPHY_COMMERCIAL_ENGINE;
+assert(Boolean(canonical && localSynthesis && taxonomy && mentorCoreFactory && commercialEngine), "knowledge-globals", "canonical, local synthesis, taxonomy, Mentor Core and commercial engine globals loaded");
 
 if (canonical && taxonomy) {
   const canonicalIds = canonical.cards.map((card) => card.id);
@@ -244,6 +251,7 @@ const runtimeAssets = [
   "knowledge/photography-local-summaries.js",
   "knowledge/photography-mentor-taxonomy.js",
   "knowledge/photography-mentor-core.js",
+  "knowledge/photography-commercial-engine.js",
   "manifest.webmanifest"
 ];
 const uncachedRuntimeAssets = runtimeAssets.filter((file) => !appShell.includes(file));
@@ -258,6 +266,7 @@ const essentialUiIds = [
   "taxonomy-inspector",
   "mentor-workbench",
   "photo-lab",
+  "commercial-studio",
   "knowledge-library",
   "learning-track",
   "agent-prompt",
@@ -271,7 +280,7 @@ const summary = {
   checks: checks.length,
   failures,
   release: {
-    version: "1.3.0",
+    version: "1.4.0",
     files: releaseFiles.length,
     canonicalCards: canonical?.cards.length || 0,
     localSynthesisCards: localSynthesis?.cards.length || 0,
