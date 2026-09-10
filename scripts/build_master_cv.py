@@ -162,6 +162,15 @@ def configure_styles(doc):
     bullet.paragraph_format.space_after = Pt(1.35)
     bullet.paragraph_format.line_spacing = 1.0
 
+    # Word's built-in Title style carries a blue template rule by default.
+    title = styles["Title"]
+    title_paragraph = title._element.get_or_add_pPr()
+    title_border = title_paragraph.find(qn("w:pBdr"))
+    if title_border is not None:
+        title_paragraph.remove(title_border)
+    title.paragraph_format.space_after = Pt(0)
+    title.paragraph_format.line_spacing = 1.0
+
 
 def build_cv():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
