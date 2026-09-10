@@ -1,6 +1,6 @@
-# Photography Mentor v1.3.0
+# Photography Mentor v1.4.0
 
-Photography Mentor v1.3.0 turns the standalone browser-local product into one evidence-aware learning system instead of a collection of separate tools.
+Photography Mentor v1.4.0 extends the evidence-aware learning system into a local-first commercial delivery workflow.
 
 ## Highlights
 
@@ -10,6 +10,10 @@ Photography Mentor v1.3.0 turns the standalone browser-local product into one ev
 - Four focused workspaces for daily learning, concept mapping, practice and retrieval.
 - Local photo diagnostics, Before/After evidence, learning plans and spaced review.
 - User-controlled SYBJ workflow with official WeChat login handoff and local summary import.
+- Local multi-file and folder photo pre-screening for commercial stock delivery.
+- Per-photo technical score, candidate/review/hold status, platform-fit checks and manual rights gates.
+- CSV / JSON metadata kits with no photo pixels or absolute local paths.
+- Official platform handoff for Adobe Stock, Shutterstock, Alamy, Wirestock and 500px; EyeEm marked for status confirmation.
 - Full local-data export, validated restore and one-step deletion.
 - Browser-local accepted, rejected and verified advice feedback with user-written result evidence.
 - Installable PWA with no runtime CDN, account server, analytics SDK or photo upload.
@@ -23,4 +27,4 @@ The attached archive was built from an explicit allowlist. It contains no screen
 
 Run `npm test` after extraction. File checksums are recorded in `release-manifest.json`.
 
-See `README.md`, `PRIVACY.md`, `TERMS.md` and `THIRD_PARTY_NOTICES.md` before deployment.
+See `README.md`, `PRIVACY.md`, `TERMS.md`, `SECURITY.md` and `THIRD_PARTY_NOTICES.md` before deployment.

@@ -82,6 +82,49 @@ async function capture(page, name) {
     await capture(page, "library-desktop.png");
 
     await page.locator('#workspace-mode-switch button[data-workspace-view="studio"]').click();
+    await page.locator("#commercial-studio").scrollIntoViewIfNeeded();
+    await page.locator("#commercial-load-example").click();
+    await page.locator("#commercial-no-people").check();
+    await page.locator("#commercial-brand-clear").check();
+    await page.locator("#commercial-property-clear").check();
+    await page.locator("#commercial-rights-status").selectOption("owned");
+    await page.locator("#commercial-analyze").click();
+    await page.waitForFunction(() => document.querySelector("#commercial-total-count")?.textContent.trim() === "3");
+    const commercial = await page.evaluate(() => ({
+      total: document.querySelector("#commercial-total-count")?.textContent.trim(),
+      candidate: document.querySelector("#commercial-candidate-count")?.textContent.trim(),
+      review: document.querySelector("#commercial-review-count")?.textContent.trim(),
+      hold: document.querySelector("#commercial-hold-count")?.textContent.trim(),
+      selected: document.querySelector("#commercial-selected-count")?.textContent.trim(),
+      platforms: document.querySelectorAll("#commercial-platform-grid .commercial-platform-card").length
+    }));
+    assert.equal(commercial.total, "3");
+    assert.equal(commercial.candidate, "2");
+    assert.equal(commercial.hold, "1");
+    assert.match(commercial.selected, /2 selected/);
+    assert.equal(commercial.platforms, 6);
+    await page.locator("#commercial-clear").click();
+    await page.locator("#commercial-file-input").setInputFiles({
+      name: "one-pixel.png",
+      mimeType: "image/png",
+      buffer: Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=", "base64")
+    });
+    await page.waitForFunction(() => document.querySelector("#commercial-total-count")?.textContent.trim() === "1");
+    assert.equal(await page.locator("#commercial-hold-count").textContent(), "1");
+    await page.locator("#commercial-clear").click();
+    await page.locator("#commercial-load-example").click();
+    await page.locator("#commercial-analyze").click();
+    const commercialDownloadPromise = page.waitForEvent("download");
+    await page.locator("#commercial-export-json").click();
+    const commercialDownload = await commercialDownloadPromise;
+    const commercialChunks = [];
+    for await (const chunk of await commercialDownload.createReadStream()) commercialChunks.push(chunk);
+    const commercialManifest = JSON.parse(Buffer.concat(commercialChunks).toString("utf8"));
+    assert.equal(commercialManifest.files.length, 2);
+    assert.equal(commercialManifest.privacy.includesPixels, false);
+    assert.equal(commercialManifest.privacy.includesAbsolutePaths, false);
+    await capture(page, "commercial-desktop.png");
+
     await page.locator('button[data-mode="plan"]').click();
     await page.locator("#question-input").fill("我用手机拍雨天城市，天空和灯牌容易过曝，路面很乱。本轮先解决现场曝光，希望保留高光层次，最终做一组 9 张专题。");
     await page.locator("#generate-advice").click();
@@ -142,6 +185,10 @@ async function capture(page, name) {
     const mobileOverflowStudio = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     assert.ok(mobileOverflowStudio <= 1, `mobile studio overflow ${mobileOverflowStudio}px`);
     await capture(page, "studio-mobile.png");
+    await page.locator("#commercial-studio").scrollIntoViewIfNeeded();
+    const mobileOverflowCommercial = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    assert.ok(mobileOverflowCommercial <= 1, `mobile commercial overflow ${mobileOverflowCommercial}px`);
+    await capture(page, "commercial-mobile.png");
 
     assert.deepEqual(errors, []);
     console.log(JSON.stringify({
@@ -149,11 +196,13 @@ async function capture(page, name) {
       counts,
       graphMerge,
       local,
+      commercial,
       outputSections,
       desktopOverflow,
       mobileFeedbackOverflow,
       mobileOverflowInitial,
       mobileOverflowStudio,
+      mobileOverflowCommercial,
       errors
     }, null, 2));
   } finally {

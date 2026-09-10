@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 - 2026-09-10
+
+- Added a browser-local multi-photo and folder workflow for commercial stock pre-screening.
+- Added deterministic technical scoring, candidate/review/hold states, platform-fit checks and manual rights gates.
+- Added CSV/JSON metadata delivery kits without photo pixels or absolute local paths.
+- Added official platform handoff links and current-status warnings for Wirestock and EyeEm.
+- Added official-rule research notes, commercial engine unit coverage, offline cache v17 and release audit coverage.
+
 ## 1.3.0 - 2026-09-07
 
 - Unified general coaching, photo diagnostics, knowledge search and daily sessions behind one deterministic Mentor Core.

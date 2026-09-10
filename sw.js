@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "photo-mentor-";
-const CACHE_NAME = `${CACHE_PREFIX}v16`;
+const CACHE_NAME = `${CACHE_PREFIX}v17`;
 const APP_SHELL = [
   "photography-mentor-agent.html",
   "assets/photo-mentor-foundation.css",
@@ -9,6 +9,7 @@ const APP_SHELL = [
   "knowledge/photography-local-summaries.js",
   "knowledge/photography-mentor-taxonomy.js",
   "knowledge/photography-mentor-core.js",
+  "knowledge/photography-commercial-engine.js",
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
   "manifest.webmanifest"

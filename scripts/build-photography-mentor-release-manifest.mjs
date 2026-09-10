@@ -21,12 +21,14 @@ const releaseFiles = [
   "docs/photography-mentor/THIRD_PARTY_NOTICES.md",
   "knowledge/photography-local-summaries.js",
   "knowledge/photography-mentor-core.js",
+  "knowledge/photography-commercial-engine.js",
   "knowledge/photography-mentor-kb.js",
   "knowledge/photography-mentor-taxonomy.js",
   "manifest.webmanifest",
   "notes/photography-knowledge-review-2026-07-14.md",
   "notes/photography-mentor-first-principles-integration-2026-08-02.md",
   "notes/photography-mentor-product-review-2026-07-15.md",
+  "notes/photography-mentor-commercial-research-2026-09-10.md",
   "notes/photography-mentor-research-2026-07-11.md",
   "package.json",
   "photography-mentor-agent.html",
@@ -38,6 +40,7 @@ const releaseFiles = [
   "sw.js",
   "tests/fixtures/photography-mentor-eval.json",
   "tests/photography-mentor-core.test.mjs",
+  "tests/photography-mentor-commercial.test.mjs",
   "tests/photography-mentor-e2e.cjs"
 ];
 
@@ -62,8 +65,8 @@ const files = [...releaseFiles].sort().map((relativePath) => {
 const manifest = {
   schemaVersion: 1,
   product: "Photography Mentor",
-  version: "1.3.0",
-  releaseDate: "2026-09-07",
+  version: "1.4.0",
+  releaseDate: "2026-09-10",
   files
 };
 

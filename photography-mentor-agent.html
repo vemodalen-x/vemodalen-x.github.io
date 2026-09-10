@@ -8,7 +8,7 @@
   <title>Photography Mentor | Evidence-grounded Learning</title>
   <meta name="description" content="本地摄影 Mentor：把图像证据、摄影知识、单变量练习和掌握度复习整合为可验证的学习闭环。">
   <meta name="application-name" content="Photography Mentor Agent">
-  <meta name="version" content="1.3.0">
+  <meta name="version" content="1.4.0">
   <meta name="theme-color" content="#0f766e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Photo Mentor">
@@ -1614,6 +1614,346 @@
       align-items: start;
     }
 
+    .commercial-studio-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1.14fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .commercial-control-panel,
+    .commercial-output-panel {
+      border: 1px solid var(--photo-line);
+      border-radius: 8px;
+      background: var(--photo-panel);
+      padding: 18px;
+      min-width: 0;
+    }
+
+    .commercial-control-panel h3,
+    .commercial-output-panel h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .commercial-dropzone {
+      min-height: 142px;
+      margin-bottom: 12px;
+    }
+
+    .commercial-source-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .commercial-source-picker {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .commercial-source-picker input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .commercial-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .commercial-form-grid label,
+    .commercial-risk-fieldset label {
+      display: grid;
+      gap: 6px;
+      color: var(--photo-muted);
+      font-size: 13px;
+    }
+
+    .commercial-form-grid .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .commercial-form-grid input,
+    .commercial-form-grid select,
+    .commercial-form-grid textarea,
+    .commercial-risk-fieldset select {
+      width: 100%;
+      border: 1px solid var(--photo-line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--photo-ink);
+      padding: 10px 11px;
+      font: inherit;
+      resize: vertical;
+    }
+
+    .commercial-form-grid textarea {
+      min-height: 72px;
+    }
+
+    .commercial-risk-fieldset {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--photo-line);
+      border-radius: 8px;
+      margin: 16px 0 0;
+      padding: 14px;
+    }
+
+    .commercial-risk-fieldset legend {
+      padding: 0 6px;
+      color: var(--photo-ink);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .commercial-check {
+      display: flex !important;
+      align-items: start;
+      gap: 8px !important;
+      line-height: 1.45;
+    }
+
+    .commercial-check input {
+      margin-top: 3px;
+      accent-color: var(--photo-teal);
+    }
+
+    .commercial-check span {
+      min-width: 0;
+    }
+
+    .commercial-analysis-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .commercial-boundary-note {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-top: 14px;
+      color: var(--photo-muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .commercial-boundary-note i {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      color: var(--photo-teal);
+      margin-top: 2px;
+    }
+
+    .commercial-output-head,
+    .commercial-filterbar,
+    .commercial-delivery-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .commercial-output-head p {
+      margin: 5px 0 0;
+      color: var(--photo-muted);
+      font-size: 13px;
+    }
+
+    .commercial-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 16px 0 12px;
+    }
+
+    .commercial-summary-card {
+      min-width: 0;
+      border: 1px solid var(--photo-line);
+      border-radius: 7px;
+      background: var(--photo-soft);
+      padding: 10px;
+    }
+
+    .commercial-summary-card strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .commercial-summary-card span {
+      color: var(--photo-muted);
+      font-size: 12px;
+    }
+
+    .commercial-filterbar {
+      justify-content: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .commercial-filterbar button {
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--photo-muted);
+      padding: 7px 4px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .commercial-filterbar button[aria-selected="true"] {
+      border-color: var(--photo-teal);
+      color: var(--photo-ink);
+      font-weight: 700;
+    }
+
+    .commercial-assets {
+      display: grid;
+      gap: 9px;
+      max-height: 560px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .commercial-asset {
+      display: grid;
+      grid-template-columns: auto 66px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--photo-line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 9px;
+    }
+
+    .commercial-asset.is-selected {
+      border-color: rgba(15, 118, 110, 0.58);
+      box-shadow: inset 3px 0 0 var(--photo-teal);
+    }
+
+    .commercial-asset > input {
+      accent-color: var(--photo-teal);
+    }
+
+    .commercial-thumb {
+      width: 66px;
+      height: 54px;
+      border-radius: 5px;
+      background: #e7e3d9;
+      object-fit: cover;
+    }
+
+    .commercial-asset-main {
+      min-width: 0;
+    }
+
+    .commercial-asset-title,
+    .commercial-asset-meta,
+    .commercial-asset-flags {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .commercial-asset-title {
+      font-weight: 700;
+    }
+
+    .commercial-asset-meta,
+    .commercial-asset-flags {
+      color: var(--photo-muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .commercial-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      border-radius: 999px;
+      padding: 5px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .commercial-status[data-status="candidate"] { background: rgba(15, 118, 110, 0.12); color: #0f766e; }
+    .commercial-status[data-status="review"] { background: rgba(183, 121, 31, 0.14); color: #8a5b0c; }
+    .commercial-status[data-status="hold"] { background: rgba(180, 35, 24, 0.11); color: #a4231a; }
+
+    .commercial-platform-section {
+      border-top: 1px solid var(--photo-line);
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+
+    .commercial-platform-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .commercial-platform-card {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      border: 1px solid var(--photo-line);
+      border-radius: 8px;
+      padding: 11px;
+    }
+
+    .commercial-platform-card[data-platform-state="paused"] {
+      opacity: 0.68;
+    }
+
+    .commercial-platform-card strong {
+      font-size: 14px;
+    }
+
+    .commercial-platform-card p {
+      min-height: 38px;
+      margin: 0;
+      color: var(--photo-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .commercial-platform-card a {
+      color: var(--photo-blue);
+      font-size: 12px;
+    }
+
+    .commercial-delivery-actions {
+      justify-content: flex-start;
+      margin-top: 14px;
+    }
+
+    .commercial-delivery-actions select {
+      min-width: 168px;
+      border: 1px solid var(--photo-line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--photo-ink);
+      padding: 9px 10px;
+      font: inherit;
+    }
+
     .photo-upload-panel,
     .photo-diagnostics-panel,
     .practice-loop-panel {
@@ -3145,6 +3485,7 @@
       .data-control-strip,
       .local-books-grid,
       .photo-lab-grid,
+      .commercial-studio-grid,
       .growth-dashboard-grid,
       .curriculum-grid,
       .learning-track {
@@ -3196,6 +3537,9 @@
       .photography-mentor-app .kb-panel,
       .source-list-grid,
       .metric-grid,
+      .commercial-form-grid,
+      .commercial-summary-grid,
+      .commercial-platform-grid,
       .photo-control-row,
       .photo-search-row,
       .lab-meters,
@@ -3462,6 +3806,7 @@
         <a href="#curriculum-map"><i data-lucide="book-marked"></i><span>知识脉络</span></a>
         <a href="#mentor-workbench"><i data-lucide="panel-top"></i><span>工作台</span></a>
         <a href="#photo-lab"><i data-lucide="image-up"></i><span>照片诊断</span></a>
+        <a href="#commercial-studio"><i data-lucide="store"></i><span>商业素材</span></a>
         <a href="#knowledge-library"><i data-lucide="database"></i><span>知识库</span></a>
         <a href="#sybj-ingest"><i data-lucide="file-input"></i><span>导入笔记</span></a>
         <a href="#data-control-center"><i data-lucide="shield-check"></i><span>数据与隐私</span></a>
@@ -3805,6 +4150,125 @@
         </div>
       </section>
 
+      <section id="commercial-studio" class="workspace-section workspace-view-section" data-workspace-view="studio">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Commercial Delivery</p>
+            <h2>从存量照片到商业交付</h2>
+            <p>选择本机照片或文件夹，先做可解释的技术筛选，再生成平台元数据包。像素只在当前浏览器内读取，不会上传到 Photography Mentor。</p>
+          </div>
+          <span class="workspace-badge"><i data-lucide="badge-dollar-sign"></i>Local-first stock prep</span>
+        </div>
+
+        <div class="commercial-studio-grid">
+          <div class="commercial-control-panel">
+            <h3>1 · 选择照片与交付意图</h3>
+            <label class="photo-dropzone commercial-dropzone" id="commercial-dropzone" for="commercial-file-input">
+              <input id="commercial-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/tiff" multiple>
+              <span>
+                <i data-lucide="images"></i>
+                <strong>选择多张照片</strong>
+                <span>支持 JPG、PNG、WebP、TIFF；可一次处理一组照片。</span>
+              </span>
+            </label>
+            <div class="commercial-source-actions">
+              <label class="secondary-action commercial-source-picker" for="commercial-folder-input"><i data-lucide="folder-open"></i>选择文件夹<input id="commercial-folder-input" type="file" accept="image/jpeg,image/png,image/webp,image/tiff" webkitdirectory multiple></label>
+              <button type="button" class="secondary-action" id="commercial-load-example"><i data-lucide="wand-sparkles"></i>载入演示指标</button>
+            </div>
+
+            <div class="commercial-form-grid">
+              <label class="full-width">英文标题（用于导出）
+                <input id="commercial-title" type="text" maxlength="70" placeholder="例如：Rainy city street with neon reflections">
+              </label>
+              <label class="full-width">英文描述（可选）
+                <textarea id="commercial-description" maxlength="2048" placeholder="只描述画面内容与用途，不写品牌、网址、相机型号或个人信息。"></textarea>
+              </label>
+              <label>内容类别
+                <select id="commercial-category">
+                  <option value="travel">Travel / Places</option>
+                  <option value="architecture">Architecture</option>
+                  <option value="nature">Nature</option>
+                  <option value="city">City / Street</option>
+                  <option value="food">Food / Still life</option>
+                  <option value="object">Object / Design detail</option>
+                  <option value="texture">Texture / Background</option>
+                </select>
+              </label>
+              <label>拍摄地点（可选）
+                <input id="commercial-location" type="text" maxlength="100" placeholder="City, Country">
+              </label>
+              <label class="full-width">英文关键词（逗号分隔，按重要性排序）
+                <input id="commercial-keywords" type="text" maxlength="1200" placeholder="rain, city, reflection, street, neon, travel, background">
+              </label>
+            </div>
+
+            <fieldset class="commercial-risk-fieldset">
+              <legend>2 · 权利核查（必须人工确认）</legend>
+              <label class="commercial-check"><input id="commercial-no-people" type="checkbox"><span>我逐张确认没有可识别人物（含背景和剪影）；有人物的照片请先准备 model release 或改走 editorial。</span></label>
+              <label class="commercial-check"><input id="commercial-brand-clear" type="checkbox"><span>我逐张检查过商标、品牌、店招和可识别 IP。</span></label>
+              <label class="commercial-check"><input id="commercial-property-clear" type="checkbox"><span>我已检查建筑、艺术品、私人场所等 property release 风险。</span></label>
+              <label class="commercial-check"><input id="commercial-property-release" type="checkbox"><span>如需要，我已有对应的 property release。</span></label>
+              <label>作品权利状态
+                <select id="commercial-rights-status">
+                  <option value="owned">我拥有版权</option>
+                  <option value="permission">我有明确授权</option>
+                  <option value="unclear">尚未确认</option>
+                </select>
+              </label>
+              <label class="commercial-check"><input id="commercial-ai-edited" type="checkbox"><span>这组照片使用过 AI 编辑或新增视觉元素，需要逐个平台复核。</span></label>
+              <label class="commercial-check"><input id="commercial-ai-generated" type="checkbox"><span>这不是相机拍摄的真实照片（勾选后会阻止真实摄影授权候选）。</span></label>
+            </fieldset>
+
+            <div class="commercial-analysis-actions">
+              <button type="button" class="primary-action" id="commercial-analyze"><i data-lucide="scan-search"></i>开始筛选</button>
+              <button type="button" class="secondary-action" id="commercial-clear"><i data-lucide="trash-2"></i>清空照片</button>
+            </div>
+            <p class="mini-status" id="commercial-analysis-status">尚未选择照片。所有判断仅作投稿前预筛，最终以平台审核和你的权利核查为准。</p>
+            <div class="commercial-boundary-note"><i data-lucide="shield-alert"></i><span>当前版本不读取登录态、不代填第三方账号，也不绕过平台上传流程。系统只能计算像素和文件指标，不能可靠识别人、商标或版权归属。</span></div>
+          </div>
+
+          <div class="commercial-output-panel">
+            <div class="commercial-output-head">
+              <div>
+                <h3>3 · 候选与平台路径</h3>
+                <p>勾选你要交付的文件，再导出 CSV / JSON 提交包。</p>
+              </div>
+              <span class="workspace-badge"><i data-lucide="list-filter"></i><span id="commercial-selected-count">0 selected</span></span>
+            </div>
+            <div class="commercial-summary-grid" id="commercial-summary-grid">
+              <div class="commercial-summary-card"><strong id="commercial-total-count">0</strong><span>已读取</span></div>
+              <div class="commercial-summary-card"><strong id="commercial-candidate-count">0</strong><span>可交付候选</span></div>
+              <div class="commercial-summary-card"><strong id="commercial-review-count">0</strong><span>人工复核</span></div>
+              <div class="commercial-summary-card"><strong id="commercial-hold-count">0</strong><span>暂缓提交</span></div>
+            </div>
+            <div class="commercial-filterbar" role="tablist" aria-label="候选状态筛选">
+              <button type="button" role="tab" data-commercial-filter="all" aria-selected="true">全部</button>
+              <button type="button" role="tab" data-commercial-filter="candidate" aria-selected="false">可交付</button>
+              <button type="button" role="tab" data-commercial-filter="review" aria-selected="false">复核</button>
+              <button type="button" role="tab" data-commercial-filter="hold" aria-selected="false">暂缓</button>
+            </div>
+            <div class="commercial-assets" id="commercial-assets" aria-live="polite"><p class="mini-status">选择照片并开始筛选后，这里会显示每张照片的尺寸、指标和风险。</p></div>
+
+            <div class="commercial-platform-section">
+              <div class="commercial-output-head">
+                <div>
+                  <h3>平台适配</h3>
+                  <p>平台规则会变化；卡片保留官方核查链接。</p>
+                </div>
+              </div>
+              <div class="commercial-platform-grid" id="commercial-platform-grid"></div>
+              <div class="commercial-delivery-actions">
+                <select id="commercial-platform-select" aria-label="选择投稿平台"></select>
+                <button type="button" class="primary-action" id="commercial-open-platform"><i data-lucide="external-link"></i>打开官方投稿入口</button>
+                <button type="button" class="secondary-action" id="commercial-export-csv"><i data-lucide="table-2"></i>导出 CSV</button>
+                <button type="button" class="secondary-action" id="commercial-export-json"><i data-lucide="file-json"></i>导出 JSON</button>
+              </div>
+              <p class="mini-status" id="commercial-delivery-status">准备好候选后，打开平台并手动完成账号登录、文件上传和最终审核。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="knowledge-library" class="workspace-section workspace-view-section" data-workspace-view="library">
         <div class="section-heading">
           <div>
@@ -4091,19 +4555,21 @@
   <footer class="app-footer">
     <span><i data-lucide="hard-drive" aria-hidden="true"></i>本地运行 · 草稿保存在当前浏览器</span>
     <span class="app-footer-links"><a href="docs/photography-mentor/PRIVACY.md" target="_blank" rel="noreferrer">隐私</a><a href="docs/photography-mentor/TERMS.md" target="_blank" rel="noreferrer">条款</a><a href="docs/photography-mentor/THIRD_PARTY_NOTICES.md" target="_blank" rel="noreferrer">第三方声明</a></span>
-    <span>Photography Mentor Agent · v1.3.0 · 2026-09-07</span>
+    <span>Photography Mentor Agent · v1.4.0 · 2026-09-10</span>
   </footer>
 
   <script src="knowledge/photography-mentor-kb.js"></script>
   <script src="knowledge/photography-local-summaries.js"></script>
   <script src="knowledge/photography-mentor-taxonomy.js"></script>
   <script src="knowledge/photography-mentor-core.js"></script>
+  <script src="knowledge/photography-commercial-engine.js"></script>
   <script src="assets/vendor/lucide-1.23.0.min.js"></script>
   <script>
     (() => {
       const KB = window.PHOTOGRAPHY_MENTOR_KB || { cards: [], sources: [] };
       const LocalBooksKB = window.PHOTOGRAPHY_LOCAL_SUMMARIES || { cards: [], sources: [], totalFiles: 0, totalSize: "0 GB" };
       const Taxonomy = window.PHOTOGRAPHY_MENTOR_TAXONOMY || { stages: [], stats: {} };
+      const CommercialEngine = window.PHOTOGRAPHY_COMMERCIAL_ENGINE || null;
       const taxonomyStageColors = ["#0f766e", "#2563eb", "#a16207", "#7c3aed", "#c2410c", "#be123c", "#475569"];
       const storageKey = "photography-mentor-agent-draft";
       const sybjStorageKey = "photography-mentor-sybj-imports";
@@ -4292,7 +4758,38 @@
         taxonomySpine: document.getElementById("taxonomy-spine"),
         taxonomyDetail: document.getElementById("taxonomy-detail"),
         curriculumCardTotal: document.getElementById("curriculum-card-total"),
-        curriculumCount: document.getElementById("curriculum-count")
+        curriculumCount: document.getElementById("curriculum-count"),
+        commercialDropzone: document.getElementById("commercial-dropzone"),
+        commercialFileInput: document.getElementById("commercial-file-input"),
+        commercialFolderInput: document.getElementById("commercial-folder-input"),
+        commercialTitle: document.getElementById("commercial-title"),
+        commercialDescription: document.getElementById("commercial-description"),
+        commercialCategory: document.getElementById("commercial-category"),
+        commercialLocation: document.getElementById("commercial-location"),
+        commercialKeywords: document.getElementById("commercial-keywords"),
+        commercialNoPeople: document.getElementById("commercial-no-people"),
+        commercialBrandClear: document.getElementById("commercial-brand-clear"),
+        commercialPropertyClear: document.getElementById("commercial-property-clear"),
+        commercialPropertyRelease: document.getElementById("commercial-property-release"),
+        commercialRightsStatus: document.getElementById("commercial-rights-status"),
+        commercialAiEdited: document.getElementById("commercial-ai-edited"),
+        commercialAiGenerated: document.getElementById("commercial-ai-generated"),
+        commercialAnalyze: document.getElementById("commercial-analyze"),
+        commercialClear: document.getElementById("commercial-clear"),
+        commercialLoadExample: document.getElementById("commercial-load-example"),
+        commercialAnalysisStatus: document.getElementById("commercial-analysis-status"),
+        commercialSelectedCount: document.getElementById("commercial-selected-count"),
+        commercialTotalCount: document.getElementById("commercial-total-count"),
+        commercialCandidateCount: document.getElementById("commercial-candidate-count"),
+        commercialReviewCount: document.getElementById("commercial-review-count"),
+        commercialHoldCount: document.getElementById("commercial-hold-count"),
+        commercialAssets: document.getElementById("commercial-assets"),
+        commercialPlatformGrid: document.getElementById("commercial-platform-grid"),
+        commercialPlatformSelect: document.getElementById("commercial-platform-select"),
+        commercialOpenPlatform: document.getElementById("commercial-open-platform"),
+        commercialExportCsv: document.getElementById("commercial-export-csv"),
+        commercialExportJson: document.getElementById("commercial-export-json"),
+        commercialDeliveryStatus: document.getElementById("commercial-delivery-status")
       };
       const state = {
         mode: "critique",
@@ -4315,7 +4812,13 @@
         taxonomyMapCluster: null,
         currentPlan: null,
         currentDecisionId: null,
-        installPrompt: null
+        installPrompt: null,
+        commercial: {
+          assets: [],
+          filter: "all",
+          platformId: "adobe-stock",
+          loadToken: 0
+        }
       };
 
       function workspaceViewForTarget(targetId) {
@@ -4381,6 +4884,260 @@
           '"': "&quot;",
           "'": "&#39;"
         }[char]));
+      }
+
+      function commercialContext() {
+        return {
+          title: els.commercialTitle?.value.trim() || "",
+          description: els.commercialDescription?.value.trim() || "",
+          category: els.commercialCategory?.value || "",
+          location: els.commercialLocation?.value.trim() || "",
+          keywords: CommercialEngine?.normalizeKeywords(els.commercialKeywords?.value || "") || [],
+          noPeopleConfirmed: Boolean(els.commercialNoPeople?.checked),
+          rightsStatus: els.commercialRightsStatus?.value || "unclear",
+          brandRisk: !Boolean(els.commercialBrandClear?.checked),
+          propertyRisk: !Boolean(els.commercialPropertyClear?.checked),
+          propertyRelease: Boolean(els.commercialPropertyRelease?.checked),
+          aiEdited: Boolean(els.commercialAiEdited?.checked),
+          aiGenerated: Boolean(els.commercialAiGenerated?.checked)
+        };
+      }
+
+      function formatFileBytes(bytes) {
+        const value = Number(bytes || 0);
+        if (value >= 1024 * 1024) return `${(value / (1024 * 1024)).toFixed(1)} MB`;
+        if (value >= 1024) return `${Math.round(value / 1024)} KB`;
+        return `${value} B`;
+      }
+
+      function loadCommercialImageMetrics(file, url) {
+        return new Promise((resolve) => {
+          const image = new Image();
+          image.onload = () => {
+            try {
+              const analysis = analyzePixels(image);
+              resolve({
+                width: image.naturalWidth,
+                height: image.naturalHeight,
+                brightness: analysis.brightness,
+                contrast: analysis.contrast,
+                saturation: analysis.saturation,
+                sharpness: analysis.sharpness,
+                clippedHighlights: analysis.clippedHighlights,
+                clippedShadows: analysis.clippedShadows
+              });
+            } catch (error) {
+              resolve({});
+            }
+          };
+          image.onerror = () => resolve({});
+          image.src = url;
+        });
+      }
+
+      function commercialAssetId(file, index) {
+        return `${file.name}-${file.size}-${file.lastModified || 0}-${index}`;
+      }
+
+      function refreshCommercialEvaluation(selectNew = false) {
+        if (!CommercialEngine) return;
+        const context = commercialContext();
+        state.commercial.assets = state.commercial.assets.map((asset) => {
+          const previousSelection = asset.selected;
+          const evaluated = CommercialEngine.evaluateAsset(asset, context);
+          return {
+            ...evaluated,
+            selected: selectNew ? evaluated.status === "candidate" : Boolean(previousSelection)
+          };
+        });
+        renderCommercialStudio();
+      }
+
+      async function loadCommercialFiles(fileList) {
+        if (!CommercialEngine) {
+          setStatus("商业筛选引擎未加载。", "error");
+          return;
+        }
+        const files = Array.from(fileList || []).filter((file) => file.type?.startsWith("image/") || /\.(?:jpe?g|png|webp|tiff?)$/i.test(file.name));
+        if (!files.length) {
+          els.commercialAnalysisStatus.textContent = "没有读取到支持的图片文件。";
+          return;
+        }
+        const limitedFiles = files.slice(0, 120);
+        const loadToken = ++state.commercial.loadToken;
+        els.commercialAnalysisStatus.textContent = `正在读取 ${limitedFiles.length} 张照片，像素只在本地浏览器内处理……`;
+        state.commercial.assets.forEach((asset) => {
+          if (asset.url?.startsWith("blob:")) URL.revokeObjectURL(asset.url);
+        });
+        const assets = await Promise.all(limitedFiles.map(async (file, index) => {
+          const url = URL.createObjectURL(file);
+          const metrics = await loadCommercialImageMetrics(file, url);
+          return {
+            id: commercialAssetId(file, index),
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            url,
+            metrics,
+            loadError: !metrics.width,
+            selected: false
+          };
+        }));
+        if (loadToken !== state.commercial.loadToken) {
+          assets.forEach((asset) => asset.url?.startsWith("blob:") && URL.revokeObjectURL(asset.url));
+          return;
+        }
+        state.commercial.assets = assets;
+        state.commercial.filter = "all";
+        refreshCommercialEvaluation(true);
+        const skipped = files.length - limitedFiles.length;
+        els.commercialAnalysisStatus.textContent = skipped > 0
+          ? `已读取 ${limitedFiles.length} 张照片，另外 ${skipped} 张超出单批 120 张上限。点击“开始筛选”复核结果。`
+          : `已读取 ${limitedFiles.length} 张照片。点击“开始筛选”复核技术指标与权利风险。`;
+      }
+
+      function loadCommercialExample() {
+        if (!CommercialEngine) return;
+        const demoAssets = [
+          { id: "demo-city", name: "rainy-city-reflection-demo.jpg", type: "image/jpeg", size: 8.2 * 1024 * 1024, metrics: { width: 6000, height: 4000, brightness: 0.43, contrast: 0.58, saturation: 0.33, sharpness: 0.62, clippedHighlights: 0.02, clippedShadows: 0.04 }, demo: true },
+          { id: "demo-architecture", name: "quiet-architecture-detail-demo.tiff", type: "image/tiff", size: 19.4 * 1024 * 1024, metrics: { width: 5000, height: 3333, brightness: 0.52, contrast: 0.45, saturation: 0.22, sharpness: 0.48, clippedHighlights: 0.01, clippedShadows: 0.02 }, demo: true },
+          { id: "demo-low-res", name: "low-resolution-snapshot-demo.jpg", type: "image/jpeg", size: 1.8 * 1024 * 1024, metrics: { width: 1600, height: 1067, brightness: 0.61, contrast: 0.31, saturation: 0.44, sharpness: 0.22, clippedHighlights: 0.03, clippedShadows: 0.06 }, demo: true }
+        ];
+        state.commercial.assets = demoAssets;
+        state.commercial.filter = "all";
+        refreshCommercialEvaluation(true);
+        els.commercialAnalysisStatus.textContent = "已载入 3 张演示指标。你可以勾选权利核查项，观察候选如何变化。";
+      }
+
+      function clearCommercialAssets() {
+        state.commercial.assets.forEach((asset) => {
+          if (asset.url?.startsWith("blob:")) URL.revokeObjectURL(asset.url);
+        });
+        state.commercial.assets = [];
+        state.commercial.loadToken += 1;
+        if (els.commercialFileInput) els.commercialFileInput.value = "";
+        if (els.commercialFolderInput) els.commercialFolderInput.value = "";
+        if (els.commercialAnalysisStatus) els.commercialAnalysisStatus.textContent = "照片已清空。像素和缩略图不会写入浏览器持久存储。";
+        renderCommercialStudio();
+      }
+
+      function commercialStatusCounts() {
+        const counts = { candidate: 0, review: 0, hold: 0 };
+        state.commercial.assets.forEach((asset) => { counts[asset.status] = (counts[asset.status] || 0) + 1; });
+        return counts;
+      }
+
+      function commercialSelectedAssets() {
+        return state.commercial.assets.filter((asset) => asset.selected);
+      }
+
+      function renderCommercialAssets() {
+        if (!els.commercialAssets) return;
+        const assets = state.commercial.assets.filter((asset) => state.commercial.filter === "all" || asset.status === state.commercial.filter);
+        if (!assets.length) {
+          els.commercialAssets.innerHTML = state.commercial.assets.length
+            ? '<p class="mini-status">当前状态没有照片。切换筛选，或重新检查权利核查项。</p>'
+            : '<p class="mini-status">选择照片并开始筛选后，这里会显示每张照片的尺寸、指标和风险。</p>';
+          return;
+        }
+        els.commercialAssets.innerHTML = assets.map((asset) => {
+          const metrics = asset.metrics || {};
+          const meta = metrics.width ? `${metrics.width} × ${metrics.height} · ${asset.megapixels}MP · ${formatFileBytes(asset.size)} · ${asset.score}分` : `${formatFileBytes(asset.size)} · 尺寸未读取`;
+          const flags = asset.flags?.length ? asset.flags.map((flag) => flag.label).join(" · ") : "指标通过，仍需平台审核";
+          const thumbnail = asset.url
+            ? `<img class="commercial-thumb" src="${asset.url}" alt="" loading="lazy">`
+            : '<div class="commercial-thumb" aria-hidden="true"><i data-lucide="image"></i></div>';
+          return `<label class="commercial-asset ${asset.selected ? "is-selected" : ""}">
+            <input type="checkbox" data-commercial-select="${escapeHtml(asset.id)}" ${asset.selected ? "checked" : ""} aria-label="选择 ${escapeHtml(asset.name)}">
+            ${thumbnail}
+            <span class="commercial-asset-main"><strong class="commercial-asset-title">${escapeHtml(asset.name)}</strong><span class="commercial-asset-meta">${escapeHtml(meta)}</span><span class="commercial-asset-flags">${escapeHtml(flags)}</span></span>
+            <span class="commercial-status" data-status="${escapeHtml(asset.status)}">${escapeHtml(asset.statusLabel)}</span>
+          </label>`;
+        }).join("");
+        refreshIcons();
+      }
+
+      function renderCommercialPlatforms() {
+        if (!CommercialEngine || !els.commercialPlatformGrid || !els.commercialPlatformSelect) return;
+        const selected = commercialSelectedAssets();
+        const platforms = CommercialEngine.PLATFORMS;
+        els.commercialPlatformSelect.innerHTML = platforms.map((platform) => `<option value="${escapeHtml(platform.id)}">${escapeHtml(platform.name)}${platform.state === "paused" ? " · 待确认" : ""}</option>`).join("");
+        els.commercialPlatformSelect.value = state.commercial.platformId;
+        els.commercialPlatformGrid.innerHTML = platforms.map((platform) => {
+          const fits = selected.map((asset) => asset.platformFit?.find((fit) => fit.platformId === platform.id)).filter(Boolean);
+          const ready = fits.filter((fit) => fit.state === "ready").length;
+          const review = fits.filter((fit) => fit.state === "review").length;
+          const hold = fits.filter((fit) => fit.state === "hold").length;
+          const countText = selected.length ? `${ready} 可尝试 · ${review} 需复核 · ${hold} 暂缓` : "先选择照片查看匹配度";
+          return `<article class="commercial-platform-card" data-platform-state="${escapeHtml(platform.state)}">
+            <strong>${escapeHtml(platform.name)}</strong>
+            <p>${escapeHtml(platform.summary)}</p>
+            <small class="mini-status">${escapeHtml(countText)}</small>
+            <a href="${escapeHtml(platform.source)}" target="_blank" rel="noreferrer">查看官方规则</a>
+          </article>`;
+        }).join("");
+        refreshIcons();
+      }
+
+      function renderCommercialStudio() {
+        if (!CommercialEngine || !els.commercialAssets) return;
+        const counts = commercialStatusCounts();
+        const selected = commercialSelectedAssets();
+        els.commercialTotalCount.textContent = String(state.commercial.assets.length);
+        els.commercialCandidateCount.textContent = String(counts.candidate || 0);
+        els.commercialReviewCount.textContent = String(counts.review || 0);
+        els.commercialHoldCount.textContent = String(counts.hold || 0);
+        els.commercialSelectedCount.textContent = `${selected.length} selected`;
+        document.querySelectorAll("[data-commercial-filter]").forEach((button) => button.setAttribute("aria-selected", String(button.dataset.commercialFilter === state.commercial.filter)));
+        renderCommercialAssets();
+        renderCommercialPlatforms();
+      }
+
+      function downloadCommercialFile(filename, content, type) {
+        const blob = new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function exportCommercialCsv() {
+        const assets = commercialSelectedAssets();
+        if (!assets.length) {
+          els.commercialDeliveryStatus.textContent = "请先在候选列表中勾选至少一张照片。";
+          return;
+        }
+        const rows = CommercialEngine.buildSubmissionRows(assets, commercialContext());
+        downloadCommercialFile(`photography-mentor-delivery-${localDateKey()}.csv`, `\ufeff${CommercialEngine.buildCsv(rows)}`, "text/csv;charset=utf-8");
+        els.commercialDeliveryStatus.textContent = `已导出 ${assets.length} 张照片的 CSV 元数据包；不含照片像素或本机绝对路径。`;
+      }
+
+      function exportCommercialJson() {
+        const assets = commercialSelectedAssets();
+        if (!assets.length) {
+          els.commercialDeliveryStatus.textContent = "请先在候选列表中勾选至少一张照片。";
+          return;
+        }
+        const manifest = CommercialEngine.buildManifest(assets, commercialContext());
+        downloadCommercialFile(`photography-mentor-delivery-${localDateKey()}.json`, JSON.stringify(manifest, null, 2), "application/json;charset=utf-8");
+        els.commercialDeliveryStatus.textContent = `已导出 ${assets.length} 张照片的 JSON 交付清单；仅包含文件名和派生指标。`;
+      }
+
+      function openCommercialPlatform() {
+        const platform = CommercialEngine?.PLATFORMS.find((item) => item.id === state.commercial.platformId);
+        if (!platform) return;
+        if (platform.state === "paused") {
+          els.commercialDeliveryStatus.textContent = `${platform.name} 当前不在默认投稿队列，请先确认官方入口和服务状态。`;
+          return;
+        }
+        if (!commercialSelectedAssets().length) {
+          els.commercialDeliveryStatus.textContent = "请先勾选要交付的候选照片，再打开平台。";
+          return;
+        }
+        window.open(platform.url, "_blank", "noopener,noreferrer");
+        els.commercialDeliveryStatus.textContent = `已打开 ${platform.name} 官方入口。下一步请手动登录、上传原图、附加 release 并确认平台条款。`;
       }
 
       function normalize(value) {
@@ -6874,6 +7631,66 @@ ${tasks[top] || tasks.composition}
         document.getElementById("delete-decision-feedback").addEventListener("click", deleteCurrentDecisionFeedback);
         document.getElementById("copy-prompt").addEventListener("click", () => copyText(els.systemPrompt.textContent));
         els.photoFileInput.addEventListener("change", (event) => loadPhotoFile(event.target.files[0]));
+        els.commercialFileInput.addEventListener("change", (event) => loadCommercialFiles(event.target.files));
+        els.commercialFolderInput.addEventListener("change", (event) => loadCommercialFiles(event.target.files));
+        ["dragenter", "dragover"].forEach((eventName) => {
+          els.commercialDropzone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            els.commercialDropzone.classList.add("is-dragging");
+          });
+        });
+        ["dragleave", "drop"].forEach((eventName) => {
+          els.commercialDropzone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            els.commercialDropzone.classList.remove("is-dragging");
+          });
+        });
+        els.commercialDropzone.addEventListener("drop", (event) => loadCommercialFiles(event.dataTransfer.files));
+        els.commercialLoadExample.addEventListener("click", loadCommercialExample);
+        els.commercialAnalyze.addEventListener("click", () => {
+          if (!state.commercial.assets.length) {
+            els.commercialAnalysisStatus.textContent = "请先选择一张或多张照片。";
+            return;
+          }
+          refreshCommercialEvaluation(true);
+          els.commercialAnalysisStatus.textContent = `筛选完成：${state.commercial.assets.length} 张照片已按技术指标和人工权利核查项分级。`;
+        });
+        els.commercialClear.addEventListener("click", clearCommercialAssets);
+        [
+          els.commercialTitle,
+          els.commercialDescription,
+          els.commercialCategory,
+          els.commercialLocation,
+          els.commercialKeywords,
+          els.commercialNoPeople,
+          els.commercialBrandClear,
+          els.commercialPropertyClear,
+          els.commercialPropertyRelease,
+          els.commercialRightsStatus,
+          els.commercialAiEdited,
+          els.commercialAiGenerated
+        ].forEach((input) => input?.addEventListener("input", () => state.commercial.assets.length && refreshCommercialEvaluation(false)));
+        [els.commercialCategory, els.commercialNoPeople, els.commercialBrandClear, els.commercialPropertyClear, els.commercialPropertyRelease, els.commercialRightsStatus, els.commercialAiEdited, els.commercialAiGenerated]
+          .forEach((input) => input?.addEventListener("change", () => state.commercial.assets.length && refreshCommercialEvaluation(false)));
+        document.querySelector(".commercial-filterbar")?.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-commercial-filter]");
+          if (!button) return;
+          state.commercial.filter = button.dataset.commercialFilter || "all";
+          renderCommercialStudio();
+        });
+        els.commercialAssets.addEventListener("change", (event) => {
+          const checkbox = event.target.closest("[data-commercial-select]");
+          if (!checkbox) return;
+          const asset = state.commercial.assets.find((item) => item.id === checkbox.dataset.commercialSelect);
+          if (asset) asset.selected = checkbox.checked;
+          renderCommercialStudio();
+        });
+        els.commercialPlatformSelect.addEventListener("change", () => {
+          state.commercial.platformId = els.commercialPlatformSelect.value;
+        });
+        els.commercialOpenPlatform.addEventListener("click", openCommercialPlatform);
+        els.commercialExportCsv.addEventListener("click", exportCommercialCsv);
+        els.commercialExportJson.addEventListener("click", exportCommercialJson);
         ["dragenter", "dragover"].forEach((eventName) => {
           els.photoDropzone.addEventListener(eventName, (event) => {
             event.preventDefault();
@@ -6932,6 +7749,7 @@ ${tasks[top] || tasks.composition}
         setTaxonomyView(workspaceLocation.view === "map" ? "atlas" : state.taxonomyView);
         renderLibrary();
         renderLocalBooks();
+        renderCommercialStudio();
         renderPracticeLoop();
         renderGrowthDashboard();
         renderMentorSession();
